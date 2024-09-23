@@ -1,1 +1,3 @@
 repositories
+cmd/api/api
+pkg/api/bin/api
