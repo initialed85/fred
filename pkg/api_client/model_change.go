@@ -20,13 +20,20 @@ var _ MappedNullable = &Change{}
 
 // Change struct for Change
 type Change struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ReferencedByTriggerChangeIdObjects []Trigger `json:"referenced_by_trigger_change_id_objects,omitempty"`
-	RepositoryId *string `json:"repository_id,omitempty"`
-	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	AuthoredAt                         *time.Time  `json:"authored_at,omitempty"`
+	AuthoredBy                         *string     `json:"authored_by,omitempty"`
+	BranchName                         *string     `json:"branch_name,omitempty"`
+	CommitHash                         *string     `json:"commit_hash,omitempty"`
+	CommittedAt                        *time.Time  `json:"committed_at,omitempty"`
+	CommittedBy                        *string     `json:"committed_by,omitempty"`
+	CreatedAt                          *time.Time  `json:"created_at,omitempty"`
+	DeletedAt                          *time.Time  `json:"deleted_at,omitempty"`
+	Id                                 *string     `json:"id,omitempty"`
+	Message                            *string     `json:"message,omitempty"`
+	ReferencedByTriggerChangeIdObjects []Trigger   `json:"referenced_by_trigger_change_id_objects,omitempty"`
+	RepositoryId                       *string     `json:"repository_id,omitempty"`
+	RepositoryIdObject                 *Repository `json:"repository_id_object,omitempty"`
+	UpdatedAt                          *time.Time  `json:"updated_at,omitempty"`
 }
 
 // NewChange instantiates a new Change object
@@ -44,6 +51,198 @@ func NewChange() *Change {
 func NewChangeWithDefaults() *Change {
 	this := Change{}
 	return &this
+}
+
+// GetAuthoredAt returns the AuthoredAt field value if set, zero value otherwise.
+func (o *Change) GetAuthoredAt() time.Time {
+	if o == nil || IsNil(o.AuthoredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AuthoredAt
+}
+
+// GetAuthoredAtOk returns a tuple with the AuthoredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetAuthoredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AuthoredAt) {
+		return nil, false
+	}
+	return o.AuthoredAt, true
+}
+
+// HasAuthoredAt returns a boolean if a field has been set.
+func (o *Change) HasAuthoredAt() bool {
+	if o != nil && !IsNil(o.AuthoredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthoredAt gets a reference to the given time.Time and assigns it to the AuthoredAt field.
+func (o *Change) SetAuthoredAt(v time.Time) {
+	o.AuthoredAt = &v
+}
+
+// GetAuthoredBy returns the AuthoredBy field value if set, zero value otherwise.
+func (o *Change) GetAuthoredBy() string {
+	if o == nil || IsNil(o.AuthoredBy) {
+		var ret string
+		return ret
+	}
+	return *o.AuthoredBy
+}
+
+// GetAuthoredByOk returns a tuple with the AuthoredBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetAuthoredByOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthoredBy) {
+		return nil, false
+	}
+	return o.AuthoredBy, true
+}
+
+// HasAuthoredBy returns a boolean if a field has been set.
+func (o *Change) HasAuthoredBy() bool {
+	if o != nil && !IsNil(o.AuthoredBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthoredBy gets a reference to the given string and assigns it to the AuthoredBy field.
+func (o *Change) SetAuthoredBy(v string) {
+	o.AuthoredBy = &v
+}
+
+// GetBranchName returns the BranchName field value if set, zero value otherwise.
+func (o *Change) GetBranchName() string {
+	if o == nil || IsNil(o.BranchName) {
+		var ret string
+		return ret
+	}
+	return *o.BranchName
+}
+
+// GetBranchNameOk returns a tuple with the BranchName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetBranchNameOk() (*string, bool) {
+	if o == nil || IsNil(o.BranchName) {
+		return nil, false
+	}
+	return o.BranchName, true
+}
+
+// HasBranchName returns a boolean if a field has been set.
+func (o *Change) HasBranchName() bool {
+	if o != nil && !IsNil(o.BranchName) {
+		return true
+	}
+
+	return false
+}
+
+// SetBranchName gets a reference to the given string and assigns it to the BranchName field.
+func (o *Change) SetBranchName(v string) {
+	o.BranchName = &v
+}
+
+// GetCommitHash returns the CommitHash field value if set, zero value otherwise.
+func (o *Change) GetCommitHash() string {
+	if o == nil || IsNil(o.CommitHash) {
+		var ret string
+		return ret
+	}
+	return *o.CommitHash
+}
+
+// GetCommitHashOk returns a tuple with the CommitHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetCommitHashOk() (*string, bool) {
+	if o == nil || IsNil(o.CommitHash) {
+		return nil, false
+	}
+	return o.CommitHash, true
+}
+
+// HasCommitHash returns a boolean if a field has been set.
+func (o *Change) HasCommitHash() bool {
+	if o != nil && !IsNil(o.CommitHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommitHash gets a reference to the given string and assigns it to the CommitHash field.
+func (o *Change) SetCommitHash(v string) {
+	o.CommitHash = &v
+}
+
+// GetCommittedAt returns the CommittedAt field value if set, zero value otherwise.
+func (o *Change) GetCommittedAt() time.Time {
+	if o == nil || IsNil(o.CommittedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CommittedAt
+}
+
+// GetCommittedAtOk returns a tuple with the CommittedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetCommittedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CommittedAt) {
+		return nil, false
+	}
+	return o.CommittedAt, true
+}
+
+// HasCommittedAt returns a boolean if a field has been set.
+func (o *Change) HasCommittedAt() bool {
+	if o != nil && !IsNil(o.CommittedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommittedAt gets a reference to the given time.Time and assigns it to the CommittedAt field.
+func (o *Change) SetCommittedAt(v time.Time) {
+	o.CommittedAt = &v
+}
+
+// GetCommittedBy returns the CommittedBy field value if set, zero value otherwise.
+func (o *Change) GetCommittedBy() string {
+	if o == nil || IsNil(o.CommittedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CommittedBy
+}
+
+// GetCommittedByOk returns a tuple with the CommittedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetCommittedByOk() (*string, bool) {
+	if o == nil || IsNil(o.CommittedBy) {
+		return nil, false
+	}
+	return o.CommittedBy, true
+}
+
+// HasCommittedBy returns a boolean if a field has been set.
+func (o *Change) HasCommittedBy() bool {
+	if o != nil && !IsNil(o.CommittedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommittedBy gets a reference to the given string and assigns it to the CommittedBy field.
+func (o *Change) SetCommittedBy(v string) {
+	o.CommittedBy = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -140,6 +339,38 @@ func (o *Change) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Change) SetId(v string) {
 	o.Id = &v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *Change) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *Change) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *Change) SetMessage(v string) {
+	o.Message = &v
 }
 
 // GetReferencedByTriggerChangeIdObjects returns the ReferencedByTriggerChangeIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -272,7 +503,7 @@ func (o *Change) SetUpdatedAt(v time.Time) {
 }
 
 func (o Change) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -281,6 +512,24 @@ func (o Change) MarshalJSON() ([]byte, error) {
 
 func (o Change) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AuthoredAt) {
+		toSerialize["authored_at"] = o.AuthoredAt
+	}
+	if !IsNil(o.AuthoredBy) {
+		toSerialize["authored_by"] = o.AuthoredBy
+	}
+	if !IsNil(o.BranchName) {
+		toSerialize["branch_name"] = o.BranchName
+	}
+	if !IsNil(o.CommitHash) {
+		toSerialize["commit_hash"] = o.CommitHash
+	}
+	if !IsNil(o.CommittedAt) {
+		toSerialize["committed_at"] = o.CommittedAt
+	}
+	if !IsNil(o.CommittedBy) {
+		toSerialize["committed_by"] = o.CommittedBy
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -289,6 +538,9 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
 	}
 	if o.ReferencedByTriggerChangeIdObjects != nil {
 		toSerialize["referenced_by_trigger_change_id_objects"] = o.ReferencedByTriggerChangeIdObjects
@@ -340,5 +592,3 @@ func (v *NullableChange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

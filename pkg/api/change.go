@@ -34,6 +34,13 @@ type Change struct {
 	CreatedAt                          time.Time   `json:"created_at"`
 	UpdatedAt                          time.Time   `json:"updated_at"`
 	DeletedAt                          *time.Time  `json:"deleted_at"`
+	BranchName                         string      `json:"branch_name"`
+	CommitHash                         string      `json:"commit_hash"`
+	Message                            string      `json:"message"`
+	AuthoredBy                         string      `json:"authored_by"`
+	AuthoredAt                         time.Time   `json:"authored_at"`
+	CommittedBy                        string      `json:"committed_by"`
+	CommittedAt                        time.Time   `json:"committed_at"`
 	RepositoryID                       uuid.UUID   `json:"repository_id"`
 	RepositoryIDObject                 *Repository `json:"repository_id_object"`
 	ReferencedByTriggerChangeIDObjects []*Trigger  `json:"referenced_by_trigger_change_id_objects"`
@@ -48,6 +55,13 @@ var (
 	ChangeTableCreatedAtColumn    = "created_at"
 	ChangeTableUpdatedAtColumn    = "updated_at"
 	ChangeTableDeletedAtColumn    = "deleted_at"
+	ChangeTableBranchNameColumn   = "branch_name"
+	ChangeTableCommitHashColumn   = "commit_hash"
+	ChangeTableMessageColumn      = "message"
+	ChangeTableAuthoredByColumn   = "authored_by"
+	ChangeTableAuthoredAtColumn   = "authored_at"
+	ChangeTableCommittedByColumn  = "committed_by"
+	ChangeTableCommittedAtColumn  = "committed_at"
 	ChangeTableRepositoryIDColumn = "repository_id"
 )
 
@@ -56,6 +70,13 @@ var (
 	ChangeTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
 	ChangeTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
 	ChangeTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
+	ChangeTableBranchNameColumnWithTypeCast   = `"branch_name" AS branch_name`
+	ChangeTableCommitHashColumnWithTypeCast   = `"commit_hash" AS commit_hash`
+	ChangeTableMessageColumnWithTypeCast      = `"message" AS message`
+	ChangeTableAuthoredByColumnWithTypeCast   = `"authored_by" AS authored_by`
+	ChangeTableAuthoredAtColumnWithTypeCast   = `"authored_at" AS authored_at`
+	ChangeTableCommittedByColumnWithTypeCast  = `"committed_by" AS committed_by`
+	ChangeTableCommittedAtColumnWithTypeCast  = `"committed_at" AS committed_at`
 	ChangeTableRepositoryIDColumnWithTypeCast = `"repository_id" AS repository_id`
 )
 
@@ -64,6 +85,13 @@ var ChangeTableColumns = []string{
 	ChangeTableCreatedAtColumn,
 	ChangeTableUpdatedAtColumn,
 	ChangeTableDeletedAtColumn,
+	ChangeTableBranchNameColumn,
+	ChangeTableCommitHashColumn,
+	ChangeTableMessageColumn,
+	ChangeTableAuthoredByColumn,
+	ChangeTableAuthoredAtColumn,
+	ChangeTableCommittedByColumn,
+	ChangeTableCommittedAtColumn,
 	ChangeTableRepositoryIDColumn,
 }
 
@@ -72,6 +100,13 @@ var ChangeTableColumnsWithTypeCasts = []string{
 	ChangeTableCreatedAtColumnWithTypeCast,
 	ChangeTableUpdatedAtColumnWithTypeCast,
 	ChangeTableDeletedAtColumnWithTypeCast,
+	ChangeTableBranchNameColumnWithTypeCast,
+	ChangeTableCommitHashColumnWithTypeCast,
+	ChangeTableMessageColumnWithTypeCast,
+	ChangeTableAuthoredByColumnWithTypeCast,
+	ChangeTableAuthoredAtColumnWithTypeCast,
+	ChangeTableCommittedByColumnWithTypeCast,
+	ChangeTableCommittedAtColumnWithTypeCast,
 	ChangeTableRepositoryIDColumnWithTypeCast,
 }
 
@@ -229,6 +264,139 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "branch_name":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch_name.UUID", temp1))
+				}
+			}
+
+			m.BranchName = temp2
+
+		case "commit_hash":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uucommit_hash.UUID", temp1))
+				}
+			}
+
+			m.CommitHash = temp2
+
+		case "message":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uumessage.UUID", temp1))
+				}
+			}
+
+			m.Message = temp2
+
+		case "authored_by":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuauthored_by.UUID", temp1))
+				}
+			}
+
+			m.AuthoredBy = temp2
+
+		case "authored_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuauthored_at.UUID", temp1))
+				}
+			}
+
+			m.AuthoredAt = temp2
+
+		case "committed_by":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uucommitted_by.UUID", temp1))
+				}
+			}
+
+			m.CommittedBy = temp2
+
+		case "committed_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uucommitted_at.UUID", temp1))
+				}
+			}
+
+			m.CommittedAt = temp2
+
 		case "repository_id":
 			if v == nil {
 				continue
@@ -281,6 +449,13 @@ func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.BranchName = o.BranchName
+	m.CommitHash = o.CommitHash
+	m.Message = o.Message
+	m.AuthoredBy = o.AuthoredBy
+	m.AuthoredAt = o.AuthoredAt
+	m.CommittedBy = o.CommittedBy
+	m.CommittedAt = o.CommittedAt
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
 	m.ReferencedByTriggerChangeIDObjects = o.ReferencedByTriggerChangeIDObjects
@@ -331,6 +506,83 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) || isRequired(ChangeTableColumnLookup, ChangeTableBranchNameColumn) {
+		columns = append(columns, ChangeTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.CommitHash) || slices.Contains(forceSetValuesForFields, ChangeTableCommitHashColumn) || isRequired(ChangeTableColumnLookup, ChangeTableCommitHashColumn) {
+		columns = append(columns, ChangeTableCommitHashColumn)
+
+		v, err := types.FormatString(m.CommitHash)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommitHash; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Message) || slices.Contains(forceSetValuesForFields, ChangeTableMessageColumn) || isRequired(ChangeTableColumnLookup, ChangeTableMessageColumn) {
+		columns = append(columns, ChangeTableMessageColumn)
+
+		v, err := types.FormatString(m.Message)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Message; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.AuthoredBy) || slices.Contains(forceSetValuesForFields, ChangeTableAuthoredByColumn) || isRequired(ChangeTableColumnLookup, ChangeTableAuthoredByColumn) {
+		columns = append(columns, ChangeTableAuthoredByColumn)
+
+		v, err := types.FormatString(m.AuthoredBy)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.AuthoredBy; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.AuthoredAt) || slices.Contains(forceSetValuesForFields, ChangeTableAuthoredAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableAuthoredAtColumn) {
+		columns = append(columns, ChangeTableAuthoredAtColumn)
+
+		v, err := types.FormatTime(m.AuthoredAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.AuthoredAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.CommittedBy) || slices.Contains(forceSetValuesForFields, ChangeTableCommittedByColumn) || isRequired(ChangeTableColumnLookup, ChangeTableCommittedByColumn) {
+		columns = append(columns, ChangeTableCommittedByColumn)
+
+		v, err := types.FormatString(m.CommittedBy)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommittedBy; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.CommittedAt) || slices.Contains(forceSetValuesForFields, ChangeTableCommittedAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableCommittedAtColumn) {
+		columns = append(columns, ChangeTableCommittedAtColumn)
+
+		v, err := types.FormatTime(m.CommittedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommittedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -433,6 +685,83 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) {
+		columns = append(columns, ChangeTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.CommitHash) || slices.Contains(forceSetValuesForFields, ChangeTableCommitHashColumn) {
+		columns = append(columns, ChangeTableCommitHashColumn)
+
+		v, err := types.FormatString(m.CommitHash)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommitHash; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Message) || slices.Contains(forceSetValuesForFields, ChangeTableMessageColumn) {
+		columns = append(columns, ChangeTableMessageColumn)
+
+		v, err := types.FormatString(m.Message)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Message; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.AuthoredBy) || slices.Contains(forceSetValuesForFields, ChangeTableAuthoredByColumn) {
+		columns = append(columns, ChangeTableAuthoredByColumn)
+
+		v, err := types.FormatString(m.AuthoredBy)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.AuthoredBy; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.AuthoredAt) || slices.Contains(forceSetValuesForFields, ChangeTableAuthoredAtColumn) {
+		columns = append(columns, ChangeTableAuthoredAtColumn)
+
+		v, err := types.FormatTime(m.AuthoredAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.AuthoredAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.CommittedBy) || slices.Contains(forceSetValuesForFields, ChangeTableCommittedByColumn) {
+		columns = append(columns, ChangeTableCommittedByColumn)
+
+		v, err := types.FormatString(m.CommittedBy)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommittedBy; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.CommittedAt) || slices.Contains(forceSetValuesForFields, ChangeTableCommittedAtColumn) {
+		columns = append(columns, ChangeTableCommittedAtColumn)
+
+		v, err := types.FormatTime(m.CommittedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.CommittedAt; %v", err)
 		}
 
 		values = append(values, v)

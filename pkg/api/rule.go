@@ -34,10 +34,11 @@ type Rule struct {
 	CreatedAt                                time.Time          `json:"created_at"`
 	UpdatedAt                                time.Time          `json:"updated_at"`
 	DeletedAt                                *time.Time         `json:"deleted_at"`
+	BranchName                               *string            `json:"branch_name"`
 	RepositoryID                             uuid.UUID          `json:"repository_id"`
 	RepositoryIDObject                       *Repository        `json:"repository_id_object"`
-	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
 	ReferencedByRuleRequiresJobRuleIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects"`
+	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
 	ReferencedByTriggerRuleIDObjects         []*Trigger         `json:"referenced_by_trigger_rule_id_objects"`
 }
 
@@ -50,6 +51,7 @@ var (
 	RuleTableCreatedAtColumn    = "created_at"
 	RuleTableUpdatedAtColumn    = "updated_at"
 	RuleTableDeletedAtColumn    = "deleted_at"
+	RuleTableBranchNameColumn   = "branch_name"
 	RuleTableRepositoryIDColumn = "repository_id"
 )
 
@@ -58,6 +60,7 @@ var (
 	RuleTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
 	RuleTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
 	RuleTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
+	RuleTableBranchNameColumnWithTypeCast   = `"branch_name" AS branch_name`
 	RuleTableRepositoryIDColumnWithTypeCast = `"repository_id" AS repository_id`
 )
 
@@ -66,6 +69,7 @@ var RuleTableColumns = []string{
 	RuleTableCreatedAtColumn,
 	RuleTableUpdatedAtColumn,
 	RuleTableDeletedAtColumn,
+	RuleTableBranchNameColumn,
 	RuleTableRepositoryIDColumn,
 }
 
@@ -74,6 +78,7 @@ var RuleTableColumnsWithTypeCasts = []string{
 	RuleTableCreatedAtColumnWithTypeCast,
 	RuleTableUpdatedAtColumnWithTypeCast,
 	RuleTableDeletedAtColumnWithTypeCast,
+	RuleTableBranchNameColumnWithTypeCast,
 	RuleTableRepositoryIDColumnWithTypeCast,
 }
 
@@ -231,6 +236,25 @@ func (m *Rule) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "branch_name":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch_name.UUID", temp1))
+				}
+			}
+
+			m.BranchName = &temp2
+
 		case "repository_id":
 			if v == nil {
 				continue
@@ -283,10 +307,11 @@ func (m *Rule) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.BranchName = o.BranchName
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
-	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
 	m.ReferencedByRuleRequiresJobRuleIDObjects = o.ReferencedByRuleRequiresJobRuleIDObjects
+	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
 	m.ReferencedByTriggerRuleIDObjects = o.ReferencedByTriggerRuleIDObjects
 
 	return nil
@@ -335,6 +360,17 @@ func (m *Rule) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, RuleTableBranchNameColumn) || isRequired(RuleTableColumnLookup, RuleTableBranchNameColumn) {
+		columns = append(columns, RuleTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
 		}
 
 		values = append(values, v)
@@ -437,6 +473,17 @@ func (m *Rule) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, RuleTableBranchNameColumn) {
+		columns = append(columns, RuleTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
 		}
 
 		values = append(values, v)
@@ -633,42 +680,6 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
-				}
-
-				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
 					log.Printf("loading SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects")
 				}
 
@@ -689,6 +700,42 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 				if config.Debug() {
 					log.Printf("loaded SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
+				}
+
+				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

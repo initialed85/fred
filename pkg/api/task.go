@@ -34,12 +34,12 @@ type Task struct {
 	CreatedAt                            time.Time  `json:"created_at"`
 	UpdatedAt                            time.Time  `json:"updated_at"`
 	DeletedAt                            *time.Time `json:"deleted_at"`
+	ReferencedByOutputTaskIDObjects      []*Output  `json:"referenced_by_output_task_id_objects"`
 	ReferencedByJobBuildTaskIDObjects    []*Job     `json:"referenced_by_job_build_task_id_objects"`
 	ReferencedByJobTestTaskIDObjects     []*Job     `json:"referenced_by_job_test_task_id_objects"`
 	ReferencedByJobPublishTaskIDObjects  []*Job     `json:"referenced_by_job_publish_task_id_objects"`
 	ReferencedByJobDeployTaskIDObjects   []*Job     `json:"referenced_by_job_deploy_task_id_objects"`
 	ReferencedByJobValidateTaskIDObjects []*Job     `json:"referenced_by_job_validate_task_id_objects"`
-	ReferencedByOutputTaskIDObjects      []*Output  `json:"referenced_by_output_task_id_objects"`
 }
 
 var TaskTable = "task"
@@ -261,12 +261,12 @@ func (m *Task) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.ReferencedByOutputTaskIDObjects = o.ReferencedByOutputTaskIDObjects
 	m.ReferencedByJobBuildTaskIDObjects = o.ReferencedByJobBuildTaskIDObjects
 	m.ReferencedByJobTestTaskIDObjects = o.ReferencedByJobTestTaskIDObjects
 	m.ReferencedByJobPublishTaskIDObjects = o.ReferencedByJobPublishTaskIDObjects
 	m.ReferencedByJobDeployTaskIDObjects = o.ReferencedByJobDeployTaskIDObjects
 	m.ReferencedByJobValidateTaskIDObjects = o.ReferencedByJobValidateTaskIDObjects
-	m.ReferencedByOutputTaskIDObjects = o.ReferencedByOutputTaskIDObjects
 
 	return nil
 }
@@ -563,6 +563,42 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				thisBefore := time.Now()
 
 				if config.Debug() {
+					log.Printf("loading SelectTasks->SelectOutputs for object.ReferencedByOutputTaskIDObjects")
+				}
+
+				object.ReferencedByOutputTaskIDObjects, _, _, _, _, err = SelectOutputs(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", OutputTableTaskIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectTasks->SelectOutputs for object.ReferencedByOutputTaskIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
 					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobBuildTaskIDObjects")
 				}
 
@@ -727,42 +763,6 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 				if config.Debug() {
 					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobValidateTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectOutputs for object.ReferencedByOutputTaskIDObjects")
-				}
-
-				object.ReferencedByOutputTaskIDObjects, _, _, _, _, err = SelectOutputs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", OutputTableTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectOutputs for object.ReferencedByOutputTaskIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

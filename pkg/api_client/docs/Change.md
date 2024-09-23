@@ -4,9 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AuthoredAt** | Pointer to **time.Time** |  | [optional] 
+**AuthoredBy** | Pointer to **string** |  | [optional] 
+**BranchName** | Pointer to **string** |  | [optional] 
+**CommitHash** | Pointer to **string** |  | [optional] 
+**CommittedAt** | Pointer to **time.Time** |  | [optional] 
+**CommittedBy** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** |  | [optional] 
 **ReferencedByTriggerChangeIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
@@ -30,6 +37,156 @@ will change when the set of required properties is changed
 NewChangeWithDefaults instantiates a new Change object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAuthoredAt
+
+`func (o *Change) GetAuthoredAt() time.Time`
+
+GetAuthoredAt returns the AuthoredAt field if non-nil, zero value otherwise.
+
+### GetAuthoredAtOk
+
+`func (o *Change) GetAuthoredAtOk() (*time.Time, bool)`
+
+GetAuthoredAtOk returns a tuple with the AuthoredAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthoredAt
+
+`func (o *Change) SetAuthoredAt(v time.Time)`
+
+SetAuthoredAt sets AuthoredAt field to given value.
+
+### HasAuthoredAt
+
+`func (o *Change) HasAuthoredAt() bool`
+
+HasAuthoredAt returns a boolean if a field has been set.
+
+### GetAuthoredBy
+
+`func (o *Change) GetAuthoredBy() string`
+
+GetAuthoredBy returns the AuthoredBy field if non-nil, zero value otherwise.
+
+### GetAuthoredByOk
+
+`func (o *Change) GetAuthoredByOk() (*string, bool)`
+
+GetAuthoredByOk returns a tuple with the AuthoredBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthoredBy
+
+`func (o *Change) SetAuthoredBy(v string)`
+
+SetAuthoredBy sets AuthoredBy field to given value.
+
+### HasAuthoredBy
+
+`func (o *Change) HasAuthoredBy() bool`
+
+HasAuthoredBy returns a boolean if a field has been set.
+
+### GetBranchName
+
+`func (o *Change) GetBranchName() string`
+
+GetBranchName returns the BranchName field if non-nil, zero value otherwise.
+
+### GetBranchNameOk
+
+`func (o *Change) GetBranchNameOk() (*string, bool)`
+
+GetBranchNameOk returns a tuple with the BranchName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBranchName
+
+`func (o *Change) SetBranchName(v string)`
+
+SetBranchName sets BranchName field to given value.
+
+### HasBranchName
+
+`func (o *Change) HasBranchName() bool`
+
+HasBranchName returns a boolean if a field has been set.
+
+### GetCommitHash
+
+`func (o *Change) GetCommitHash() string`
+
+GetCommitHash returns the CommitHash field if non-nil, zero value otherwise.
+
+### GetCommitHashOk
+
+`func (o *Change) GetCommitHashOk() (*string, bool)`
+
+GetCommitHashOk returns a tuple with the CommitHash field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommitHash
+
+`func (o *Change) SetCommitHash(v string)`
+
+SetCommitHash sets CommitHash field to given value.
+
+### HasCommitHash
+
+`func (o *Change) HasCommitHash() bool`
+
+HasCommitHash returns a boolean if a field has been set.
+
+### GetCommittedAt
+
+`func (o *Change) GetCommittedAt() time.Time`
+
+GetCommittedAt returns the CommittedAt field if non-nil, zero value otherwise.
+
+### GetCommittedAtOk
+
+`func (o *Change) GetCommittedAtOk() (*time.Time, bool)`
+
+GetCommittedAtOk returns a tuple with the CommittedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommittedAt
+
+`func (o *Change) SetCommittedAt(v time.Time)`
+
+SetCommittedAt sets CommittedAt field to given value.
+
+### HasCommittedAt
+
+`func (o *Change) HasCommittedAt() bool`
+
+HasCommittedAt returns a boolean if a field has been set.
+
+### GetCommittedBy
+
+`func (o *Change) GetCommittedBy() string`
+
+GetCommittedBy returns the CommittedBy field if non-nil, zero value otherwise.
+
+### GetCommittedByOk
+
+`func (o *Change) GetCommittedByOk() (*string, bool)`
+
+GetCommittedByOk returns a tuple with the CommittedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommittedBy
+
+`func (o *Change) SetCommittedBy(v string)`
+
+SetCommittedBy sets CommittedBy field to given value.
+
+### HasCommittedBy
+
+`func (o *Change) HasCommittedBy() bool`
+
+HasCommittedBy returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -105,6 +262,31 @@ SetId sets Id field to given value.
 `func (o *Change) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetMessage
+
+`func (o *Change) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *Change) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *Change) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+### HasMessage
+
+`func (o *Change) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
 
 ### GetReferencedByTriggerChangeIdObjects
 

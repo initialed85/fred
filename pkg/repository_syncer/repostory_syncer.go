@@ -4,19 +4,22 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/initialed85/djangolang/pkg/config"
+	"github.com/go-git/go-git/v5/config"
+	"github.com/go-git/go-git/v5/plumbing"
+	_config "github.com/initialed85/djangolang/pkg/config"
 	"github.com/initialed85/djangolang/pkg/helpers"
 	"github.com/initialed85/fred/pkg/api"
 )
 
-const syncInterval = time.Second * 60
+const syncInterval = time.Second * 30
+
+var log = helpers.GetLogger("repository_syncer")
 
 func Run() error {
 	wd, err := os.Getwd()
@@ -34,7 +37,7 @@ func Run() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	db, err := config.GetDBFromEnvironment(ctx)
+	db, err := _config.GetDBFromEnvironment(ctx)
 	if err != nil {
 		return err
 	}
@@ -43,6 +46,8 @@ func Run() error {
 	}()
 
 	t := time.NewTicker(time.Second * 1)
+
+	log.Printf("repository syncer running...")
 
 	for {
 		select {
@@ -81,7 +86,6 @@ func Run() error {
 			}
 
 			if len(repositories) == 0 {
-				log.Printf("no repositories...")
 				return nil
 			}
 
@@ -91,6 +95,27 @@ func Run() error {
 				repositoryPath := filepath.Join(repositoriesPath, repositoryName)
 
 				log.Printf("syncing %s", repositoryPath)
+
+				rules, _, _, _, _, err := api.SelectRules(
+					ctx,
+					tx,
+					fmt.Sprintf(
+						"%s = '%s'",
+						api.RuleTableRepositoryIDColumn,
+						repository.ID.String(),
+					),
+					nil,
+					nil,
+					nil,
+				)
+				if err != nil {
+					return err
+				}
+
+				if len(rules) == 0 {
+					log.Printf("no rules for %s; skipping sync", repositoryPath)
+					return nil
+				}
 
 				exists := true
 				_, err = os.Stat(repositoryPath)
@@ -105,7 +130,7 @@ func Run() error {
 				var gitRepository *git.Repository
 
 				if !exists {
-					log.Printf("%s doesn't exist, cloning...", repositoryPath)
+					log.Printf("%s doesn't exist, cloning...", repository.URL)
 					gitRepository, err = git.PlainCloneContext(
 						ctx,
 						repositoryPath,
@@ -113,17 +138,16 @@ func Run() error {
 						&git.CloneOptions{
 							URL:               repository.URL,
 							RecurseSubmodules: git.DefaultSubmoduleRecursionDepth, // TODO: should probably be configurable
-							Progress:          os.Stdout,
 						},
 					)
 					if err != nil {
-						return fmt.Errorf("clone %s failed: %s", repositoryPath, err.Error())
+						return fmt.Errorf("clone for %s failed: %s", repository.URL, err.Error())
 					}
 				} else {
-					log.Printf("%s already exists, opening...", repositoryPath)
+					log.Printf("%s already exists, opening...", repository.URL)
 					gitRepository, err = git.PlainOpen(repositoryPath)
 					if err != nil {
-						return fmt.Errorf("open %s failed: %s", repositoryPath, err.Error())
+						return fmt.Errorf("open for %s failed: %s", repository.URL, err.Error())
 					}
 				}
 
@@ -137,29 +161,112 @@ func Run() error {
 					Mode: git.HardReset,
 				})
 				if err != nil {
-					return fmt.Errorf("reset %s failed: %s", repositoryPath, err.Error())
+					return fmt.Errorf("reset for %s failed: %s", repository.URL, err.Error())
+				}
+
+				refSpecs := make([]config.RefSpec, 0)
+				for _, rule := range rules {
+					if rule.BranchName == nil {
+						continue
+					}
+
+					refSpec := fmt.Sprintf("+refs/heads/%s:refs/remotes/origin/%s", *rule.BranchName, *rule.BranchName)
+
+					refSpecs = append(refSpecs, config.RefSpec(refSpec))
 				}
 
 				log.Printf("fetching %s...", repositoryPath)
 				err = gitRepository.FetchContext(ctx, &git.FetchOptions{
-					Progress: os.Stdout,
+					RefSpecs: refSpecs,
 				})
 				if err != nil {
 					if !errors.Is(err, git.NoErrAlreadyUpToDate) {
 
-						return fmt.Errorf("fetch %s failed: %s", repositoryPath, err.Error())
+						return fmt.Errorf("fetch for %s:%#+v failed: %s", repository.URL, refSpecs, err.Error())
+					}
+				}
+
+				for _, rule := range rules {
+					if rule.BranchName == nil {
+						continue
+					}
+
+					refName := fmt.Sprintf("refs/remotes/origin/%s", *rule.BranchName)
+
+					log.Printf("checking out %s:%s", repository.URL, refName)
+
+					err = workTree.Checkout(&git.CheckoutOptions{
+						Branch: plumbing.ReferenceName(refName),
+					})
+					if err != nil {
+						return fmt.Errorf("checkout for %s:%s failed: %s", repository.URL, refName, err.Error())
+					}
+
+					reference, err := gitRepository.Head()
+					if err != nil {
+						return fmt.Errorf("get head for %s:%s failed: %s", repository.URL, refName, err.Error())
+					}
+
+					commitObject, err := gitRepository.CommitObject(reference.Hash())
+					if err != nil {
+						return fmt.Errorf("get commit for %s:%s failed: %s", repository.URL, refName, err.Error())
+					}
+
+					existingChanges, _, _, _, _, err := api.SelectChanges(
+						ctx,
+						tx,
+						fmt.Sprintf(
+							"%s = '%s' AND %s = '%s' AND %s = '%s'",
+							api.ChangeTableBranchNameColumn,
+							*rule.BranchName,
+							api.ChangeTableCommitHashColumn,
+							commitObject.Hash.String(),
+							api.ChangeTableRepositoryIDColumn,
+							repository.ID.String(),
+						),
+						nil,
+						nil,
+						nil,
+					)
+					if err != nil {
+						return err
+					}
+
+					if len(existingChanges) > 0 {
+						log.Printf("already know about %s:%s:%s", repository.URL, refName, commitObject.Hash.String())
+						continue
+					}
+
+					log.Printf("recording change for %s:%s:%s", repository.URL, refName, commitObject.Hash.String())
+
+					change := &api.Change{
+						BranchName:   *rule.BranchName,
+						CommitHash:   commitObject.Hash.String(),
+						Message:      commitObject.Message,
+						AuthoredBy:   commitObject.Author.Email,
+						AuthoredAt:   commitObject.Author.When,
+						CommittedBy:  commitObject.Committer.Email,
+						CommittedAt:  commitObject.Committer.When,
+						RepositoryID: repository.ID,
+					}
+
+					err = change.Insert(ctx, tx, false, false)
+					if err != nil {
+						if !strings.Contains(err.Error(), "duplicate key value violates unique constraint") {
+							return err
+						}
 					}
 				}
 
 				repository.LastSynced = time.Now().UTC()
 				err = repository.Update(ctx, tx, false)
 				if err != nil {
-					return fmt.Errorf("failed to update DB for %s: %s", repositoryPath, err.Error())
+					return err
 				}
 
 				err = tx.Commit(ctx)
 				if err != nil {
-					return fmt.Errorf("failed to commit DB for %s: %s", repositoryPath, err.Error())
+					return err
 				}
 			}
 

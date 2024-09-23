@@ -81,10 +81,25 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        branch_name text NOT NULL,
+        commit_hash text NOT NULL,
+        message text NOT NULL,
+        authored_by text NOT NULL,
+        authored_at timestamptz NOT NULL,
+        committed_by text NOT NULL,
+        committed_at timestamptz NOT NULL,
         repository_id uuid NOT NULL REFERENCES public.repository (id)
     );
 
 ALTER TABLE public.change OWNER TO postgres;
+
+CREATE UNIQUE INDEX change_unique_branch_name_commit_hash_repository_id_not_deleted ON public.change (branch_name, commit_hash, repository_id)
+WHERE
+    deleted_at IS null;
+
+CREATE UNIQUE INDEX change_unique_branch_name_commit_hash_repository_id_deleted ON public.change (branch_name, commit_hash, repository_id, deleted_at)
+WHERE
+    deleted_at IS NOT null;
 
 --
 -- rule
@@ -97,10 +112,22 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        branch_name text NULL DEFAULT NULL CHECK (
+            branch_name IS null
+            OR trim(branch_name) != ''
+        ),
         repository_id uuid NOT NULL REFERENCES public.repository (id)
     );
 
 ALTER TABLE public.rule OWNER TO postgres;
+
+CREATE UNIQUE INDEX rule_unique_branch_name_repository_id_not_deleted ON public.rule (branch_name, repository_id)
+WHERE
+    deleted_at IS null;
+
+CREATE UNIQUE INDEX rule_unique_branch_name_repository_id_deleted ON public.rule (branch_name, repository_id, deleted_at)
+WHERE
+    deleted_at IS NOT null;
 
 --
 -- trigger

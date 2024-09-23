@@ -20,16 +20,16 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ReferencedByJobBuildTaskIdObjects []Job `json:"referenced_by_job_build_task_id_objects,omitempty"`
-	ReferencedByJobDeployTaskIdObjects []Job `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
-	ReferencedByJobPublishTaskIdObjects []Job `json:"referenced_by_job_publish_task_id_objects,omitempty"`
-	ReferencedByJobTestTaskIdObjects []Job `json:"referenced_by_job_test_task_id_objects,omitempty"`
-	ReferencedByJobValidateTaskIdObjects []Job `json:"referenced_by_job_validate_task_id_objects,omitempty"`
-	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt                            *time.Time  `json:"created_at,omitempty"`
+	DeletedAt                            *time.Time  `json:"deleted_at,omitempty"`
+	Id                                   *string     `json:"id,omitempty"`
+	ReferencedByJobBuildTaskIdObjects    []Job       `json:"referenced_by_job_build_task_id_objects,omitempty"`
+	ReferencedByJobDeployTaskIdObjects   []Job       `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
+	ReferencedByJobPublishTaskIdObjects  []Job       `json:"referenced_by_job_publish_task_id_objects,omitempty"`
+	ReferencedByJobTestTaskIdObjects     []Job       `json:"referenced_by_job_test_task_id_objects,omitempty"`
+	ReferencedByJobValidateTaskIdObjects []Job       `json:"referenced_by_job_validate_task_id_objects,omitempty"`
+	ReferencedByOutputTaskIdObjects      []Execution `json:"referenced_by_output_task_id_objects,omitempty"`
+	UpdatedAt                            *time.Time  `json:"updated_at,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -311,9 +311,9 @@ func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Job) {
 }
 
 // GetReferencedByOutputTaskIdObjects returns the ReferencedByOutputTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByOutputTaskIdObjects() []Output {
+func (o *Task) GetReferencedByOutputTaskIdObjects() []Execution {
 	if o == nil {
-		var ret []Output
+		var ret []Execution
 		return ret
 	}
 	return o.ReferencedByOutputTaskIdObjects
@@ -322,7 +322,7 @@ func (o *Task) GetReferencedByOutputTaskIdObjects() []Output {
 // GetReferencedByOutputTaskIdObjectsOk returns a tuple with the ReferencedByOutputTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByOutputTaskIdObjectsOk() ([]Output, bool) {
+func (o *Task) GetReferencedByOutputTaskIdObjectsOk() ([]Execution, bool) {
 	if o == nil || IsNil(o.ReferencedByOutputTaskIdObjects) {
 		return nil, false
 	}
@@ -338,8 +338,8 @@ func (o *Task) HasReferencedByOutputTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByOutputTaskIdObjects gets a reference to the given []Output and assigns it to the ReferencedByOutputTaskIdObjects field.
-func (o *Task) SetReferencedByOutputTaskIdObjects(v []Output) {
+// SetReferencedByOutputTaskIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByOutputTaskIdObjects field.
+func (o *Task) SetReferencedByOutputTaskIdObjects(v []Execution) {
 	o.ReferencedByOutputTaskIdObjects = v
 }
 
@@ -376,7 +376,7 @@ func (o *Task) SetUpdatedAt(v time.Time) {
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -453,5 +453,3 @@ func (v *NullableTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

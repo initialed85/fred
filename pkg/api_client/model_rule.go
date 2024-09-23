@@ -20,15 +20,16 @@ var _ MappedNullable = &Rule{}
 
 // Rule struct for Rule
 type Rule struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ReferencedByJobRuleIdObjects []Job `json:"referenced_by_job_rule_id_objects,omitempty"`
+	BranchName                               *string           `json:"branch_name,omitempty"`
+	CreatedAt                                *time.Time        `json:"created_at,omitempty"`
+	DeletedAt                                *time.Time        `json:"deleted_at,omitempty"`
+	Id                                       *string           `json:"id,omitempty"`
+	ReferencedByJobRuleIdObjects             []Job             `json:"referenced_by_job_rule_id_objects,omitempty"`
 	ReferencedByRuleRequiresJobRuleIdObjects []RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects,omitempty"`
-	ReferencedByTriggerRuleIdObjects []Trigger `json:"referenced_by_trigger_rule_id_objects,omitempty"`
-	RepositoryId *string `json:"repository_id,omitempty"`
-	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	ReferencedByTriggerRuleIdObjects         []Trigger         `json:"referenced_by_trigger_rule_id_objects,omitempty"`
+	RepositoryId                             *string           `json:"repository_id,omitempty"`
+	RepositoryIdObject                       *Repository       `json:"repository_id_object,omitempty"`
+	UpdatedAt                                *time.Time        `json:"updated_at,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -46,6 +47,38 @@ func NewRule() *Rule {
 func NewRuleWithDefaults() *Rule {
 	this := Rule{}
 	return &this
+}
+
+// GetBranchName returns the BranchName field value if set, zero value otherwise.
+func (o *Rule) GetBranchName() string {
+	if o == nil || IsNil(o.BranchName) {
+		var ret string
+		return ret
+	}
+	return *o.BranchName
+}
+
+// GetBranchNameOk returns a tuple with the BranchName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetBranchNameOk() (*string, bool) {
+	if o == nil || IsNil(o.BranchName) {
+		return nil, false
+	}
+	return o.BranchName, true
+}
+
+// HasBranchName returns a boolean if a field has been set.
+func (o *Rule) HasBranchName() bool {
+	if o != nil && !IsNil(o.BranchName) {
+		return true
+	}
+
+	return false
+}
+
+// SetBranchName gets a reference to the given string and assigns it to the BranchName field.
+func (o *Rule) SetBranchName(v string) {
+	o.BranchName = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -340,7 +373,7 @@ func (o *Rule) SetUpdatedAt(v time.Time) {
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -349,6 +382,9 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 
 func (o Rule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BranchName) {
+		toSerialize["branch_name"] = o.BranchName
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -414,5 +450,3 @@ func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

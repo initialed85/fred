@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // JobAPIService JobAPI service
 type JobAPIService service
 
 type ApiDeleteJobRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *JobAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteJobRequest) Execute() (*http.Response, error) {
 /*
 DeleteJob Method for DeleteJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteJobRequest
 */
 func (a *JobAPIService) DeleteJob(ctx context.Context, primaryKey string) ApiDeleteJobRequest {
 	return ApiDeleteJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *JobAPIService) DeleteJob(ctx context.Context, primaryKey string) ApiDel
 // Execute executes the request
 func (a *JobAPIService) DeleteJobExecute(r ApiDeleteJobRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobAPIService.DeleteJob")
@@ -125,10 +124,10 @@ func (a *JobAPIService) DeleteJobExecute(r ApiDeleteJobRequest) (*http.Response,
 }
 
 type ApiGetJobRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *JobAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetJobRequest) Execute() (*ResponseWithGenericOfJob, *http.Response, 
 /*
 GetJob Method for GetJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetJobRequest
 */
 func (a *JobAPIService) GetJob(ctx context.Context, primaryKey string) ApiGetJobRequest {
 	return ApiGetJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfJob
+//
+//	@return ResponseWithGenericOfJob
 func (a *JobAPIService) GetJobExecute(r ApiGetJobRequest) (*ResponseWithGenericOfJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfJob
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobAPIService.GetJob")
@@ -220,14 +220,14 @@ func (a *JobAPIService) GetJobExecute(r ApiGetJobRequest) (*ResponseWithGenericO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,167 +244,167 @@ func (a *JobAPIService) GetJobExecute(r ApiGetJobRequest) (*ResponseWithGenericO
 }
 
 type ApiGetJobsRequest struct {
-	ctx context.Context
-	ApiService *JobAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	ruleIdEq *string
-	ruleIdNe *string
-	ruleIdGt *string
-	ruleIdGte *string
-	ruleIdLt *string
-	ruleIdLte *string
-	ruleIdIn *string
-	ruleIdNotin *string
-	ruleIdLike *string
-	ruleIdNotlike *string
-	ruleIdIlike *string
-	ruleIdNotilike *string
-	ruleIdDesc *string
-	ruleIdAsc *string
-	ruleIdObjectDesc *string
-	ruleIdObjectAsc *string
-	buildTaskIdEq *string
-	buildTaskIdNe *string
-	buildTaskIdGt *string
-	buildTaskIdGte *string
-	buildTaskIdLt *string
-	buildTaskIdLte *string
-	buildTaskIdIn *string
-	buildTaskIdNotin *string
-	buildTaskIdLike *string
-	buildTaskIdNotlike *string
-	buildTaskIdIlike *string
-	buildTaskIdNotilike *string
-	buildTaskIdDesc *string
-	buildTaskIdAsc *string
-	buildTaskIdObjectDesc *string
-	buildTaskIdObjectAsc *string
-	testTaskIdEq *string
-	testTaskIdNe *string
-	testTaskIdGt *string
-	testTaskIdGte *string
-	testTaskIdLt *string
-	testTaskIdLte *string
-	testTaskIdIn *string
-	testTaskIdNotin *string
-	testTaskIdLike *string
-	testTaskIdNotlike *string
-	testTaskIdIlike *string
-	testTaskIdNotilike *string
-	testTaskIdDesc *string
-	testTaskIdAsc *string
-	testTaskIdObjectDesc *string
-	testTaskIdObjectAsc *string
-	publishTaskIdEq *string
-	publishTaskIdNe *string
-	publishTaskIdGt *string
-	publishTaskIdGte *string
-	publishTaskIdLt *string
-	publishTaskIdLte *string
-	publishTaskIdIn *string
-	publishTaskIdNotin *string
-	publishTaskIdLike *string
-	publishTaskIdNotlike *string
-	publishTaskIdIlike *string
-	publishTaskIdNotilike *string
-	publishTaskIdDesc *string
-	publishTaskIdAsc *string
-	publishTaskIdObjectDesc *string
-	publishTaskIdObjectAsc *string
-	deployTaskIdEq *string
-	deployTaskIdNe *string
-	deployTaskIdGt *string
-	deployTaskIdGte *string
-	deployTaskIdLt *string
-	deployTaskIdLte *string
-	deployTaskIdIn *string
-	deployTaskIdNotin *string
-	deployTaskIdLike *string
-	deployTaskIdNotlike *string
-	deployTaskIdIlike *string
-	deployTaskIdNotilike *string
-	deployTaskIdDesc *string
-	deployTaskIdAsc *string
-	deployTaskIdObjectDesc *string
-	deployTaskIdObjectAsc *string
-	validateTaskIdEq *string
-	validateTaskIdNe *string
-	validateTaskIdGt *string
-	validateTaskIdGte *string
-	validateTaskIdLt *string
-	validateTaskIdLte *string
-	validateTaskIdIn *string
-	validateTaskIdNotin *string
-	validateTaskIdLike *string
-	validateTaskIdNotlike *string
-	validateTaskIdIlike *string
-	validateTaskIdNotilike *string
-	validateTaskIdDesc *string
-	validateTaskIdAsc *string
-	validateTaskIdObjectDesc *string
-	validateTaskIdObjectAsc *string
-	referencedByExecutionJobIdObjectsDesc *string
-	referencedByExecutionJobIdObjectsAsc *string
+	ctx                                         context.Context
+	ApiService                                  *JobAPIService
+	limit                                       *int32
+	offset                                      *int32
+	depth                                       *int32
+	idEq                                        *string
+	idNe                                        *string
+	idGt                                        *string
+	idGte                                       *string
+	idLt                                        *string
+	idLte                                       *string
+	idIn                                        *string
+	idNotin                                     *string
+	idLike                                      *string
+	idNotlike                                   *string
+	idIlike                                     *string
+	idNotilike                                  *string
+	idDesc                                      *string
+	idAsc                                       *string
+	createdAtEq                                 *time.Time
+	createdAtNe                                 *time.Time
+	createdAtGt                                 *time.Time
+	createdAtGte                                *time.Time
+	createdAtLt                                 *time.Time
+	createdAtLte                                *time.Time
+	createdAtIn                                 *time.Time
+	createdAtNotin                              *time.Time
+	createdAtLike                               *time.Time
+	createdAtNotlike                            *time.Time
+	createdAtIlike                              *time.Time
+	createdAtNotilike                           *time.Time
+	createdAtDesc                               *string
+	createdAtAsc                                *string
+	updatedAtEq                                 *time.Time
+	updatedAtNe                                 *time.Time
+	updatedAtGt                                 *time.Time
+	updatedAtGte                                *time.Time
+	updatedAtLt                                 *time.Time
+	updatedAtLte                                *time.Time
+	updatedAtIn                                 *time.Time
+	updatedAtNotin                              *time.Time
+	updatedAtLike                               *time.Time
+	updatedAtNotlike                            *time.Time
+	updatedAtIlike                              *time.Time
+	updatedAtNotilike                           *time.Time
+	updatedAtDesc                               *string
+	updatedAtAsc                                *string
+	deletedAtEq                                 *time.Time
+	deletedAtNe                                 *time.Time
+	deletedAtGt                                 *time.Time
+	deletedAtGte                                *time.Time
+	deletedAtLt                                 *time.Time
+	deletedAtLte                                *time.Time
+	deletedAtIn                                 *time.Time
+	deletedAtNotin                              *time.Time
+	deletedAtLike                               *time.Time
+	deletedAtNotlike                            *time.Time
+	deletedAtIlike                              *time.Time
+	deletedAtNotilike                           *time.Time
+	deletedAtDesc                               *string
+	deletedAtAsc                                *string
+	ruleIdEq                                    *string
+	ruleIdNe                                    *string
+	ruleIdGt                                    *string
+	ruleIdGte                                   *string
+	ruleIdLt                                    *string
+	ruleIdLte                                   *string
+	ruleIdIn                                    *string
+	ruleIdNotin                                 *string
+	ruleIdLike                                  *string
+	ruleIdNotlike                               *string
+	ruleIdIlike                                 *string
+	ruleIdNotilike                              *string
+	ruleIdDesc                                  *string
+	ruleIdAsc                                   *string
+	ruleIdObjectDesc                            *string
+	ruleIdObjectAsc                             *string
+	buildTaskIdEq                               *string
+	buildTaskIdNe                               *string
+	buildTaskIdGt                               *string
+	buildTaskIdGte                              *string
+	buildTaskIdLt                               *string
+	buildTaskIdLte                              *string
+	buildTaskIdIn                               *string
+	buildTaskIdNotin                            *string
+	buildTaskIdLike                             *string
+	buildTaskIdNotlike                          *string
+	buildTaskIdIlike                            *string
+	buildTaskIdNotilike                         *string
+	buildTaskIdDesc                             *string
+	buildTaskIdAsc                              *string
+	buildTaskIdObjectDesc                       *string
+	buildTaskIdObjectAsc                        *string
+	testTaskIdEq                                *string
+	testTaskIdNe                                *string
+	testTaskIdGt                                *string
+	testTaskIdGte                               *string
+	testTaskIdLt                                *string
+	testTaskIdLte                               *string
+	testTaskIdIn                                *string
+	testTaskIdNotin                             *string
+	testTaskIdLike                              *string
+	testTaskIdNotlike                           *string
+	testTaskIdIlike                             *string
+	testTaskIdNotilike                          *string
+	testTaskIdDesc                              *string
+	testTaskIdAsc                               *string
+	testTaskIdObjectDesc                        *string
+	testTaskIdObjectAsc                         *string
+	publishTaskIdEq                             *string
+	publishTaskIdNe                             *string
+	publishTaskIdGt                             *string
+	publishTaskIdGte                            *string
+	publishTaskIdLt                             *string
+	publishTaskIdLte                            *string
+	publishTaskIdIn                             *string
+	publishTaskIdNotin                          *string
+	publishTaskIdLike                           *string
+	publishTaskIdNotlike                        *string
+	publishTaskIdIlike                          *string
+	publishTaskIdNotilike                       *string
+	publishTaskIdDesc                           *string
+	publishTaskIdAsc                            *string
+	publishTaskIdObjectDesc                     *string
+	publishTaskIdObjectAsc                      *string
+	deployTaskIdEq                              *string
+	deployTaskIdNe                              *string
+	deployTaskIdGt                              *string
+	deployTaskIdGte                             *string
+	deployTaskIdLt                              *string
+	deployTaskIdLte                             *string
+	deployTaskIdIn                              *string
+	deployTaskIdNotin                           *string
+	deployTaskIdLike                            *string
+	deployTaskIdNotlike                         *string
+	deployTaskIdIlike                           *string
+	deployTaskIdNotilike                        *string
+	deployTaskIdDesc                            *string
+	deployTaskIdAsc                             *string
+	deployTaskIdObjectDesc                      *string
+	deployTaskIdObjectAsc                       *string
+	validateTaskIdEq                            *string
+	validateTaskIdNe                            *string
+	validateTaskIdGt                            *string
+	validateTaskIdGte                           *string
+	validateTaskIdLt                            *string
+	validateTaskIdLte                           *string
+	validateTaskIdIn                            *string
+	validateTaskIdNotin                         *string
+	validateTaskIdLike                          *string
+	validateTaskIdNotlike                       *string
+	validateTaskIdIlike                         *string
+	validateTaskIdNotilike                      *string
+	validateTaskIdDesc                          *string
+	validateTaskIdAsc                           *string
+	validateTaskIdObjectDesc                    *string
+	validateTaskIdObjectAsc                     *string
+	referencedByExecutionJobIdObjectsDesc       *string
+	referencedByExecutionJobIdObjectsAsc        *string
 	referencedByRuleRequiresJobJobIdObjectsDesc *string
-	referencedByRuleRequiresJobJobIdObjectsAsc *string
+	referencedByRuleRequiresJobJobIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -1368,24 +1368,25 @@ func (r ApiGetJobsRequest) Execute() (*ResponseWithGenericOfJob, *http.Response,
 /*
 GetJobs Method for GetJobs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetJobsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetJobsRequest
 */
 func (a *JobAPIService) GetJobs(ctx context.Context) ApiGetJobsRequest {
 	return ApiGetJobsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfJob
+//
+//	@return ResponseWithGenericOfJob
 func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGenericOfJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfJob
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobAPIService.GetJobs")
@@ -1915,14 +1916,14 @@ func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGeneri
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1939,11 +1940,11 @@ func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGeneri
 }
 
 type ApiPatchJobRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *JobAPIService
 	primaryKey string
-	job *Job
-	depth *int64
+	job        *Job
+	depth      *int64
 }
 
 func (r ApiPatchJobRequest) Job(job Job) ApiPatchJobRequest {
@@ -1964,26 +1965,27 @@ func (r ApiPatchJobRequest) Execute() (*ResponseWithGenericOfJob, *http.Response
 /*
 PatchJob Method for PatchJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchJobRequest
 */
 func (a *JobAPIService) PatchJob(ctx context.Context, primaryKey string) ApiPatchJobRequest {
 	return ApiPatchJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfJob
+//
+//	@return ResponseWithGenericOfJob
 func (a *JobAPIService) PatchJobExecute(r ApiPatchJobRequest) (*ResponseWithGenericOfJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfJob
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobAPIService.PatchJob")
@@ -2045,14 +2047,14 @@ func (a *JobAPIService) PatchJobExecute(r ApiPatchJobRequest) (*ResponseWithGene
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2069,10 +2071,10 @@ func (a *JobAPIService) PatchJobExecute(r ApiPatchJobRequest) (*ResponseWithGene
 }
 
 type ApiPostJobsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *JobAPIService
-	job *[]Job
-	depth *int64
+	job        *[]Job
+	depth      *int64
 }
 
 func (r ApiPostJobsRequest) Job(job []Job) ApiPostJobsRequest {
@@ -2093,24 +2095,25 @@ func (r ApiPostJobsRequest) Execute() (*ResponseWithGenericOfJob, *http.Response
 /*
 PostJobs Method for PostJobs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostJobsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostJobsRequest
 */
 func (a *JobAPIService) PostJobs(ctx context.Context) ApiPostJobsRequest {
 	return ApiPostJobsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfJob
+//
+//	@return ResponseWithGenericOfJob
 func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGenericOfJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfJob
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobAPIService.PostJobs")
@@ -2171,14 +2174,14 @@ func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGene
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

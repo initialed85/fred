@@ -48,3 +48,15 @@ When things happen, we'll have these events:
 
 - Try to do everything with environment variables
   - Both as inputs and as outputs
+
+## Dev notes
+
+```shell
+./migrate.sh force 1 ; ./migrate.sh down -all && ./migrate.sh up && ./build.sh
+
+REDIS_URL=localhost:6379 DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/api/ serve
+
+repository_id=$(curl -X POST http://localhost:7070/api/repositories -d '[{"url": "https://github.com/initialed85/camry"}]' | jq -r '.objects[0].id') && curl -X POST http://localhost:7070/api/rules -d "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]" | jq
+
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/repository_syncer/
+```

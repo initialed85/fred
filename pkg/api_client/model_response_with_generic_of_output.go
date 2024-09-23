@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfOutput{}
 
 // ResponseWithGenericOfOutput struct for ResponseWithGenericOfOutput
 type ResponseWithGenericOfOutput struct {
-	Count *int64 `json:"count,omitempty"`
-	Error []string `json:"error,omitempty"`
-	Limit *int64 `json:"limit,omitempty"`
-	Objects []Output `json:"objects,omitempty"`
-	Offset *int64 `json:"offset,omitempty"`
-	Status *int64 `json:"status,omitempty"`
-	Success *bool `json:"success,omitempty"`
-	TotalCount *int64 `json:"total_count,omitempty"`
+	Count      *int64      `json:"count,omitempty"`
+	Error      []string    `json:"error,omitempty"`
+	Limit      *int64      `json:"limit,omitempty"`
+	Objects    []Execution `json:"objects,omitempty"`
+	Offset     *int64      `json:"offset,omitempty"`
+	Status     *int64      `json:"status,omitempty"`
+	Success    *bool       `json:"success,omitempty"`
+	TotalCount *int64      `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfOutput instantiates a new ResponseWithGenericOfOutput object
@@ -144,9 +144,9 @@ func (o *ResponseWithGenericOfOutput) SetLimit(v int64) {
 }
 
 // GetObjects returns the Objects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfOutput) GetObjects() []Output {
+func (o *ResponseWithGenericOfOutput) GetObjects() []Execution {
 	if o == nil {
-		var ret []Output
+		var ret []Execution
 		return ret
 	}
 	return o.Objects
@@ -155,7 +155,7 @@ func (o *ResponseWithGenericOfOutput) GetObjects() []Output {
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfOutput) GetObjectsOk() ([]Output, bool) {
+func (o *ResponseWithGenericOfOutput) GetObjectsOk() ([]Execution, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *ResponseWithGenericOfOutput) HasObjects() bool {
 	return false
 }
 
-// SetObjects gets a reference to the given []Output and assigns it to the Objects field.
-func (o *ResponseWithGenericOfOutput) SetObjects(v []Output) {
+// SetObjects gets a reference to the given []Execution and assigns it to the Objects field.
+func (o *ResponseWithGenericOfOutput) SetObjects(v []Execution) {
 	o.Objects = v
 }
 
@@ -305,7 +305,7 @@ func (o *ResponseWithGenericOfOutput) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfOutput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -376,5 +376,3 @@ func (v *NullableResponseWithGenericOfOutput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BranchName** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
@@ -32,6 +33,31 @@ will change when the set of required properties is changed
 NewRuleWithDefaults instantiates a new Rule object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBranchName
+
+`func (o *Rule) GetBranchName() string`
+
+GetBranchName returns the BranchName field if non-nil, zero value otherwise.
+
+### GetBranchNameOk
+
+`func (o *Rule) GetBranchNameOk() (*string, bool)`
+
+GetBranchNameOk returns a tuple with the BranchName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBranchName
+
+`func (o *Rule) SetBranchName(v string)`
+
+SetBranchName sets BranchName field to given value.
+
+### HasBranchName
+
+`func (o *Rule) HasBranchName() bool`
+
+HasBranchName returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

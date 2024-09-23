@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfRuleRequiresJob{}
 
 // ResponseWithGenericOfRuleRequiresJob struct for ResponseWithGenericOfRuleRequiresJob
 type ResponseWithGenericOfRuleRequiresJob struct {
-	Count *int64 `json:"count,omitempty"`
-	Error []string `json:"error,omitempty"`
-	Limit *int64 `json:"limit,omitempty"`
-	Objects []RuleRequiresJob `json:"objects,omitempty"`
-	Offset *int64 `json:"offset,omitempty"`
-	Status *int64 `json:"status,omitempty"`
-	Success *bool `json:"success,omitempty"`
-	TotalCount *int64 `json:"total_count,omitempty"`
+	Count      *int64            `json:"count,omitempty"`
+	Error      []string          `json:"error,omitempty"`
+	Limit      *int64            `json:"limit,omitempty"`
+	Objects    []RuleRequiresJob `json:"objects,omitempty"`
+	Offset     *int64            `json:"offset,omitempty"`
+	Status     *int64            `json:"status,omitempty"`
+	Success    *bool             `json:"success,omitempty"`
+	TotalCount *int64            `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfRuleRequiresJob instantiates a new ResponseWithGenericOfRuleRequiresJob object
@@ -305,7 +305,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfRuleRequiresJob) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -376,5 +376,3 @@ func (v *NullableResponseWithGenericOfRuleRequiresJob) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

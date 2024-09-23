@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // TriggerAPIService TriggerAPI service
 type TriggerAPIService service
 
 type ApiDeleteTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteTriggerRequest) Execute() (*http.Response, error) {
 /*
 DeleteTrigger Method for DeleteTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteTriggerRequest
 */
 func (a *TriggerAPIService) DeleteTrigger(ctx context.Context, primaryKey string) ApiDeleteTriggerRequest {
 	return ApiDeleteTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *TriggerAPIService) DeleteTrigger(ctx context.Context, primaryKey string
 // Execute executes the request
 func (a *TriggerAPIService) DeleteTriggerExecute(r ApiDeleteTriggerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerAPIService.DeleteTrigger")
@@ -125,10 +124,10 @@ func (a *TriggerAPIService) DeleteTriggerExecute(r ApiDeleteTriggerRequest) (*ht
 }
 
 type ApiGetTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetTriggerRequest) Execute() (*ResponseWithGenericOfTrigger, *http.Re
 /*
 GetTrigger Method for GetTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetTriggerRequest
 */
 func (a *TriggerAPIService) GetTrigger(ctx context.Context, primaryKey string) ApiGetTriggerRequest {
 	return ApiGetTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTrigger
+//
+//	@return ResponseWithGenericOfTrigger
 func (a *TriggerAPIService) GetTriggerExecute(r ApiGetTriggerRequest) (*ResponseWithGenericOfTrigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTrigger
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTrigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerAPIService.GetTrigger")
@@ -220,14 +220,14 @@ func (a *TriggerAPIService) GetTriggerExecute(r ApiGetTriggerRequest) (*Response
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,103 +244,103 @@ func (a *TriggerAPIService) GetTriggerExecute(r ApiGetTriggerRequest) (*Response
 }
 
 type ApiGetTriggersRequest struct {
-	ctx context.Context
-	ApiService *TriggerAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	ruleIdEq *string
-	ruleIdNe *string
-	ruleIdGt *string
-	ruleIdGte *string
-	ruleIdLt *string
-	ruleIdLte *string
-	ruleIdIn *string
-	ruleIdNotin *string
-	ruleIdLike *string
-	ruleIdNotlike *string
-	ruleIdIlike *string
-	ruleIdNotilike *string
-	ruleIdDesc *string
-	ruleIdAsc *string
-	ruleIdObjectDesc *string
-	ruleIdObjectAsc *string
-	changeIdEq *string
-	changeIdNe *string
-	changeIdGt *string
-	changeIdGte *string
-	changeIdLt *string
-	changeIdLte *string
-	changeIdIn *string
-	changeIdNotin *string
-	changeIdLike *string
-	changeIdNotlike *string
-	changeIdIlike *string
-	changeIdNotilike *string
-	changeIdDesc *string
-	changeIdAsc *string
-	changeIdObjectDesc *string
-	changeIdObjectAsc *string
+	ctx                                                 context.Context
+	ApiService                                          *TriggerAPIService
+	limit                                               *int32
+	offset                                              *int32
+	depth                                               *int32
+	idEq                                                *string
+	idNe                                                *string
+	idGt                                                *string
+	idGte                                               *string
+	idLt                                                *string
+	idLte                                               *string
+	idIn                                                *string
+	idNotin                                             *string
+	idLike                                              *string
+	idNotlike                                           *string
+	idIlike                                             *string
+	idNotilike                                          *string
+	idDesc                                              *string
+	idAsc                                               *string
+	createdAtEq                                         *time.Time
+	createdAtNe                                         *time.Time
+	createdAtGt                                         *time.Time
+	createdAtGte                                        *time.Time
+	createdAtLt                                         *time.Time
+	createdAtLte                                        *time.Time
+	createdAtIn                                         *time.Time
+	createdAtNotin                                      *time.Time
+	createdAtLike                                       *time.Time
+	createdAtNotlike                                    *time.Time
+	createdAtIlike                                      *time.Time
+	createdAtNotilike                                   *time.Time
+	createdAtDesc                                       *string
+	createdAtAsc                                        *string
+	updatedAtEq                                         *time.Time
+	updatedAtNe                                         *time.Time
+	updatedAtGt                                         *time.Time
+	updatedAtGte                                        *time.Time
+	updatedAtLt                                         *time.Time
+	updatedAtLte                                        *time.Time
+	updatedAtIn                                         *time.Time
+	updatedAtNotin                                      *time.Time
+	updatedAtLike                                       *time.Time
+	updatedAtNotlike                                    *time.Time
+	updatedAtIlike                                      *time.Time
+	updatedAtNotilike                                   *time.Time
+	updatedAtDesc                                       *string
+	updatedAtAsc                                        *string
+	deletedAtEq                                         *time.Time
+	deletedAtNe                                         *time.Time
+	deletedAtGt                                         *time.Time
+	deletedAtGte                                        *time.Time
+	deletedAtLt                                         *time.Time
+	deletedAtLte                                        *time.Time
+	deletedAtIn                                         *time.Time
+	deletedAtNotin                                      *time.Time
+	deletedAtLike                                       *time.Time
+	deletedAtNotlike                                    *time.Time
+	deletedAtIlike                                      *time.Time
+	deletedAtNotilike                                   *time.Time
+	deletedAtDesc                                       *string
+	deletedAtAsc                                        *string
+	ruleIdEq                                            *string
+	ruleIdNe                                            *string
+	ruleIdGt                                            *string
+	ruleIdGte                                           *string
+	ruleIdLt                                            *string
+	ruleIdLte                                           *string
+	ruleIdIn                                            *string
+	ruleIdNotin                                         *string
+	ruleIdLike                                          *string
+	ruleIdNotlike                                       *string
+	ruleIdIlike                                         *string
+	ruleIdNotilike                                      *string
+	ruleIdDesc                                          *string
+	ruleIdAsc                                           *string
+	ruleIdObjectDesc                                    *string
+	ruleIdObjectAsc                                     *string
+	changeIdEq                                          *string
+	changeIdNe                                          *string
+	changeIdGt                                          *string
+	changeIdGte                                         *string
+	changeIdLt                                          *string
+	changeIdLte                                         *string
+	changeIdIn                                          *string
+	changeIdNotin                                       *string
+	changeIdLike                                        *string
+	changeIdNotlike                                     *string
+	changeIdIlike                                       *string
+	changeIdNotilike                                    *string
+	changeIdDesc                                        *string
+	changeIdAsc                                         *string
+	changeIdObjectDesc                                  *string
+	changeIdObjectAsc                                   *string
 	referencedByTriggerHasExecutionTriggerIdObjectsDesc *string
-	referencedByTriggerHasExecutionTriggerIdObjectsAsc *string
-	referencedByExecutionTriggerIdObjectsDesc *string
-	referencedByExecutionTriggerIdObjectsAsc *string
+	referencedByTriggerHasExecutionTriggerIdObjectsAsc  *string
+	referencedByExecutionTriggerIdObjectsDesc           *string
+	referencedByExecutionTriggerIdObjectsAsc            *string
 }
 
 // SQL LIMIT operator
@@ -920,24 +920,25 @@ func (r ApiGetTriggersRequest) Execute() (*ResponseWithGenericOfTrigger, *http.R
 /*
 GetTriggers Method for GetTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTriggersRequest
 */
 func (a *TriggerAPIService) GetTriggers(ctx context.Context) ApiGetTriggersRequest {
 	return ApiGetTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTrigger
+//
+//	@return ResponseWithGenericOfTrigger
 func (a *TriggerAPIService) GetTriggersExecute(r ApiGetTriggersRequest) (*ResponseWithGenericOfTrigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTrigger
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTrigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerAPIService.GetTriggers")
@@ -1275,14 +1276,14 @@ func (a *TriggerAPIService) GetTriggersExecute(r ApiGetTriggersRequest) (*Respon
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1299,11 +1300,11 @@ func (a *TriggerAPIService) GetTriggersExecute(r ApiGetTriggersRequest) (*Respon
 }
 
 type ApiPatchTriggerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerAPIService
 	primaryKey string
-	trigger *Trigger
-	depth *int64
+	trigger    *Trigger
+	depth      *int64
 }
 
 func (r ApiPatchTriggerRequest) Trigger(trigger Trigger) ApiPatchTriggerRequest {
@@ -1324,26 +1325,27 @@ func (r ApiPatchTriggerRequest) Execute() (*ResponseWithGenericOfTrigger, *http.
 /*
 PatchTrigger Method for PatchTrigger
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchTriggerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchTriggerRequest
 */
 func (a *TriggerAPIService) PatchTrigger(ctx context.Context, primaryKey string) ApiPatchTriggerRequest {
 	return ApiPatchTriggerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTrigger
+//
+//	@return ResponseWithGenericOfTrigger
 func (a *TriggerAPIService) PatchTriggerExecute(r ApiPatchTriggerRequest) (*ResponseWithGenericOfTrigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTrigger
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTrigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerAPIService.PatchTrigger")
@@ -1405,14 +1407,14 @@ func (a *TriggerAPIService) PatchTriggerExecute(r ApiPatchTriggerRequest) (*Resp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1429,10 +1431,10 @@ func (a *TriggerAPIService) PatchTriggerExecute(r ApiPatchTriggerRequest) (*Resp
 }
 
 type ApiPostTriggersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerAPIService
-	trigger *[]Trigger
-	depth *int64
+	trigger    *[]Trigger
+	depth      *int64
 }
 
 func (r ApiPostTriggersRequest) Trigger(trigger []Trigger) ApiPostTriggersRequest {
@@ -1453,24 +1455,25 @@ func (r ApiPostTriggersRequest) Execute() (*ResponseWithGenericOfTrigger, *http.
 /*
 PostTriggers Method for PostTriggers
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostTriggersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostTriggersRequest
 */
 func (a *TriggerAPIService) PostTriggers(ctx context.Context) ApiPostTriggersRequest {
 	return ApiPostTriggersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTrigger
+//
+//	@return ResponseWithGenericOfTrigger
 func (a *TriggerAPIService) PostTriggersExecute(r ApiPostTriggersRequest) (*ResponseWithGenericOfTrigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTrigger
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTrigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerAPIService.PostTriggers")
@@ -1531,14 +1534,14 @@ func (a *TriggerAPIService) PostTriggersExecute(r ApiPostTriggersRequest) (*Resp
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

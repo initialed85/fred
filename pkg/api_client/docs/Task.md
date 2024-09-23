@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ReferencedByJobPublishTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **ReferencedByJobTestTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **ReferencedByJobValidateTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
-**ReferencedByOutputTaskIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
+**ReferencedByOutputTaskIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -286,20 +286,20 @@ HasReferencedByJobValidateTaskIdObjects returns a boolean if a field has been se
 UnsetReferencedByJobValidateTaskIdObjects ensures that no value is present for ReferencedByJobValidateTaskIdObjects, not even an explicit nil
 ### GetReferencedByOutputTaskIdObjects
 
-`func (o *Task) GetReferencedByOutputTaskIdObjects() []Output`
+`func (o *Task) GetReferencedByOutputTaskIdObjects() []Execution`
 
 GetReferencedByOutputTaskIdObjects returns the ReferencedByOutputTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByOutputTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByOutputTaskIdObjectsOk() (*[]Output, bool)`
+`func (o *Task) GetReferencedByOutputTaskIdObjectsOk() (*[]Execution, bool)`
 
 GetReferencedByOutputTaskIdObjectsOk returns a tuple with the ReferencedByOutputTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByOutputTaskIdObjects
 
-`func (o *Task) SetReferencedByOutputTaskIdObjects(v []Output)`
+`func (o *Task) SetReferencedByOutputTaskIdObjects(v []Execution)`
 
 SetReferencedByOutputTaskIdObjects sets ReferencedByOutputTaskIdObjects field to given value.
 

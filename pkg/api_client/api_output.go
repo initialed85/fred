@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // OutputAPIService OutputAPI service
 type OutputAPIService service
 
 type ApiDeleteOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteOutputRequest) Execute() (*http.Response, error) {
 /*
 DeleteOutput Method for DeleteOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteOutputRequest
 */
 func (a *OutputAPIService) DeleteOutput(ctx context.Context, primaryKey string) ApiDeleteOutputRequest {
 	return ApiDeleteOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *OutputAPIService) DeleteOutput(ctx context.Context, primaryKey string) 
 // Execute executes the request
 func (a *OutputAPIService) DeleteOutputExecute(r ApiDeleteOutputRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.DeleteOutput")
@@ -125,10 +124,10 @@ func (a *OutputAPIService) DeleteOutputExecute(r ApiDeleteOutputRequest) (*http.
 }
 
 type ApiGetOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetOutputRequest) Execute() (*ResponseWithGenericOfOutput, *http.Resp
 /*
 GetOutput Method for GetOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetOutputRequest
 */
 func (a *OutputAPIService) GetOutput(ctx context.Context, primaryKey string) ApiGetOutputRequest {
 	return ApiGetOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.GetOutput")
@@ -220,14 +220,14 @@ func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,93 +244,93 @@ func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWit
 }
 
 type ApiGetOutputsRequest struct {
-	ctx context.Context
-	ApiService *OutputAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	taskIdEq *string
-	taskIdNe *string
-	taskIdGt *string
-	taskIdGte *string
-	taskIdLt *string
-	taskIdLte *string
-	taskIdIn *string
-	taskIdNotin *string
-	taskIdLike *string
-	taskIdNotlike *string
-	taskIdIlike *string
-	taskIdNotilike *string
-	taskIdDesc *string
-	taskIdAsc *string
-	taskIdObjectDesc *string
-	taskIdObjectAsc *string
-	referencedByExecutionBuildOutputIdObjectsDesc *string
-	referencedByExecutionBuildOutputIdObjectsAsc *string
-	referencedByExecutionTestOutputIdObjectsDesc *string
-	referencedByExecutionTestOutputIdObjectsAsc *string
-	referencedByExecutionPublishOutputIdObjectsDesc *string
-	referencedByExecutionPublishOutputIdObjectsAsc *string
-	referencedByExecutionDeployOutputIdObjectsDesc *string
-	referencedByExecutionDeployOutputIdObjectsAsc *string
+	ctx                                              context.Context
+	ApiService                                       *OutputAPIService
+	limit                                            *int32
+	offset                                           *int32
+	depth                                            *int32
+	idEq                                             *string
+	idNe                                             *string
+	idGt                                             *string
+	idGte                                            *string
+	idLt                                             *string
+	idLte                                            *string
+	idIn                                             *string
+	idNotin                                          *string
+	idLike                                           *string
+	idNotlike                                        *string
+	idIlike                                          *string
+	idNotilike                                       *string
+	idDesc                                           *string
+	idAsc                                            *string
+	createdAtEq                                      *time.Time
+	createdAtNe                                      *time.Time
+	createdAtGt                                      *time.Time
+	createdAtGte                                     *time.Time
+	createdAtLt                                      *time.Time
+	createdAtLte                                     *time.Time
+	createdAtIn                                      *time.Time
+	createdAtNotin                                   *time.Time
+	createdAtLike                                    *time.Time
+	createdAtNotlike                                 *time.Time
+	createdAtIlike                                   *time.Time
+	createdAtNotilike                                *time.Time
+	createdAtDesc                                    *string
+	createdAtAsc                                     *string
+	updatedAtEq                                      *time.Time
+	updatedAtNe                                      *time.Time
+	updatedAtGt                                      *time.Time
+	updatedAtGte                                     *time.Time
+	updatedAtLt                                      *time.Time
+	updatedAtLte                                     *time.Time
+	updatedAtIn                                      *time.Time
+	updatedAtNotin                                   *time.Time
+	updatedAtLike                                    *time.Time
+	updatedAtNotlike                                 *time.Time
+	updatedAtIlike                                   *time.Time
+	updatedAtNotilike                                *time.Time
+	updatedAtDesc                                    *string
+	updatedAtAsc                                     *string
+	deletedAtEq                                      *time.Time
+	deletedAtNe                                      *time.Time
+	deletedAtGt                                      *time.Time
+	deletedAtGte                                     *time.Time
+	deletedAtLt                                      *time.Time
+	deletedAtLte                                     *time.Time
+	deletedAtIn                                      *time.Time
+	deletedAtNotin                                   *time.Time
+	deletedAtLike                                    *time.Time
+	deletedAtNotlike                                 *time.Time
+	deletedAtIlike                                   *time.Time
+	deletedAtNotilike                                *time.Time
+	deletedAtDesc                                    *string
+	deletedAtAsc                                     *string
+	taskIdEq                                         *string
+	taskIdNe                                         *string
+	taskIdGt                                         *string
+	taskIdGte                                        *string
+	taskIdLt                                         *string
+	taskIdLte                                        *string
+	taskIdIn                                         *string
+	taskIdNotin                                      *string
+	taskIdLike                                       *string
+	taskIdNotlike                                    *string
+	taskIdIlike                                      *string
+	taskIdNotilike                                   *string
+	taskIdDesc                                       *string
+	taskIdAsc                                        *string
+	taskIdObjectDesc                                 *string
+	taskIdObjectAsc                                  *string
+	referencedByExecutionBuildOutputIdObjectsDesc    *string
+	referencedByExecutionBuildOutputIdObjectsAsc     *string
+	referencedByExecutionTestOutputIdObjectsDesc     *string
+	referencedByExecutionTestOutputIdObjectsAsc      *string
+	referencedByExecutionPublishOutputIdObjectsDesc  *string
+	referencedByExecutionPublishOutputIdObjectsAsc   *string
+	referencedByExecutionDeployOutputIdObjectsDesc   *string
+	referencedByExecutionDeployOutputIdObjectsAsc    *string
 	referencedByExecutionValidateOutputIdObjectsDesc *string
-	referencedByExecutionValidateOutputIdObjectsAsc *string
+	referencedByExecutionValidateOutputIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -850,24 +850,25 @@ func (r ApiGetOutputsRequest) Execute() (*ResponseWithGenericOfOutput, *http.Res
 /*
 GetOutputs Method for GetOutputs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOutputsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOutputsRequest
 */
 func (a *OutputAPIService) GetOutputs(ctx context.Context) ApiGetOutputsRequest {
 	return ApiGetOutputsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.GetOutputs")
@@ -1175,14 +1176,14 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1199,11 +1200,11 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 }
 
 type ApiPatchOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	output *Output
-	depth *int64
+	output     *Output
+	depth      *int64
 }
 
 func (r ApiPatchOutputRequest) Output(output Output) ApiPatchOutputRequest {
@@ -1224,26 +1225,27 @@ func (r ApiPatchOutputRequest) Execute() (*ResponseWithGenericOfOutput, *http.Re
 /*
 PatchOutput Method for PatchOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchOutputRequest
 */
 func (a *OutputAPIService) PatchOutput(ctx context.Context, primaryKey string) ApiPatchOutputRequest {
 	return ApiPatchOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.PatchOutput")
@@ -1305,14 +1307,14 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1329,14 +1331,14 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 }
 
 type ApiPostOutputsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
-	output *[]Output
-	depth *int64
+	execution  *[]Execution
+	depth      *int64
 }
 
-func (r ApiPostOutputsRequest) Output(output []Output) ApiPostOutputsRequest {
-	r.output = &output
+func (r ApiPostOutputsRequest) Execution(execution []Execution) ApiPostOutputsRequest {
+	r.execution = &execution
 	return r
 }
 
@@ -1353,24 +1355,25 @@ func (r ApiPostOutputsRequest) Execute() (*ResponseWithGenericOfOutput, *http.Re
 /*
 PostOutputs Method for PostOutputs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostOutputsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostOutputsRequest
 */
 func (a *OutputAPIService) PostOutputs(ctx context.Context) ApiPostOutputsRequest {
 	return ApiPostOutputsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.PostOutputs")
@@ -1383,8 +1386,8 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.output == nil {
-		return localVarReturnValue, nil, reportError("output is required and must be specified")
+	if r.execution == nil {
+		return localVarReturnValue, nil, reportError("execution is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1408,7 +1411,7 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.output
+	localVarPostBody = r.execution
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1431,14 +1434,14 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

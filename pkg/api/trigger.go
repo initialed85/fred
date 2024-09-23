@@ -38,8 +38,8 @@ type Trigger struct {
 	RuleIDObject                                    *Rule                  `json:"rule_id_object"`
 	ChangeID                                        uuid.UUID              `json:"change_id"`
 	ChangeIDObject                                  *Change                `json:"change_id_object"`
-	ReferencedByTriggerHasExecutionTriggerIDObjects []*TriggerHasExecution `json:"referenced_by_trigger_has_execution_trigger_id_objects"`
 	ReferencedByExecutionTriggerIDObjects           []*Execution           `json:"referenced_by_execution_trigger_id_objects"`
+	ReferencedByTriggerHasExecutionTriggerIDObjects []*TriggerHasExecution `json:"referenced_by_trigger_has_execution_trigger_id_objects"`
 }
 
 var TriggerTable = "trigger"
@@ -311,8 +311,8 @@ func (m *Trigger) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool
 	m.RuleIDObject = o.RuleIDObject
 	m.ChangeID = o.ChangeID
 	m.ChangeIDObject = o.ChangeIDObject
-	m.ReferencedByTriggerHasExecutionTriggerIDObjects = o.ReferencedByTriggerHasExecutionTriggerIDObjects
 	m.ReferencedByExecutionTriggerIDObjects = o.ReferencedByExecutionTriggerIDObjects
+	m.ReferencedByTriggerHasExecutionTriggerIDObjects = o.ReferencedByTriggerHasExecutionTriggerIDObjects
 
 	return nil
 }
@@ -707,42 +707,6 @@ func SelectTriggers(ctx context.Context, tx pgx.Tx, where string, orderBy *strin
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectTriggers->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionTriggerIDObjects")
-				}
-
-				object.ReferencedByTriggerHasExecutionTriggerIDObjects, _, _, _, _, err = SelectTriggerHasExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", TriggerHasExecutionTableTriggerIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTriggers->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionTriggerIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TriggerTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
 					log.Printf("loading SelectTriggers->SelectExecutions for object.ReferencedByExecutionTriggerIDObjects")
 				}
 
@@ -763,6 +727,42 @@ func SelectTriggers(ctx context.Context, tx pgx.Tx, where string, orderBy *strin
 
 				if config.Debug() {
 					log.Printf("loaded SelectTriggers->SelectExecutions for object.ReferencedByExecutionTriggerIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TriggerTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectTriggers->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionTriggerIDObjects")
+				}
+
+				object.ReferencedByTriggerHasExecutionTriggerIDObjects, _, _, _, _, err = SelectTriggerHasExecutions(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", TriggerHasExecutionTableTriggerIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectTriggers->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionTriggerIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

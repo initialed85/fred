@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // RuleRequiresJobAPIService RuleRequiresJobAPI service
 type RuleRequiresJobAPIService service
 
 type ApiDeleteRuleRequiresJobRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RuleRequiresJobAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteRuleRequiresJobRequest) Execute() (*http.Response, error) {
 /*
 DeleteRuleRequiresJob Method for DeleteRuleRequiresJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteRuleRequiresJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteRuleRequiresJobRequest
 */
 func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJob(ctx context.Context, primaryKey string) ApiDeleteRuleRequiresJobRequest {
 	return ApiDeleteRuleRequiresJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJob(ctx context.Context, p
 // Execute executes the request
 func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJobExecute(r ApiDeleteRuleRequiresJobRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.DeleteRuleRequiresJob")
@@ -125,10 +124,10 @@ func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJobExecute(r ApiDeleteRule
 }
 
 type ApiGetRuleRequiresJobRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RuleRequiresJobAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetRuleRequiresJobRequest) Execute() (*ResponseWithGenericOfRuleRequi
 /*
 GetRuleRequiresJob Method for GetRuleRequiresJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetRuleRequiresJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetRuleRequiresJobRequest
 */
 func (a *RuleRequiresJobAPIService) GetRuleRequiresJob(ctx context.Context, primaryKey string) ApiGetRuleRequiresJobRequest {
 	return ApiGetRuleRequiresJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
+//
+//	@return ResponseWithGenericOfRuleRequiresJob
 func (a *RuleRequiresJobAPIService) GetRuleRequiresJobExecute(r ApiGetRuleRequiresJobRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRuleRequiresJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.GetRuleRequiresJob")
@@ -220,14 +220,14 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobExecute(r ApiGetRuleRequir
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,99 +244,99 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobExecute(r ApiGetRuleRequir
 }
 
 type ApiGetRuleRequiresJobsRequest struct {
-	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
+	ctx               context.Context
+	ApiService        *RuleRequiresJobAPIService
+	limit             *int32
+	offset            *int32
+	depth             *int32
+	idEq              *string
+	idNe              *string
+	idGt              *string
+	idGte             *string
+	idLt              *string
+	idLte             *string
+	idIn              *string
+	idNotin           *string
+	idLike            *string
+	idNotlike         *string
+	idIlike           *string
+	idNotilike        *string
+	idDesc            *string
+	idAsc             *string
+	createdAtEq       *time.Time
+	createdAtNe       *time.Time
+	createdAtGt       *time.Time
+	createdAtGte      *time.Time
+	createdAtLt       *time.Time
+	createdAtLte      *time.Time
+	createdAtIn       *time.Time
+	createdAtNotin    *time.Time
+	createdAtLike     *time.Time
+	createdAtNotlike  *time.Time
+	createdAtIlike    *time.Time
 	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
+	createdAtDesc     *string
+	createdAtAsc      *string
+	updatedAtEq       *time.Time
+	updatedAtNe       *time.Time
+	updatedAtGt       *time.Time
+	updatedAtGte      *time.Time
+	updatedAtLt       *time.Time
+	updatedAtLte      *time.Time
+	updatedAtIn       *time.Time
+	updatedAtNotin    *time.Time
+	updatedAtLike     *time.Time
+	updatedAtNotlike  *time.Time
+	updatedAtIlike    *time.Time
 	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
+	updatedAtDesc     *string
+	updatedAtAsc      *string
+	deletedAtEq       *time.Time
+	deletedAtNe       *time.Time
+	deletedAtGt       *time.Time
+	deletedAtGte      *time.Time
+	deletedAtLt       *time.Time
+	deletedAtLte      *time.Time
+	deletedAtIn       *time.Time
+	deletedAtNotin    *time.Time
+	deletedAtLike     *time.Time
+	deletedAtNotlike  *time.Time
+	deletedAtIlike    *time.Time
 	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	ruleIdEq *string
-	ruleIdNe *string
-	ruleIdGt *string
-	ruleIdGte *string
-	ruleIdLt *string
-	ruleIdLte *string
-	ruleIdIn *string
-	ruleIdNotin *string
-	ruleIdLike *string
-	ruleIdNotlike *string
-	ruleIdIlike *string
-	ruleIdNotilike *string
-	ruleIdDesc *string
-	ruleIdAsc *string
-	ruleIdObjectDesc *string
-	ruleIdObjectAsc *string
-	jobIdEq *string
-	jobIdNe *string
-	jobIdGt *string
-	jobIdGte *string
-	jobIdLt *string
-	jobIdLte *string
-	jobIdIn *string
-	jobIdNotin *string
-	jobIdLike *string
-	jobIdNotlike *string
-	jobIdIlike *string
-	jobIdNotilike *string
-	jobIdDesc *string
-	jobIdAsc *string
-	jobIdObjectDesc *string
-	jobIdObjectAsc *string
+	deletedAtDesc     *string
+	deletedAtAsc      *string
+	ruleIdEq          *string
+	ruleIdNe          *string
+	ruleIdGt          *string
+	ruleIdGte         *string
+	ruleIdLt          *string
+	ruleIdLte         *string
+	ruleIdIn          *string
+	ruleIdNotin       *string
+	ruleIdLike        *string
+	ruleIdNotlike     *string
+	ruleIdIlike       *string
+	ruleIdNotilike    *string
+	ruleIdDesc        *string
+	ruleIdAsc         *string
+	ruleIdObjectDesc  *string
+	ruleIdObjectAsc   *string
+	jobIdEq           *string
+	jobIdNe           *string
+	jobIdGt           *string
+	jobIdGte          *string
+	jobIdLt           *string
+	jobIdLte          *string
+	jobIdIn           *string
+	jobIdNotin        *string
+	jobIdLike         *string
+	jobIdNotlike      *string
+	jobIdIlike        *string
+	jobIdNotilike     *string
+	jobIdDesc         *string
+	jobIdAsc          *string
+	jobIdObjectDesc   *string
+	jobIdObjectAsc    *string
 }
 
 // SQL LIMIT operator
@@ -892,24 +892,25 @@ func (r ApiGetRuleRequiresJobsRequest) Execute() (*ResponseWithGenericOfRuleRequ
 /*
 GetRuleRequiresJobs Method for GetRuleRequiresJobs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRuleRequiresJobsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRuleRequiresJobsRequest
 */
 func (a *RuleRequiresJobAPIService) GetRuleRequiresJobs(ctx context.Context) ApiGetRuleRequiresJobsRequest {
 	return ApiGetRuleRequiresJobsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
+//
+//	@return ResponseWithGenericOfRuleRequiresJob
 func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequiresJobsRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRuleRequiresJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.GetRuleRequiresJobs")
@@ -1235,14 +1236,14 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequi
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1259,11 +1260,11 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequi
 }
 
 type ApiPatchRuleRequiresJobRequest struct {
-	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
-	primaryKey string
+	ctx             context.Context
+	ApiService      *RuleRequiresJobAPIService
+	primaryKey      string
 	ruleRequiresJob *RuleRequiresJob
-	depth *int64
+	depth           *int64
 }
 
 func (r ApiPatchRuleRequiresJobRequest) RuleRequiresJob(ruleRequiresJob RuleRequiresJob) ApiPatchRuleRequiresJobRequest {
@@ -1284,26 +1285,27 @@ func (r ApiPatchRuleRequiresJobRequest) Execute() (*ResponseWithGenericOfRuleReq
 /*
 PatchRuleRequiresJob Method for PatchRuleRequiresJob
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchRuleRequiresJobRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchRuleRequiresJobRequest
 */
 func (a *RuleRequiresJobAPIService) PatchRuleRequiresJob(ctx context.Context, primaryKey string) ApiPatchRuleRequiresJobRequest {
 	return ApiPatchRuleRequiresJobRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
+//
+//	@return ResponseWithGenericOfRuleRequiresJob
 func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRequiresJobRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRuleRequiresJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.PatchRuleRequiresJob")
@@ -1365,14 +1367,14 @@ func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1389,10 +1391,10 @@ func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRe
 }
 
 type ApiPostRuleRequiresJobsRequest struct {
-	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
+	ctx             context.Context
+	ApiService      *RuleRequiresJobAPIService
 	ruleRequiresJob *[]RuleRequiresJob
-	depth *int64
+	depth           *int64
 }
 
 func (r ApiPostRuleRequiresJobsRequest) RuleRequiresJob(ruleRequiresJob []RuleRequiresJob) ApiPostRuleRequiresJobsRequest {
@@ -1413,24 +1415,25 @@ func (r ApiPostRuleRequiresJobsRequest) Execute() (*ResponseWithGenericOfRuleReq
 /*
 PostRuleRequiresJobs Method for PostRuleRequiresJobs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostRuleRequiresJobsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostRuleRequiresJobsRequest
 */
 func (a *RuleRequiresJobAPIService) PostRuleRequiresJobs(ctx context.Context) ApiPostRuleRequiresJobsRequest {
 	return ApiPostRuleRequiresJobsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
+//
+//	@return ResponseWithGenericOfRuleRequiresJob
 func (a *RuleRequiresJobAPIService) PostRuleRequiresJobsExecute(r ApiPostRuleRequiresJobsRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRuleRequiresJob
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.PostRuleRequiresJobs")
@@ -1491,14 +1494,14 @@ func (a *RuleRequiresJobAPIService) PostRuleRequiresJobsExecute(r ApiPostRuleReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

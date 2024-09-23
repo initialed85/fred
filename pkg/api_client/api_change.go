@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // ChangeAPIService ChangeAPI service
 type ChangeAPIService service
 
 type ApiDeleteChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteChangeRequest) Execute() (*http.Response, error) {
 /*
 DeleteChange Method for DeleteChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteChangeRequest
 */
 func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) ApiDeleteChangeRequest {
 	return ApiDeleteChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) 
 // Execute executes the request
 func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.DeleteChange")
@@ -125,10 +124,10 @@ func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.
 }
 
 type ApiGetChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Resp
 /*
 GetChange Method for GetChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetChangeRequest
 */
 func (a *ChangeAPIService) GetChange(ctx context.Context, primaryKey string) ApiGetChangeRequest {
 	return ApiGetChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChange")
@@ -220,14 +220,14 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,85 +244,183 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 }
 
 type ApiGetChangesRequest struct {
-	ctx context.Context
-	ApiService *ChangeAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	repositoryIdEq *string
-	repositoryIdNe *string
-	repositoryIdGt *string
-	repositoryIdGte *string
-	repositoryIdLt *string
-	repositoryIdLte *string
-	repositoryIdIn *string
-	repositoryIdNotin *string
-	repositoryIdLike *string
-	repositoryIdNotlike *string
-	repositoryIdIlike *string
-	repositoryIdNotilike *string
-	repositoryIdDesc *string
-	repositoryIdAsc *string
-	repositoryIdObjectDesc *string
-	repositoryIdObjectAsc *string
+	ctx                                    context.Context
+	ApiService                             *ChangeAPIService
+	limit                                  *int32
+	offset                                 *int32
+	depth                                  *int32
+	idEq                                   *string
+	idNe                                   *string
+	idGt                                   *string
+	idGte                                  *string
+	idLt                                   *string
+	idLte                                  *string
+	idIn                                   *string
+	idNotin                                *string
+	idLike                                 *string
+	idNotlike                              *string
+	idIlike                                *string
+	idNotilike                             *string
+	idDesc                                 *string
+	idAsc                                  *string
+	createdAtEq                            *time.Time
+	createdAtNe                            *time.Time
+	createdAtGt                            *time.Time
+	createdAtGte                           *time.Time
+	createdAtLt                            *time.Time
+	createdAtLte                           *time.Time
+	createdAtIn                            *time.Time
+	createdAtNotin                         *time.Time
+	createdAtLike                          *time.Time
+	createdAtNotlike                       *time.Time
+	createdAtIlike                         *time.Time
+	createdAtNotilike                      *time.Time
+	createdAtDesc                          *string
+	createdAtAsc                           *string
+	updatedAtEq                            *time.Time
+	updatedAtNe                            *time.Time
+	updatedAtGt                            *time.Time
+	updatedAtGte                           *time.Time
+	updatedAtLt                            *time.Time
+	updatedAtLte                           *time.Time
+	updatedAtIn                            *time.Time
+	updatedAtNotin                         *time.Time
+	updatedAtLike                          *time.Time
+	updatedAtNotlike                       *time.Time
+	updatedAtIlike                         *time.Time
+	updatedAtNotilike                      *time.Time
+	updatedAtDesc                          *string
+	updatedAtAsc                           *string
+	deletedAtEq                            *time.Time
+	deletedAtNe                            *time.Time
+	deletedAtGt                            *time.Time
+	deletedAtGte                           *time.Time
+	deletedAtLt                            *time.Time
+	deletedAtLte                           *time.Time
+	deletedAtIn                            *time.Time
+	deletedAtNotin                         *time.Time
+	deletedAtLike                          *time.Time
+	deletedAtNotlike                       *time.Time
+	deletedAtIlike                         *time.Time
+	deletedAtNotilike                      *time.Time
+	deletedAtDesc                          *string
+	deletedAtAsc                           *string
+	branchNameEq                           *string
+	branchNameNe                           *string
+	branchNameGt                           *string
+	branchNameGte                          *string
+	branchNameLt                           *string
+	branchNameLte                          *string
+	branchNameIn                           *string
+	branchNameNotin                        *string
+	branchNameLike                         *string
+	branchNameNotlike                      *string
+	branchNameIlike                        *string
+	branchNameNotilike                     *string
+	branchNameDesc                         *string
+	branchNameAsc                          *string
+	commitHashEq                           *string
+	commitHashNe                           *string
+	commitHashGt                           *string
+	commitHashGte                          *string
+	commitHashLt                           *string
+	commitHashLte                          *string
+	commitHashIn                           *string
+	commitHashNotin                        *string
+	commitHashLike                         *string
+	commitHashNotlike                      *string
+	commitHashIlike                        *string
+	commitHashNotilike                     *string
+	commitHashDesc                         *string
+	commitHashAsc                          *string
+	messageEq                              *string
+	messageNe                              *string
+	messageGt                              *string
+	messageGte                             *string
+	messageLt                              *string
+	messageLte                             *string
+	messageIn                              *string
+	messageNotin                           *string
+	messageLike                            *string
+	messageNotlike                         *string
+	messageIlike                           *string
+	messageNotilike                        *string
+	messageDesc                            *string
+	messageAsc                             *string
+	authoredByEq                           *string
+	authoredByNe                           *string
+	authoredByGt                           *string
+	authoredByGte                          *string
+	authoredByLt                           *string
+	authoredByLte                          *string
+	authoredByIn                           *string
+	authoredByNotin                        *string
+	authoredByLike                         *string
+	authoredByNotlike                      *string
+	authoredByIlike                        *string
+	authoredByNotilike                     *string
+	authoredByDesc                         *string
+	authoredByAsc                          *string
+	authoredAtEq                           *time.Time
+	authoredAtNe                           *time.Time
+	authoredAtGt                           *time.Time
+	authoredAtGte                          *time.Time
+	authoredAtLt                           *time.Time
+	authoredAtLte                          *time.Time
+	authoredAtIn                           *time.Time
+	authoredAtNotin                        *time.Time
+	authoredAtLike                         *time.Time
+	authoredAtNotlike                      *time.Time
+	authoredAtIlike                        *time.Time
+	authoredAtNotilike                     *time.Time
+	authoredAtDesc                         *string
+	authoredAtAsc                          *string
+	committedByEq                          *string
+	committedByNe                          *string
+	committedByGt                          *string
+	committedByGte                         *string
+	committedByLt                          *string
+	committedByLte                         *string
+	committedByIn                          *string
+	committedByNotin                       *string
+	committedByLike                        *string
+	committedByNotlike                     *string
+	committedByIlike                       *string
+	committedByNotilike                    *string
+	committedByDesc                        *string
+	committedByAsc                         *string
+	committedAtEq                          *time.Time
+	committedAtNe                          *time.Time
+	committedAtGt                          *time.Time
+	committedAtGte                         *time.Time
+	committedAtLt                          *time.Time
+	committedAtLte                         *time.Time
+	committedAtIn                          *time.Time
+	committedAtNotin                       *time.Time
+	committedAtLike                        *time.Time
+	committedAtNotlike                     *time.Time
+	committedAtIlike                       *time.Time
+	committedAtNotilike                    *time.Time
+	committedAtDesc                        *string
+	committedAtAsc                         *string
+	repositoryIdEq                         *string
+	repositoryIdNe                         *string
+	repositoryIdGt                         *string
+	repositoryIdGte                        *string
+	repositoryIdLt                         *string
+	repositoryIdLte                        *string
+	repositoryIdIn                         *string
+	repositoryIdNotin                      *string
+	repositoryIdLike                       *string
+	repositoryIdNotlike                    *string
+	repositoryIdIlike                      *string
+	repositoryIdNotilike                   *string
+	repositoryIdDesc                       *string
+	repositoryIdAsc                        *string
+	repositoryIdObjectDesc                 *string
+	repositoryIdObjectAsc                  *string
 	referencedByTriggerChangeIdObjectsDesc *string
-	referencedByTriggerChangeIdObjectsAsc *string
+	referencedByTriggerChangeIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -680,6 +778,594 @@ func (r ApiGetChangesRequest) DeletedAtAsc(deletedAtAsc string) ApiGetChangesReq
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetChangesRequest) BranchNameEq(branchNameEq string) ApiGetChangesRequest {
+	r.branchNameEq = &branchNameEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) BranchNameNe(branchNameNe string) ApiGetChangesRequest {
+	r.branchNameNe = &branchNameNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameGt(branchNameGt string) ApiGetChangesRequest {
+	r.branchNameGt = &branchNameGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameGte(branchNameGte string) ApiGetChangesRequest {
+	r.branchNameGte = &branchNameGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameLt(branchNameLt string) ApiGetChangesRequest {
+	r.branchNameLt = &branchNameLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameLte(branchNameLte string) ApiGetChangesRequest {
+	r.branchNameLte = &branchNameLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) BranchNameIn(branchNameIn string) ApiGetChangesRequest {
+	r.branchNameIn = &branchNameIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) BranchNameNotin(branchNameNotin string) ApiGetChangesRequest {
+	r.branchNameNotin = &branchNameNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameLike(branchNameLike string) ApiGetChangesRequest {
+	r.branchNameLike = &branchNameLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameNotlike(branchNameNotlike string) ApiGetChangesRequest {
+	r.branchNameNotlike = &branchNameNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameIlike(branchNameIlike string) ApiGetChangesRequest {
+	r.branchNameIlike = &branchNameIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameNotilike(branchNameNotilike string) ApiGetChangesRequest {
+	r.branchNameNotilike = &branchNameNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) BranchNameDesc(branchNameDesc string) ApiGetChangesRequest {
+	r.branchNameDesc = &branchNameDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) BranchNameAsc(branchNameAsc string) ApiGetChangesRequest {
+	r.branchNameAsc = &branchNameAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) CommitHashEq(commitHashEq string) ApiGetChangesRequest {
+	r.commitHashEq = &commitHashEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) CommitHashNe(commitHashNe string) ApiGetChangesRequest {
+	r.commitHashNe = &commitHashNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommitHashGt(commitHashGt string) ApiGetChangesRequest {
+	r.commitHashGt = &commitHashGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommitHashGte(commitHashGte string) ApiGetChangesRequest {
+	r.commitHashGte = &commitHashGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommitHashLt(commitHashLt string) ApiGetChangesRequest {
+	r.commitHashLt = &commitHashLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommitHashLte(commitHashLte string) ApiGetChangesRequest {
+	r.commitHashLte = &commitHashLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommitHashIn(commitHashIn string) ApiGetChangesRequest {
+	r.commitHashIn = &commitHashIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommitHashNotin(commitHashNotin string) ApiGetChangesRequest {
+	r.commitHashNotin = &commitHashNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommitHashLike(commitHashLike string) ApiGetChangesRequest {
+	r.commitHashLike = &commitHashLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommitHashNotlike(commitHashNotlike string) ApiGetChangesRequest {
+	r.commitHashNotlike = &commitHashNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommitHashIlike(commitHashIlike string) ApiGetChangesRequest {
+	r.commitHashIlike = &commitHashIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommitHashNotilike(commitHashNotilike string) ApiGetChangesRequest {
+	r.commitHashNotilike = &commitHashNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommitHashDesc(commitHashDesc string) ApiGetChangesRequest {
+	r.commitHashDesc = &commitHashDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommitHashAsc(commitHashAsc string) ApiGetChangesRequest {
+	r.commitHashAsc = &commitHashAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) MessageEq(messageEq string) ApiGetChangesRequest {
+	r.messageEq = &messageEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) MessageNe(messageNe string) ApiGetChangesRequest {
+	r.messageNe = &messageNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) MessageGt(messageGt string) ApiGetChangesRequest {
+	r.messageGt = &messageGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) MessageGte(messageGte string) ApiGetChangesRequest {
+	r.messageGte = &messageGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) MessageLt(messageLt string) ApiGetChangesRequest {
+	r.messageLt = &messageLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) MessageLte(messageLte string) ApiGetChangesRequest {
+	r.messageLte = &messageLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) MessageIn(messageIn string) ApiGetChangesRequest {
+	r.messageIn = &messageIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) MessageNotin(messageNotin string) ApiGetChangesRequest {
+	r.messageNotin = &messageNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) MessageLike(messageLike string) ApiGetChangesRequest {
+	r.messageLike = &messageLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) MessageNotlike(messageNotlike string) ApiGetChangesRequest {
+	r.messageNotlike = &messageNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) MessageIlike(messageIlike string) ApiGetChangesRequest {
+	r.messageIlike = &messageIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) MessageNotilike(messageNotilike string) ApiGetChangesRequest {
+	r.messageNotilike = &messageNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) MessageDesc(messageDesc string) ApiGetChangesRequest {
+	r.messageDesc = &messageDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) MessageAsc(messageAsc string) ApiGetChangesRequest {
+	r.messageAsc = &messageAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) AuthoredByEq(authoredByEq string) ApiGetChangesRequest {
+	r.authoredByEq = &authoredByEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) AuthoredByNe(authoredByNe string) ApiGetChangesRequest {
+	r.authoredByNe = &authoredByNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredByGt(authoredByGt string) ApiGetChangesRequest {
+	r.authoredByGt = &authoredByGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredByGte(authoredByGte string) ApiGetChangesRequest {
+	r.authoredByGte = &authoredByGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredByLt(authoredByLt string) ApiGetChangesRequest {
+	r.authoredByLt = &authoredByLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredByLte(authoredByLte string) ApiGetChangesRequest {
+	r.authoredByLte = &authoredByLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) AuthoredByIn(authoredByIn string) ApiGetChangesRequest {
+	r.authoredByIn = &authoredByIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) AuthoredByNotin(authoredByNotin string) ApiGetChangesRequest {
+	r.authoredByNotin = &authoredByNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredByLike(authoredByLike string) ApiGetChangesRequest {
+	r.authoredByLike = &authoredByLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredByNotlike(authoredByNotlike string) ApiGetChangesRequest {
+	r.authoredByNotlike = &authoredByNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredByIlike(authoredByIlike string) ApiGetChangesRequest {
+	r.authoredByIlike = &authoredByIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredByNotilike(authoredByNotilike string) ApiGetChangesRequest {
+	r.authoredByNotilike = &authoredByNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) AuthoredByDesc(authoredByDesc string) ApiGetChangesRequest {
+	r.authoredByDesc = &authoredByDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) AuthoredByAsc(authoredByAsc string) ApiGetChangesRequest {
+	r.authoredByAsc = &authoredByAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) AuthoredAtEq(authoredAtEq time.Time) ApiGetChangesRequest {
+	r.authoredAtEq = &authoredAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) AuthoredAtNe(authoredAtNe time.Time) ApiGetChangesRequest {
+	r.authoredAtNe = &authoredAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredAtGt(authoredAtGt time.Time) ApiGetChangesRequest {
+	r.authoredAtGt = &authoredAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredAtGte(authoredAtGte time.Time) ApiGetChangesRequest {
+	r.authoredAtGte = &authoredAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredAtLt(authoredAtLt time.Time) ApiGetChangesRequest {
+	r.authoredAtLt = &authoredAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) AuthoredAtLte(authoredAtLte time.Time) ApiGetChangesRequest {
+	r.authoredAtLte = &authoredAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) AuthoredAtIn(authoredAtIn time.Time) ApiGetChangesRequest {
+	r.authoredAtIn = &authoredAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) AuthoredAtNotin(authoredAtNotin time.Time) ApiGetChangesRequest {
+	r.authoredAtNotin = &authoredAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredAtLike(authoredAtLike time.Time) ApiGetChangesRequest {
+	r.authoredAtLike = &authoredAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredAtNotlike(authoredAtNotlike time.Time) ApiGetChangesRequest {
+	r.authoredAtNotlike = &authoredAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredAtIlike(authoredAtIlike time.Time) ApiGetChangesRequest {
+	r.authoredAtIlike = &authoredAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) AuthoredAtNotilike(authoredAtNotilike time.Time) ApiGetChangesRequest {
+	r.authoredAtNotilike = &authoredAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) AuthoredAtDesc(authoredAtDesc string) ApiGetChangesRequest {
+	r.authoredAtDesc = &authoredAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) AuthoredAtAsc(authoredAtAsc string) ApiGetChangesRequest {
+	r.authoredAtAsc = &authoredAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) CommittedByEq(committedByEq string) ApiGetChangesRequest {
+	r.committedByEq = &committedByEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) CommittedByNe(committedByNe string) ApiGetChangesRequest {
+	r.committedByNe = &committedByNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedByGt(committedByGt string) ApiGetChangesRequest {
+	r.committedByGt = &committedByGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedByGte(committedByGte string) ApiGetChangesRequest {
+	r.committedByGte = &committedByGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedByLt(committedByLt string) ApiGetChangesRequest {
+	r.committedByLt = &committedByLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedByLte(committedByLte string) ApiGetChangesRequest {
+	r.committedByLte = &committedByLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommittedByIn(committedByIn string) ApiGetChangesRequest {
+	r.committedByIn = &committedByIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommittedByNotin(committedByNotin string) ApiGetChangesRequest {
+	r.committedByNotin = &committedByNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedByLike(committedByLike string) ApiGetChangesRequest {
+	r.committedByLike = &committedByLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedByNotlike(committedByNotlike string) ApiGetChangesRequest {
+	r.committedByNotlike = &committedByNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedByIlike(committedByIlike string) ApiGetChangesRequest {
+	r.committedByIlike = &committedByIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedByNotilike(committedByNotilike string) ApiGetChangesRequest {
+	r.committedByNotilike = &committedByNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommittedByDesc(committedByDesc string) ApiGetChangesRequest {
+	r.committedByDesc = &committedByDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommittedByAsc(committedByAsc string) ApiGetChangesRequest {
+	r.committedByAsc = &committedByAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) CommittedAtEq(committedAtEq time.Time) ApiGetChangesRequest {
+	r.committedAtEq = &committedAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) CommittedAtNe(committedAtNe time.Time) ApiGetChangesRequest {
+	r.committedAtNe = &committedAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedAtGt(committedAtGt time.Time) ApiGetChangesRequest {
+	r.committedAtGt = &committedAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedAtGte(committedAtGte time.Time) ApiGetChangesRequest {
+	r.committedAtGte = &committedAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedAtLt(committedAtLt time.Time) ApiGetChangesRequest {
+	r.committedAtLt = &committedAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) CommittedAtLte(committedAtLte time.Time) ApiGetChangesRequest {
+	r.committedAtLte = &committedAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommittedAtIn(committedAtIn time.Time) ApiGetChangesRequest {
+	r.committedAtIn = &committedAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) CommittedAtNotin(committedAtNotin time.Time) ApiGetChangesRequest {
+	r.committedAtNotin = &committedAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedAtLike(committedAtLike time.Time) ApiGetChangesRequest {
+	r.committedAtLike = &committedAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedAtNotlike(committedAtNotlike time.Time) ApiGetChangesRequest {
+	r.committedAtNotlike = &committedAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedAtIlike(committedAtIlike time.Time) ApiGetChangesRequest {
+	r.committedAtIlike = &committedAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) CommittedAtNotilike(committedAtNotilike time.Time) ApiGetChangesRequest {
+	r.committedAtNotilike = &committedAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommittedAtDesc(committedAtDesc string) ApiGetChangesRequest {
+	r.committedAtDesc = &committedAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) CommittedAtAsc(committedAtAsc string) ApiGetChangesRequest {
+	r.committedAtAsc = &committedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetChangesRequest) RepositoryIdEq(repositoryIdEq string) ApiGetChangesRequest {
 	r.repositoryIdEq = &repositoryIdEq
 	return r
@@ -794,24 +1480,25 @@ func (r ApiGetChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Res
 /*
 GetChanges Method for GetChanges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetChangesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetChangesRequest
 */
 func (a *ChangeAPIService) GetChanges(ctx context.Context) ApiGetChangesRequest {
 	return ApiGetChangesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChanges")
@@ -1002,6 +1689,300 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
+	if r.branchNameEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__eq", r.branchNameEq, "form", "")
+	}
+	if r.branchNameNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ne", r.branchNameNe, "form", "")
+	}
+	if r.branchNameGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gt", r.branchNameGt, "form", "")
+	}
+	if r.branchNameGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gte", r.branchNameGte, "form", "")
+	}
+	if r.branchNameLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lt", r.branchNameLt, "form", "")
+	}
+	if r.branchNameLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lte", r.branchNameLte, "form", "")
+	}
+	if r.branchNameIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__in", r.branchNameIn, "form", "")
+	}
+	if r.branchNameNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notin", r.branchNameNotin, "form", "")
+	}
+	if r.branchNameLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__like", r.branchNameLike, "form", "")
+	}
+	if r.branchNameNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notlike", r.branchNameNotlike, "form", "")
+	}
+	if r.branchNameIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ilike", r.branchNameIlike, "form", "")
+	}
+	if r.branchNameNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notilike", r.branchNameNotilike, "form", "")
+	}
+	if r.branchNameDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__desc", r.branchNameDesc, "form", "")
+	}
+	if r.branchNameAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__asc", r.branchNameAsc, "form", "")
+	}
+	if r.commitHashEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__eq", r.commitHashEq, "form", "")
+	}
+	if r.commitHashNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__ne", r.commitHashNe, "form", "")
+	}
+	if r.commitHashGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__gt", r.commitHashGt, "form", "")
+	}
+	if r.commitHashGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__gte", r.commitHashGte, "form", "")
+	}
+	if r.commitHashLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__lt", r.commitHashLt, "form", "")
+	}
+	if r.commitHashLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__lte", r.commitHashLte, "form", "")
+	}
+	if r.commitHashIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__in", r.commitHashIn, "form", "")
+	}
+	if r.commitHashNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__notin", r.commitHashNotin, "form", "")
+	}
+	if r.commitHashLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__like", r.commitHashLike, "form", "")
+	}
+	if r.commitHashNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__notlike", r.commitHashNotlike, "form", "")
+	}
+	if r.commitHashIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__ilike", r.commitHashIlike, "form", "")
+	}
+	if r.commitHashNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__notilike", r.commitHashNotilike, "form", "")
+	}
+	if r.commitHashDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__desc", r.commitHashDesc, "form", "")
+	}
+	if r.commitHashAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__asc", r.commitHashAsc, "form", "")
+	}
+	if r.messageEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__eq", r.messageEq, "form", "")
+	}
+	if r.messageNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__ne", r.messageNe, "form", "")
+	}
+	if r.messageGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__gt", r.messageGt, "form", "")
+	}
+	if r.messageGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__gte", r.messageGte, "form", "")
+	}
+	if r.messageLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__lt", r.messageLt, "form", "")
+	}
+	if r.messageLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__lte", r.messageLte, "form", "")
+	}
+	if r.messageIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__in", r.messageIn, "form", "")
+	}
+	if r.messageNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__notin", r.messageNotin, "form", "")
+	}
+	if r.messageLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__like", r.messageLike, "form", "")
+	}
+	if r.messageNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__notlike", r.messageNotlike, "form", "")
+	}
+	if r.messageIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__ilike", r.messageIlike, "form", "")
+	}
+	if r.messageNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__notilike", r.messageNotilike, "form", "")
+	}
+	if r.messageDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__desc", r.messageDesc, "form", "")
+	}
+	if r.messageAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "message__asc", r.messageAsc, "form", "")
+	}
+	if r.authoredByEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__eq", r.authoredByEq, "form", "")
+	}
+	if r.authoredByNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__ne", r.authoredByNe, "form", "")
+	}
+	if r.authoredByGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__gt", r.authoredByGt, "form", "")
+	}
+	if r.authoredByGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__gte", r.authoredByGte, "form", "")
+	}
+	if r.authoredByLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__lt", r.authoredByLt, "form", "")
+	}
+	if r.authoredByLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__lte", r.authoredByLte, "form", "")
+	}
+	if r.authoredByIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__in", r.authoredByIn, "form", "")
+	}
+	if r.authoredByNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__notin", r.authoredByNotin, "form", "")
+	}
+	if r.authoredByLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__like", r.authoredByLike, "form", "")
+	}
+	if r.authoredByNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__notlike", r.authoredByNotlike, "form", "")
+	}
+	if r.authoredByIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__ilike", r.authoredByIlike, "form", "")
+	}
+	if r.authoredByNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__notilike", r.authoredByNotilike, "form", "")
+	}
+	if r.authoredByDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__desc", r.authoredByDesc, "form", "")
+	}
+	if r.authoredByAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_by__asc", r.authoredByAsc, "form", "")
+	}
+	if r.authoredAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__eq", r.authoredAtEq, "form", "")
+	}
+	if r.authoredAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__ne", r.authoredAtNe, "form", "")
+	}
+	if r.authoredAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__gt", r.authoredAtGt, "form", "")
+	}
+	if r.authoredAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__gte", r.authoredAtGte, "form", "")
+	}
+	if r.authoredAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__lt", r.authoredAtLt, "form", "")
+	}
+	if r.authoredAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__lte", r.authoredAtLte, "form", "")
+	}
+	if r.authoredAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__in", r.authoredAtIn, "form", "")
+	}
+	if r.authoredAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__notin", r.authoredAtNotin, "form", "")
+	}
+	if r.authoredAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__like", r.authoredAtLike, "form", "")
+	}
+	if r.authoredAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__notlike", r.authoredAtNotlike, "form", "")
+	}
+	if r.authoredAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__ilike", r.authoredAtIlike, "form", "")
+	}
+	if r.authoredAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__notilike", r.authoredAtNotilike, "form", "")
+	}
+	if r.authoredAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__desc", r.authoredAtDesc, "form", "")
+	}
+	if r.authoredAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "authored_at__asc", r.authoredAtAsc, "form", "")
+	}
+	if r.committedByEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__eq", r.committedByEq, "form", "")
+	}
+	if r.committedByNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__ne", r.committedByNe, "form", "")
+	}
+	if r.committedByGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__gt", r.committedByGt, "form", "")
+	}
+	if r.committedByGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__gte", r.committedByGte, "form", "")
+	}
+	if r.committedByLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__lt", r.committedByLt, "form", "")
+	}
+	if r.committedByLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__lte", r.committedByLte, "form", "")
+	}
+	if r.committedByIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__in", r.committedByIn, "form", "")
+	}
+	if r.committedByNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__notin", r.committedByNotin, "form", "")
+	}
+	if r.committedByLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__like", r.committedByLike, "form", "")
+	}
+	if r.committedByNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__notlike", r.committedByNotlike, "form", "")
+	}
+	if r.committedByIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__ilike", r.committedByIlike, "form", "")
+	}
+	if r.committedByNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__notilike", r.committedByNotilike, "form", "")
+	}
+	if r.committedByDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__desc", r.committedByDesc, "form", "")
+	}
+	if r.committedByAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_by__asc", r.committedByAsc, "form", "")
+	}
+	if r.committedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__eq", r.committedAtEq, "form", "")
+	}
+	if r.committedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__ne", r.committedAtNe, "form", "")
+	}
+	if r.committedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__gt", r.committedAtGt, "form", "")
+	}
+	if r.committedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__gte", r.committedAtGte, "form", "")
+	}
+	if r.committedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__lt", r.committedAtLt, "form", "")
+	}
+	if r.committedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__lte", r.committedAtLte, "form", "")
+	}
+	if r.committedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__in", r.committedAtIn, "form", "")
+	}
+	if r.committedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__notin", r.committedAtNotin, "form", "")
+	}
+	if r.committedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__like", r.committedAtLike, "form", "")
+	}
+	if r.committedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__notlike", r.committedAtNotlike, "form", "")
+	}
+	if r.committedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__ilike", r.committedAtIlike, "form", "")
+	}
+	if r.committedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__notilike", r.committedAtNotilike, "form", "")
+	}
+	if r.committedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__desc", r.committedAtDesc, "form", "")
+	}
+	if r.committedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__asc", r.committedAtAsc, "form", "")
+	}
 	if r.repositoryIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id__eq", r.repositoryIdEq, "form", "")
 	}
@@ -1095,14 +2076,14 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1119,11 +2100,11 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 }
 
 type ApiPatchChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	change *Change
-	depth *int64
+	change     *Change
+	depth      *int64
 }
 
 func (r ApiPatchChangeRequest) Change(change Change) ApiPatchChangeRequest {
@@ -1144,26 +2125,27 @@ func (r ApiPatchChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PatchChange Method for PatchChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchChangeRequest
 */
 func (a *ChangeAPIService) PatchChange(ctx context.Context, primaryKey string) ApiPatchChangeRequest {
 	return ApiPatchChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PatchChange")
@@ -1225,14 +2207,14 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1249,10 +2231,10 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 }
 
 type ApiPostChangesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
-	change *[]Change
-	depth *int64
+	change     *[]Change
+	depth      *int64
 }
 
 func (r ApiPostChangesRequest) Change(change []Change) ApiPostChangesRequest {
@@ -1273,24 +2255,25 @@ func (r ApiPostChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PostChanges Method for PostChanges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostChangesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostChangesRequest
 */
 func (a *ChangeAPIService) PostChanges(ctx context.Context) ApiPostChangesRequest {
 	return ApiPostChangesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PostChanges")
@@ -1351,14 +2334,14 @@ func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

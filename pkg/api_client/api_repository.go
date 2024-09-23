@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // RepositoryAPIService RepositoryAPI service
 type RepositoryAPIService service
 
 type ApiDeleteRepositoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteRepositoryRequest) Execute() (*http.Response, error) {
 /*
 DeleteRepository Method for DeleteRepository
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteRepositoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteRepositoryRequest
 */
 func (a *RepositoryAPIService) DeleteRepository(ctx context.Context, primaryKey string) ApiDeleteRepositoryRequest {
 	return ApiDeleteRepositoryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *RepositoryAPIService) DeleteRepository(ctx context.Context, primaryKey 
 // Execute executes the request
 func (a *RepositoryAPIService) DeleteRepositoryExecute(r ApiDeleteRepositoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.DeleteRepository")
@@ -125,141 +124,141 @@ func (a *RepositoryAPIService) DeleteRepositoryExecute(r ApiDeleteRepositoryRequ
 }
 
 type ApiGetRepositoriesRequest struct {
-	ctx context.Context
-	ApiService *RepositoryAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	lastSyncedEq *time.Time
-	lastSyncedNe *time.Time
-	lastSyncedGt *time.Time
-	lastSyncedGte *time.Time
-	lastSyncedLt *time.Time
-	lastSyncedLte *time.Time
-	lastSyncedIn *time.Time
-	lastSyncedNotin *time.Time
-	lastSyncedLike *time.Time
-	lastSyncedNotlike *time.Time
-	lastSyncedIlike *time.Time
-	lastSyncedNotilike *time.Time
-	lastSyncedDesc *string
-	lastSyncedAsc *string
-	urlEq *string
-	urlNe *string
-	urlGt *string
-	urlGte *string
-	urlLt *string
-	urlLte *string
-	urlIn *string
-	urlNotin *string
-	urlLike *string
-	urlNotlike *string
-	urlIlike *string
-	urlNotilike *string
-	urlDesc *string
-	urlAsc *string
-	usernameEq *string
-	usernameNe *string
-	usernameGt *string
-	usernameGte *string
-	usernameLt *string
-	usernameLte *string
-	usernameIn *string
-	usernameNotin *string
-	usernameLike *string
-	usernameNotlike *string
-	usernameIlike *string
-	usernameNotilike *string
-	usernameDesc *string
-	usernameAsc *string
-	passwordEq *string
-	passwordNe *string
-	passwordGt *string
-	passwordGte *string
-	passwordLt *string
-	passwordLte *string
-	passwordIn *string
-	passwordNotin *string
-	passwordLike *string
-	passwordNotlike *string
-	passwordIlike *string
-	passwordNotilike *string
-	passwordDesc *string
-	passwordAsc *string
-	sshKeyEq *string
-	sshKeyNe *string
-	sshKeyGt *string
-	sshKeyGte *string
-	sshKeyLt *string
-	sshKeyLte *string
-	sshKeyIn *string
-	sshKeyNotin *string
-	sshKeyLike *string
-	sshKeyNotlike *string
-	sshKeyIlike *string
-	sshKeyNotilike *string
-	sshKeyDesc *string
-	sshKeyAsc *string
+	ctx                                       context.Context
+	ApiService                                *RepositoryAPIService
+	limit                                     *int32
+	offset                                    *int32
+	depth                                     *int32
+	idEq                                      *string
+	idNe                                      *string
+	idGt                                      *string
+	idGte                                     *string
+	idLt                                      *string
+	idLte                                     *string
+	idIn                                      *string
+	idNotin                                   *string
+	idLike                                    *string
+	idNotlike                                 *string
+	idIlike                                   *string
+	idNotilike                                *string
+	idDesc                                    *string
+	idAsc                                     *string
+	createdAtEq                               *time.Time
+	createdAtNe                               *time.Time
+	createdAtGt                               *time.Time
+	createdAtGte                              *time.Time
+	createdAtLt                               *time.Time
+	createdAtLte                              *time.Time
+	createdAtIn                               *time.Time
+	createdAtNotin                            *time.Time
+	createdAtLike                             *time.Time
+	createdAtNotlike                          *time.Time
+	createdAtIlike                            *time.Time
+	createdAtNotilike                         *time.Time
+	createdAtDesc                             *string
+	createdAtAsc                              *string
+	updatedAtEq                               *time.Time
+	updatedAtNe                               *time.Time
+	updatedAtGt                               *time.Time
+	updatedAtGte                              *time.Time
+	updatedAtLt                               *time.Time
+	updatedAtLte                              *time.Time
+	updatedAtIn                               *time.Time
+	updatedAtNotin                            *time.Time
+	updatedAtLike                             *time.Time
+	updatedAtNotlike                          *time.Time
+	updatedAtIlike                            *time.Time
+	updatedAtNotilike                         *time.Time
+	updatedAtDesc                             *string
+	updatedAtAsc                              *string
+	deletedAtEq                               *time.Time
+	deletedAtNe                               *time.Time
+	deletedAtGt                               *time.Time
+	deletedAtGte                              *time.Time
+	deletedAtLt                               *time.Time
+	deletedAtLte                              *time.Time
+	deletedAtIn                               *time.Time
+	deletedAtNotin                            *time.Time
+	deletedAtLike                             *time.Time
+	deletedAtNotlike                          *time.Time
+	deletedAtIlike                            *time.Time
+	deletedAtNotilike                         *time.Time
+	deletedAtDesc                             *string
+	deletedAtAsc                              *string
+	lastSyncedEq                              *time.Time
+	lastSyncedNe                              *time.Time
+	lastSyncedGt                              *time.Time
+	lastSyncedGte                             *time.Time
+	lastSyncedLt                              *time.Time
+	lastSyncedLte                             *time.Time
+	lastSyncedIn                              *time.Time
+	lastSyncedNotin                           *time.Time
+	lastSyncedLike                            *time.Time
+	lastSyncedNotlike                         *time.Time
+	lastSyncedIlike                           *time.Time
+	lastSyncedNotilike                        *time.Time
+	lastSyncedDesc                            *string
+	lastSyncedAsc                             *string
+	urlEq                                     *string
+	urlNe                                     *string
+	urlGt                                     *string
+	urlGte                                    *string
+	urlLt                                     *string
+	urlLte                                    *string
+	urlIn                                     *string
+	urlNotin                                  *string
+	urlLike                                   *string
+	urlNotlike                                *string
+	urlIlike                                  *string
+	urlNotilike                               *string
+	urlDesc                                   *string
+	urlAsc                                    *string
+	usernameEq                                *string
+	usernameNe                                *string
+	usernameGt                                *string
+	usernameGte                               *string
+	usernameLt                                *string
+	usernameLte                               *string
+	usernameIn                                *string
+	usernameNotin                             *string
+	usernameLike                              *string
+	usernameNotlike                           *string
+	usernameIlike                             *string
+	usernameNotilike                          *string
+	usernameDesc                              *string
+	usernameAsc                               *string
+	passwordEq                                *string
+	passwordNe                                *string
+	passwordGt                                *string
+	passwordGte                               *string
+	passwordLt                                *string
+	passwordLte                               *string
+	passwordIn                                *string
+	passwordNotin                             *string
+	passwordLike                              *string
+	passwordNotlike                           *string
+	passwordIlike                             *string
+	passwordNotilike                          *string
+	passwordDesc                              *string
+	passwordAsc                               *string
+	sshKeyEq                                  *string
+	sshKeyNe                                  *string
+	sshKeyGt                                  *string
+	sshKeyGte                                 *string
+	sshKeyLt                                  *string
+	sshKeyLte                                 *string
+	sshKeyIn                                  *string
+	sshKeyNotin                               *string
+	sshKeyLike                                *string
+	sshKeyNotlike                             *string
+	sshKeyIlike                               *string
+	sshKeyNotilike                            *string
+	sshKeyDesc                                *string
+	sshKeyAsc                                 *string
 	referencedByChangeRepositoryIdObjectsDesc *string
-	referencedByChangeRepositoryIdObjectsAsc *string
-	referencedByRuleRepositoryIdObjectsDesc *string
-	referencedByRuleRepositoryIdObjectsAsc *string
+	referencedByChangeRepositoryIdObjectsAsc  *string
+	referencedByRuleRepositoryIdObjectsDesc   *string
+	referencedByRuleRepositoryIdObjectsAsc    *string
 }
 
 // SQL LIMIT operator
@@ -1067,24 +1066,25 @@ func (r ApiGetRepositoriesRequest) Execute() (*ResponseWithGenericOfRepository, 
 /*
 GetRepositories Method for GetRepositories
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRepositoriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRepositoriesRequest
 */
 func (a *RepositoryAPIService) GetRepositories(ctx context.Context) ApiGetRepositoriesRequest {
 	return ApiGetRepositoriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRepository
+//
+//	@return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRepository
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.GetRepositories")
@@ -1536,14 +1536,14 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1560,10 +1560,10 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 }
 
 type ApiGetRepositoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -1579,26 +1579,27 @@ func (r ApiGetRepositoryRequest) Execute() (*ResponseWithGenericOfRepository, *h
 /*
 GetRepository Method for GetRepository
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetRepositoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetRepositoryRequest
 */
 func (a *RepositoryAPIService) GetRepository(ctx context.Context, primaryKey string) ApiGetRepositoryRequest {
 	return ApiGetRepositoryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRepository
+//
+//	@return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRepository
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.GetRepository")
@@ -1655,14 +1656,14 @@ func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1679,11 +1680,11 @@ func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (
 }
 
 type ApiPatchRepositoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
 	repository *Repository
-	depth *int64
+	depth      *int64
 }
 
 func (r ApiPatchRepositoryRequest) Repository(repository Repository) ApiPatchRepositoryRequest {
@@ -1704,26 +1705,27 @@ func (r ApiPatchRepositoryRequest) Execute() (*ResponseWithGenericOfRepository, 
 /*
 PatchRepository Method for PatchRepository
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchRepositoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchRepositoryRequest
 */
 func (a *RepositoryAPIService) PatchRepository(ctx context.Context, primaryKey string) ApiPatchRepositoryRequest {
 	return ApiPatchRepositoryRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRepository
+//
+//	@return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRepository
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PatchRepository")
@@ -1785,14 +1787,14 @@ func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1809,10 +1811,10 @@ func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryReques
 }
 
 type ApiPostRepositoriesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *RepositoryAPIService
 	repository *[]Repository
-	depth *int64
+	depth      *int64
 }
 
 func (r ApiPostRepositoriesRequest) Repository(repository []Repository) ApiPostRepositoriesRequest {
@@ -1833,24 +1835,25 @@ func (r ApiPostRepositoriesRequest) Execute() (*ResponseWithGenericOfRepository,
 /*
 PostRepositories Method for PostRepositories
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostRepositoriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostRepositoriesRequest
 */
 func (a *RepositoryAPIService) PostRepositories(ctx context.Context) ApiPostRepositoriesRequest {
 	return ApiPostRepositoriesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRepository
+//
+//	@return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) PostRepositoriesExecute(r ApiPostRepositoriesRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRepository
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PostRepositories")
@@ -1911,14 +1914,14 @@ func (a *RepositoryAPIService) PostRepositoriesExecute(r ApiPostRepositoriesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
