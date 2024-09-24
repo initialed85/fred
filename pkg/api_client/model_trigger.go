@@ -20,18 +20,18 @@ var _ MappedNullable = &Trigger{}
 
 // Trigger struct for Trigger
 type Trigger struct {
-	ChangeId                                        *string               `json:"change_id,omitempty"`
-	ChangeIdObject                                  *Change               `json:"change_id_object,omitempty"`
-	CreatedAt                                       *time.Time            `json:"created_at,omitempty"`
-	DeletedAt                                       *time.Time            `json:"deleted_at,omitempty"`
-	Id                                              *string               `json:"id,omitempty"`
-	JobExecutionStartedAt                           *time.Time            `json:"job_execution_started_at,omitempty"`
-	JobExecutorClaimedUntil                         *time.Time            `json:"job_executor_claimed_until,omitempty"`
-	ReferencedByExecutionTriggerIdObjects           []Execution           `json:"referenced_by_execution_trigger_id_objects,omitempty"`
+	ChangeId *string `json:"change_id,omitempty"`
+	ChangeIdObject *Change `json:"change_id_object,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	JobExecutionStartedAt *time.Time `json:"job_execution_started_at,omitempty"`
+	JobExecutorClaimedUntil *time.Time `json:"job_executor_claimed_until,omitempty"`
+	ReferencedByExecutionTriggerIdObjects []Execution `json:"referenced_by_execution_trigger_id_objects,omitempty"`
 	ReferencedByTriggerHasExecutionTriggerIdObjects []TriggerHasExecution `json:"referenced_by_trigger_has_execution_trigger_id_objects,omitempty"`
-	RuleId                                          *string               `json:"rule_id,omitempty"`
-	RuleIdObject                                    *Rule                 `json:"rule_id_object,omitempty"`
-	UpdatedAt                                       *time.Time            `json:"updated_at,omitempty"`
+	RuleId *string `json:"rule_id,omitempty"`
+	RuleIdObject *Rule `json:"rule_id_object,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTrigger instantiates a new Trigger object
@@ -438,7 +438,7 @@ func (o *Trigger) SetUpdatedAt(v time.Time) {
 }
 
 func (o Trigger) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -521,3 +521,5 @@ func (v *NullableTrigger) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,14 +20,14 @@ var _ MappedNullable = &RuleRequiresJob{}
 
 // RuleRequiresJob struct for RuleRequiresJob
 type RuleRequiresJob struct {
-	CreatedAt    *time.Time `json:"created_at,omitempty"`
-	DeletedAt    *time.Time `json:"deleted_at,omitempty"`
-	Id           *string    `json:"id,omitempty"`
-	JobId        *string    `json:"job_id,omitempty"`
-	JobIdObject  *Job       `json:"job_id_object,omitempty"`
-	RuleId       *string    `json:"rule_id,omitempty"`
-	RuleIdObject *Rule      `json:"rule_id_object,omitempty"`
-	UpdatedAt    *time.Time `json:"updated_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	JobId *string `json:"job_id,omitempty"`
+	JobIdObject *Job `json:"job_id_object,omitempty"`
+	RuleId *string `json:"rule_id,omitempty"`
+	RuleIdObject *Rule `json:"rule_id_object,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewRuleRequiresJob instantiates a new RuleRequiresJob object
@@ -304,7 +304,7 @@ func (o *RuleRequiresJob) SetUpdatedAt(v time.Time) {
 }
 
 func (o RuleRequiresJob) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -375,3 +375,5 @@ func (v *NullableRuleRequiresJob) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

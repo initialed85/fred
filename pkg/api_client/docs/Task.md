@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **Image** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Platform** | Pointer to **string** |  | [optional] 
-**ReferencedByJobBuildTaskIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**ReferencedByJobDeployTaskIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**ReferencedByJobPublishTaskIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**ReferencedByJobTestTaskIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**ReferencedByJobValidateTaskIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**ReferencedByJobBuildTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
+**ReferencedByJobDeployTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
+**ReferencedByJobPublishTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
+**ReferencedByJobTestTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
+**ReferencedByJobValidateTaskIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **ReferencedByOutputTaskIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Script** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -190,20 +190,20 @@ HasPlatform returns a boolean if a field has been set.
 
 ### GetReferencedByJobBuildTaskIdObjects
 
-`func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Rule`
+`func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Job`
 
 GetReferencedByJobBuildTaskIdObjects returns the ReferencedByJobBuildTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobBuildTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByJobBuildTaskIdObjectsOk() (*[]Rule, bool)`
+`func (o *Task) GetReferencedByJobBuildTaskIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobBuildTaskIdObjectsOk returns a tuple with the ReferencedByJobBuildTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobBuildTaskIdObjects
 
-`func (o *Task) SetReferencedByJobBuildTaskIdObjects(v []Rule)`
+`func (o *Task) SetReferencedByJobBuildTaskIdObjects(v []Job)`
 
 SetReferencedByJobBuildTaskIdObjects sets ReferencedByJobBuildTaskIdObjects field to given value.
 
@@ -225,20 +225,20 @@ HasReferencedByJobBuildTaskIdObjects returns a boolean if a field has been set.
 UnsetReferencedByJobBuildTaskIdObjects ensures that no value is present for ReferencedByJobBuildTaskIdObjects, not even an explicit nil
 ### GetReferencedByJobDeployTaskIdObjects
 
-`func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Rule`
+`func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Job`
 
 GetReferencedByJobDeployTaskIdObjects returns the ReferencedByJobDeployTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobDeployTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByJobDeployTaskIdObjectsOk() (*[]Rule, bool)`
+`func (o *Task) GetReferencedByJobDeployTaskIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobDeployTaskIdObjectsOk returns a tuple with the ReferencedByJobDeployTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobDeployTaskIdObjects
 
-`func (o *Task) SetReferencedByJobDeployTaskIdObjects(v []Rule)`
+`func (o *Task) SetReferencedByJobDeployTaskIdObjects(v []Job)`
 
 SetReferencedByJobDeployTaskIdObjects sets ReferencedByJobDeployTaskIdObjects field to given value.
 
@@ -260,20 +260,20 @@ HasReferencedByJobDeployTaskIdObjects returns a boolean if a field has been set.
 UnsetReferencedByJobDeployTaskIdObjects ensures that no value is present for ReferencedByJobDeployTaskIdObjects, not even an explicit nil
 ### GetReferencedByJobPublishTaskIdObjects
 
-`func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Rule`
+`func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Job`
 
 GetReferencedByJobPublishTaskIdObjects returns the ReferencedByJobPublishTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobPublishTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByJobPublishTaskIdObjectsOk() (*[]Rule, bool)`
+`func (o *Task) GetReferencedByJobPublishTaskIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobPublishTaskIdObjectsOk returns a tuple with the ReferencedByJobPublishTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobPublishTaskIdObjects
 
-`func (o *Task) SetReferencedByJobPublishTaskIdObjects(v []Rule)`
+`func (o *Task) SetReferencedByJobPublishTaskIdObjects(v []Job)`
 
 SetReferencedByJobPublishTaskIdObjects sets ReferencedByJobPublishTaskIdObjects field to given value.
 
@@ -295,20 +295,20 @@ HasReferencedByJobPublishTaskIdObjects returns a boolean if a field has been set
 UnsetReferencedByJobPublishTaskIdObjects ensures that no value is present for ReferencedByJobPublishTaskIdObjects, not even an explicit nil
 ### GetReferencedByJobTestTaskIdObjects
 
-`func (o *Task) GetReferencedByJobTestTaskIdObjects() []Rule`
+`func (o *Task) GetReferencedByJobTestTaskIdObjects() []Job`
 
 GetReferencedByJobTestTaskIdObjects returns the ReferencedByJobTestTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobTestTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByJobTestTaskIdObjectsOk() (*[]Rule, bool)`
+`func (o *Task) GetReferencedByJobTestTaskIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobTestTaskIdObjectsOk returns a tuple with the ReferencedByJobTestTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobTestTaskIdObjects
 
-`func (o *Task) SetReferencedByJobTestTaskIdObjects(v []Rule)`
+`func (o *Task) SetReferencedByJobTestTaskIdObjects(v []Job)`
 
 SetReferencedByJobTestTaskIdObjects sets ReferencedByJobTestTaskIdObjects field to given value.
 
@@ -330,20 +330,20 @@ HasReferencedByJobTestTaskIdObjects returns a boolean if a field has been set.
 UnsetReferencedByJobTestTaskIdObjects ensures that no value is present for ReferencedByJobTestTaskIdObjects, not even an explicit nil
 ### GetReferencedByJobValidateTaskIdObjects
 
-`func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Rule`
+`func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Job`
 
 GetReferencedByJobValidateTaskIdObjects returns the ReferencedByJobValidateTaskIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobValidateTaskIdObjectsOk
 
-`func (o *Task) GetReferencedByJobValidateTaskIdObjectsOk() (*[]Rule, bool)`
+`func (o *Task) GetReferencedByJobValidateTaskIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobValidateTaskIdObjectsOk returns a tuple with the ReferencedByJobValidateTaskIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobValidateTaskIdObjects
 
-`func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Rule)`
+`func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Job)`
 
 SetReferencedByJobValidateTaskIdObjects sets ReferencedByJobValidateTaskIdObjects field to given value.
 

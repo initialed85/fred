@@ -18,12 +18,13 @@ import (
 	"net/url"
 )
 
+
 // CustomAPIService CustomAPI service
 type CustomAPIService service
 
 type ApiPatchCustomClaimTriggerForJobExecutorRequest struct {
-	ctx          context.Context
-	ApiService   *CustomAPIService
+	ctx context.Context
+	ApiService *CustomAPIService
 	claimRequest *ClaimRequest
 }
 
@@ -39,25 +40,24 @@ func (r ApiPatchCustomClaimTriggerForJobExecutorRequest) Execute() (*Trigger, *h
 /*
 PatchCustomClaimTriggerForJobExecutor Method for PatchCustomClaimTriggerForJobExecutor
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPatchCustomClaimTriggerForJobExecutorRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPatchCustomClaimTriggerForJobExecutorRequest
 */
 func (a *CustomAPIService) PatchCustomClaimTriggerForJobExecutor(ctx context.Context) ApiPatchCustomClaimTriggerForJobExecutorRequest {
 	return ApiPatchCustomClaimTriggerForJobExecutorRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Trigger
+//  @return Trigger
 func (a *CustomAPIService) PatchCustomClaimTriggerForJobExecutorExecute(r ApiPatchCustomClaimTriggerForJobExecutorRequest) (*Trigger, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Trigger
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Trigger
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomAPIService.PatchCustomClaimTriggerForJobExecutor")
@@ -115,14 +115,14 @@ func (a *CustomAPIService) PatchCustomClaimTriggerForJobExecutorExecute(r ApiPat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v GetChangesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

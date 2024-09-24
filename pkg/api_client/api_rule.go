@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // RuleAPIService RuleAPI service
 type RuleAPIService service
 
 type ApiDeleteRuleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RuleAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteRuleRequest) Execute() (*http.Response, error) {
 /*
 DeleteRule Method for DeleteRule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteRuleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteRuleRequest
 */
 func (a *RuleAPIService) DeleteRule(ctx context.Context, primaryKey string) ApiDeleteRuleRequest {
 	return ApiDeleteRuleRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *RuleAPIService) DeleteRule(ctx context.Context, primaryKey string) ApiD
 // Execute executes the request
 func (a *RuleAPIService) DeleteRuleExecute(r ApiDeleteRuleRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleAPIService.DeleteRule")
@@ -124,10 +125,10 @@ func (a *RuleAPIService) DeleteRuleExecute(r ApiDeleteRuleRequest) (*http.Respon
 }
 
 type ApiGetRuleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RuleAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -143,27 +144,26 @@ func (r ApiGetRuleRequest) Execute() (*ResponseWithGenericOfRule, *http.Response
 /*
 GetRule Method for GetRule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetRuleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetRuleRequest
 */
 func (a *RuleAPIService) GetRule(ctx context.Context, primaryKey string) ApiGetRuleRequest {
 	return ApiGetRuleRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRule
+//  @return ResponseWithGenericOfRule
 func (a *RuleAPIService) GetRuleExecute(r ApiGetRuleRequest) (*ResponseWithGenericOfRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRule
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleAPIService.GetRule")
@@ -220,14 +220,14 @@ func (a *RuleAPIService) GetRuleExecute(r ApiGetRuleRequest) (*ResponseWithGener
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v GetChangesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,103 +244,103 @@ func (a *RuleAPIService) GetRuleExecute(r ApiGetRuleRequest) (*ResponseWithGener
 }
 
 type ApiGetRulesRequest struct {
-	ctx                                          context.Context
-	ApiService                                   *RuleAPIService
-	limit                                        *int32
-	offset                                       *int32
-	depth                                        *int32
-	idEq                                         *string
-	idNe                                         *string
-	idGt                                         *string
-	idGte                                        *string
-	idLt                                         *string
-	idLte                                        *string
-	idIn                                         *string
-	idNotin                                      *string
-	idLike                                       *string
-	idNotlike                                    *string
-	idIlike                                      *string
-	idNotilike                                   *string
-	idDesc                                       *string
-	idAsc                                        *string
-	createdAtEq                                  *time.Time
-	createdAtNe                                  *time.Time
-	createdAtGt                                  *time.Time
-	createdAtGte                                 *time.Time
-	createdAtLt                                  *time.Time
-	createdAtLte                                 *time.Time
-	createdAtIn                                  *time.Time
-	createdAtNotin                               *time.Time
-	createdAtLike                                *time.Time
-	createdAtNotlike                             *time.Time
-	createdAtIlike                               *time.Time
-	createdAtNotilike                            *time.Time
-	createdAtDesc                                *string
-	createdAtAsc                                 *string
-	updatedAtEq                                  *time.Time
-	updatedAtNe                                  *time.Time
-	updatedAtGt                                  *time.Time
-	updatedAtGte                                 *time.Time
-	updatedAtLt                                  *time.Time
-	updatedAtLte                                 *time.Time
-	updatedAtIn                                  *time.Time
-	updatedAtNotin                               *time.Time
-	updatedAtLike                                *time.Time
-	updatedAtNotlike                             *time.Time
-	updatedAtIlike                               *time.Time
-	updatedAtNotilike                            *time.Time
-	updatedAtDesc                                *string
-	updatedAtAsc                                 *string
-	deletedAtEq                                  *time.Time
-	deletedAtNe                                  *time.Time
-	deletedAtGt                                  *time.Time
-	deletedAtGte                                 *time.Time
-	deletedAtLt                                  *time.Time
-	deletedAtLte                                 *time.Time
-	deletedAtIn                                  *time.Time
-	deletedAtNotin                               *time.Time
-	deletedAtLike                                *time.Time
-	deletedAtNotlike                             *time.Time
-	deletedAtIlike                               *time.Time
-	deletedAtNotilike                            *time.Time
-	deletedAtDesc                                *string
-	deletedAtAsc                                 *string
-	branchNameEq                                 *string
-	branchNameNe                                 *string
-	branchNameGt                                 *string
-	branchNameGte                                *string
-	branchNameLt                                 *string
-	branchNameLte                                *string
-	branchNameIn                                 *string
-	branchNameNotin                              *string
-	branchNameLike                               *string
-	branchNameNotlike                            *string
-	branchNameIlike                              *string
-	branchNameNotilike                           *string
-	branchNameDesc                               *string
-	branchNameAsc                                *string
-	repositoryIdEq                               *string
-	repositoryIdNe                               *string
-	repositoryIdGt                               *string
-	repositoryIdGte                              *string
-	repositoryIdLt                               *string
-	repositoryIdLte                              *string
-	repositoryIdIn                               *string
-	repositoryIdNotin                            *string
-	repositoryIdLike                             *string
-	repositoryIdNotlike                          *string
-	repositoryIdIlike                            *string
-	repositoryIdNotilike                         *string
-	repositoryIdDesc                             *string
-	repositoryIdAsc                              *string
-	repositoryIdObjectDesc                       *string
-	repositoryIdObjectAsc                        *string
-	referencedByTriggerRuleIdObjectsDesc         *string
-	referencedByTriggerRuleIdObjectsAsc          *string
+	ctx context.Context
+	ApiService *RuleAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	branchNameEq *string
+	branchNameNe *string
+	branchNameGt *string
+	branchNameGte *string
+	branchNameLt *string
+	branchNameLte *string
+	branchNameIn *string
+	branchNameNotin *string
+	branchNameLike *string
+	branchNameNotlike *string
+	branchNameIlike *string
+	branchNameNotilike *string
+	branchNameDesc *string
+	branchNameAsc *string
+	repositoryIdEq *string
+	repositoryIdNe *string
+	repositoryIdGt *string
+	repositoryIdGte *string
+	repositoryIdLt *string
+	repositoryIdLte *string
+	repositoryIdIn *string
+	repositoryIdNotin *string
+	repositoryIdLike *string
+	repositoryIdNotlike *string
+	repositoryIdIlike *string
+	repositoryIdNotilike *string
+	repositoryIdDesc *string
+	repositoryIdAsc *string
+	repositoryIdObjectDesc *string
+	repositoryIdObjectAsc *string
 	referencedByRuleRequiresJobRuleIdObjectsDesc *string
-	referencedByRuleRequiresJobRuleIdObjectsAsc  *string
-	referencedByJobRuleIdObjectsDesc             *string
-	referencedByJobRuleIdObjectsAsc              *string
+	referencedByRuleRequiresJobRuleIdObjectsAsc *string
+	referencedByTriggerRuleIdObjectsDesc *string
+	referencedByTriggerRuleIdObjectsAsc *string
+	referencedByJobRuleIdObjectsDesc *string
+	referencedByJobRuleIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -878,18 +878,6 @@ func (r ApiGetRulesRequest) RepositoryIdObjectAsc(repositoryIdObjectAsc string) 
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsDesc(referencedByTriggerRuleIdObjectsDesc string) ApiGetRulesRequest {
-	r.referencedByTriggerRuleIdObjectsDesc = &referencedByTriggerRuleIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsAsc(referencedByTriggerRuleIdObjectsAsc string) ApiGetRulesRequest {
-	r.referencedByTriggerRuleIdObjectsAsc = &referencedByTriggerRuleIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsDesc(referencedByRuleRequiresJobRuleIdObjectsDesc string) ApiGetRulesRequest {
 	r.referencedByRuleRequiresJobRuleIdObjectsDesc = &referencedByRuleRequiresJobRuleIdObjectsDesc
 	return r
@@ -898,6 +886,18 @@ func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsDesc(referen
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsAsc(referencedByRuleRequiresJobRuleIdObjectsAsc string) ApiGetRulesRequest {
 	r.referencedByRuleRequiresJobRuleIdObjectsAsc = &referencedByRuleRequiresJobRuleIdObjectsAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsDesc(referencedByTriggerRuleIdObjectsDesc string) ApiGetRulesRequest {
+	r.referencedByTriggerRuleIdObjectsDesc = &referencedByTriggerRuleIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsAsc(referencedByTriggerRuleIdObjectsAsc string) ApiGetRulesRequest {
+	r.referencedByTriggerRuleIdObjectsAsc = &referencedByTriggerRuleIdObjectsAsc
 	return r
 }
 
@@ -920,25 +920,24 @@ func (r ApiGetRulesRequest) Execute() (*ResponseWithGenericOfRule, *http.Respons
 /*
 GetRules Method for GetRules
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRulesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetRulesRequest
 */
 func (a *RuleAPIService) GetRules(ctx context.Context) ApiGetRulesRequest {
 	return ApiGetRulesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRule
+//  @return ResponseWithGenericOfRule
 func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGenericOfRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRule
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleAPIService.GetRules")
@@ -1219,17 +1218,17 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 	if r.repositoryIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id_object__asc", r.repositoryIdObjectAsc, "form", "")
 	}
-	if r.referencedByTriggerRuleIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__desc", r.referencedByTriggerRuleIdObjectsDesc, "form", "")
-	}
-	if r.referencedByTriggerRuleIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__asc", r.referencedByTriggerRuleIdObjectsAsc, "form", "")
-	}
 	if r.referencedByRuleRequiresJobRuleIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__desc", r.referencedByRuleRequiresJobRuleIdObjectsDesc, "form", "")
 	}
 	if r.referencedByRuleRequiresJobRuleIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__asc", r.referencedByRuleRequiresJobRuleIdObjectsAsc, "form", "")
+	}
+	if r.referencedByTriggerRuleIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__desc", r.referencedByTriggerRuleIdObjectsDesc, "form", "")
+	}
+	if r.referencedByTriggerRuleIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__asc", r.referencedByTriggerRuleIdObjectsAsc, "form", "")
 	}
 	if r.referencedByJobRuleIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__desc", r.referencedByJobRuleIdObjectsDesc, "form", "")
@@ -1276,14 +1275,14 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v GetChangesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1300,11 +1299,11 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 }
 
 type ApiPatchRuleRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RuleAPIService
 	primaryKey string
-	rule       *Rule
-	depth      *int64
+	rule *Rule
+	depth *int64
 }
 
 func (r ApiPatchRuleRequest) Rule(rule Rule) ApiPatchRuleRequest {
@@ -1325,27 +1324,26 @@ func (r ApiPatchRuleRequest) Execute() (*ResponseWithGenericOfRule, *http.Respon
 /*
 PatchRule Method for PatchRule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchRuleRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchRuleRequest
 */
 func (a *RuleAPIService) PatchRule(ctx context.Context, primaryKey string) ApiPatchRuleRequest {
 	return ApiPatchRuleRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRule
+//  @return ResponseWithGenericOfRule
 func (a *RuleAPIService) PatchRuleExecute(r ApiPatchRuleRequest) (*ResponseWithGenericOfRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRule
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleAPIService.PatchRule")
@@ -1407,14 +1405,14 @@ func (a *RuleAPIService) PatchRuleExecute(r ApiPatchRuleRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v GetChangesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1431,10 +1429,10 @@ func (a *RuleAPIService) PatchRuleExecute(r ApiPatchRuleRequest) (*ResponseWithG
 }
 
 type ApiPostRulesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RuleAPIService
-	rule       *[]Rule
-	depth      *int64
+	rule *[]Rule
+	depth *int64
 }
 
 func (r ApiPostRulesRequest) Rule(rule []Rule) ApiPostRulesRequest {
@@ -1455,25 +1453,24 @@ func (r ApiPostRulesRequest) Execute() (*ResponseWithGenericOfRule, *http.Respon
 /*
 PostRules Method for PostRules
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostRulesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostRulesRequest
 */
 func (a *RuleAPIService) PostRules(ctx context.Context) ApiPostRulesRequest {
 	return ApiPostRulesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRule
+//  @return ResponseWithGenericOfRule
 func (a *RuleAPIService) PostRulesExecute(r ApiPostRulesRequest) (*ResponseWithGenericOfRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRule
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleAPIService.PostRules")
@@ -1534,14 +1531,14 @@ func (a *RuleAPIService) PostRulesExecute(r ApiPostRulesRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v GetChangesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

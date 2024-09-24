@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfChange{}
 
 // ResponseWithGenericOfChange struct for ResponseWithGenericOfChange
 type ResponseWithGenericOfChange struct {
-	Count      *int64   `json:"count,omitempty"`
-	Error      []string `json:"error,omitempty"`
-	Limit      *int64   `json:"limit,omitempty"`
-	Objects    []Change `json:"objects,omitempty"`
-	Offset     *int64   `json:"offset,omitempty"`
-	Status     *int64   `json:"status,omitempty"`
-	Success    *bool    `json:"success,omitempty"`
-	TotalCount *int64   `json:"total_count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
+	Error []string `json:"error,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	Objects []Change `json:"objects,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	Status *int64 `json:"status,omitempty"`
+	Success *bool `json:"success,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfChange instantiates a new ResponseWithGenericOfChange object
@@ -305,7 +305,7 @@ func (o *ResponseWithGenericOfChange) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfChange) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -376,3 +376,5 @@ func (v *NullableResponseWithGenericOfChange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,14 +20,14 @@ var _ MappedNullable = &TriggerHasExecution{}
 
 // TriggerHasExecution struct for TriggerHasExecution
 type TriggerHasExecution struct {
-	CreatedAt         *time.Time `json:"created_at,omitempty"`
-	DeletedAt         *time.Time `json:"deleted_at,omitempty"`
-	ExecutionId       *string    `json:"execution_id,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	ExecutionId *string `json:"execution_id,omitempty"`
 	ExecutionIdObject *Execution `json:"execution_id_object,omitempty"`
-	Id                *string    `json:"id,omitempty"`
-	TriggerId         *string    `json:"trigger_id,omitempty"`
-	TriggerIdObject   *Trigger   `json:"trigger_id_object,omitempty"`
-	UpdatedAt         *time.Time `json:"updated_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	TriggerId *string `json:"trigger_id,omitempty"`
+	TriggerIdObject *Trigger `json:"trigger_id_object,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTriggerHasExecution instantiates a new TriggerHasExecution object
@@ -304,7 +304,7 @@ func (o *TriggerHasExecution) SetUpdatedAt(v time.Time) {
 }
 
 func (o TriggerHasExecution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -375,3 +375,5 @@ func (v *NullableTriggerHasExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,16 +20,16 @@ var _ MappedNullable = &Rule{}
 
 // Rule struct for Rule
 type Rule struct {
-	BranchName                               *string           `json:"branch_name,omitempty"`
-	CreatedAt                                *time.Time        `json:"created_at,omitempty"`
-	DeletedAt                                *time.Time        `json:"deleted_at,omitempty"`
-	Id                                       *string           `json:"id,omitempty"`
-	ReferencedByJobRuleIdObjects             []Rule            `json:"referenced_by_job_rule_id_objects,omitempty"`
+	BranchName *string `json:"branch_name,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	ReferencedByJobRuleIdObjects []Job `json:"referenced_by_job_rule_id_objects,omitempty"`
 	ReferencedByRuleRequiresJobRuleIdObjects []RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects,omitempty"`
-	ReferencedByTriggerRuleIdObjects         []Trigger         `json:"referenced_by_trigger_rule_id_objects,omitempty"`
-	RepositoryId                             *string           `json:"repository_id,omitempty"`
-	RepositoryIdObject                       *Repository       `json:"repository_id_object,omitempty"`
-	UpdatedAt                                *time.Time        `json:"updated_at,omitempty"`
+	ReferencedByTriggerRuleIdObjects []Trigger `json:"referenced_by_trigger_rule_id_objects,omitempty"`
+	RepositoryId *string `json:"repository_id,omitempty"`
+	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -178,9 +178,9 @@ func (o *Rule) SetId(v string) {
 }
 
 // GetReferencedByJobRuleIdObjects returns the ReferencedByJobRuleIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Rule) GetReferencedByJobRuleIdObjects() []Rule {
+func (o *Rule) GetReferencedByJobRuleIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobRuleIdObjects
@@ -189,7 +189,7 @@ func (o *Rule) GetReferencedByJobRuleIdObjects() []Rule {
 // GetReferencedByJobRuleIdObjectsOk returns a tuple with the ReferencedByJobRuleIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Rule) GetReferencedByJobRuleIdObjectsOk() ([]Rule, bool) {
+func (o *Rule) GetReferencedByJobRuleIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobRuleIdObjects) {
 		return nil, false
 	}
@@ -205,8 +205,8 @@ func (o *Rule) HasReferencedByJobRuleIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobRuleIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobRuleIdObjects field.
-func (o *Rule) SetReferencedByJobRuleIdObjects(v []Rule) {
+// SetReferencedByJobRuleIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobRuleIdObjects field.
+func (o *Rule) SetReferencedByJobRuleIdObjects(v []Job) {
 	o.ReferencedByJobRuleIdObjects = v
 }
 
@@ -373,7 +373,7 @@ func (o *Rule) SetUpdatedAt(v time.Time) {
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -450,3 +450,5 @@ func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

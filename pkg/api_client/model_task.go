@@ -20,20 +20,20 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	CreatedAt                            *time.Time `json:"created_at,omitempty"`
-	DeletedAt                            *time.Time `json:"deleted_at,omitempty"`
-	Id                                   *string    `json:"id,omitempty"`
-	Image                                *string    `json:"image,omitempty"`
-	Name                                 *string    `json:"name,omitempty"`
-	Platform                             *string    `json:"platform,omitempty"`
-	ReferencedByJobBuildTaskIdObjects    []Rule     `json:"referenced_by_job_build_task_id_objects,omitempty"`
-	ReferencedByJobDeployTaskIdObjects   []Rule     `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
-	ReferencedByJobPublishTaskIdObjects  []Rule     `json:"referenced_by_job_publish_task_id_objects,omitempty"`
-	ReferencedByJobTestTaskIdObjects     []Rule     `json:"referenced_by_job_test_task_id_objects,omitempty"`
-	ReferencedByJobValidateTaskIdObjects []Rule     `json:"referenced_by_job_validate_task_id_objects,omitempty"`
-	ReferencedByOutputTaskIdObjects      []Output   `json:"referenced_by_output_task_id_objects,omitempty"`
-	Script                               *string    `json:"script,omitempty"`
-	UpdatedAt                            *time.Time `json:"updated_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Platform *string `json:"platform,omitempty"`
+	ReferencedByJobBuildTaskIdObjects []Job `json:"referenced_by_job_build_task_id_objects,omitempty"`
+	ReferencedByJobDeployTaskIdObjects []Job `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
+	ReferencedByJobPublishTaskIdObjects []Job `json:"referenced_by_job_publish_task_id_objects,omitempty"`
+	ReferencedByJobTestTaskIdObjects []Job `json:"referenced_by_job_test_task_id_objects,omitempty"`
+	ReferencedByJobValidateTaskIdObjects []Job `json:"referenced_by_job_validate_task_id_objects,omitempty"`
+	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
+	Script *string `json:"script,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -246,9 +246,9 @@ func (o *Task) SetPlatform(v string) {
 }
 
 // GetReferencedByJobBuildTaskIdObjects returns the ReferencedByJobBuildTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Rule {
+func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobBuildTaskIdObjects
@@ -257,7 +257,7 @@ func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Rule {
 // GetReferencedByJobBuildTaskIdObjectsOk returns a tuple with the ReferencedByJobBuildTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobBuildTaskIdObjectsOk() ([]Rule, bool) {
+func (o *Task) GetReferencedByJobBuildTaskIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobBuildTaskIdObjects) {
 		return nil, false
 	}
@@ -273,15 +273,15 @@ func (o *Task) HasReferencedByJobBuildTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobBuildTaskIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobBuildTaskIdObjects field.
-func (o *Task) SetReferencedByJobBuildTaskIdObjects(v []Rule) {
+// SetReferencedByJobBuildTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobBuildTaskIdObjects field.
+func (o *Task) SetReferencedByJobBuildTaskIdObjects(v []Job) {
 	o.ReferencedByJobBuildTaskIdObjects = v
 }
 
 // GetReferencedByJobDeployTaskIdObjects returns the ReferencedByJobDeployTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Rule {
+func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobDeployTaskIdObjects
@@ -290,7 +290,7 @@ func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Rule {
 // GetReferencedByJobDeployTaskIdObjectsOk returns a tuple with the ReferencedByJobDeployTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobDeployTaskIdObjectsOk() ([]Rule, bool) {
+func (o *Task) GetReferencedByJobDeployTaskIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobDeployTaskIdObjects) {
 		return nil, false
 	}
@@ -306,15 +306,15 @@ func (o *Task) HasReferencedByJobDeployTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobDeployTaskIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobDeployTaskIdObjects field.
-func (o *Task) SetReferencedByJobDeployTaskIdObjects(v []Rule) {
+// SetReferencedByJobDeployTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobDeployTaskIdObjects field.
+func (o *Task) SetReferencedByJobDeployTaskIdObjects(v []Job) {
 	o.ReferencedByJobDeployTaskIdObjects = v
 }
 
 // GetReferencedByJobPublishTaskIdObjects returns the ReferencedByJobPublishTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Rule {
+func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobPublishTaskIdObjects
@@ -323,7 +323,7 @@ func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Rule {
 // GetReferencedByJobPublishTaskIdObjectsOk returns a tuple with the ReferencedByJobPublishTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobPublishTaskIdObjectsOk() ([]Rule, bool) {
+func (o *Task) GetReferencedByJobPublishTaskIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobPublishTaskIdObjects) {
 		return nil, false
 	}
@@ -339,15 +339,15 @@ func (o *Task) HasReferencedByJobPublishTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobPublishTaskIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobPublishTaskIdObjects field.
-func (o *Task) SetReferencedByJobPublishTaskIdObjects(v []Rule) {
+// SetReferencedByJobPublishTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobPublishTaskIdObjects field.
+func (o *Task) SetReferencedByJobPublishTaskIdObjects(v []Job) {
 	o.ReferencedByJobPublishTaskIdObjects = v
 }
 
 // GetReferencedByJobTestTaskIdObjects returns the ReferencedByJobTestTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobTestTaskIdObjects() []Rule {
+func (o *Task) GetReferencedByJobTestTaskIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobTestTaskIdObjects
@@ -356,7 +356,7 @@ func (o *Task) GetReferencedByJobTestTaskIdObjects() []Rule {
 // GetReferencedByJobTestTaskIdObjectsOk returns a tuple with the ReferencedByJobTestTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobTestTaskIdObjectsOk() ([]Rule, bool) {
+func (o *Task) GetReferencedByJobTestTaskIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobTestTaskIdObjects) {
 		return nil, false
 	}
@@ -372,15 +372,15 @@ func (o *Task) HasReferencedByJobTestTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobTestTaskIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobTestTaskIdObjects field.
-func (o *Task) SetReferencedByJobTestTaskIdObjects(v []Rule) {
+// SetReferencedByJobTestTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobTestTaskIdObjects field.
+func (o *Task) SetReferencedByJobTestTaskIdObjects(v []Job) {
 	o.ReferencedByJobTestTaskIdObjects = v
 }
 
 // GetReferencedByJobValidateTaskIdObjects returns the ReferencedByJobValidateTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Rule {
+func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Job {
 	if o == nil {
-		var ret []Rule
+		var ret []Job
 		return ret
 	}
 	return o.ReferencedByJobValidateTaskIdObjects
@@ -389,7 +389,7 @@ func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Rule {
 // GetReferencedByJobValidateTaskIdObjectsOk returns a tuple with the ReferencedByJobValidateTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobValidateTaskIdObjectsOk() ([]Rule, bool) {
+func (o *Task) GetReferencedByJobValidateTaskIdObjectsOk() ([]Job, bool) {
 	if o == nil || IsNil(o.ReferencedByJobValidateTaskIdObjects) {
 		return nil, false
 	}
@@ -405,8 +405,8 @@ func (o *Task) HasReferencedByJobValidateTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByJobValidateTaskIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobValidateTaskIdObjects field.
-func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Rule) {
+// SetReferencedByJobValidateTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobValidateTaskIdObjects field.
+func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Job) {
 	o.ReferencedByJobValidateTaskIdObjects = v
 }
 
@@ -508,7 +508,7 @@ func (o *Task) SetUpdatedAt(v time.Time) {
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -597,3 +597,5 @@ func (v *NullableTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

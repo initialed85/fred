@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**ReferencedByJobRuleIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**ReferencedByJobRuleIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **ReferencedByRuleRequiresJobRuleIdObjects** | Pointer to [**[]RuleRequiresJob**](RuleRequiresJob.md) |  | [optional] 
 **ReferencedByTriggerRuleIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
@@ -136,20 +136,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetReferencedByJobRuleIdObjects
 
-`func (o *Rule) GetReferencedByJobRuleIdObjects() []Rule`
+`func (o *Rule) GetReferencedByJobRuleIdObjects() []Job`
 
 GetReferencedByJobRuleIdObjects returns the ReferencedByJobRuleIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByJobRuleIdObjectsOk
 
-`func (o *Rule) GetReferencedByJobRuleIdObjectsOk() (*[]Rule, bool)`
+`func (o *Rule) GetReferencedByJobRuleIdObjectsOk() (*[]Job, bool)`
 
 GetReferencedByJobRuleIdObjectsOk returns a tuple with the ReferencedByJobRuleIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByJobRuleIdObjects
 
-`func (o *Rule) SetReferencedByJobRuleIdObjects(v []Rule)`
+`func (o *Rule) SetReferencedByJobRuleIdObjects(v []Job)`
 
 SetReferencedByJobRuleIdObjects sets ReferencedByJobRuleIdObjects field to given value.
 

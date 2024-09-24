@@ -20,21 +20,21 @@ var _ MappedNullable = &Change{}
 
 // Change struct for Change
 type Change struct {
-	AuthoredAt                         *time.Time  `json:"authored_at,omitempty"`
-	AuthoredBy                         *string     `json:"authored_by,omitempty"`
-	BranchName                         *string     `json:"branch_name,omitempty"`
-	CommitHash                         *string     `json:"commit_hash,omitempty"`
-	CommittedAt                        *time.Time  `json:"committed_at,omitempty"`
-	CommittedBy                        *string     `json:"committed_by,omitempty"`
-	CreatedAt                          *time.Time  `json:"created_at,omitempty"`
-	DeletedAt                          *time.Time  `json:"deleted_at,omitempty"`
-	Id                                 *string     `json:"id,omitempty"`
-	Message                            *string     `json:"message,omitempty"`
-	ReferencedByTriggerChangeIdObjects []Trigger   `json:"referenced_by_trigger_change_id_objects,omitempty"`
-	RepositoryId                       *string     `json:"repository_id,omitempty"`
-	RepositoryIdObject                 *Repository `json:"repository_id_object,omitempty"`
-	TriggerProducedAt                  *time.Time  `json:"trigger_produced_at,omitempty"`
-	UpdatedAt                          *time.Time  `json:"updated_at,omitempty"`
+	AuthoredAt *time.Time `json:"authored_at,omitempty"`
+	AuthoredBy *string `json:"authored_by,omitempty"`
+	BranchName *string `json:"branch_name,omitempty"`
+	CommitHash *string `json:"commit_hash,omitempty"`
+	CommittedAt *time.Time `json:"committed_at,omitempty"`
+	CommittedBy *string `json:"committed_by,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Message *string `json:"message,omitempty"`
+	ReferencedByTriggerChangeIdObjects []Trigger `json:"referenced_by_trigger_change_id_objects,omitempty"`
+	RepositoryId *string `json:"repository_id,omitempty"`
+	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
+	TriggerProducedAt *time.Time `json:"trigger_produced_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewChange instantiates a new Change object
@@ -536,7 +536,7 @@ func (o *Change) SetUpdatedAt(v time.Time) {
 }
 
 func (o Change) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -628,3 +628,5 @@ func (v *NullableChange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,26 +20,26 @@ var _ MappedNullable = &Execution{}
 
 // Execution struct for Execution
 type Execution struct {
-	BuildOutputId                                     *string               `json:"build_output_id,omitempty"`
-	BuildOutputIdObject                               *Output               `json:"build_output_id_object,omitempty"`
-	CreatedAt                                         *time.Time            `json:"created_at,omitempty"`
-	DeletedAt                                         *time.Time            `json:"deleted_at,omitempty"`
-	DeployOutputId                                    *string               `json:"deploy_output_id,omitempty"`
-	DeployOutputIdObject                              *Output               `json:"deploy_output_id_object,omitempty"`
-	Id                                                *string               `json:"id,omitempty"`
-	JobId                                             *string               `json:"job_id,omitempty"`
-	JobIdObject                                       *Job                  `json:"job_id_object,omitempty"`
-	PublishOutputId                                   *string               `json:"publish_output_id,omitempty"`
-	PublishOutputIdObject                             *Output               `json:"publish_output_id_object,omitempty"`
+	BuildOutputId *string `json:"build_output_id,omitempty"`
+	BuildOutputIdObject *Output `json:"build_output_id_object,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	DeployOutputId *string `json:"deploy_output_id,omitempty"`
+	DeployOutputIdObject *Output `json:"deploy_output_id_object,omitempty"`
+	Id *string `json:"id,omitempty"`
+	JobId *string `json:"job_id,omitempty"`
+	JobIdObject *Job `json:"job_id_object,omitempty"`
+	PublishOutputId *string `json:"publish_output_id,omitempty"`
+	PublishOutputIdObject *Output `json:"publish_output_id_object,omitempty"`
 	ReferencedByTriggerHasExecutionExecutionIdObjects []TriggerHasExecution `json:"referenced_by_trigger_has_execution_execution_id_objects,omitempty"`
-	Status                                            *string               `json:"status,omitempty"`
-	TestOutputId                                      *string               `json:"test_output_id,omitempty"`
-	TestOutputIdObject                                *Output               `json:"test_output_id_object,omitempty"`
-	TriggerId                                         *string               `json:"trigger_id,omitempty"`
-	TriggerIdObject                                   *Trigger              `json:"trigger_id_object,omitempty"`
-	UpdatedAt                                         *time.Time            `json:"updated_at,omitempty"`
-	ValidateOutputId                                  *string               `json:"validate_output_id,omitempty"`
-	ValidateOutputIdObject                            *Output               `json:"validate_output_id_object,omitempty"`
+	Status *string `json:"status,omitempty"`
+	TestOutputId *string `json:"test_output_id,omitempty"`
+	TestOutputIdObject *Output `json:"test_output_id_object,omitempty"`
+	TriggerId *string `json:"trigger_id,omitempty"`
+	TriggerIdObject *Trigger `json:"trigger_id_object,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	ValidateOutputId *string `json:"validate_output_id,omitempty"`
+	ValidateOutputIdObject *Output `json:"validate_output_id_object,omitempty"`
 }
 
 // NewExecution instantiates a new Execution object
@@ -701,7 +701,7 @@ func (o *Execution) SetValidateOutputIdObject(v Output) {
 }
 
 func (o Execution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -808,3 +808,5 @@ func (v *NullableExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

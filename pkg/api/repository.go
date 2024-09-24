@@ -39,8 +39,8 @@ type Repository struct {
 	Username                              *string    `json:"username"`
 	Password                              *string    `json:"password"`
 	SSHKey                                *string    `json:"ssh_key"`
-	ReferencedByChangeRepositoryIDObjects []*Change  `json:"referenced_by_change_repository_id_objects"`
 	ReferencedByRuleRepositoryIDObjects   []*Rule    `json:"referenced_by_rule_repository_id_objects"`
+	ReferencedByChangeRepositoryIDObjects []*Change  `json:"referenced_by_change_repository_id_objects"`
 }
 
 var RepositoryTable = "repository"
@@ -382,8 +382,8 @@ func (m *Repository) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...b
 	m.Username = o.Username
 	m.Password = o.Password
 	m.SSHKey = o.SSHKey
-	m.ReferencedByChangeRepositoryIDObjects = o.ReferencedByChangeRepositoryIDObjects
 	m.ReferencedByRuleRepositoryIDObjects = o.ReferencedByRuleRepositoryIDObjects
+	m.ReferencedByChangeRepositoryIDObjects = o.ReferencedByChangeRepositoryIDObjects
 
 	return nil
 }
@@ -790,42 +790,6 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRepositories->SelectChanges for object.ReferencedByChangeRepositoryIDObjects")
-				}
-
-				object.ReferencedByChangeRepositoryIDObjects, _, _, _, _, err = SelectChanges(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ChangeTableRepositoryIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectRepositories->SelectChanges for object.ReferencedByChangeRepositoryIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RepositoryTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
 					log.Printf("loading SelectRepositories->SelectRules for object.ReferencedByRuleRepositoryIDObjects")
 				}
 
@@ -846,6 +810,42 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 
 				if config.Debug() {
 					log.Printf("loaded SelectRepositories->SelectRules for object.ReferencedByRuleRepositoryIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RepositoryTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectRepositories->SelectChanges for object.ReferencedByChangeRepositoryIDObjects")
+				}
+
+				object.ReferencedByChangeRepositoryIDObjects, _, _, _, _, err = SelectChanges(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", ChangeTableRepositoryIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectRepositories->SelectChanges for object.ReferencedByChangeRepositoryIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

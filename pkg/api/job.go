@@ -48,8 +48,8 @@ type Job struct {
 	DeployTaskIDObject                      *Task              `json:"deploy_task_id_object"`
 	ValidateTaskID                          *uuid.UUID         `json:"validate_task_id"`
 	ValidateTaskIDObject                    *Task              `json:"validate_task_id_object"`
-	ReferencedByExecutionJobIDObjects       []*Execution       `json:"referenced_by_execution_job_id_objects"`
 	ReferencedByRuleRequiresJobJobIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_job_id_objects"`
+	ReferencedByExecutionJobIDObjects       []*Execution       `json:"referenced_by_execution_job_id_objects"`
 }
 
 var JobTable = "job"
@@ -469,8 +469,8 @@ func (m *Job) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) er
 	m.DeployTaskIDObject = o.DeployTaskIDObject
 	m.ValidateTaskID = o.ValidateTaskID
 	m.ValidateTaskIDObject = o.ValidateTaskIDObject
-	m.ReferencedByExecutionJobIDObjects = o.ReferencedByExecutionJobIDObjects
 	m.ReferencedByRuleRequiresJobJobIDObjects = o.ReferencedByRuleRequiresJobJobIDObjects
+	m.ReferencedByExecutionJobIDObjects = o.ReferencedByExecutionJobIDObjects
 
 	return nil
 }
@@ -1105,42 +1105,6 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects")
-				}
-
-				object.ReferencedByExecutionJobIDObjects, _, _, _, _, err = SelectExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableJobIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", JobTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
 					log.Printf("loading SelectJobs->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobJobIDObjects")
 				}
 
@@ -1161,6 +1125,42 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 
 				if config.Debug() {
 					log.Printf("loaded SelectJobs->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobJobIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", JobTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects")
+				}
+
+				object.ReferencedByExecutionJobIDObjects, _, _, _, _, err = SelectExecutions(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", ExecutionTableJobIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

@@ -11,11 +11,10 @@ package api_client
 
 import (
 	"context"
-	"testing"
-
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"testing"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
@@ -25,7 +24,7 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	t.Run("Test RuleRequiresJobAPIService DeleteRuleRequiresJob", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -38,7 +37,7 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	t.Run("Test RuleRequiresJobAPIService GetRuleRequiresJob", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -52,7 +51,7 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	t.Run("Test RuleRequiresJobAPIService GetRuleRequiresJobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RuleRequiresJobAPI.GetRuleRequiresJobs(context.Background()).Execute()
 
@@ -64,7 +63,7 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	t.Run("Test RuleRequiresJobAPIService PatchRuleRequiresJob", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -78,7 +77,7 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	t.Run("Test RuleRequiresJobAPIService PostRuleRequiresJobs", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RuleRequiresJobAPI.PostRuleRequiresJobs(context.Background()).Execute()
 

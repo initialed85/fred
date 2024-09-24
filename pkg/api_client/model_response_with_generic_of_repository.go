@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfRepository{}
 
 // ResponseWithGenericOfRepository struct for ResponseWithGenericOfRepository
 type ResponseWithGenericOfRepository struct {
-	Count      *int64       `json:"count,omitempty"`
-	Error      []string     `json:"error,omitempty"`
-	Limit      *int64       `json:"limit,omitempty"`
-	Objects    []Repository `json:"objects,omitempty"`
-	Offset     *int64       `json:"offset,omitempty"`
-	Status     *int64       `json:"status,omitempty"`
-	Success    *bool        `json:"success,omitempty"`
-	TotalCount *int64       `json:"total_count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
+	Error []string `json:"error,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
+	Objects []Repository `json:"objects,omitempty"`
+	Offset *int64 `json:"offset,omitempty"`
+	Status *int64 `json:"status,omitempty"`
+	Success *bool `json:"success,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfRepository instantiates a new ResponseWithGenericOfRepository object
@@ -305,7 +305,7 @@ func (o *ResponseWithGenericOfRepository) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfRepository) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -376,3 +376,5 @@ func (v *NullableResponseWithGenericOfRepository) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
