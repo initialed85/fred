@@ -26,7 +26,7 @@
         "type": "array",
         "nullable": true,
         "items": {
-          "$ref": "#/components/schemas/Job",
+          "$ref": "#/components/schemas/Rule",
           "nullable": true
         }
       },
@@ -34,7 +34,7 @@
         "type": "array",
         "nullable": true,
         "items": {
-          "$ref": "#/components/schemas/Execution",
+          "$ref": "#/components/schemas/Output",
           "nullable": true
         }
       },
@@ -147,9 +147,22 @@
             "$ref": "#/components/schemas/Repository",
             "nullable": true
           },
+          "trigger_produced_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "ClaimRequest": {
+        "type": "object",
+        "properties": {
+          "claim_duration_seconds": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
@@ -207,6 +220,9 @@
               "$ref": "#/components/schemas/TriggerHasExecution",
               "nullable": true
             }
+          },
+          "status": {
+            "type": "string"
           },
           "test_output_id": {
             "type": "string",
@@ -268,6 +284,13 @@
           "id": {
             "type": "string",
             "format": "uuid"
+          },
+          "job_executor_claimed_until": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
           },
           "publish_task_id": {
             "type": "string",
@@ -366,6 +389,9 @@
       "Output": {
         "type": "object",
         "properties": {
+          "buffer": {
+            "type": "string"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -373,6 +399,13 @@
           "deleted_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "error": {
+            "type": "string"
+          },
+          "exit_status": {
+            "type": "integer",
+            "format": "int64"
           },
           "id": {
             "type": "string",
@@ -417,6 +450,9 @@
               "$ref": "#/components/schemas/Execution",
               "nullable": true
             }
+          },
+          "status": {
+            "type": "string"
           },
           "task_id": {
             "type": "string",
@@ -593,7 +629,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -636,7 +672,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Execution",
+              "$ref": "#/components/schemas/Output",
               "nullable": true
             }
           },
@@ -937,7 +973,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1023,11 +1059,20 @@
             "type": "string",
             "format": "uuid"
           },
+          "image": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
           "referenced_by_job_build_task_id_objects": {
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1035,7 +1080,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1043,7 +1088,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1051,7 +1096,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1059,7 +1104,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Job",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -1067,9 +1112,12 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Execution",
+              "$ref": "#/components/schemas/Output",
               "nullable": true
             }
+          },
+          "script": {
+            "type": "string"
           },
           "updated_at": {
             "type": "string",
@@ -1099,6 +1147,14 @@
           "id": {
             "type": "string",
             "format": "uuid"
+          },
+          "job_execution_started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "job_executor_claimed_until": {
+            "type": "string",
+            "format": "date-time"
           },
           "referenced_by_execution_trigger_id_objects": {
             "type": "array",
@@ -2665,6 +2721,144 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
+            "name": "trigger_produced_at__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "trigger_produced_at__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "trigger_produced_at__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "trigger_produced_at__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "trigger_produced_at__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "trigger_produced_at__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "trigger_produced_at__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "trigger_produced_at__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "trigger_produced_at__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "trigger_produced_at__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "trigger_produced_at__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "trigger_produced_at__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "trigger_produced_at__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "trigger_produced_at__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
             "name": "repository_id__eq",
             "in": "query",
             "required": false,
@@ -3137,6 +3331,66 @@
           },
           "default": {
             "description": "DeleteChange failure"
+          }
+        }
+      }
+    },
+    "/api/custom/claim-trigger-for-job-executor": {
+      "patch": {
+        "tags": [
+          "Custom"
+        ],
+        "operationId": "PatchCustomClaimTriggerForJobExecutor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "PatchCustomClaimTriggerForJobExecutor success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NullableTrigger"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "PatchCustomClaimTriggerForJobExecutor failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "status": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "success",
+                    "error"
+                  ]
+                }
+              }
+            }
           }
         }
       }
@@ -3722,6 +3976,132 @@
           },
           {
             "name": "deleted_at__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "status__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "status__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "status__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "status__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "status__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "status__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "status__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "status__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "status__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "status__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -5731,6 +6111,270 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
+            "name": "name__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "name__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "name__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "name__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "name__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "name__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "name__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "name__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "name__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "name__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "job_executor_claimed_until__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "job_executor_claimed_until__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "job_executor_claimed_until__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_executor_claimed_until__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_executor_claimed_until__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "job_executor_claimed_until__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
             "name": "rule_id__eq",
             "in": "query",
             "required": false,
@@ -7586,6 +8230,482 @@
           },
           {
             "name": "deleted_at__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "status__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "status__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "status__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "status__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "status__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "status__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "status__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "status__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "status__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "status__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "status__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "exit_status__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "exit_status__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "exit_status__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "exit_status__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "exit_status__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "exit_status__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "exit_status__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "exit_status__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "exit_status__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "exit_status__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "buffer__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "buffer__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "buffer__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "buffer__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "buffer__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "buffer__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "buffer__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "buffer__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "buffer__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "buffer__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "buffer__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "buffer__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "buffer__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "buffer__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "error__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "error__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "error__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "error__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "error__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "error__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "error__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "error__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "error__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "error__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "error__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "error__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "error__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "error__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -11803,24 +12923,6 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_job_rule_id_objects__desc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_job_rule_id_objects__asc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
             "name": "referenced_by_rule_requires_job_rule_id_objects__desc",
             "in": "query",
             "required": false,
@@ -11831,6 +12933,24 @@
           },
           {
             "name": "referenced_by_rule_requires_job_rule_id_objects__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_job_rule_id_objects__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_job_rule_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12730,6 +13850,528 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
+            "name": "name__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "name__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "name__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "name__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "name__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "name__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "name__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "name__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "name__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "name__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "name__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "platform__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "platform__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "platform__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "platform__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "platform__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "platform__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "platform__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "platform__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "platform__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "platform__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "platform__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "platform__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "platform__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "platform__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "image__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "image__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "image__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "image__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "image__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "image__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "image__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "image__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "image__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "image__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "image__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "image__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "image__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "image__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "script__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "script__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "script__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "script__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "script__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "script__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "script__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "script__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "script__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "script__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "script__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "script__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "script__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "script__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_output_task_id_objects__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_output_task_id_objects__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
             "name": "referenced_by_job_build_task_id_objects__desc",
             "in": "query",
             "required": false,
@@ -12812,24 +14454,6 @@
           },
           {
             "name": "referenced_by_job_validate_task_id_objects__asc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_output_task_id_objects__desc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_output_task_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -14932,6 +16556,282 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
+            "name": "job_executor_claimed_until__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "job_executor_claimed_until__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "job_executor_claimed_until__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_executor_claimed_until__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_executor_claimed_until__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_executor_claimed_until__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_executor_claimed_until__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "job_executor_claimed_until__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "job_execution_started_at__eq",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL = comparison"
+          },
+          {
+            "name": "job_execution_started_at__ne",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL != comparison"
+          },
+          {
+            "name": "job_execution_started_at__gt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e comparison, may not work with all column types"
+          },
+          {
+            "name": "job_execution_started_at__gte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003e= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_execution_started_at__lt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c comparison, may not work with all column types"
+          },
+          {
+            "name": "job_execution_started_at__lte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL \u003c= comparison, may not work with all column types"
+          },
+          {
+            "name": "job_execution_started_at__in",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_execution_started_at__notin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT IN comparison, permits comma-separated values"
+          },
+          {
+            "name": "job_execution_started_at__like",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_execution_started_at__notlike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_execution_started_at__ilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_execution_started_at__notilike",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %"
+          },
+          {
+            "name": "job_execution_started_at__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "job_execution_started_at__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
             "name": "rule_id__eq",
             "in": "query",
             "required": false,
@@ -15244,24 +17144,6 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_trigger_has_execution_trigger_id_objects__desc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_trigger_has_execution_trigger_id_objects__asc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
             "name": "referenced_by_execution_trigger_id_objects__desc",
             "in": "query",
             "required": false,
@@ -15272,6 +17154,24 @@
           },
           {
             "name": "referenced_by_execution_trigger_id_objects__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_trigger_has_execution_trigger_id_objects__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_trigger_has_execution_trigger_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {

@@ -305,6 +305,58 @@ type ApiGetOutputsRequest struct {
 	deletedAtNotilike                                *time.Time
 	deletedAtDesc                                    *string
 	deletedAtAsc                                     *string
+	statusEq                                         *string
+	statusNe                                         *string
+	statusGt                                         *string
+	statusGte                                        *string
+	statusLt                                         *string
+	statusLte                                        *string
+	statusIn                                         *string
+	statusNotin                                      *string
+	statusLike                                       *string
+	statusNotlike                                    *string
+	statusIlike                                      *string
+	statusNotilike                                   *string
+	statusDesc                                       *string
+	statusAsc                                        *string
+	exitStatusEq                                     *int64
+	exitStatusNe                                     *int64
+	exitStatusGt                                     *int64
+	exitStatusGte                                    *int64
+	exitStatusLt                                     *int64
+	exitStatusLte                                    *int64
+	exitStatusIn                                     *int64
+	exitStatusNotin                                  *int64
+	exitStatusDesc                                   *string
+	exitStatusAsc                                    *string
+	bufferEq                                         *string
+	bufferNe                                         *string
+	bufferGt                                         *string
+	bufferGte                                        *string
+	bufferLt                                         *string
+	bufferLte                                        *string
+	bufferIn                                         *string
+	bufferNotin                                      *string
+	bufferLike                                       *string
+	bufferNotlike                                    *string
+	bufferIlike                                      *string
+	bufferNotilike                                   *string
+	bufferDesc                                       *string
+	bufferAsc                                        *string
+	errorEq                                          *string
+	errorNe                                          *string
+	errorGt                                          *string
+	errorGte                                         *string
+	errorLt                                          *string
+	errorLte                                         *string
+	errorIn                                          *string
+	errorNotin                                       *string
+	errorLike                                        *string
+	errorNotlike                                     *string
+	errorIlike                                       *string
+	errorNotilike                                    *string
+	errorDesc                                        *string
+	errorAsc                                         *string
 	taskIdEq                                         *string
 	taskIdNe                                         *string
 	taskIdGt                                         *string
@@ -688,6 +740,318 @@ func (r ApiGetOutputsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetOutputsReq
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) StatusEq(statusEq string) ApiGetOutputsRequest {
+	r.statusEq = &statusEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) StatusNe(statusNe string) ApiGetOutputsRequest {
+	r.statusNe = &statusNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StatusGt(statusGt string) ApiGetOutputsRequest {
+	r.statusGt = &statusGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StatusGte(statusGte string) ApiGetOutputsRequest {
+	r.statusGte = &statusGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StatusLt(statusLt string) ApiGetOutputsRequest {
+	r.statusLt = &statusLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StatusLte(statusLte string) ApiGetOutputsRequest {
+	r.statusLte = &statusLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) StatusIn(statusIn string) ApiGetOutputsRequest {
+	r.statusIn = &statusIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) StatusNotin(statusNotin string) ApiGetOutputsRequest {
+	r.statusNotin = &statusNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StatusLike(statusLike string) ApiGetOutputsRequest {
+	r.statusLike = &statusLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StatusNotlike(statusNotlike string) ApiGetOutputsRequest {
+	r.statusNotlike = &statusNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StatusIlike(statusIlike string) ApiGetOutputsRequest {
+	r.statusIlike = &statusIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StatusNotilike(statusNotilike string) ApiGetOutputsRequest {
+	r.statusNotilike = &statusNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) StatusDesc(statusDesc string) ApiGetOutputsRequest {
+	r.statusDesc = &statusDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) StatusAsc(statusAsc string) ApiGetOutputsRequest {
+	r.statusAsc = &statusAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) ExitStatusEq(exitStatusEq int64) ApiGetOutputsRequest {
+	r.exitStatusEq = &exitStatusEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) ExitStatusNe(exitStatusNe int64) ApiGetOutputsRequest {
+	r.exitStatusNe = &exitStatusNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExitStatusGt(exitStatusGt int64) ApiGetOutputsRequest {
+	r.exitStatusGt = &exitStatusGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExitStatusGte(exitStatusGte int64) ApiGetOutputsRequest {
+	r.exitStatusGte = &exitStatusGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExitStatusLt(exitStatusLt int64) ApiGetOutputsRequest {
+	r.exitStatusLt = &exitStatusLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExitStatusLte(exitStatusLte int64) ApiGetOutputsRequest {
+	r.exitStatusLte = &exitStatusLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ExitStatusIn(exitStatusIn int64) ApiGetOutputsRequest {
+	r.exitStatusIn = &exitStatusIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ExitStatusNotin(exitStatusNotin int64) ApiGetOutputsRequest {
+	r.exitStatusNotin = &exitStatusNotin
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExitStatusDesc(exitStatusDesc string) ApiGetOutputsRequest {
+	r.exitStatusDesc = &exitStatusDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExitStatusAsc(exitStatusAsc string) ApiGetOutputsRequest {
+	r.exitStatusAsc = &exitStatusAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) BufferEq(bufferEq string) ApiGetOutputsRequest {
+	r.bufferEq = &bufferEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) BufferNe(bufferNe string) ApiGetOutputsRequest {
+	r.bufferNe = &bufferNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) BufferGt(bufferGt string) ApiGetOutputsRequest {
+	r.bufferGt = &bufferGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) BufferGte(bufferGte string) ApiGetOutputsRequest {
+	r.bufferGte = &bufferGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) BufferLt(bufferLt string) ApiGetOutputsRequest {
+	r.bufferLt = &bufferLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) BufferLte(bufferLte string) ApiGetOutputsRequest {
+	r.bufferLte = &bufferLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) BufferIn(bufferIn string) ApiGetOutputsRequest {
+	r.bufferIn = &bufferIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) BufferNotin(bufferNotin string) ApiGetOutputsRequest {
+	r.bufferNotin = &bufferNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) BufferLike(bufferLike string) ApiGetOutputsRequest {
+	r.bufferLike = &bufferLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) BufferNotlike(bufferNotlike string) ApiGetOutputsRequest {
+	r.bufferNotlike = &bufferNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) BufferIlike(bufferIlike string) ApiGetOutputsRequest {
+	r.bufferIlike = &bufferIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) BufferNotilike(bufferNotilike string) ApiGetOutputsRequest {
+	r.bufferNotilike = &bufferNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) BufferDesc(bufferDesc string) ApiGetOutputsRequest {
+	r.bufferDesc = &bufferDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) BufferAsc(bufferAsc string) ApiGetOutputsRequest {
+	r.bufferAsc = &bufferAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) ErrorEq(errorEq string) ApiGetOutputsRequest {
+	r.errorEq = &errorEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) ErrorNe(errorNe string) ApiGetOutputsRequest {
+	r.errorNe = &errorNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ErrorGt(errorGt string) ApiGetOutputsRequest {
+	r.errorGt = &errorGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ErrorGte(errorGte string) ApiGetOutputsRequest {
+	r.errorGte = &errorGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ErrorLt(errorLt string) ApiGetOutputsRequest {
+	r.errorLt = &errorLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ErrorLte(errorLte string) ApiGetOutputsRequest {
+	r.errorLte = &errorLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ErrorIn(errorIn string) ApiGetOutputsRequest {
+	r.errorIn = &errorIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ErrorNotin(errorNotin string) ApiGetOutputsRequest {
+	r.errorNotin = &errorNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ErrorLike(errorLike string) ApiGetOutputsRequest {
+	r.errorLike = &errorLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ErrorNotlike(errorNotlike string) ApiGetOutputsRequest {
+	r.errorNotlike = &errorNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ErrorIlike(errorIlike string) ApiGetOutputsRequest {
+	r.errorIlike = &errorIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ErrorNotilike(errorNotilike string) ApiGetOutputsRequest {
+	r.errorNotilike = &errorNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ErrorDesc(errorDesc string) ApiGetOutputsRequest {
+	r.errorDesc = &errorDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ErrorAsc(errorAsc string) ApiGetOutputsRequest {
+	r.errorAsc = &errorAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetOutputsRequest) TaskIdEq(taskIdEq string) ApiGetOutputsRequest {
 	r.taskIdEq = &taskIdEq
 	return r
@@ -1059,6 +1423,162 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
+	if r.statusEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__eq", r.statusEq, "form", "")
+	}
+	if r.statusNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__ne", r.statusNe, "form", "")
+	}
+	if r.statusGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__gt", r.statusGt, "form", "")
+	}
+	if r.statusGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__gte", r.statusGte, "form", "")
+	}
+	if r.statusLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__lt", r.statusLt, "form", "")
+	}
+	if r.statusLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__lte", r.statusLte, "form", "")
+	}
+	if r.statusIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__in", r.statusIn, "form", "")
+	}
+	if r.statusNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notin", r.statusNotin, "form", "")
+	}
+	if r.statusLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__like", r.statusLike, "form", "")
+	}
+	if r.statusNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notlike", r.statusNotlike, "form", "")
+	}
+	if r.statusIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__ilike", r.statusIlike, "form", "")
+	}
+	if r.statusNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notilike", r.statusNotilike, "form", "")
+	}
+	if r.statusDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__desc", r.statusDesc, "form", "")
+	}
+	if r.statusAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__asc", r.statusAsc, "form", "")
+	}
+	if r.exitStatusEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__eq", r.exitStatusEq, "form", "")
+	}
+	if r.exitStatusNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__ne", r.exitStatusNe, "form", "")
+	}
+	if r.exitStatusGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__gt", r.exitStatusGt, "form", "")
+	}
+	if r.exitStatusGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__gte", r.exitStatusGte, "form", "")
+	}
+	if r.exitStatusLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__lt", r.exitStatusLt, "form", "")
+	}
+	if r.exitStatusLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__lte", r.exitStatusLte, "form", "")
+	}
+	if r.exitStatusIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__in", r.exitStatusIn, "form", "")
+	}
+	if r.exitStatusNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__notin", r.exitStatusNotin, "form", "")
+	}
+	if r.exitStatusDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__desc", r.exitStatusDesc, "form", "")
+	}
+	if r.exitStatusAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__asc", r.exitStatusAsc, "form", "")
+	}
+	if r.bufferEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__eq", r.bufferEq, "form", "")
+	}
+	if r.bufferNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ne", r.bufferNe, "form", "")
+	}
+	if r.bufferGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gt", r.bufferGt, "form", "")
+	}
+	if r.bufferGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gte", r.bufferGte, "form", "")
+	}
+	if r.bufferLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lt", r.bufferLt, "form", "")
+	}
+	if r.bufferLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lte", r.bufferLte, "form", "")
+	}
+	if r.bufferIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__in", r.bufferIn, "form", "")
+	}
+	if r.bufferNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notin", r.bufferNotin, "form", "")
+	}
+	if r.bufferLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__like", r.bufferLike, "form", "")
+	}
+	if r.bufferNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notlike", r.bufferNotlike, "form", "")
+	}
+	if r.bufferIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ilike", r.bufferIlike, "form", "")
+	}
+	if r.bufferNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notilike", r.bufferNotilike, "form", "")
+	}
+	if r.bufferDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__desc", r.bufferDesc, "form", "")
+	}
+	if r.bufferAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__asc", r.bufferAsc, "form", "")
+	}
+	if r.errorEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__eq", r.errorEq, "form", "")
+	}
+	if r.errorNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__ne", r.errorNe, "form", "")
+	}
+	if r.errorGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__gt", r.errorGt, "form", "")
+	}
+	if r.errorGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__gte", r.errorGte, "form", "")
+	}
+	if r.errorLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__lt", r.errorLt, "form", "")
+	}
+	if r.errorLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__lte", r.errorLte, "form", "")
+	}
+	if r.errorIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__in", r.errorIn, "form", "")
+	}
+	if r.errorNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__notin", r.errorNotin, "form", "")
+	}
+	if r.errorLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__like", r.errorLike, "form", "")
+	}
+	if r.errorNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__notlike", r.errorNotlike, "form", "")
+	}
+	if r.errorIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__ilike", r.errorIlike, "form", "")
+	}
+	if r.errorNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__notilike", r.errorNotilike, "form", "")
+	}
+	if r.errorDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__desc", r.errorDesc, "form", "")
+	}
+	if r.errorAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__asc", r.errorAsc, "form", "")
+	}
 	if r.taskIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__eq", r.taskIdEq, "form", "")
 	}
@@ -1333,12 +1853,12 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 type ApiPostOutputsRequest struct {
 	ctx        context.Context
 	ApiService *OutputAPIService
-	execution  *[]Execution
+	output     *[]Output
 	depth      *int64
 }
 
-func (r ApiPostOutputsRequest) Execution(execution []Execution) ApiPostOutputsRequest {
-	r.execution = &execution
+func (r ApiPostOutputsRequest) Output(output []Output) ApiPostOutputsRequest {
+	r.output = &output
 	return r
 }
 
@@ -1386,8 +1906,8 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.execution == nil {
-		return localVarReturnValue, nil, reportError("execution is required and must be specified")
+	if r.output == nil {
+		return localVarReturnValue, nil, reportError("output is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1411,7 +1931,7 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.execution
+	localVarPostBody = r.output
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

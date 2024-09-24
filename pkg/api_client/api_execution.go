@@ -305,6 +305,20 @@ type ApiGetExecutionsRequest struct {
 	deletedAtNotilike                                     *time.Time
 	deletedAtDesc                                         *string
 	deletedAtAsc                                          *string
+	statusEq                                              *string
+	statusNe                                              *string
+	statusGt                                              *string
+	statusGte                                             *string
+	statusLt                                              *string
+	statusLte                                             *string
+	statusIn                                              *string
+	statusNotin                                           *string
+	statusLike                                            *string
+	statusNotlike                                         *string
+	statusIlike                                           *string
+	statusNotilike                                        *string
+	statusDesc                                            *string
+	statusAsc                                             *string
 	triggerIdEq                                           *string
 	triggerIdNe                                           *string
 	triggerIdGt                                           *string
@@ -772,6 +786,90 @@ func (r ApiGetExecutionsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetExecu
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetExecutionsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetExecutionsRequest {
 	r.deletedAtAsc = &deletedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetExecutionsRequest) StatusEq(statusEq string) ApiGetExecutionsRequest {
+	r.statusEq = &statusEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetExecutionsRequest) StatusNe(statusNe string) ApiGetExecutionsRequest {
+	r.statusNe = &statusNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetExecutionsRequest) StatusGt(statusGt string) ApiGetExecutionsRequest {
+	r.statusGt = &statusGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetExecutionsRequest) StatusGte(statusGte string) ApiGetExecutionsRequest {
+	r.statusGte = &statusGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetExecutionsRequest) StatusLt(statusLt string) ApiGetExecutionsRequest {
+	r.statusLt = &statusLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetExecutionsRequest) StatusLte(statusLte string) ApiGetExecutionsRequest {
+	r.statusLte = &statusLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetExecutionsRequest) StatusIn(statusIn string) ApiGetExecutionsRequest {
+	r.statusIn = &statusIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetExecutionsRequest) StatusNotin(statusNotin string) ApiGetExecutionsRequest {
+	r.statusNotin = &statusNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetExecutionsRequest) StatusLike(statusLike string) ApiGetExecutionsRequest {
+	r.statusLike = &statusLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetExecutionsRequest) StatusNotlike(statusNotlike string) ApiGetExecutionsRequest {
+	r.statusNotlike = &statusNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetExecutionsRequest) StatusIlike(statusIlike string) ApiGetExecutionsRequest {
+	r.statusIlike = &statusIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetExecutionsRequest) StatusNotilike(statusNotilike string) ApiGetExecutionsRequest {
+	r.statusNotilike = &statusNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetExecutionsRequest) StatusDesc(statusDesc string) ApiGetExecutionsRequest {
+	r.statusDesc = &statusDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetExecutionsRequest) StatusAsc(statusAsc string) ApiGetExecutionsRequest {
+	r.statusAsc = &statusAsc
 	return r
 }
 
@@ -1674,6 +1772,48 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 	}
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
+	}
+	if r.statusEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__eq", r.statusEq, "form", "")
+	}
+	if r.statusNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__ne", r.statusNe, "form", "")
+	}
+	if r.statusGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__gt", r.statusGt, "form", "")
+	}
+	if r.statusGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__gte", r.statusGte, "form", "")
+	}
+	if r.statusLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__lt", r.statusLt, "form", "")
+	}
+	if r.statusLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__lte", r.statusLte, "form", "")
+	}
+	if r.statusIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__in", r.statusIn, "form", "")
+	}
+	if r.statusNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notin", r.statusNotin, "form", "")
+	}
+	if r.statusLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__like", r.statusLike, "form", "")
+	}
+	if r.statusNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notlike", r.statusNotlike, "form", "")
+	}
+	if r.statusIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__ilike", r.statusIlike, "form", "")
+	}
+	if r.statusNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notilike", r.statusNotilike, "form", "")
+	}
+	if r.statusDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__desc", r.statusDesc, "form", "")
+	}
+	if r.statusAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__asc", r.statusAsc, "form", "")
 	}
 	if r.triggerIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__eq", r.triggerIdEq, "form", "")

@@ -337,10 +337,10 @@ type ApiGetRulesRequest struct {
 	repositoryIdObjectAsc                        *string
 	referencedByTriggerRuleIdObjectsDesc         *string
 	referencedByTriggerRuleIdObjectsAsc          *string
-	referencedByJobRuleIdObjectsDesc             *string
-	referencedByJobRuleIdObjectsAsc              *string
 	referencedByRuleRequiresJobRuleIdObjectsDesc *string
 	referencedByRuleRequiresJobRuleIdObjectsAsc  *string
+	referencedByJobRuleIdObjectsDesc             *string
+	referencedByJobRuleIdObjectsAsc              *string
 }
 
 // SQL LIMIT operator
@@ -890,18 +890,6 @@ func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsAsc(referencedByTrig
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsDesc(referencedByJobRuleIdObjectsDesc string) ApiGetRulesRequest {
-	r.referencedByJobRuleIdObjectsDesc = &referencedByJobRuleIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsAsc(referencedByJobRuleIdObjectsAsc string) ApiGetRulesRequest {
-	r.referencedByJobRuleIdObjectsAsc = &referencedByJobRuleIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsDesc(referencedByRuleRequiresJobRuleIdObjectsDesc string) ApiGetRulesRequest {
 	r.referencedByRuleRequiresJobRuleIdObjectsDesc = &referencedByRuleRequiresJobRuleIdObjectsDesc
 	return r
@@ -910,6 +898,18 @@ func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsDesc(referen
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsAsc(referencedByRuleRequiresJobRuleIdObjectsAsc string) ApiGetRulesRequest {
 	r.referencedByRuleRequiresJobRuleIdObjectsAsc = &referencedByRuleRequiresJobRuleIdObjectsAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsDesc(referencedByJobRuleIdObjectsDesc string) ApiGetRulesRequest {
+	r.referencedByJobRuleIdObjectsDesc = &referencedByJobRuleIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsAsc(referencedByJobRuleIdObjectsAsc string) ApiGetRulesRequest {
+	r.referencedByJobRuleIdObjectsAsc = &referencedByJobRuleIdObjectsAsc
 	return r
 }
 
@@ -1225,17 +1225,17 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 	if r.referencedByTriggerRuleIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__asc", r.referencedByTriggerRuleIdObjectsAsc, "form", "")
 	}
-	if r.referencedByJobRuleIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__desc", r.referencedByJobRuleIdObjectsDesc, "form", "")
-	}
-	if r.referencedByJobRuleIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__asc", r.referencedByJobRuleIdObjectsAsc, "form", "")
-	}
 	if r.referencedByRuleRequiresJobRuleIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__desc", r.referencedByRuleRequiresJobRuleIdObjectsDesc, "form", "")
 	}
 	if r.referencedByRuleRequiresJobRuleIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__asc", r.referencedByRuleRequiresJobRuleIdObjectsAsc, "form", "")
+	}
+	if r.referencedByJobRuleIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__desc", r.referencedByJobRuleIdObjectsDesc, "form", "")
+	}
+	if r.referencedByJobRuleIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__asc", r.referencedByJobRuleIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

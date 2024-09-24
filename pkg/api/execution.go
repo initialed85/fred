@@ -34,6 +34,7 @@ type Execution struct {
 	CreatedAt                                         time.Time              `json:"created_at"`
 	UpdatedAt                                         time.Time              `json:"updated_at"`
 	DeletedAt                                         *time.Time             `json:"deleted_at"`
+	Status                                            string                 `json:"status"`
 	TriggerID                                         uuid.UUID              `json:"trigger_id"`
 	TriggerIDObject                                   *Trigger               `json:"trigger_id_object"`
 	BuildOutputID                                     *uuid.UUID             `json:"build_output_id"`
@@ -60,6 +61,7 @@ var (
 	ExecutionTableCreatedAtColumn        = "created_at"
 	ExecutionTableUpdatedAtColumn        = "updated_at"
 	ExecutionTableDeletedAtColumn        = "deleted_at"
+	ExecutionTableStatusColumn           = "status"
 	ExecutionTableTriggerIDColumn        = "trigger_id"
 	ExecutionTableBuildOutputIDColumn    = "build_output_id"
 	ExecutionTableTestOutputIDColumn     = "test_output_id"
@@ -74,6 +76,7 @@ var (
 	ExecutionTableCreatedAtColumnWithTypeCast        = `"created_at" AS created_at`
 	ExecutionTableUpdatedAtColumnWithTypeCast        = `"updated_at" AS updated_at`
 	ExecutionTableDeletedAtColumnWithTypeCast        = `"deleted_at" AS deleted_at`
+	ExecutionTableStatusColumnWithTypeCast           = `"status" AS status`
 	ExecutionTableTriggerIDColumnWithTypeCast        = `"trigger_id" AS trigger_id`
 	ExecutionTableBuildOutputIDColumnWithTypeCast    = `"build_output_id" AS build_output_id`
 	ExecutionTableTestOutputIDColumnWithTypeCast     = `"test_output_id" AS test_output_id`
@@ -88,6 +91,7 @@ var ExecutionTableColumns = []string{
 	ExecutionTableCreatedAtColumn,
 	ExecutionTableUpdatedAtColumn,
 	ExecutionTableDeletedAtColumn,
+	ExecutionTableStatusColumn,
 	ExecutionTableTriggerIDColumn,
 	ExecutionTableBuildOutputIDColumn,
 	ExecutionTableTestOutputIDColumn,
@@ -102,6 +106,7 @@ var ExecutionTableColumnsWithTypeCasts = []string{
 	ExecutionTableCreatedAtColumnWithTypeCast,
 	ExecutionTableUpdatedAtColumnWithTypeCast,
 	ExecutionTableDeletedAtColumnWithTypeCast,
+	ExecutionTableStatusColumnWithTypeCast,
 	ExecutionTableTriggerIDColumnWithTypeCast,
 	ExecutionTableBuildOutputIDColumnWithTypeCast,
 	ExecutionTableTestOutputIDColumnWithTypeCast,
@@ -264,6 +269,25 @@ func (m *Execution) FromItem(item map[string]any) error {
 			}
 
 			m.DeletedAt = &temp2
+
+		case "status":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uustatus.UUID", temp1))
+				}
+			}
+
+			m.Status = temp2
 
 		case "trigger_id":
 			if v == nil {
@@ -431,6 +455,7 @@ func (m *Execution) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bo
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.Status = o.Status
 	m.TriggerID = o.TriggerID
 	m.TriggerIDObject = o.TriggerIDObject
 	m.BuildOutputID = o.BuildOutputID
@@ -493,6 +518,17 @@ func (m *Execution) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, s
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Status) || slices.Contains(forceSetValuesForFields, ExecutionTableStatusColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableStatusColumn) {
+		columns = append(columns, ExecutionTableStatusColumn)
+
+		v, err := types.FormatString(m.Status)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Status; %v", err)
 		}
 
 		values = append(values, v)
@@ -661,6 +697,17 @@ func (m *Execution) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, f
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Status) || slices.Contains(forceSetValuesForFields, ExecutionTableStatusColumn) {
+		columns = append(columns, ExecutionTableStatusColumn)
+
+		v, err := types.FormatString(m.Status)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Status; %v", err)
 		}
 
 		values = append(values, v)

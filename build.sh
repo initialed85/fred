@@ -45,10 +45,10 @@ echo -e "\ngenerating the api..."
 DJANGOLANG_API_ROOT=/api DJANGOLANG_PACKAGE_NAME=api POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI!11 djangolang template
 
 # TODO: you don't want to do this once you put some custom stuff in your api entrypoint
-if test -e ./cmd/api; then
-    rm -frv ./cmd/api
-fi
-cp -frv ./pkg/api/cmd ./cmd/api
+# if test -e ./cmd/api; then
+#     rm -frv ./cmd/api
+# fi
+# cp -frv ./pkg/api/cmd ./cmd/api
 
 # dump out the OpenAPI v3 schema for the Djangolang API
 mkdir -p ./schema

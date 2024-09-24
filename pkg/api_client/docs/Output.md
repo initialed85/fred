@@ -4,14 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Buffer** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
+**Error** | Pointer to **string** |  | [optional] 
+**ExitStatus** | Pointer to **int64** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **ReferencedByExecutionBuildOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByExecutionDeployOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByExecutionPublishOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByExecutionTestOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByExecutionValidateOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
 **TaskId** | Pointer to **string** |  | [optional] 
 **TaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -34,6 +38,31 @@ will change when the set of required properties is changed
 NewOutputWithDefaults instantiates a new Output object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBuffer
+
+`func (o *Output) GetBuffer() string`
+
+GetBuffer returns the Buffer field if non-nil, zero value otherwise.
+
+### GetBufferOk
+
+`func (o *Output) GetBufferOk() (*string, bool)`
+
+GetBufferOk returns a tuple with the Buffer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuffer
+
+`func (o *Output) SetBuffer(v string)`
+
+SetBuffer sets Buffer field to given value.
+
+### HasBuffer
+
+`func (o *Output) HasBuffer() bool`
+
+HasBuffer returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -84,6 +113,56 @@ SetDeletedAt sets DeletedAt field to given value.
 `func (o *Output) HasDeletedAt() bool`
 
 HasDeletedAt returns a boolean if a field has been set.
+
+### GetError
+
+`func (o *Output) GetError() string`
+
+GetError returns the Error field if non-nil, zero value otherwise.
+
+### GetErrorOk
+
+`func (o *Output) GetErrorOk() (*string, bool)`
+
+GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetError
+
+`func (o *Output) SetError(v string)`
+
+SetError sets Error field to given value.
+
+### HasError
+
+`func (o *Output) HasError() bool`
+
+HasError returns a boolean if a field has been set.
+
+### GetExitStatus
+
+`func (o *Output) GetExitStatus() int64`
+
+GetExitStatus returns the ExitStatus field if non-nil, zero value otherwise.
+
+### GetExitStatusOk
+
+`func (o *Output) GetExitStatusOk() (*int64, bool)`
+
+GetExitStatusOk returns a tuple with the ExitStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExitStatus
+
+`func (o *Output) SetExitStatus(v int64)`
+
+SetExitStatus sets ExitStatus field to given value.
+
+### HasExitStatus
+
+`func (o *Output) HasExitStatus() bool`
+
+HasExitStatus returns a boolean if a field has been set.
 
 ### GetId
 
@@ -285,6 +364,31 @@ HasReferencedByExecutionValidateOutputIdObjects returns a boolean if a field has
 `func (o *Output) UnsetReferencedByExecutionValidateOutputIdObjects()`
 
 UnsetReferencedByExecutionValidateOutputIdObjects ensures that no value is present for ReferencedByExecutionValidateOutputIdObjects, not even an explicit nil
+### GetStatus
+
+`func (o *Output) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *Output) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *Output) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *Output) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
 ### GetTaskId
 
 `func (o *Output) GetTaskId() string`

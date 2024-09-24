@@ -305,6 +305,34 @@ type ApiGetJobsRequest struct {
 	deletedAtNotilike                           *time.Time
 	deletedAtDesc                               *string
 	deletedAtAsc                                *string
+	nameEq                                      *string
+	nameNe                                      *string
+	nameGt                                      *string
+	nameGte                                     *string
+	nameLt                                      *string
+	nameLte                                     *string
+	nameIn                                      *string
+	nameNotin                                   *string
+	nameLike                                    *string
+	nameNotlike                                 *string
+	nameIlike                                   *string
+	nameNotilike                                *string
+	nameDesc                                    *string
+	nameAsc                                     *string
+	jobExecutorClaimedUntilEq                   *time.Time
+	jobExecutorClaimedUntilNe                   *time.Time
+	jobExecutorClaimedUntilGt                   *time.Time
+	jobExecutorClaimedUntilGte                  *time.Time
+	jobExecutorClaimedUntilLt                   *time.Time
+	jobExecutorClaimedUntilLte                  *time.Time
+	jobExecutorClaimedUntilIn                   *time.Time
+	jobExecutorClaimedUntilNotin                *time.Time
+	jobExecutorClaimedUntilLike                 *time.Time
+	jobExecutorClaimedUntilNotlike              *time.Time
+	jobExecutorClaimedUntilIlike                *time.Time
+	jobExecutorClaimedUntilNotilike             *time.Time
+	jobExecutorClaimedUntilDesc                 *string
+	jobExecutorClaimedUntilAsc                  *string
 	ruleIdEq                                    *string
 	ruleIdNe                                    *string
 	ruleIdGt                                    *string
@@ -758,6 +786,174 @@ func (r ApiGetJobsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetJobsRequest
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetJobsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetJobsRequest {
 	r.deletedAtAsc = &deletedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetJobsRequest) NameEq(nameEq string) ApiGetJobsRequest {
+	r.nameEq = &nameEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetJobsRequest) NameNe(nameNe string) ApiGetJobsRequest {
+	r.nameNe = &nameNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetJobsRequest) NameGt(nameGt string) ApiGetJobsRequest {
+	r.nameGt = &nameGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetJobsRequest) NameGte(nameGte string) ApiGetJobsRequest {
+	r.nameGte = &nameGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetJobsRequest) NameLt(nameLt string) ApiGetJobsRequest {
+	r.nameLt = &nameLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetJobsRequest) NameLte(nameLte string) ApiGetJobsRequest {
+	r.nameLte = &nameLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetJobsRequest) NameIn(nameIn string) ApiGetJobsRequest {
+	r.nameIn = &nameIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetJobsRequest) NameNotin(nameNotin string) ApiGetJobsRequest {
+	r.nameNotin = &nameNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) NameLike(nameLike string) ApiGetJobsRequest {
+	r.nameLike = &nameLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) NameNotlike(nameNotlike string) ApiGetJobsRequest {
+	r.nameNotlike = &nameNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) NameIlike(nameIlike string) ApiGetJobsRequest {
+	r.nameIlike = &nameIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) NameNotilike(nameNotilike string) ApiGetJobsRequest {
+	r.nameNotilike = &nameNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) NameDesc(nameDesc string) ApiGetJobsRequest {
+	r.nameDesc = &nameDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) NameAsc(nameAsc string) ApiGetJobsRequest {
+	r.nameAsc = &nameAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilEq(jobExecutorClaimedUntilEq time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilEq = &jobExecutorClaimedUntilEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilNe(jobExecutorClaimedUntilNe time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilNe = &jobExecutorClaimedUntilNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilGt(jobExecutorClaimedUntilGt time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilGt = &jobExecutorClaimedUntilGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilGte(jobExecutorClaimedUntilGte time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilGte = &jobExecutorClaimedUntilGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilLt(jobExecutorClaimedUntilLt time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilLt = &jobExecutorClaimedUntilLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilLte(jobExecutorClaimedUntilLte time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilLte = &jobExecutorClaimedUntilLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilIn(jobExecutorClaimedUntilIn time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilIn = &jobExecutorClaimedUntilIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotin(jobExecutorClaimedUntilNotin time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilNotin = &jobExecutorClaimedUntilNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilLike(jobExecutorClaimedUntilLike time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilLike = &jobExecutorClaimedUntilLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotlike(jobExecutorClaimedUntilNotlike time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilNotlike = &jobExecutorClaimedUntilNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilIlike(jobExecutorClaimedUntilIlike time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilIlike = &jobExecutorClaimedUntilIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotilike(jobExecutorClaimedUntilNotilike time.Time) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilNotilike = &jobExecutorClaimedUntilNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilDesc(jobExecutorClaimedUntilDesc string) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilDesc = &jobExecutorClaimedUntilDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) JobExecutorClaimedUntilAsc(jobExecutorClaimedUntilAsc string) ApiGetJobsRequest {
+	r.jobExecutorClaimedUntilAsc = &jobExecutorClaimedUntilAsc
 	return r
 }
 
@@ -1577,6 +1773,90 @@ func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGeneri
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
+	if r.nameEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__eq", r.nameEq, "form", "")
+	}
+	if r.nameNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ne", r.nameNe, "form", "")
+	}
+	if r.nameGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gt", r.nameGt, "form", "")
+	}
+	if r.nameGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gte", r.nameGte, "form", "")
+	}
+	if r.nameLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lt", r.nameLt, "form", "")
+	}
+	if r.nameLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lte", r.nameLte, "form", "")
+	}
+	if r.nameIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__in", r.nameIn, "form", "")
+	}
+	if r.nameNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notin", r.nameNotin, "form", "")
+	}
+	if r.nameLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__like", r.nameLike, "form", "")
+	}
+	if r.nameNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notlike", r.nameNotlike, "form", "")
+	}
+	if r.nameIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ilike", r.nameIlike, "form", "")
+	}
+	if r.nameNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notilike", r.nameNotilike, "form", "")
+	}
+	if r.nameDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__desc", r.nameDesc, "form", "")
+	}
+	if r.nameAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
+	}
+	if r.jobExecutorClaimedUntilEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__eq", r.jobExecutorClaimedUntilEq, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ne", r.jobExecutorClaimedUntilNe, "form", "")
+	}
+	if r.jobExecutorClaimedUntilGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gt", r.jobExecutorClaimedUntilGt, "form", "")
+	}
+	if r.jobExecutorClaimedUntilGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gte", r.jobExecutorClaimedUntilGte, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lt", r.jobExecutorClaimedUntilLt, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lte", r.jobExecutorClaimedUntilLte, "form", "")
+	}
+	if r.jobExecutorClaimedUntilIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__in", r.jobExecutorClaimedUntilIn, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notin", r.jobExecutorClaimedUntilNotin, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__like", r.jobExecutorClaimedUntilLike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notlike", r.jobExecutorClaimedUntilNotlike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ilike", r.jobExecutorClaimedUntilIlike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notilike", r.jobExecutorClaimedUntilNotilike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__desc", r.jobExecutorClaimedUntilDesc, "form", "")
+	}
+	if r.jobExecutorClaimedUntilAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__asc", r.jobExecutorClaimedUntilAsc, "form", "")
+	}
 	if r.ruleIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__eq", r.ruleIdEq, "form", "")
 	}
@@ -2073,12 +2353,12 @@ func (a *JobAPIService) PatchJobExecute(r ApiPatchJobRequest) (*ResponseWithGene
 type ApiPostJobsRequest struct {
 	ctx        context.Context
 	ApiService *JobAPIService
-	job        *[]Job
+	rule       *[]Rule
 	depth      *int64
 }
 
-func (r ApiPostJobsRequest) Job(job []Job) ApiPostJobsRequest {
-	r.job = &job
+func (r ApiPostJobsRequest) Rule(rule []Rule) ApiPostJobsRequest {
+	r.rule = &rule
 	return r
 }
 
@@ -2126,8 +2406,8 @@ func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGene
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.job == nil {
-		return localVarReturnValue, nil, reportError("job is required and must be specified")
+	if r.rule == nil {
+		return localVarReturnValue, nil, reportError("rule is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -2151,7 +2431,7 @@ func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGene
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.job
+	localVarPostBody = r.rule
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

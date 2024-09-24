@@ -33,6 +33,7 @@ type Change struct {
 	ReferencedByTriggerChangeIdObjects []Trigger   `json:"referenced_by_trigger_change_id_objects,omitempty"`
 	RepositoryId                       *string     `json:"repository_id,omitempty"`
 	RepositoryIdObject                 *Repository `json:"repository_id_object,omitempty"`
+	TriggerProducedAt                  *time.Time  `json:"trigger_produced_at,omitempty"`
 	UpdatedAt                          *time.Time  `json:"updated_at,omitempty"`
 }
 
@@ -470,6 +471,38 @@ func (o *Change) SetRepositoryIdObject(v Repository) {
 	o.RepositoryIdObject = &v
 }
 
+// GetTriggerProducedAt returns the TriggerProducedAt field value if set, zero value otherwise.
+func (o *Change) GetTriggerProducedAt() time.Time {
+	if o == nil || IsNil(o.TriggerProducedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TriggerProducedAt
+}
+
+// GetTriggerProducedAtOk returns a tuple with the TriggerProducedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetTriggerProducedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TriggerProducedAt) {
+		return nil, false
+	}
+	return o.TriggerProducedAt, true
+}
+
+// HasTriggerProducedAt returns a boolean if a field has been set.
+func (o *Change) HasTriggerProducedAt() bool {
+	if o != nil && !IsNil(o.TriggerProducedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerProducedAt gets a reference to the given time.Time and assigns it to the TriggerProducedAt field.
+func (o *Change) SetTriggerProducedAt(v time.Time) {
+	o.TriggerProducedAt = &v
+}
+
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *Change) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -550,6 +583,9 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RepositoryIdObject) {
 		toSerialize["repository_id_object"] = o.RepositoryIdObject
+	}
+	if !IsNil(o.TriggerProducedAt) {
+		toSerialize["trigger_produced_at"] = o.TriggerProducedAt
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt

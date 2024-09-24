@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/initialed85/fred/pkg/repository_syncer"
+	"github.com/initialed85/fred/pkg/job_executor"
 )
 
 func main() {
-	err := repository_syncer.Run()
+	err := job_executor.Run()
 	if err != nil {
 		log.Fatal(err)
 	}

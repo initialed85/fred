@@ -25,6 +25,8 @@ type Trigger struct {
 	CreatedAt                                       *time.Time            `json:"created_at,omitempty"`
 	DeletedAt                                       *time.Time            `json:"deleted_at,omitempty"`
 	Id                                              *string               `json:"id,omitempty"`
+	JobExecutionStartedAt                           *time.Time            `json:"job_execution_started_at,omitempty"`
+	JobExecutorClaimedUntil                         *time.Time            `json:"job_executor_claimed_until,omitempty"`
 	ReferencedByExecutionTriggerIdObjects           []Execution           `json:"referenced_by_execution_trigger_id_objects,omitempty"`
 	ReferencedByTriggerHasExecutionTriggerIdObjects []TriggerHasExecution `json:"referenced_by_trigger_has_execution_trigger_id_objects,omitempty"`
 	RuleId                                          *string               `json:"rule_id,omitempty"`
@@ -207,6 +209,70 @@ func (o *Trigger) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Trigger) SetId(v string) {
 	o.Id = &v
+}
+
+// GetJobExecutionStartedAt returns the JobExecutionStartedAt field value if set, zero value otherwise.
+func (o *Trigger) GetJobExecutionStartedAt() time.Time {
+	if o == nil || IsNil(o.JobExecutionStartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.JobExecutionStartedAt
+}
+
+// GetJobExecutionStartedAtOk returns a tuple with the JobExecutionStartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Trigger) GetJobExecutionStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.JobExecutionStartedAt) {
+		return nil, false
+	}
+	return o.JobExecutionStartedAt, true
+}
+
+// HasJobExecutionStartedAt returns a boolean if a field has been set.
+func (o *Trigger) HasJobExecutionStartedAt() bool {
+	if o != nil && !IsNil(o.JobExecutionStartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobExecutionStartedAt gets a reference to the given time.Time and assigns it to the JobExecutionStartedAt field.
+func (o *Trigger) SetJobExecutionStartedAt(v time.Time) {
+	o.JobExecutionStartedAt = &v
+}
+
+// GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field value if set, zero value otherwise.
+func (o *Trigger) GetJobExecutorClaimedUntil() time.Time {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		var ret time.Time
+		return ret
+	}
+	return *o.JobExecutorClaimedUntil
+}
+
+// GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Trigger) GetJobExecutorClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		return nil, false
+	}
+	return o.JobExecutorClaimedUntil, true
+}
+
+// HasJobExecutorClaimedUntil returns a boolean if a field has been set.
+func (o *Trigger) HasJobExecutorClaimedUntil() bool {
+	if o != nil && !IsNil(o.JobExecutorClaimedUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobExecutorClaimedUntil gets a reference to the given time.Time and assigns it to the JobExecutorClaimedUntil field.
+func (o *Trigger) SetJobExecutorClaimedUntil(v time.Time) {
+	o.JobExecutorClaimedUntil = &v
 }
 
 // GetReferencedByExecutionTriggerIdObjects returns the ReferencedByExecutionTriggerIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -395,6 +461,12 @@ func (o Trigger) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.JobExecutionStartedAt) {
+		toSerialize["job_execution_started_at"] = o.JobExecutionStartedAt
+	}
+	if !IsNil(o.JobExecutorClaimedUntil) {
+		toSerialize["job_executor_claimed_until"] = o.JobExecutorClaimedUntil
 	}
 	if o.ReferencedByExecutionTriggerIdObjects != nil {
 		toSerialize["referenced_by_execution_trigger_id_objects"] = o.ReferencedByExecutionTriggerIdObjects

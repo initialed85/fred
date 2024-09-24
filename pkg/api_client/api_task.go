@@ -305,6 +305,64 @@ type ApiGetTasksRequest struct {
 	deletedAtNotilike                        *time.Time
 	deletedAtDesc                            *string
 	deletedAtAsc                             *string
+	nameEq                                   *string
+	nameNe                                   *string
+	nameGt                                   *string
+	nameGte                                  *string
+	nameLt                                   *string
+	nameLte                                  *string
+	nameIn                                   *string
+	nameNotin                                *string
+	nameLike                                 *string
+	nameNotlike                              *string
+	nameIlike                                *string
+	nameNotilike                             *string
+	nameDesc                                 *string
+	nameAsc                                  *string
+	platformEq                               *string
+	platformNe                               *string
+	platformGt                               *string
+	platformGte                              *string
+	platformLt                               *string
+	platformLte                              *string
+	platformIn                               *string
+	platformNotin                            *string
+	platformLike                             *string
+	platformNotlike                          *string
+	platformIlike                            *string
+	platformNotilike                         *string
+	platformDesc                             *string
+	platformAsc                              *string
+	imageEq                                  *string
+	imageNe                                  *string
+	imageGt                                  *string
+	imageGte                                 *string
+	imageLt                                  *string
+	imageLte                                 *string
+	imageIn                                  *string
+	imageNotin                               *string
+	imageLike                                *string
+	imageNotlike                             *string
+	imageIlike                               *string
+	imageNotilike                            *string
+	imageDesc                                *string
+	imageAsc                                 *string
+	scriptEq                                 *string
+	scriptNe                                 *string
+	scriptGt                                 *string
+	scriptGte                                *string
+	scriptLt                                 *string
+	scriptLte                                *string
+	scriptIn                                 *string
+	scriptNotin                              *string
+	scriptLike                               *string
+	scriptNotlike                            *string
+	scriptIlike                              *string
+	scriptNotilike                           *string
+	scriptDesc                               *string
+	scriptAsc                                *string
+	referencedByOutputTaskIdObjectsDesc      *string
+	referencedByOutputTaskIdObjectsAsc       *string
 	referencedByJobBuildTaskIdObjectsDesc    *string
 	referencedByJobBuildTaskIdObjectsAsc     *string
 	referencedByJobTestTaskIdObjectsDesc     *string
@@ -315,8 +373,6 @@ type ApiGetTasksRequest struct {
 	referencedByJobDeployTaskIdObjectsAsc    *string
 	referencedByJobValidateTaskIdObjectsDesc *string
 	referencedByJobValidateTaskIdObjectsAsc  *string
-	referencedByOutputTaskIdObjectsDesc      *string
-	referencedByOutputTaskIdObjectsAsc       *string
 }
 
 // SQL LIMIT operator
@@ -673,6 +729,354 @@ func (r ApiGetTasksRequest) DeletedAtAsc(deletedAtAsc string) ApiGetTasksRequest
 	return r
 }
 
+// SQL &#x3D; comparison
+func (r ApiGetTasksRequest) NameEq(nameEq string) ApiGetTasksRequest {
+	r.nameEq = &nameEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) NameNe(nameNe string) ApiGetTasksRequest {
+	r.nameNe = &nameNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) NameGt(nameGt string) ApiGetTasksRequest {
+	r.nameGt = &nameGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) NameGte(nameGte string) ApiGetTasksRequest {
+	r.nameGte = &nameGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) NameLt(nameLt string) ApiGetTasksRequest {
+	r.nameLt = &nameLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) NameLte(nameLte string) ApiGetTasksRequest {
+	r.nameLte = &nameLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) NameIn(nameIn string) ApiGetTasksRequest {
+	r.nameIn = &nameIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) NameNotin(nameNotin string) ApiGetTasksRequest {
+	r.nameNotin = &nameNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) NameLike(nameLike string) ApiGetTasksRequest {
+	r.nameLike = &nameLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) NameNotlike(nameNotlike string) ApiGetTasksRequest {
+	r.nameNotlike = &nameNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) NameIlike(nameIlike string) ApiGetTasksRequest {
+	r.nameIlike = &nameIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) NameNotilike(nameNotilike string) ApiGetTasksRequest {
+	r.nameNotilike = &nameNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) NameDesc(nameDesc string) ApiGetTasksRequest {
+	r.nameDesc = &nameDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) NameAsc(nameAsc string) ApiGetTasksRequest {
+	r.nameAsc = &nameAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetTasksRequest) PlatformEq(platformEq string) ApiGetTasksRequest {
+	r.platformEq = &platformEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) PlatformNe(platformNe string) ApiGetTasksRequest {
+	r.platformNe = &platformNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) PlatformGt(platformGt string) ApiGetTasksRequest {
+	r.platformGt = &platformGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) PlatformGte(platformGte string) ApiGetTasksRequest {
+	r.platformGte = &platformGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) PlatformLt(platformLt string) ApiGetTasksRequest {
+	r.platformLt = &platformLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) PlatformLte(platformLte string) ApiGetTasksRequest {
+	r.platformLte = &platformLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) PlatformIn(platformIn string) ApiGetTasksRequest {
+	r.platformIn = &platformIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) PlatformNotin(platformNotin string) ApiGetTasksRequest {
+	r.platformNotin = &platformNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) PlatformLike(platformLike string) ApiGetTasksRequest {
+	r.platformLike = &platformLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) PlatformNotlike(platformNotlike string) ApiGetTasksRequest {
+	r.platformNotlike = &platformNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) PlatformIlike(platformIlike string) ApiGetTasksRequest {
+	r.platformIlike = &platformIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) PlatformNotilike(platformNotilike string) ApiGetTasksRequest {
+	r.platformNotilike = &platformNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) PlatformDesc(platformDesc string) ApiGetTasksRequest {
+	r.platformDesc = &platformDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) PlatformAsc(platformAsc string) ApiGetTasksRequest {
+	r.platformAsc = &platformAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetTasksRequest) ImageEq(imageEq string) ApiGetTasksRequest {
+	r.imageEq = &imageEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) ImageNe(imageNe string) ApiGetTasksRequest {
+	r.imageNe = &imageNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ImageGt(imageGt string) ApiGetTasksRequest {
+	r.imageGt = &imageGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ImageGte(imageGte string) ApiGetTasksRequest {
+	r.imageGte = &imageGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ImageLt(imageLt string) ApiGetTasksRequest {
+	r.imageLt = &imageLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ImageLte(imageLte string) ApiGetTasksRequest {
+	r.imageLte = &imageLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) ImageIn(imageIn string) ApiGetTasksRequest {
+	r.imageIn = &imageIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) ImageNotin(imageNotin string) ApiGetTasksRequest {
+	r.imageNotin = &imageNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ImageLike(imageLike string) ApiGetTasksRequest {
+	r.imageLike = &imageLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ImageNotlike(imageNotlike string) ApiGetTasksRequest {
+	r.imageNotlike = &imageNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ImageIlike(imageIlike string) ApiGetTasksRequest {
+	r.imageIlike = &imageIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ImageNotilike(imageNotilike string) ApiGetTasksRequest {
+	r.imageNotilike = &imageNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ImageDesc(imageDesc string) ApiGetTasksRequest {
+	r.imageDesc = &imageDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ImageAsc(imageAsc string) ApiGetTasksRequest {
+	r.imageAsc = &imageAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetTasksRequest) ScriptEq(scriptEq string) ApiGetTasksRequest {
+	r.scriptEq = &scriptEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) ScriptNe(scriptNe string) ApiGetTasksRequest {
+	r.scriptNe = &scriptNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ScriptGt(scriptGt string) ApiGetTasksRequest {
+	r.scriptGt = &scriptGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ScriptGte(scriptGte string) ApiGetTasksRequest {
+	r.scriptGte = &scriptGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ScriptLt(scriptLt string) ApiGetTasksRequest {
+	r.scriptLt = &scriptLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) ScriptLte(scriptLte string) ApiGetTasksRequest {
+	r.scriptLte = &scriptLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) ScriptIn(scriptIn string) ApiGetTasksRequest {
+	r.scriptIn = &scriptIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) ScriptNotin(scriptNotin string) ApiGetTasksRequest {
+	r.scriptNotin = &scriptNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ScriptLike(scriptLike string) ApiGetTasksRequest {
+	r.scriptLike = &scriptLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ScriptNotlike(scriptNotlike string) ApiGetTasksRequest {
+	r.scriptNotlike = &scriptNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ScriptIlike(scriptIlike string) ApiGetTasksRequest {
+	r.scriptIlike = &scriptIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) ScriptNotilike(scriptNotilike string) ApiGetTasksRequest {
+	r.scriptNotilike = &scriptNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ScriptDesc(scriptDesc string) ApiGetTasksRequest {
+	r.scriptDesc = &scriptDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ScriptAsc(scriptAsc string) ApiGetTasksRequest {
+	r.scriptAsc = &scriptAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc string) ApiGetTasksRequest {
+	r.referencedByOutputTaskIdObjectsDesc = &referencedByOutputTaskIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc string) ApiGetTasksRequest {
+	r.referencedByOutputTaskIdObjectsAsc = &referencedByOutputTaskIdObjectsAsc
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc string) ApiGetTasksRequest {
 	r.referencedByJobBuildTaskIdObjectsDesc = &referencedByJobBuildTaskIdObjectsDesc
@@ -730,18 +1134,6 @@ func (r ApiGetTasksRequest) ReferencedByJobValidateTaskIdObjectsDesc(referencedB
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc string) ApiGetTasksRequest {
 	r.referencedByJobValidateTaskIdObjectsAsc = &referencedByJobValidateTaskIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByOutputTaskIdObjectsDesc = &referencedByOutputTaskIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByOutputTaskIdObjectsAsc = &referencedByOutputTaskIdObjectsAsc
 	return r
 }
 
@@ -961,6 +1353,180 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
+	if r.nameEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__eq", r.nameEq, "form", "")
+	}
+	if r.nameNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ne", r.nameNe, "form", "")
+	}
+	if r.nameGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gt", r.nameGt, "form", "")
+	}
+	if r.nameGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gte", r.nameGte, "form", "")
+	}
+	if r.nameLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lt", r.nameLt, "form", "")
+	}
+	if r.nameLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lte", r.nameLte, "form", "")
+	}
+	if r.nameIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__in", r.nameIn, "form", "")
+	}
+	if r.nameNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notin", r.nameNotin, "form", "")
+	}
+	if r.nameLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__like", r.nameLike, "form", "")
+	}
+	if r.nameNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notlike", r.nameNotlike, "form", "")
+	}
+	if r.nameIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ilike", r.nameIlike, "form", "")
+	}
+	if r.nameNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notilike", r.nameNotilike, "form", "")
+	}
+	if r.nameDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__desc", r.nameDesc, "form", "")
+	}
+	if r.nameAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
+	}
+	if r.platformEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__eq", r.platformEq, "form", "")
+	}
+	if r.platformNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__ne", r.platformNe, "form", "")
+	}
+	if r.platformGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__gt", r.platformGt, "form", "")
+	}
+	if r.platformGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__gte", r.platformGte, "form", "")
+	}
+	if r.platformLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__lt", r.platformLt, "form", "")
+	}
+	if r.platformLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__lte", r.platformLte, "form", "")
+	}
+	if r.platformIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__in", r.platformIn, "form", "")
+	}
+	if r.platformNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__notin", r.platformNotin, "form", "")
+	}
+	if r.platformLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__like", r.platformLike, "form", "")
+	}
+	if r.platformNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__notlike", r.platformNotlike, "form", "")
+	}
+	if r.platformIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__ilike", r.platformIlike, "form", "")
+	}
+	if r.platformNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__notilike", r.platformNotilike, "form", "")
+	}
+	if r.platformDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__desc", r.platformDesc, "form", "")
+	}
+	if r.platformAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__asc", r.platformAsc, "form", "")
+	}
+	if r.imageEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__eq", r.imageEq, "form", "")
+	}
+	if r.imageNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__ne", r.imageNe, "form", "")
+	}
+	if r.imageGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__gt", r.imageGt, "form", "")
+	}
+	if r.imageGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__gte", r.imageGte, "form", "")
+	}
+	if r.imageLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__lt", r.imageLt, "form", "")
+	}
+	if r.imageLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__lte", r.imageLte, "form", "")
+	}
+	if r.imageIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__in", r.imageIn, "form", "")
+	}
+	if r.imageNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__notin", r.imageNotin, "form", "")
+	}
+	if r.imageLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__like", r.imageLike, "form", "")
+	}
+	if r.imageNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__notlike", r.imageNotlike, "form", "")
+	}
+	if r.imageIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__ilike", r.imageIlike, "form", "")
+	}
+	if r.imageNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__notilike", r.imageNotilike, "form", "")
+	}
+	if r.imageDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__desc", r.imageDesc, "form", "")
+	}
+	if r.imageAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__asc", r.imageAsc, "form", "")
+	}
+	if r.scriptEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__eq", r.scriptEq, "form", "")
+	}
+	if r.scriptNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__ne", r.scriptNe, "form", "")
+	}
+	if r.scriptGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__gt", r.scriptGt, "form", "")
+	}
+	if r.scriptGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__gte", r.scriptGte, "form", "")
+	}
+	if r.scriptLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__lt", r.scriptLt, "form", "")
+	}
+	if r.scriptLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__lte", r.scriptLte, "form", "")
+	}
+	if r.scriptIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__in", r.scriptIn, "form", "")
+	}
+	if r.scriptNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__notin", r.scriptNotin, "form", "")
+	}
+	if r.scriptLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__like", r.scriptLike, "form", "")
+	}
+	if r.scriptNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__notlike", r.scriptNotlike, "form", "")
+	}
+	if r.scriptIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__ilike", r.scriptIlike, "form", "")
+	}
+	if r.scriptNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__notilike", r.scriptNotilike, "form", "")
+	}
+	if r.scriptDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__desc", r.scriptDesc, "form", "")
+	}
+	if r.scriptAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__asc", r.scriptAsc, "form", "")
+	}
+	if r.referencedByOutputTaskIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__desc", r.referencedByOutputTaskIdObjectsDesc, "form", "")
+	}
+	if r.referencedByOutputTaskIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__asc", r.referencedByOutputTaskIdObjectsAsc, "form", "")
+	}
 	if r.referencedByJobBuildTaskIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_build_task_id_objects__desc", r.referencedByJobBuildTaskIdObjectsDesc, "form", "")
 	}
@@ -990,12 +1556,6 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.referencedByJobValidateTaskIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_validate_task_id_objects__asc", r.referencedByJobValidateTaskIdObjectsAsc, "form", "")
-	}
-	if r.referencedByOutputTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__desc", r.referencedByOutputTaskIdObjectsDesc, "form", "")
-	}
-	if r.referencedByOutputTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__asc", r.referencedByOutputTaskIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

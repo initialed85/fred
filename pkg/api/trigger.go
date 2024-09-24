@@ -34,6 +34,8 @@ type Trigger struct {
 	CreatedAt                                       time.Time              `json:"created_at"`
 	UpdatedAt                                       time.Time              `json:"updated_at"`
 	DeletedAt                                       *time.Time             `json:"deleted_at"`
+	JobExecutorClaimedUntil                         time.Time              `json:"job_executor_claimed_until"`
+	JobExecutionStartedAt                           *time.Time             `json:"job_execution_started_at"`
 	RuleID                                          uuid.UUID              `json:"rule_id"`
 	RuleIDObject                                    *Rule                  `json:"rule_id_object"`
 	ChangeID                                        uuid.UUID              `json:"change_id"`
@@ -47,21 +49,25 @@ var TriggerTable = "trigger"
 var TriggerTableNamespaceID int32 = 1337 + 10
 
 var (
-	TriggerTableIDColumn        = "id"
-	TriggerTableCreatedAtColumn = "created_at"
-	TriggerTableUpdatedAtColumn = "updated_at"
-	TriggerTableDeletedAtColumn = "deleted_at"
-	TriggerTableRuleIDColumn    = "rule_id"
-	TriggerTableChangeIDColumn  = "change_id"
+	TriggerTableIDColumn                      = "id"
+	TriggerTableCreatedAtColumn               = "created_at"
+	TriggerTableUpdatedAtColumn               = "updated_at"
+	TriggerTableDeletedAtColumn               = "deleted_at"
+	TriggerTableJobExecutorClaimedUntilColumn = "job_executor_claimed_until"
+	TriggerTableJobExecutionStartedAtColumn   = "job_execution_started_at"
+	TriggerTableRuleIDColumn                  = "rule_id"
+	TriggerTableChangeIDColumn                = "change_id"
 )
 
 var (
-	TriggerTableIDColumnWithTypeCast        = `"id" AS id`
-	TriggerTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
-	TriggerTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
-	TriggerTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
-	TriggerTableRuleIDColumnWithTypeCast    = `"rule_id" AS rule_id`
-	TriggerTableChangeIDColumnWithTypeCast  = `"change_id" AS change_id`
+	TriggerTableIDColumnWithTypeCast                      = `"id" AS id`
+	TriggerTableCreatedAtColumnWithTypeCast               = `"created_at" AS created_at`
+	TriggerTableUpdatedAtColumnWithTypeCast               = `"updated_at" AS updated_at`
+	TriggerTableDeletedAtColumnWithTypeCast               = `"deleted_at" AS deleted_at`
+	TriggerTableJobExecutorClaimedUntilColumnWithTypeCast = `"job_executor_claimed_until" AS job_executor_claimed_until`
+	TriggerTableJobExecutionStartedAtColumnWithTypeCast   = `"job_execution_started_at" AS job_execution_started_at`
+	TriggerTableRuleIDColumnWithTypeCast                  = `"rule_id" AS rule_id`
+	TriggerTableChangeIDColumnWithTypeCast                = `"change_id" AS change_id`
 )
 
 var TriggerTableColumns = []string{
@@ -69,6 +75,8 @@ var TriggerTableColumns = []string{
 	TriggerTableCreatedAtColumn,
 	TriggerTableUpdatedAtColumn,
 	TriggerTableDeletedAtColumn,
+	TriggerTableJobExecutorClaimedUntilColumn,
+	TriggerTableJobExecutionStartedAtColumn,
 	TriggerTableRuleIDColumn,
 	TriggerTableChangeIDColumn,
 }
@@ -78,6 +86,8 @@ var TriggerTableColumnsWithTypeCasts = []string{
 	TriggerTableCreatedAtColumnWithTypeCast,
 	TriggerTableUpdatedAtColumnWithTypeCast,
 	TriggerTableDeletedAtColumnWithTypeCast,
+	TriggerTableJobExecutorClaimedUntilColumnWithTypeCast,
+	TriggerTableJobExecutionStartedAtColumnWithTypeCast,
 	TriggerTableRuleIDColumnWithTypeCast,
 	TriggerTableChangeIDColumnWithTypeCast,
 }
@@ -236,6 +246,44 @@ func (m *Trigger) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "job_executor_claimed_until":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_executor_claimed_until.UUID", temp1))
+				}
+			}
+
+			m.JobExecutorClaimedUntil = temp2
+
+		case "job_execution_started_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_execution_started_at.UUID", temp1))
+				}
+			}
+
+			m.JobExecutionStartedAt = &temp2
+
 		case "rule_id":
 			if v == nil {
 				continue
@@ -307,6 +355,8 @@ func (m *Trigger) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.JobExecutorClaimedUntil = o.JobExecutorClaimedUntil
+	m.JobExecutionStartedAt = o.JobExecutionStartedAt
 	m.RuleID = o.RuleID
 	m.RuleIDObject = o.RuleIDObject
 	m.ChangeID = o.ChangeID
@@ -360,6 +410,28 @@ func (m *Trigger) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, set
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, TriggerTableJobExecutorClaimedUntilColumn) || isRequired(TriggerTableColumnLookup, TriggerTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, TriggerTableJobExecutorClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutionStartedAt) || slices.Contains(forceSetValuesForFields, TriggerTableJobExecutionStartedAtColumn) || isRequired(TriggerTableColumnLookup, TriggerTableJobExecutionStartedAtColumn) {
+		columns = append(columns, TriggerTableJobExecutionStartedAtColumn)
+
+		v, err := types.FormatTime(m.JobExecutionStartedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutionStartedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -473,6 +545,28 @@ func (m *Trigger) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, for
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, TriggerTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, TriggerTableJobExecutorClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutionStartedAt) || slices.Contains(forceSetValuesForFields, TriggerTableJobExecutionStartedAtColumn) {
+		columns = append(columns, TriggerTableJobExecutionStartedAtColumn)
+
+		v, err := types.FormatTime(m.JobExecutionStartedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutionStartedAt; %v", err)
 		}
 
 		values = append(values, v)

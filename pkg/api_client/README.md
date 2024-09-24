@@ -83,6 +83,7 @@ Class | Method | HTTP request | Description
 *ChangeAPI* | [**GetChanges**](docs/ChangeAPI.md#getchanges) | **Get** /api/changes | 
 *ChangeAPI* | [**PatchChange**](docs/ChangeAPI.md#patchchange) | **Patch** /api/changes/{primaryKey} | 
 *ChangeAPI* | [**PostChanges**](docs/ChangeAPI.md#postchanges) | **Post** /api/changes | 
+*CustomAPI* | [**PatchCustomClaimTriggerForJobExecutor**](docs/CustomAPI.md#patchcustomclaimtriggerforjobexecutor) | **Patch** /api/custom/claim-trigger-for-job-executor | 
 *ExecutionAPI* | [**DeleteExecution**](docs/ExecutionAPI.md#deleteexecution) | **Delete** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecution**](docs/ExecutionAPI.md#getexecution) | **Get** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecutions**](docs/ExecutionAPI.md#getexecutions) | **Get** /api/executions | 
@@ -133,6 +134,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Change](docs/Change.md)
+ - [ClaimRequest](docs/ClaimRequest.md)
  - [Execution](docs/Execution.md)
  - [GetChangesDefaultResponse](docs/GetChangesDefaultResponse.md)
  - [Job](docs/Job.md)

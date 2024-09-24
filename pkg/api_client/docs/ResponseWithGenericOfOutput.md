@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Count** | Pointer to **int64** |  | [optional] 
 **Error** | Pointer to **[]string** |  | [optional] 
 **Limit** | Pointer to **int64** |  | [optional] 
-**Objects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
+**Objects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Offset** | Pointer to **int64** |  | [optional] 
 **Status** | Pointer to **int64** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
@@ -119,20 +119,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetObjects
 
-`func (o *ResponseWithGenericOfOutput) GetObjects() []Execution`
+`func (o *ResponseWithGenericOfOutput) GetObjects() []Output`
 
 GetObjects returns the Objects field if non-nil, zero value otherwise.
 
 ### GetObjectsOk
 
-`func (o *ResponseWithGenericOfOutput) GetObjectsOk() (*[]Execution, bool)`
+`func (o *ResponseWithGenericOfOutput) GetObjectsOk() (*[]Output, bool)`
 
 GetObjectsOk returns a tuple with the Objects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObjects
 
-`func (o *ResponseWithGenericOfOutput) SetObjects(v []Execution)`
+`func (o *ResponseWithGenericOfOutput) SetObjects(v []Output)`
 
 SetObjects sets Objects field to given value.
 

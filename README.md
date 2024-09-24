@@ -49,14 +49,39 @@ When things happen, we'll have these events:
 - Try to do everything with environment variables
   - Both as inputs and as outputs
 
+## Status
+
+- [DONE] Database schema (and therefore endpoints because Djangolang)
+- [DONE] Change producer (syncs w/ repo)
+- [WIP] Trigger producer (consume Changes, produce Triggers for Jobs)
+  - It's working, but it doesn't do anything pipeline-y yet
+- [WIP] Job executor (consume Triggers, run Tasks under an Execution)
+  - It's pulling and running Docker images but there's a few bugs to iron out with ports and volumes (mostly around Docker-in-Docker)
+
 ## Dev notes
 
 ```shell
-./migrate.sh force 1 ; ./migrate.sh down -all && ./migrate.sh up && ./build.sh
+# shell 1
+./run-env.sh
 
-REDIS_URL=localhost:6379 DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/api/ serve
+# shell 2
+./run-for-dev.sh
 
-repository_id=$(curl -X POST http://localhost:7070/api/repositories -d '[{"url": "https://github.com/initialed85/camry"}]' | jq -r '.objects[0].id') && curl -X POST http://localhost:7070/api/rules -d "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]" | jq
+# shell 3
+websocat ws://localhost:7070/api/__stream --exit-on-eof | jq
 
-DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/repository_syncer/
+# shell 4
+./bootstrap-for-dev.sh
+
+# shell 5
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/change_producer/
+
+# shell 6
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/trigger_producer
+
+# shell 7 (worker 1)
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
+
+# shell 8 (worker 2)
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
 ```

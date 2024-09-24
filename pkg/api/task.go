@@ -34,6 +34,10 @@ type Task struct {
 	CreatedAt                            time.Time  `json:"created_at"`
 	UpdatedAt                            time.Time  `json:"updated_at"`
 	DeletedAt                            *time.Time `json:"deleted_at"`
+	Name                                 string     `json:"name"`
+	Platform                             string     `json:"platform"`
+	Image                                string     `json:"image"`
+	Script                               string     `json:"script"`
 	ReferencedByOutputTaskIDObjects      []*Output  `json:"referenced_by_output_task_id_objects"`
 	ReferencedByJobBuildTaskIDObjects    []*Job     `json:"referenced_by_job_build_task_id_objects"`
 	ReferencedByJobTestTaskIDObjects     []*Job     `json:"referenced_by_job_test_task_id_objects"`
@@ -51,6 +55,10 @@ var (
 	TaskTableCreatedAtColumn = "created_at"
 	TaskTableUpdatedAtColumn = "updated_at"
 	TaskTableDeletedAtColumn = "deleted_at"
+	TaskTableNameColumn      = "name"
+	TaskTablePlatformColumn  = "platform"
+	TaskTableImageColumn     = "image"
+	TaskTableScriptColumn    = "script"
 )
 
 var (
@@ -58,6 +66,10 @@ var (
 	TaskTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
 	TaskTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
 	TaskTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
+	TaskTableNameColumnWithTypeCast      = `"name" AS name`
+	TaskTablePlatformColumnWithTypeCast  = `"platform" AS platform`
+	TaskTableImageColumnWithTypeCast     = `"image" AS image`
+	TaskTableScriptColumnWithTypeCast    = `"script" AS script`
 )
 
 var TaskTableColumns = []string{
@@ -65,6 +77,10 @@ var TaskTableColumns = []string{
 	TaskTableCreatedAtColumn,
 	TaskTableUpdatedAtColumn,
 	TaskTableDeletedAtColumn,
+	TaskTableNameColumn,
+	TaskTablePlatformColumn,
+	TaskTableImageColumn,
+	TaskTableScriptColumn,
 }
 
 var TaskTableColumnsWithTypeCasts = []string{
@@ -72,6 +88,10 @@ var TaskTableColumnsWithTypeCasts = []string{
 	TaskTableCreatedAtColumnWithTypeCast,
 	TaskTableUpdatedAtColumnWithTypeCast,
 	TaskTableDeletedAtColumnWithTypeCast,
+	TaskTableNameColumnWithTypeCast,
+	TaskTablePlatformColumnWithTypeCast,
+	TaskTableImageColumnWithTypeCast,
+	TaskTableScriptColumnWithTypeCast,
 }
 
 var TaskIntrospectedTable *introspect.Table
@@ -228,6 +248,82 @@ func (m *Task) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "name":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuname.UUID", temp1))
+				}
+			}
+
+			m.Name = temp2
+
+		case "platform":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuplatform.UUID", temp1))
+				}
+			}
+
+			m.Platform = temp2
+
+		case "image":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuimage.UUID", temp1))
+				}
+			}
+
+			m.Image = temp2
+
+		case "script":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuscript.UUID", temp1))
+				}
+			}
+
+			m.Script = temp2
+
 		}
 	}
 
@@ -261,6 +357,10 @@ func (m *Task) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.Name = o.Name
+	m.Platform = o.Platform
+	m.Image = o.Image
+	m.Script = o.Script
 	m.ReferencedByOutputTaskIDObjects = o.ReferencedByOutputTaskIDObjects
 	m.ReferencedByJobBuildTaskIDObjects = o.ReferencedByJobBuildTaskIDObjects
 	m.ReferencedByJobTestTaskIDObjects = o.ReferencedByJobTestTaskIDObjects
@@ -314,6 +414,50 @@ func (m *Task) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, TaskTableNameColumn) || isRequired(TaskTableColumnLookup, TaskTableNameColumn) {
+		columns = append(columns, TaskTableNameColumn)
+
+		v, err := types.FormatString(m.Name)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Name; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Platform) || slices.Contains(forceSetValuesForFields, TaskTablePlatformColumn) || isRequired(TaskTableColumnLookup, TaskTablePlatformColumn) {
+		columns = append(columns, TaskTablePlatformColumn)
+
+		v, err := types.FormatString(m.Platform)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Platform; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Image) || slices.Contains(forceSetValuesForFields, TaskTableImageColumn) || isRequired(TaskTableColumnLookup, TaskTableImageColumn) {
+		columns = append(columns, TaskTableImageColumn)
+
+		v, err := types.FormatString(m.Image)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Image; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Script) || slices.Contains(forceSetValuesForFields, TaskTableScriptColumn) || isRequired(TaskTableColumnLookup, TaskTableScriptColumn) {
+		columns = append(columns, TaskTableScriptColumn)
+
+		v, err := types.FormatString(m.Script)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Script; %v", err)
 		}
 
 		values = append(values, v)
@@ -405,6 +549,50 @@ func (m *Task) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, TaskTableNameColumn) {
+		columns = append(columns, TaskTableNameColumn)
+
+		v, err := types.FormatString(m.Name)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Name; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Platform) || slices.Contains(forceSetValuesForFields, TaskTablePlatformColumn) {
+		columns = append(columns, TaskTablePlatformColumn)
+
+		v, err := types.FormatString(m.Platform)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Platform; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Image) || slices.Contains(forceSetValuesForFields, TaskTableImageColumn) {
+		columns = append(columns, TaskTableImageColumn)
+
+		v, err := types.FormatString(m.Image)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Image; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Script) || slices.Contains(forceSetValuesForFields, TaskTableScriptColumn) {
+		columns = append(columns, TaskTableScriptColumn)
+
+		v, err := types.FormatString(m.Script)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Script; %v", err)
 		}
 
 		values = append(values, v)

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **ReferencedByTriggerChangeIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
+**TriggerProducedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -372,6 +373,31 @@ SetRepositoryIdObject sets RepositoryIdObject field to given value.
 `func (o *Change) HasRepositoryIdObject() bool`
 
 HasRepositoryIdObject returns a boolean if a field has been set.
+
+### GetTriggerProducedAt
+
+`func (o *Change) GetTriggerProducedAt() time.Time`
+
+GetTriggerProducedAt returns the TriggerProducedAt field if non-nil, zero value otherwise.
+
+### GetTriggerProducedAtOk
+
+`func (o *Change) GetTriggerProducedAtOk() (*time.Time, bool)`
+
+GetTriggerProducedAtOk returns a tuple with the TriggerProducedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTriggerProducedAt
+
+`func (o *Change) SetTriggerProducedAt(v time.Time)`
+
+SetTriggerProducedAt sets TriggerProducedAt field to given value.
+
+### HasTriggerProducedAt
+
+`func (o *Change) HasTriggerProducedAt() bool`
+
+HasTriggerProducedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

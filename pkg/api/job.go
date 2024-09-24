@@ -34,6 +34,8 @@ type Job struct {
 	CreatedAt                               time.Time          `json:"created_at"`
 	UpdatedAt                               time.Time          `json:"updated_at"`
 	DeletedAt                               *time.Time         `json:"deleted_at"`
+	Name                                    string             `json:"name"`
+	JobExecutorClaimedUntil                 time.Time          `json:"job_executor_claimed_until"`
 	RuleID                                  uuid.UUID          `json:"rule_id"`
 	RuleIDObject                            *Rule              `json:"rule_id_object"`
 	BuildTaskID                             *uuid.UUID         `json:"build_task_id"`
@@ -55,29 +57,33 @@ var JobTable = "job"
 var JobTableNamespaceID int32 = 1337 + 3
 
 var (
-	JobTableIDColumn             = "id"
-	JobTableCreatedAtColumn      = "created_at"
-	JobTableUpdatedAtColumn      = "updated_at"
-	JobTableDeletedAtColumn      = "deleted_at"
-	JobTableRuleIDColumn         = "rule_id"
-	JobTableBuildTaskIDColumn    = "build_task_id"
-	JobTableTestTaskIDColumn     = "test_task_id"
-	JobTablePublishTaskIDColumn  = "publish_task_id"
-	JobTableDeployTaskIDColumn   = "deploy_task_id"
-	JobTableValidateTaskIDColumn = "validate_task_id"
+	JobTableIDColumn                      = "id"
+	JobTableCreatedAtColumn               = "created_at"
+	JobTableUpdatedAtColumn               = "updated_at"
+	JobTableDeletedAtColumn               = "deleted_at"
+	JobTableNameColumn                    = "name"
+	JobTableJobExecutorClaimedUntilColumn = "job_executor_claimed_until"
+	JobTableRuleIDColumn                  = "rule_id"
+	JobTableBuildTaskIDColumn             = "build_task_id"
+	JobTableTestTaskIDColumn              = "test_task_id"
+	JobTablePublishTaskIDColumn           = "publish_task_id"
+	JobTableDeployTaskIDColumn            = "deploy_task_id"
+	JobTableValidateTaskIDColumn          = "validate_task_id"
 )
 
 var (
-	JobTableIDColumnWithTypeCast             = `"id" AS id`
-	JobTableCreatedAtColumnWithTypeCast      = `"created_at" AS created_at`
-	JobTableUpdatedAtColumnWithTypeCast      = `"updated_at" AS updated_at`
-	JobTableDeletedAtColumnWithTypeCast      = `"deleted_at" AS deleted_at`
-	JobTableRuleIDColumnWithTypeCast         = `"rule_id" AS rule_id`
-	JobTableBuildTaskIDColumnWithTypeCast    = `"build_task_id" AS build_task_id`
-	JobTableTestTaskIDColumnWithTypeCast     = `"test_task_id" AS test_task_id`
-	JobTablePublishTaskIDColumnWithTypeCast  = `"publish_task_id" AS publish_task_id`
-	JobTableDeployTaskIDColumnWithTypeCast   = `"deploy_task_id" AS deploy_task_id`
-	JobTableValidateTaskIDColumnWithTypeCast = `"validate_task_id" AS validate_task_id`
+	JobTableIDColumnWithTypeCast                      = `"id" AS id`
+	JobTableCreatedAtColumnWithTypeCast               = `"created_at" AS created_at`
+	JobTableUpdatedAtColumnWithTypeCast               = `"updated_at" AS updated_at`
+	JobTableDeletedAtColumnWithTypeCast               = `"deleted_at" AS deleted_at`
+	JobTableNameColumnWithTypeCast                    = `"name" AS name`
+	JobTableJobExecutorClaimedUntilColumnWithTypeCast = `"job_executor_claimed_until" AS job_executor_claimed_until`
+	JobTableRuleIDColumnWithTypeCast                  = `"rule_id" AS rule_id`
+	JobTableBuildTaskIDColumnWithTypeCast             = `"build_task_id" AS build_task_id`
+	JobTableTestTaskIDColumnWithTypeCast              = `"test_task_id" AS test_task_id`
+	JobTablePublishTaskIDColumnWithTypeCast           = `"publish_task_id" AS publish_task_id`
+	JobTableDeployTaskIDColumnWithTypeCast            = `"deploy_task_id" AS deploy_task_id`
+	JobTableValidateTaskIDColumnWithTypeCast          = `"validate_task_id" AS validate_task_id`
 )
 
 var JobTableColumns = []string{
@@ -85,6 +91,8 @@ var JobTableColumns = []string{
 	JobTableCreatedAtColumn,
 	JobTableUpdatedAtColumn,
 	JobTableDeletedAtColumn,
+	JobTableNameColumn,
+	JobTableJobExecutorClaimedUntilColumn,
 	JobTableRuleIDColumn,
 	JobTableBuildTaskIDColumn,
 	JobTableTestTaskIDColumn,
@@ -98,6 +106,8 @@ var JobTableColumnsWithTypeCasts = []string{
 	JobTableCreatedAtColumnWithTypeCast,
 	JobTableUpdatedAtColumnWithTypeCast,
 	JobTableDeletedAtColumnWithTypeCast,
+	JobTableNameColumnWithTypeCast,
+	JobTableJobExecutorClaimedUntilColumnWithTypeCast,
 	JobTableRuleIDColumnWithTypeCast,
 	JobTableBuildTaskIDColumnWithTypeCast,
 	JobTableTestTaskIDColumnWithTypeCast,
@@ -260,6 +270,44 @@ func (m *Job) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "name":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuname.UUID", temp1))
+				}
+			}
+
+			m.Name = temp2
+
+		case "job_executor_claimed_until":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_executor_claimed_until.UUID", temp1))
+				}
+			}
+
+			m.JobExecutorClaimedUntil = temp2
+
 		case "rule_id":
 			if v == nil {
 				continue
@@ -407,6 +455,8 @@ func (m *Job) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) er
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.Name = o.Name
+	m.JobExecutorClaimedUntil = o.JobExecutorClaimedUntil
 	m.RuleID = o.RuleID
 	m.RuleIDObject = o.RuleIDObject
 	m.BuildTaskID = o.BuildTaskID
@@ -468,6 +518,28 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, JobTableNameColumn) || isRequired(JobTableColumnLookup, JobTableNameColumn) {
+		columns = append(columns, JobTableNameColumn)
+
+		v, err := types.FormatString(m.Name)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Name; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, JobTableJobExecutorClaimedUntilColumn) || isRequired(JobTableColumnLookup, JobTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, JobTableJobExecutorClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
@@ -625,6 +697,28 @@ func (m *Job) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSe
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, JobTableNameColumn) {
+		columns = append(columns, JobTableNameColumn)
+
+		v, err := types.FormatString(m.Name)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Name; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, JobTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, JobTableJobExecutorClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)

@@ -305,6 +305,34 @@ type ApiGetTriggersRequest struct {
 	deletedAtNotilike                                   *time.Time
 	deletedAtDesc                                       *string
 	deletedAtAsc                                        *string
+	jobExecutorClaimedUntilEq                           *time.Time
+	jobExecutorClaimedUntilNe                           *time.Time
+	jobExecutorClaimedUntilGt                           *time.Time
+	jobExecutorClaimedUntilGte                          *time.Time
+	jobExecutorClaimedUntilLt                           *time.Time
+	jobExecutorClaimedUntilLte                          *time.Time
+	jobExecutorClaimedUntilIn                           *time.Time
+	jobExecutorClaimedUntilNotin                        *time.Time
+	jobExecutorClaimedUntilLike                         *time.Time
+	jobExecutorClaimedUntilNotlike                      *time.Time
+	jobExecutorClaimedUntilIlike                        *time.Time
+	jobExecutorClaimedUntilNotilike                     *time.Time
+	jobExecutorClaimedUntilDesc                         *string
+	jobExecutorClaimedUntilAsc                          *string
+	jobExecutionStartedAtEq                             *time.Time
+	jobExecutionStartedAtNe                             *time.Time
+	jobExecutionStartedAtGt                             *time.Time
+	jobExecutionStartedAtGte                            *time.Time
+	jobExecutionStartedAtLt                             *time.Time
+	jobExecutionStartedAtLte                            *time.Time
+	jobExecutionStartedAtIn                             *time.Time
+	jobExecutionStartedAtNotin                          *time.Time
+	jobExecutionStartedAtLike                           *time.Time
+	jobExecutionStartedAtNotlike                        *time.Time
+	jobExecutionStartedAtIlike                          *time.Time
+	jobExecutionStartedAtNotilike                       *time.Time
+	jobExecutionStartedAtDesc                           *string
+	jobExecutionStartedAtAsc                            *string
 	ruleIdEq                                            *string
 	ruleIdNe                                            *string
 	ruleIdGt                                            *string
@@ -337,10 +365,10 @@ type ApiGetTriggersRequest struct {
 	changeIdAsc                                         *string
 	changeIdObjectDesc                                  *string
 	changeIdObjectAsc                                   *string
-	referencedByTriggerHasExecutionTriggerIdObjectsDesc *string
-	referencedByTriggerHasExecutionTriggerIdObjectsAsc  *string
 	referencedByExecutionTriggerIdObjectsDesc           *string
 	referencedByExecutionTriggerIdObjectsAsc            *string
+	referencedByTriggerHasExecutionTriggerIdObjectsDesc *string
+	referencedByTriggerHasExecutionTriggerIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -698,6 +726,174 @@ func (r ApiGetTriggersRequest) DeletedAtAsc(deletedAtAsc string) ApiGetTriggersR
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilEq(jobExecutorClaimedUntilEq time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilEq = &jobExecutorClaimedUntilEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilNe(jobExecutorClaimedUntilNe time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilNe = &jobExecutorClaimedUntilNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilGt(jobExecutorClaimedUntilGt time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilGt = &jobExecutorClaimedUntilGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilGte(jobExecutorClaimedUntilGte time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilGte = &jobExecutorClaimedUntilGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilLt(jobExecutorClaimedUntilLt time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilLt = &jobExecutorClaimedUntilLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilLte(jobExecutorClaimedUntilLte time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilLte = &jobExecutorClaimedUntilLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilIn(jobExecutorClaimedUntilIn time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilIn = &jobExecutorClaimedUntilIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilNotin(jobExecutorClaimedUntilNotin time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilNotin = &jobExecutorClaimedUntilNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilLike(jobExecutorClaimedUntilLike time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilLike = &jobExecutorClaimedUntilLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilNotlike(jobExecutorClaimedUntilNotlike time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilNotlike = &jobExecutorClaimedUntilNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilIlike(jobExecutorClaimedUntilIlike time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilIlike = &jobExecutorClaimedUntilIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilNotilike(jobExecutorClaimedUntilNotilike time.Time) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilNotilike = &jobExecutorClaimedUntilNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilDesc(jobExecutorClaimedUntilDesc string) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilDesc = &jobExecutorClaimedUntilDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) JobExecutorClaimedUntilAsc(jobExecutorClaimedUntilAsc string) ApiGetTriggersRequest {
+	r.jobExecutorClaimedUntilAsc = &jobExecutorClaimedUntilAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetTriggersRequest) JobExecutionStartedAtEq(jobExecutionStartedAtEq time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtEq = &jobExecutionStartedAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTriggersRequest) JobExecutionStartedAtNe(jobExecutionStartedAtNe time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtNe = &jobExecutionStartedAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutionStartedAtGt(jobExecutionStartedAtGt time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtGt = &jobExecutionStartedAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutionStartedAtGte(jobExecutionStartedAtGte time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtGte = &jobExecutionStartedAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutionStartedAtLt(jobExecutionStartedAtLt time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtLt = &jobExecutionStartedAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTriggersRequest) JobExecutionStartedAtLte(jobExecutionStartedAtLte time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtLte = &jobExecutionStartedAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTriggersRequest) JobExecutionStartedAtIn(jobExecutionStartedAtIn time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtIn = &jobExecutionStartedAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTriggersRequest) JobExecutionStartedAtNotin(jobExecutionStartedAtNotin time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtNotin = &jobExecutionStartedAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutionStartedAtLike(jobExecutionStartedAtLike time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtLike = &jobExecutionStartedAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutionStartedAtNotlike(jobExecutionStartedAtNotlike time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtNotlike = &jobExecutionStartedAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutionStartedAtIlike(jobExecutionStartedAtIlike time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtIlike = &jobExecutionStartedAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTriggersRequest) JobExecutionStartedAtNotilike(jobExecutionStartedAtNotilike time.Time) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtNotilike = &jobExecutionStartedAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) JobExecutionStartedAtDesc(jobExecutionStartedAtDesc string) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtDesc = &jobExecutionStartedAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) JobExecutionStartedAtAsc(jobExecutionStartedAtAsc string) ApiGetTriggersRequest {
+	r.jobExecutionStartedAtAsc = &jobExecutionStartedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetTriggersRequest) RuleIdEq(ruleIdEq string) ApiGetTriggersRequest {
 	r.ruleIdEq = &ruleIdEq
 	return r
@@ -890,18 +1086,6 @@ func (r ApiGetTriggersRequest) ChangeIdObjectAsc(changeIdObjectAsc string) ApiGe
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggersRequest) ReferencedByTriggerHasExecutionTriggerIdObjectsDesc(referencedByTriggerHasExecutionTriggerIdObjectsDesc string) ApiGetTriggersRequest {
-	r.referencedByTriggerHasExecutionTriggerIdObjectsDesc = &referencedByTriggerHasExecutionTriggerIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggersRequest) ReferencedByTriggerHasExecutionTriggerIdObjectsAsc(referencedByTriggerHasExecutionTriggerIdObjectsAsc string) ApiGetTriggersRequest {
-	r.referencedByTriggerHasExecutionTriggerIdObjectsAsc = &referencedByTriggerHasExecutionTriggerIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTriggersRequest) ReferencedByExecutionTriggerIdObjectsDesc(referencedByExecutionTriggerIdObjectsDesc string) ApiGetTriggersRequest {
 	r.referencedByExecutionTriggerIdObjectsDesc = &referencedByExecutionTriggerIdObjectsDesc
 	return r
@@ -910,6 +1094,18 @@ func (r ApiGetTriggersRequest) ReferencedByExecutionTriggerIdObjectsDesc(referen
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTriggersRequest) ReferencedByExecutionTriggerIdObjectsAsc(referencedByExecutionTriggerIdObjectsAsc string) ApiGetTriggersRequest {
 	r.referencedByExecutionTriggerIdObjectsAsc = &referencedByExecutionTriggerIdObjectsAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) ReferencedByTriggerHasExecutionTriggerIdObjectsDesc(referencedByTriggerHasExecutionTriggerIdObjectsDesc string) ApiGetTriggersRequest {
+	r.referencedByTriggerHasExecutionTriggerIdObjectsDesc = &referencedByTriggerHasExecutionTriggerIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTriggersRequest) ReferencedByTriggerHasExecutionTriggerIdObjectsAsc(referencedByTriggerHasExecutionTriggerIdObjectsAsc string) ApiGetTriggersRequest {
+	r.referencedByTriggerHasExecutionTriggerIdObjectsAsc = &referencedByTriggerHasExecutionTriggerIdObjectsAsc
 	return r
 }
 
@@ -1129,6 +1325,90 @@ func (a *TriggerAPIService) GetTriggersExecute(r ApiGetTriggersRequest) (*Respon
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
+	if r.jobExecutorClaimedUntilEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__eq", r.jobExecutorClaimedUntilEq, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ne", r.jobExecutorClaimedUntilNe, "form", "")
+	}
+	if r.jobExecutorClaimedUntilGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gt", r.jobExecutorClaimedUntilGt, "form", "")
+	}
+	if r.jobExecutorClaimedUntilGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gte", r.jobExecutorClaimedUntilGte, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lt", r.jobExecutorClaimedUntilLt, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lte", r.jobExecutorClaimedUntilLte, "form", "")
+	}
+	if r.jobExecutorClaimedUntilIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__in", r.jobExecutorClaimedUntilIn, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notin", r.jobExecutorClaimedUntilNotin, "form", "")
+	}
+	if r.jobExecutorClaimedUntilLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__like", r.jobExecutorClaimedUntilLike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notlike", r.jobExecutorClaimedUntilNotlike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ilike", r.jobExecutorClaimedUntilIlike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notilike", r.jobExecutorClaimedUntilNotilike, "form", "")
+	}
+	if r.jobExecutorClaimedUntilDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__desc", r.jobExecutorClaimedUntilDesc, "form", "")
+	}
+	if r.jobExecutorClaimedUntilAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__asc", r.jobExecutorClaimedUntilAsc, "form", "")
+	}
+	if r.jobExecutionStartedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__eq", r.jobExecutionStartedAtEq, "form", "")
+	}
+	if r.jobExecutionStartedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__ne", r.jobExecutionStartedAtNe, "form", "")
+	}
+	if r.jobExecutionStartedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__gt", r.jobExecutionStartedAtGt, "form", "")
+	}
+	if r.jobExecutionStartedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__gte", r.jobExecutionStartedAtGte, "form", "")
+	}
+	if r.jobExecutionStartedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__lt", r.jobExecutionStartedAtLt, "form", "")
+	}
+	if r.jobExecutionStartedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__lte", r.jobExecutionStartedAtLte, "form", "")
+	}
+	if r.jobExecutionStartedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__in", r.jobExecutionStartedAtIn, "form", "")
+	}
+	if r.jobExecutionStartedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__notin", r.jobExecutionStartedAtNotin, "form", "")
+	}
+	if r.jobExecutionStartedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__like", r.jobExecutionStartedAtLike, "form", "")
+	}
+	if r.jobExecutionStartedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__notlike", r.jobExecutionStartedAtNotlike, "form", "")
+	}
+	if r.jobExecutionStartedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__ilike", r.jobExecutionStartedAtIlike, "form", "")
+	}
+	if r.jobExecutionStartedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__notilike", r.jobExecutionStartedAtNotilike, "form", "")
+	}
+	if r.jobExecutionStartedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__desc", r.jobExecutionStartedAtDesc, "form", "")
+	}
+	if r.jobExecutionStartedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_execution_started_at__asc", r.jobExecutionStartedAtAsc, "form", "")
+	}
 	if r.ruleIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__eq", r.ruleIdEq, "form", "")
 	}
@@ -1225,17 +1505,17 @@ func (a *TriggerAPIService) GetTriggersExecute(r ApiGetTriggersRequest) (*Respon
 	if r.changeIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "change_id_object__asc", r.changeIdObjectAsc, "form", "")
 	}
-	if r.referencedByTriggerHasExecutionTriggerIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_has_execution_trigger_id_objects__desc", r.referencedByTriggerHasExecutionTriggerIdObjectsDesc, "form", "")
-	}
-	if r.referencedByTriggerHasExecutionTriggerIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_has_execution_trigger_id_objects__asc", r.referencedByTriggerHasExecutionTriggerIdObjectsAsc, "form", "")
-	}
 	if r.referencedByExecutionTriggerIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_trigger_id_objects__desc", r.referencedByExecutionTriggerIdObjectsDesc, "form", "")
 	}
 	if r.referencedByExecutionTriggerIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_trigger_id_objects__asc", r.referencedByExecutionTriggerIdObjectsAsc, "form", "")
+	}
+	if r.referencedByTriggerHasExecutionTriggerIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_has_execution_trigger_id_objects__desc", r.referencedByTriggerHasExecutionTriggerIdObjectsDesc, "form", "")
+	}
+	if r.referencedByTriggerHasExecutionTriggerIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_has_execution_trigger_id_objects__asc", r.referencedByTriggerHasExecutionTriggerIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

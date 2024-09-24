@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **PublishOutputId** | Pointer to **string** |  | [optional] 
 **PublishOutputIdObject** | Pointer to [**Output**](Output.md) |  | [optional] 
 **ReferencedByTriggerHasExecutionExecutionIdObjects** | Pointer to [**[]TriggerHasExecution**](TriggerHasExecution.md) |  | [optional] 
+**Status** | Pointer to **string** |  | [optional] 
 **TestOutputId** | Pointer to **string** |  | [optional] 
 **TestOutputIdObject** | Pointer to [**Output**](Output.md) |  | [optional] 
 **TriggerId** | Pointer to **string** |  | [optional] 
@@ -353,6 +354,31 @@ HasReferencedByTriggerHasExecutionExecutionIdObjects returns a boolean if a fiel
 `func (o *Execution) UnsetReferencedByTriggerHasExecutionExecutionIdObjects()`
 
 UnsetReferencedByTriggerHasExecutionExecutionIdObjects ensures that no value is present for ReferencedByTriggerHasExecutionExecutionIdObjects, not even an explicit nil
+### GetStatus
+
+`func (o *Execution) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *Execution) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *Execution) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *Execution) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
 ### GetTestOutputId
 
 `func (o *Execution) GetTestOutputId() string`

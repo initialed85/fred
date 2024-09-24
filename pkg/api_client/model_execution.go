@@ -32,6 +32,7 @@ type Execution struct {
 	PublishOutputId                                   *string               `json:"publish_output_id,omitempty"`
 	PublishOutputIdObject                             *Output               `json:"publish_output_id_object,omitempty"`
 	ReferencedByTriggerHasExecutionExecutionIdObjects []TriggerHasExecution `json:"referenced_by_trigger_has_execution_execution_id_objects,omitempty"`
+	Status                                            *string               `json:"status,omitempty"`
 	TestOutputId                                      *string               `json:"test_output_id,omitempty"`
 	TestOutputIdObject                                *Output               `json:"test_output_id_object,omitempty"`
 	TriggerId                                         *string               `json:"trigger_id,omitempty"`
@@ -443,6 +444,38 @@ func (o *Execution) SetReferencedByTriggerHasExecutionExecutionIdObjects(v []Tri
 	o.ReferencedByTriggerHasExecutionExecutionIdObjects = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Execution) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Execution) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Execution) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *Execution) SetStatus(v string) {
+	o.Status = &v
+}
+
 // GetTestOutputId returns the TestOutputId field value if set, zero value otherwise.
 func (o *Execution) GetTestOutputId() string {
 	if o == nil || IsNil(o.TestOutputId) {
@@ -712,6 +745,9 @@ func (o Execution) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ReferencedByTriggerHasExecutionExecutionIdObjects != nil {
 		toSerialize["referenced_by_trigger_has_execution_execution_id_objects"] = o.ReferencedByTriggerHasExecutionExecutionIdObjects
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
 	}
 	if !IsNil(o.TestOutputId) {
 		toSerialize["test_output_id"] = o.TestOutputId

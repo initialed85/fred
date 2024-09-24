@@ -403,6 +403,20 @@ type ApiGetChangesRequest struct {
 	committedAtNotilike                    *time.Time
 	committedAtDesc                        *string
 	committedAtAsc                         *string
+	triggerProducedAtEq                    *time.Time
+	triggerProducedAtNe                    *time.Time
+	triggerProducedAtGt                    *time.Time
+	triggerProducedAtGte                   *time.Time
+	triggerProducedAtLt                    *time.Time
+	triggerProducedAtLte                   *time.Time
+	triggerProducedAtIn                    *time.Time
+	triggerProducedAtNotin                 *time.Time
+	triggerProducedAtLike                  *time.Time
+	triggerProducedAtNotlike               *time.Time
+	triggerProducedAtIlike                 *time.Time
+	triggerProducedAtNotilike              *time.Time
+	triggerProducedAtDesc                  *string
+	triggerProducedAtAsc                   *string
 	repositoryIdEq                         *string
 	repositoryIdNe                         *string
 	repositoryIdGt                         *string
@@ -1366,6 +1380,90 @@ func (r ApiGetChangesRequest) CommittedAtAsc(committedAtAsc string) ApiGetChange
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetChangesRequest) TriggerProducedAtEq(triggerProducedAtEq time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtEq = &triggerProducedAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) TriggerProducedAtNe(triggerProducedAtNe time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtNe = &triggerProducedAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TriggerProducedAtGt(triggerProducedAtGt time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtGt = &triggerProducedAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TriggerProducedAtGte(triggerProducedAtGte time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtGte = &triggerProducedAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TriggerProducedAtLt(triggerProducedAtLt time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtLt = &triggerProducedAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TriggerProducedAtLte(triggerProducedAtLte time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtLte = &triggerProducedAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) TriggerProducedAtIn(triggerProducedAtIn time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtIn = &triggerProducedAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) TriggerProducedAtNotin(triggerProducedAtNotin time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtNotin = &triggerProducedAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TriggerProducedAtLike(triggerProducedAtLike time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtLike = &triggerProducedAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TriggerProducedAtNotlike(triggerProducedAtNotlike time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtNotlike = &triggerProducedAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TriggerProducedAtIlike(triggerProducedAtIlike time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtIlike = &triggerProducedAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TriggerProducedAtNotilike(triggerProducedAtNotilike time.Time) ApiGetChangesRequest {
+	r.triggerProducedAtNotilike = &triggerProducedAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) TriggerProducedAtDesc(triggerProducedAtDesc string) ApiGetChangesRequest {
+	r.triggerProducedAtDesc = &triggerProducedAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) TriggerProducedAtAsc(triggerProducedAtAsc string) ApiGetChangesRequest {
+	r.triggerProducedAtAsc = &triggerProducedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetChangesRequest) RepositoryIdEq(repositoryIdEq string) ApiGetChangesRequest {
 	r.repositoryIdEq = &repositoryIdEq
 	return r
@@ -1982,6 +2080,48 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	}
 	if r.committedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__asc", r.committedAtAsc, "form", "")
+	}
+	if r.triggerProducedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__eq", r.triggerProducedAtEq, "form", "")
+	}
+	if r.triggerProducedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__ne", r.triggerProducedAtNe, "form", "")
+	}
+	if r.triggerProducedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__gt", r.triggerProducedAtGt, "form", "")
+	}
+	if r.triggerProducedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__gte", r.triggerProducedAtGte, "form", "")
+	}
+	if r.triggerProducedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__lt", r.triggerProducedAtLt, "form", "")
+	}
+	if r.triggerProducedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__lte", r.triggerProducedAtLte, "form", "")
+	}
+	if r.triggerProducedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__in", r.triggerProducedAtIn, "form", "")
+	}
+	if r.triggerProducedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notin", r.triggerProducedAtNotin, "form", "")
+	}
+	if r.triggerProducedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__like", r.triggerProducedAtLike, "form", "")
+	}
+	if r.triggerProducedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notlike", r.triggerProducedAtNotlike, "form", "")
+	}
+	if r.triggerProducedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__ilike", r.triggerProducedAtIlike, "form", "")
+	}
+	if r.triggerProducedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notilike", r.triggerProducedAtNotilike, "form", "")
+	}
+	if r.triggerProducedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__desc", r.triggerProducedAtDesc, "form", "")
+	}
+	if r.triggerProducedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__asc", r.triggerProducedAtAsc, "form", "")
 	}
 	if r.repositoryIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id__eq", r.repositoryIdEq, "form", "")

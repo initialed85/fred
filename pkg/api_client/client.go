@@ -50,6 +50,8 @@ type APIClient struct {
 
 	ChangeAPI *ChangeAPIService
 
+	CustomAPI *CustomAPIService
+
 	ExecutionAPI *ExecutionAPIService
 
 	JobAPI *JobAPIService
@@ -86,6 +88,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.ChangeAPI = (*ChangeAPIService)(&c.common)
+	c.CustomAPI = (*CustomAPIService)(&c.common)
 	c.ExecutionAPI = (*ExecutionAPIService)(&c.common)
 	c.JobAPI = (*JobAPIService)(&c.common)
 	c.OutputAPI = (*OutputAPIService)(&c.common)

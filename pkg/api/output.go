@@ -34,6 +34,10 @@ type Output struct {
 	CreatedAt                                    time.Time    `json:"created_at"`
 	UpdatedAt                                    time.Time    `json:"updated_at"`
 	DeletedAt                                    *time.Time   `json:"deleted_at"`
+	Status                                       string       `json:"status"`
+	ExitStatus                                   int64        `json:"exit_status"`
+	Buffer                                       string       `json:"buffer"`
+	Error                                        *string      `json:"error"`
 	TaskID                                       uuid.UUID    `json:"task_id"`
 	TaskIDObject                                 *Task        `json:"task_id_object"`
 	ReferencedByExecutionBuildOutputIDObjects    []*Execution `json:"referenced_by_execution_build_output_id_objects"`
@@ -48,19 +52,27 @@ var OutputTable = "output"
 var OutputTableNamespaceID int32 = 1337 + 4
 
 var (
-	OutputTableIDColumn        = "id"
-	OutputTableCreatedAtColumn = "created_at"
-	OutputTableUpdatedAtColumn = "updated_at"
-	OutputTableDeletedAtColumn = "deleted_at"
-	OutputTableTaskIDColumn    = "task_id"
+	OutputTableIDColumn         = "id"
+	OutputTableCreatedAtColumn  = "created_at"
+	OutputTableUpdatedAtColumn  = "updated_at"
+	OutputTableDeletedAtColumn  = "deleted_at"
+	OutputTableStatusColumn     = "status"
+	OutputTableExitStatusColumn = "exit_status"
+	OutputTableBufferColumn     = "buffer"
+	OutputTableErrorColumn      = "error"
+	OutputTableTaskIDColumn     = "task_id"
 )
 
 var (
-	OutputTableIDColumnWithTypeCast        = `"id" AS id`
-	OutputTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
-	OutputTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
-	OutputTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
-	OutputTableTaskIDColumnWithTypeCast    = `"task_id" AS task_id`
+	OutputTableIDColumnWithTypeCast         = `"id" AS id`
+	OutputTableCreatedAtColumnWithTypeCast  = `"created_at" AS created_at`
+	OutputTableUpdatedAtColumnWithTypeCast  = `"updated_at" AS updated_at`
+	OutputTableDeletedAtColumnWithTypeCast  = `"deleted_at" AS deleted_at`
+	OutputTableStatusColumnWithTypeCast     = `"status" AS status`
+	OutputTableExitStatusColumnWithTypeCast = `"exit_status" AS exit_status`
+	OutputTableBufferColumnWithTypeCast     = `"buffer" AS buffer`
+	OutputTableErrorColumnWithTypeCast      = `"error" AS error`
+	OutputTableTaskIDColumnWithTypeCast     = `"task_id" AS task_id`
 )
 
 var OutputTableColumns = []string{
@@ -68,6 +80,10 @@ var OutputTableColumns = []string{
 	OutputTableCreatedAtColumn,
 	OutputTableUpdatedAtColumn,
 	OutputTableDeletedAtColumn,
+	OutputTableStatusColumn,
+	OutputTableExitStatusColumn,
+	OutputTableBufferColumn,
+	OutputTableErrorColumn,
 	OutputTableTaskIDColumn,
 }
 
@@ -76,6 +92,10 @@ var OutputTableColumnsWithTypeCasts = []string{
 	OutputTableCreatedAtColumnWithTypeCast,
 	OutputTableUpdatedAtColumnWithTypeCast,
 	OutputTableDeletedAtColumnWithTypeCast,
+	OutputTableStatusColumnWithTypeCast,
+	OutputTableExitStatusColumnWithTypeCast,
+	OutputTableBufferColumnWithTypeCast,
+	OutputTableErrorColumnWithTypeCast,
 	OutputTableTaskIDColumnWithTypeCast,
 }
 
@@ -233,6 +253,82 @@ func (m *Output) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
+		case "status":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uustatus.UUID", temp1))
+				}
+			}
+
+			m.Status = temp2
+
+		case "exit_status":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseInt(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(int64)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuexit_status.UUID", temp1))
+				}
+			}
+
+			m.ExitStatus = temp2
+
+		case "buffer":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubuffer.UUID", temp1))
+				}
+			}
+
+			m.Buffer = temp2
+
+		case "error":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuerror.UUID", temp1))
+				}
+			}
+
+			m.Error = &temp2
+
 		case "task_id":
 			if v == nil {
 				continue
@@ -285,6 +381,10 @@ func (m *Output) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
+	m.Status = o.Status
+	m.ExitStatus = o.ExitStatus
+	m.Buffer = o.Buffer
+	m.Error = o.Error
 	m.TaskID = o.TaskID
 	m.TaskIDObject = o.TaskIDObject
 	m.ReferencedByExecutionBuildOutputIDObjects = o.ReferencedByExecutionBuildOutputIDObjects
@@ -339,6 +439,50 @@ func (m *Output) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Status) || slices.Contains(forceSetValuesForFields, OutputTableStatusColumn) || isRequired(OutputTableColumnLookup, OutputTableStatusColumn) {
+		columns = append(columns, OutputTableStatusColumn)
+
+		v, err := types.FormatString(m.Status)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Status; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroInt(m.ExitStatus) || slices.Contains(forceSetValuesForFields, OutputTableExitStatusColumn) || isRequired(OutputTableColumnLookup, OutputTableExitStatusColumn) {
+		columns = append(columns, OutputTableExitStatusColumn)
+
+		v, err := types.FormatInt(m.ExitStatus)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.ExitStatus; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Buffer) || slices.Contains(forceSetValuesForFields, OutputTableBufferColumn) || isRequired(OutputTableColumnLookup, OutputTableBufferColumn) {
+		columns = append(columns, OutputTableBufferColumn)
+
+		v, err := types.FormatString(m.Buffer)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Buffer; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Error) || slices.Contains(forceSetValuesForFields, OutputTableErrorColumn) || isRequired(OutputTableColumnLookup, OutputTableErrorColumn) {
+		columns = append(columns, OutputTableErrorColumn)
+
+		v, err := types.FormatString(m.Error)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Error; %v", err)
 		}
 
 		values = append(values, v)
@@ -441,6 +585,50 @@ func (m *Output) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Status) || slices.Contains(forceSetValuesForFields, OutputTableStatusColumn) {
+		columns = append(columns, OutputTableStatusColumn)
+
+		v, err := types.FormatString(m.Status)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Status; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroInt(m.ExitStatus) || slices.Contains(forceSetValuesForFields, OutputTableExitStatusColumn) {
+		columns = append(columns, OutputTableExitStatusColumn)
+
+		v, err := types.FormatInt(m.ExitStatus)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.ExitStatus; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Buffer) || slices.Contains(forceSetValuesForFields, OutputTableBufferColumn) {
+		columns = append(columns, OutputTableBufferColumn)
+
+		v, err := types.FormatString(m.Buffer)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Buffer; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Error) || slices.Contains(forceSetValuesForFields, OutputTableErrorColumn) {
+		columns = append(columns, OutputTableErrorColumn)
+
+		v, err := types.FormatString(m.Error)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Error; %v", err)
 		}
 
 		values = append(values, v)

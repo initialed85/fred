@@ -20,14 +20,18 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
+	Buffer                                       *string     `json:"buffer,omitempty"`
 	CreatedAt                                    *time.Time  `json:"created_at,omitempty"`
 	DeletedAt                                    *time.Time  `json:"deleted_at,omitempty"`
+	Error                                        *string     `json:"error,omitempty"`
+	ExitStatus                                   *int64      `json:"exit_status,omitempty"`
 	Id                                           *string     `json:"id,omitempty"`
 	ReferencedByExecutionBuildOutputIdObjects    []Execution `json:"referenced_by_execution_build_output_id_objects,omitempty"`
 	ReferencedByExecutionDeployOutputIdObjects   []Execution `json:"referenced_by_execution_deploy_output_id_objects,omitempty"`
 	ReferencedByExecutionPublishOutputIdObjects  []Execution `json:"referenced_by_execution_publish_output_id_objects,omitempty"`
 	ReferencedByExecutionTestOutputIdObjects     []Execution `json:"referenced_by_execution_test_output_id_objects,omitempty"`
 	ReferencedByExecutionValidateOutputIdObjects []Execution `json:"referenced_by_execution_validate_output_id_objects,omitempty"`
+	Status                                       *string     `json:"status,omitempty"`
 	TaskId                                       *string     `json:"task_id,omitempty"`
 	TaskIdObject                                 *Task       `json:"task_id_object,omitempty"`
 	UpdatedAt                                    *time.Time  `json:"updated_at,omitempty"`
@@ -48,6 +52,38 @@ func NewOutput() *Output {
 func NewOutputWithDefaults() *Output {
 	this := Output{}
 	return &this
+}
+
+// GetBuffer returns the Buffer field value if set, zero value otherwise.
+func (o *Output) GetBuffer() string {
+	if o == nil || IsNil(o.Buffer) {
+		var ret string
+		return ret
+	}
+	return *o.Buffer
+}
+
+// GetBufferOk returns a tuple with the Buffer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetBufferOk() (*string, bool) {
+	if o == nil || IsNil(o.Buffer) {
+		return nil, false
+	}
+	return o.Buffer, true
+}
+
+// HasBuffer returns a boolean if a field has been set.
+func (o *Output) HasBuffer() bool {
+	if o != nil && !IsNil(o.Buffer) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuffer gets a reference to the given string and assigns it to the Buffer field.
+func (o *Output) SetBuffer(v string) {
+	o.Buffer = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -112,6 +148,70 @@ func (o *Output) HasDeletedAt() bool {
 // SetDeletedAt gets a reference to the given time.Time and assigns it to the DeletedAt field.
 func (o *Output) SetDeletedAt(v time.Time) {
 	o.DeletedAt = &v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *Output) GetError() string {
+	if o == nil || IsNil(o.Error) {
+		var ret string
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.Error) {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *Output) HasError() bool {
+	if o != nil && !IsNil(o.Error) {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given string and assigns it to the Error field.
+func (o *Output) SetError(v string) {
+	o.Error = &v
+}
+
+// GetExitStatus returns the ExitStatus field value if set, zero value otherwise.
+func (o *Output) GetExitStatus() int64 {
+	if o == nil || IsNil(o.ExitStatus) {
+		var ret int64
+		return ret
+	}
+	return *o.ExitStatus
+}
+
+// GetExitStatusOk returns a tuple with the ExitStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetExitStatusOk() (*int64, bool) {
+	if o == nil || IsNil(o.ExitStatus) {
+		return nil, false
+	}
+	return o.ExitStatus, true
+}
+
+// HasExitStatus returns a boolean if a field has been set.
+func (o *Output) HasExitStatus() bool {
+	if o != nil && !IsNil(o.ExitStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetExitStatus gets a reference to the given int64 and assigns it to the ExitStatus field.
+func (o *Output) SetExitStatus(v int64) {
+	o.ExitStatus = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -311,6 +411,38 @@ func (o *Output) SetReferencedByExecutionValidateOutputIdObjects(v []Execution) 
 	o.ReferencedByExecutionValidateOutputIdObjects = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Output) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Output) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *Output) SetStatus(v string) {
+	o.Status = &v
+}
+
 // GetTaskId returns the TaskId field value if set, zero value otherwise.
 func (o *Output) GetTaskId() string {
 	if o == nil || IsNil(o.TaskId) {
@@ -417,11 +549,20 @@ func (o Output) MarshalJSON() ([]byte, error) {
 
 func (o Output) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Buffer) {
+		toSerialize["buffer"] = o.Buffer
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if !IsNil(o.DeletedAt) {
 		toSerialize["deleted_at"] = o.DeletedAt
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.ExitStatus) {
+		toSerialize["exit_status"] = o.ExitStatus
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -440,6 +581,9 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ReferencedByExecutionValidateOutputIdObjects != nil {
 		toSerialize["referenced_by_execution_validate_output_id_objects"] = o.ReferencedByExecutionValidateOutputIdObjects
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
 	}
 	if !IsNil(o.TaskId) {
 		toSerialize["task_id"] = o.TaskId

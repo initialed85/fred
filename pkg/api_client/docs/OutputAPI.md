@@ -152,7 +152,7 @@ No authorization required
 
 ## GetOutputs
 
-> ResponseWithGenericOfOutput GetOutputs(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).ReferencedByExecutionBuildOutputIdObjectsDesc(referencedByExecutionBuildOutputIdObjectsDesc).ReferencedByExecutionBuildOutputIdObjectsAsc(referencedByExecutionBuildOutputIdObjectsAsc).ReferencedByExecutionTestOutputIdObjectsDesc(referencedByExecutionTestOutputIdObjectsDesc).ReferencedByExecutionTestOutputIdObjectsAsc(referencedByExecutionTestOutputIdObjectsAsc).ReferencedByExecutionPublishOutputIdObjectsDesc(referencedByExecutionPublishOutputIdObjectsDesc).ReferencedByExecutionPublishOutputIdObjectsAsc(referencedByExecutionPublishOutputIdObjectsAsc).ReferencedByExecutionDeployOutputIdObjectsDesc(referencedByExecutionDeployOutputIdObjectsDesc).ReferencedByExecutionDeployOutputIdObjectsAsc(referencedByExecutionDeployOutputIdObjectsAsc).ReferencedByExecutionValidateOutputIdObjectsDesc(referencedByExecutionValidateOutputIdObjectsDesc).ReferencedByExecutionValidateOutputIdObjectsAsc(referencedByExecutionValidateOutputIdObjectsAsc).Execute()
+> ResponseWithGenericOfOutput GetOutputs(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).ExitStatusEq(exitStatusEq).ExitStatusNe(exitStatusNe).ExitStatusGt(exitStatusGt).ExitStatusGte(exitStatusGte).ExitStatusLt(exitStatusLt).ExitStatusLte(exitStatusLte).ExitStatusIn(exitStatusIn).ExitStatusNotin(exitStatusNotin).ExitStatusDesc(exitStatusDesc).ExitStatusAsc(exitStatusAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).ErrorEq(errorEq).ErrorNe(errorNe).ErrorGt(errorGt).ErrorGte(errorGte).ErrorLt(errorLt).ErrorLte(errorLte).ErrorIn(errorIn).ErrorNotin(errorNotin).ErrorLike(errorLike).ErrorNotlike(errorNotlike).ErrorIlike(errorIlike).ErrorNotilike(errorNotilike).ErrorDesc(errorDesc).ErrorAsc(errorAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).ReferencedByExecutionBuildOutputIdObjectsDesc(referencedByExecutionBuildOutputIdObjectsDesc).ReferencedByExecutionBuildOutputIdObjectsAsc(referencedByExecutionBuildOutputIdObjectsAsc).ReferencedByExecutionTestOutputIdObjectsDesc(referencedByExecutionTestOutputIdObjectsDesc).ReferencedByExecutionTestOutputIdObjectsAsc(referencedByExecutionTestOutputIdObjectsAsc).ReferencedByExecutionPublishOutputIdObjectsDesc(referencedByExecutionPublishOutputIdObjectsDesc).ReferencedByExecutionPublishOutputIdObjectsAsc(referencedByExecutionPublishOutputIdObjectsAsc).ReferencedByExecutionDeployOutputIdObjectsDesc(referencedByExecutionDeployOutputIdObjectsDesc).ReferencedByExecutionDeployOutputIdObjectsAsc(referencedByExecutionDeployOutputIdObjectsAsc).ReferencedByExecutionValidateOutputIdObjectsDesc(referencedByExecutionValidateOutputIdObjectsDesc).ReferencedByExecutionValidateOutputIdObjectsAsc(referencedByExecutionValidateOutputIdObjectsAsc).Execute()
 
 
 
@@ -229,6 +229,58 @@ func main() {
 	deletedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtDesc := "deletedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	deletedAtAsc := "deletedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	statusEq := "statusEq_example" // string | SQL = comparison (optional)
+	statusNe := "statusNe_example" // string | SQL != comparison (optional)
+	statusGt := "statusGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	statusGte := "statusGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	statusLt := "statusLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	statusLte := "statusLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	statusIn := "statusIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	statusNotin := "statusNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	statusLike := "statusLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	statusNotlike := "statusNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	statusIlike := "statusIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	statusNotilike := "statusNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	statusDesc := "statusDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	statusAsc := "statusAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	exitStatusEq := int64(789) // int64 | SQL = comparison (optional)
+	exitStatusNe := int64(789) // int64 | SQL != comparison (optional)
+	exitStatusGt := int64(789) // int64 | SQL > comparison, may not work with all column types (optional)
+	exitStatusGte := int64(789) // int64 | SQL >= comparison, may not work with all column types (optional)
+	exitStatusLt := int64(789) // int64 | SQL < comparison, may not work with all column types (optional)
+	exitStatusLte := int64(789) // int64 | SQL <= comparison, may not work with all column types (optional)
+	exitStatusIn := int64(789) // int64 | SQL IN comparison, permits comma-separated values (optional)
+	exitStatusNotin := int64(789) // int64 | SQL NOT IN comparison, permits comma-separated values (optional)
+	exitStatusDesc := "exitStatusDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	exitStatusAsc := "exitStatusAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	bufferEq := "bufferEq_example" // string | SQL = comparison (optional)
+	bufferNe := "bufferNe_example" // string | SQL != comparison (optional)
+	bufferGt := "bufferGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	bufferGte := "bufferGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	bufferLt := "bufferLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	bufferLte := "bufferLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	bufferIn := "bufferIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	bufferNotin := "bufferNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	bufferLike := "bufferLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferNotlike := "bufferNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferIlike := "bufferIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferNotilike := "bufferNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferDesc := "bufferDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	bufferAsc := "bufferAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	errorEq := "errorEq_example" // string | SQL = comparison (optional)
+	errorNe := "errorNe_example" // string | SQL != comparison (optional)
+	errorGt := "errorGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	errorGte := "errorGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	errorLt := "errorLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	errorLte := "errorLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	errorIn := "errorIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	errorNotin := "errorNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	errorLike := "errorLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	errorNotlike := "errorNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	errorIlike := "errorIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	errorNotilike := "errorNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	errorDesc := "errorDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	errorAsc := "errorAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	taskIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	taskIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	taskIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -258,7 +310,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OutputAPI.GetOutputs(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).ReferencedByExecutionBuildOutputIdObjectsDesc(referencedByExecutionBuildOutputIdObjectsDesc).ReferencedByExecutionBuildOutputIdObjectsAsc(referencedByExecutionBuildOutputIdObjectsAsc).ReferencedByExecutionTestOutputIdObjectsDesc(referencedByExecutionTestOutputIdObjectsDesc).ReferencedByExecutionTestOutputIdObjectsAsc(referencedByExecutionTestOutputIdObjectsAsc).ReferencedByExecutionPublishOutputIdObjectsDesc(referencedByExecutionPublishOutputIdObjectsDesc).ReferencedByExecutionPublishOutputIdObjectsAsc(referencedByExecutionPublishOutputIdObjectsAsc).ReferencedByExecutionDeployOutputIdObjectsDesc(referencedByExecutionDeployOutputIdObjectsDesc).ReferencedByExecutionDeployOutputIdObjectsAsc(referencedByExecutionDeployOutputIdObjectsAsc).ReferencedByExecutionValidateOutputIdObjectsDesc(referencedByExecutionValidateOutputIdObjectsDesc).ReferencedByExecutionValidateOutputIdObjectsAsc(referencedByExecutionValidateOutputIdObjectsAsc).Execute()
+	resp, r, err := apiClient.OutputAPI.GetOutputs(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).ExitStatusEq(exitStatusEq).ExitStatusNe(exitStatusNe).ExitStatusGt(exitStatusGt).ExitStatusGte(exitStatusGte).ExitStatusLt(exitStatusLt).ExitStatusLte(exitStatusLte).ExitStatusIn(exitStatusIn).ExitStatusNotin(exitStatusNotin).ExitStatusDesc(exitStatusDesc).ExitStatusAsc(exitStatusAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).ErrorEq(errorEq).ErrorNe(errorNe).ErrorGt(errorGt).ErrorGte(errorGte).ErrorLt(errorLt).ErrorLte(errorLte).ErrorIn(errorIn).ErrorNotin(errorNotin).ErrorLike(errorLike).ErrorNotlike(errorNotlike).ErrorIlike(errorIlike).ErrorNotilike(errorNotilike).ErrorDesc(errorDesc).ErrorAsc(errorAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).ReferencedByExecutionBuildOutputIdObjectsDesc(referencedByExecutionBuildOutputIdObjectsDesc).ReferencedByExecutionBuildOutputIdObjectsAsc(referencedByExecutionBuildOutputIdObjectsAsc).ReferencedByExecutionTestOutputIdObjectsDesc(referencedByExecutionTestOutputIdObjectsDesc).ReferencedByExecutionTestOutputIdObjectsAsc(referencedByExecutionTestOutputIdObjectsAsc).ReferencedByExecutionPublishOutputIdObjectsDesc(referencedByExecutionPublishOutputIdObjectsDesc).ReferencedByExecutionPublishOutputIdObjectsAsc(referencedByExecutionPublishOutputIdObjectsAsc).ReferencedByExecutionDeployOutputIdObjectsDesc(referencedByExecutionDeployOutputIdObjectsDesc).ReferencedByExecutionDeployOutputIdObjectsAsc(referencedByExecutionDeployOutputIdObjectsAsc).ReferencedByExecutionValidateOutputIdObjectsDesc(referencedByExecutionValidateOutputIdObjectsDesc).ReferencedByExecutionValidateOutputIdObjectsAsc(referencedByExecutionValidateOutputIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OutputAPI.GetOutputs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -338,6 +390,58 @@ Name | Type | Description  | Notes
  **deletedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **deletedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **statusEq** | **string** | SQL &#x3D; comparison | 
+ **statusNe** | **string** | SQL !&#x3D; comparison | 
+ **statusGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **statusGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **statusLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **statusLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **statusIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **statusNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **statusLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **statusNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **statusIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **statusNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **statusDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **statusAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **exitStatusEq** | **int64** | SQL &#x3D; comparison | 
+ **exitStatusNe** | **int64** | SQL !&#x3D; comparison | 
+ **exitStatusGt** | **int64** | SQL &gt; comparison, may not work with all column types | 
+ **exitStatusGte** | **int64** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **exitStatusLt** | **int64** | SQL &lt; comparison, may not work with all column types | 
+ **exitStatusLte** | **int64** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **exitStatusIn** | **int64** | SQL IN comparison, permits comma-separated values | 
+ **exitStatusNotin** | **int64** | SQL NOT IN comparison, permits comma-separated values | 
+ **exitStatusDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **exitStatusAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **bufferEq** | **string** | SQL &#x3D; comparison | 
+ **bufferNe** | **string** | SQL !&#x3D; comparison | 
+ **bufferGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **bufferGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **bufferLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **bufferLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **bufferIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **bufferNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **bufferLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **bufferAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **errorEq** | **string** | SQL &#x3D; comparison | 
+ **errorNe** | **string** | SQL !&#x3D; comparison | 
+ **errorGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **errorGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **errorLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **errorLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **errorIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **errorNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **errorLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **errorNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **errorIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **errorNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **errorDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **errorAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **taskIdEq** | **string** | SQL &#x3D; comparison | 
  **taskIdNe** | **string** | SQL !&#x3D; comparison | 
  **taskIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -457,7 +561,7 @@ No authorization required
 
 ## PostOutputs
 
-> ResponseWithGenericOfOutput PostOutputs(ctx).Execution(execution).Depth(depth).Execute()
+> ResponseWithGenericOfOutput PostOutputs(ctx).Output(output).Depth(depth).Execute()
 
 
 
@@ -474,12 +578,12 @@ import (
 )
 
 func main() {
-	execution := []openapiclient.Execution{*openapiclient.NewExecution()} // []Execution | 
+	output := []openapiclient.Output{*openapiclient.NewOutput()} // []Output | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OutputAPI.PostOutputs(context.Background()).Execution(execution).Depth(depth).Execute()
+	resp, r, err := apiClient.OutputAPI.PostOutputs(context.Background()).Output(output).Depth(depth).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OutputAPI.PostOutputs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -500,7 +604,7 @@ Other parameters are passed through a pointer to a apiPostOutputsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **execution** | [**[]Execution**](Execution.md) |  | 
+ **output** | [**[]Output**](Output.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

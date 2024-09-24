@@ -22,7 +22,7 @@ type ResponseWithGenericOfJob struct {
 	Count      *int64   `json:"count,omitempty"`
 	Error      []string `json:"error,omitempty"`
 	Limit      *int64   `json:"limit,omitempty"`
-	Objects    []Job    `json:"objects,omitempty"`
+	Objects    []Rule   `json:"objects,omitempty"`
 	Offset     *int64   `json:"offset,omitempty"`
 	Status     *int64   `json:"status,omitempty"`
 	Success    *bool    `json:"success,omitempty"`
@@ -144,9 +144,9 @@ func (o *ResponseWithGenericOfJob) SetLimit(v int64) {
 }
 
 // GetObjects returns the Objects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfJob) GetObjects() []Job {
+func (o *ResponseWithGenericOfJob) GetObjects() []Rule {
 	if o == nil {
-		var ret []Job
+		var ret []Rule
 		return ret
 	}
 	return o.Objects
@@ -155,7 +155,7 @@ func (o *ResponseWithGenericOfJob) GetObjects() []Job {
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfJob) GetObjectsOk() ([]Job, bool) {
+func (o *ResponseWithGenericOfJob) GetObjectsOk() ([]Rule, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *ResponseWithGenericOfJob) HasObjects() bool {
 	return false
 }
 
-// SetObjects gets a reference to the given []Job and assigns it to the Objects field.
-func (o *ResponseWithGenericOfJob) SetObjects(v []Job) {
+// SetObjects gets a reference to the given []Rule and assigns it to the Objects field.
+func (o *ResponseWithGenericOfJob) SetObjects(v []Rule) {
 	o.Objects = v
 }
 

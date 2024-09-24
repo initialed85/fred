@@ -152,7 +152,7 @@ No authorization required
 
 ## GetTasks
 
-> ResponseWithGenericOfTask GetTasks(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).Execute()
+> ResponseWithGenericOfTask GetTasks(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).Execute()
 
 
 
@@ -229,6 +229,64 @@ func main() {
 	deletedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtDesc := "deletedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	deletedAtAsc := "deletedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	nameEq := "nameEq_example" // string | SQL = comparison (optional)
+	nameNe := "nameNe_example" // string | SQL != comparison (optional)
+	nameGt := "nameGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	nameGte := "nameGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	nameLt := "nameLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	nameLte := "nameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	nameIn := "nameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	nameNotin := "nameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	nameLike := "nameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameNotlike := "nameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameIlike := "nameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameNotilike := "nameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameDesc := "nameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	nameAsc := "nameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	platformEq := "platformEq_example" // string | SQL = comparison (optional)
+	platformNe := "platformNe_example" // string | SQL != comparison (optional)
+	platformGt := "platformGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	platformGte := "platformGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	platformLt := "platformLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	platformLte := "platformLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	platformIn := "platformIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	platformNotin := "platformNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	platformLike := "platformLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	platformNotlike := "platformNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	platformIlike := "platformIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	platformNotilike := "platformNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	platformDesc := "platformDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	platformAsc := "platformAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	imageEq := "imageEq_example" // string | SQL = comparison (optional)
+	imageNe := "imageNe_example" // string | SQL != comparison (optional)
+	imageGt := "imageGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	imageGte := "imageGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	imageLt := "imageLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	imageLte := "imageLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	imageIn := "imageIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	imageNotin := "imageNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	imageLike := "imageLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	imageNotlike := "imageNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	imageIlike := "imageIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	imageNotilike := "imageNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	imageDesc := "imageDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	imageAsc := "imageAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	scriptEq := "scriptEq_example" // string | SQL = comparison (optional)
+	scriptNe := "scriptNe_example" // string | SQL != comparison (optional)
+	scriptGt := "scriptGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	scriptGte := "scriptGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	scriptLt := "scriptLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	scriptLte := "scriptLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	scriptIn := "scriptIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	scriptNotin := "scriptNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	scriptLike := "scriptLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	scriptNotlike := "scriptNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	scriptIlike := "scriptIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	scriptNotilike := "scriptNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	scriptDesc := "scriptDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	scriptAsc := "scriptAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputTaskIdObjectsDesc := "referencedByOutputTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputTaskIdObjectsAsc := "referencedByOutputTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByJobBuildTaskIdObjectsDesc := "referencedByJobBuildTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByJobBuildTaskIdObjectsAsc := "referencedByJobBuildTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByJobTestTaskIdObjectsDesc := "referencedByJobTestTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
@@ -239,12 +297,10 @@ func main() {
 	referencedByJobDeployTaskIdObjectsAsc := "referencedByJobDeployTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByJobValidateTaskIdObjectsDesc := "referencedByJobValidateTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByJobValidateTaskIdObjectsAsc := "referencedByJobValidateTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByOutputTaskIdObjectsDesc := "referencedByOutputTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByOutputTaskIdObjectsAsc := "referencedByOutputTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaskAPI.GetTasks(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).Execute()
+	resp, r, err := apiClient.TaskAPI.GetTasks(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -324,6 +380,64 @@ Name | Type | Description  | Notes
  **deletedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **deletedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **nameEq** | **string** | SQL &#x3D; comparison | 
+ **nameNe** | **string** | SQL !&#x3D; comparison | 
+ **nameGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **nameGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **nameLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **nameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **nameIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **nameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **nameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **nameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **platformEq** | **string** | SQL &#x3D; comparison | 
+ **platformNe** | **string** | SQL !&#x3D; comparison | 
+ **platformGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **platformGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **platformLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **platformLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **platformIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **platformNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **platformLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **platformNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **platformIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **platformNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **platformDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **platformAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **imageEq** | **string** | SQL &#x3D; comparison | 
+ **imageNe** | **string** | SQL !&#x3D; comparison | 
+ **imageGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **imageGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **imageLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **imageLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **imageIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **imageNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **imageLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **imageNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **imageIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **imageNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **imageDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **imageAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **scriptEq** | **string** | SQL &#x3D; comparison | 
+ **scriptNe** | **string** | SQL !&#x3D; comparison | 
+ **scriptGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **scriptGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **scriptLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **scriptLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **scriptIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **scriptNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **scriptLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **scriptNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **scriptIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **scriptNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **scriptDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **scriptAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **referencedByJobBuildTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByJobBuildTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **referencedByJobTestTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
@@ -334,8 +448,6 @@ Name | Type | Description  | Notes
  **referencedByJobDeployTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **referencedByJobValidateTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByJobValidateTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByOutputTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByOutputTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 

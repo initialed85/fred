@@ -88,6 +88,7 @@ CREATE TABLE
         authored_at timestamptz NOT NULL,
         committed_by text NOT NULL,
         committed_at timestamptz NOT NULL,
+        trigger_produced_at timestamptz NULL DEFAULT NULL,
         repository_id uuid NOT NULL REFERENCES public.repository (id)
     );
 
@@ -140,6 +141,8 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        job_executor_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0),
+        job_execution_started_at timestamptz NULL DEFAULT NULL,
         rule_id uuid NOT NULL REFERENCES public.rule (id),
         change_id uuid NOT NULL REFERENCES public.change (id)
     );
@@ -156,7 +159,11 @@ CREATE TABLE
         id uuid PRIMARY KEY NOT NULL UNIQUE DEFAULT gen_random_uuid (),
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
-        deleted_at timestamptz NULL DEFAULT NULL
+        deleted_at timestamptz NULL DEFAULT NULL,
+        name TEXT NOT NULL UNIQUE,
+        platform text NOT NULL,
+        image text NOT NULL,
+        script text NOT NULL
     );
 
 ALTER TABLE public.task OWNER TO postgres;
@@ -172,6 +179,8 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        name TEXT NOT NULL UNIQUE,
+        job_executor_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0),
         rule_id uuid NOT NULL REFERENCES public.rule (id),
         build_task_id uuid NULL REFERENCES public.task (id),
         test_task_id uuid NULL REFERENCES public.task (id),
@@ -210,6 +219,10 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        status text NOT NULL,
+        exit_status int NOT NULL,
+        buffer text NOT NULL,
+        error text NULL,
         task_id uuid NOT NULL REFERENCES public.task (id)
     );
 
@@ -226,6 +239,7 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
+        status text NOT NULL,
         trigger_id uuid NOT NULL REFERENCES public.trigger (id),
         build_output_id uuid NULL REFERENCES public.output (id),
         test_output_id uuid NULL REFERENCES public.output (id),

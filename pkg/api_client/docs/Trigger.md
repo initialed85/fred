@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
+**JobExecutionStartedAt** | Pointer to **time.Time** |  | [optional] 
+**JobExecutorClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **ReferencedByExecutionTriggerIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByTriggerHasExecutionTriggerIdObjects** | Pointer to [**[]TriggerHasExecution**](TriggerHasExecution.md) |  | [optional] 
 **RuleId** | Pointer to **string** |  | [optional] 
@@ -158,6 +160,56 @@ SetId sets Id field to given value.
 `func (o *Trigger) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetJobExecutionStartedAt
+
+`func (o *Trigger) GetJobExecutionStartedAt() time.Time`
+
+GetJobExecutionStartedAt returns the JobExecutionStartedAt field if non-nil, zero value otherwise.
+
+### GetJobExecutionStartedAtOk
+
+`func (o *Trigger) GetJobExecutionStartedAtOk() (*time.Time, bool)`
+
+GetJobExecutionStartedAtOk returns a tuple with the JobExecutionStartedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobExecutionStartedAt
+
+`func (o *Trigger) SetJobExecutionStartedAt(v time.Time)`
+
+SetJobExecutionStartedAt sets JobExecutionStartedAt field to given value.
+
+### HasJobExecutionStartedAt
+
+`func (o *Trigger) HasJobExecutionStartedAt() bool`
+
+HasJobExecutionStartedAt returns a boolean if a field has been set.
+
+### GetJobExecutorClaimedUntil
+
+`func (o *Trigger) GetJobExecutorClaimedUntil() time.Time`
+
+GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field if non-nil, zero value otherwise.
+
+### GetJobExecutorClaimedUntilOk
+
+`func (o *Trigger) GetJobExecutorClaimedUntilOk() (*time.Time, bool)`
+
+GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobExecutorClaimedUntil
+
+`func (o *Trigger) SetJobExecutorClaimedUntil(v time.Time)`
+
+SetJobExecutorClaimedUntil sets JobExecutorClaimedUntil field to given value.
+
+### HasJobExecutorClaimedUntil
+
+`func (o *Trigger) HasJobExecutorClaimedUntil() bool`
+
+HasJobExecutorClaimedUntil returns a boolean if a field has been set.
 
 ### GetReferencedByExecutionTriggerIdObjects
 

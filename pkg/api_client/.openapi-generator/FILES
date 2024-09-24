@@ -4,6 +4,7 @@
 README.md
 api/openapi.yaml
 api_change.go
+api_custom.go
 api_execution.go
 api_job.go
 api_output.go
@@ -17,6 +18,8 @@ client.go
 configuration.go
 docs/Change.md
 docs/ChangeAPI.md
+docs/ClaimRequest.md
+docs/CustomAPI.md
 docs/Execution.md
 docs/ExecutionAPI.md
 docs/GetChangesDefaultResponse.md
@@ -50,6 +53,7 @@ git_push.sh
 go.mod
 go.sum
 model_change.go
+model_claim_request.go
 model_execution.go
 model_get_changes_default_response.go
 model_job.go
@@ -72,6 +76,7 @@ model_trigger.go
 model_trigger_has_execution.go
 response.go
 test/api_change_test.go
+test/api_custom_test.go
 test/api_execution_test.go
 test/api_job_test.go
 test/api_output_test.go

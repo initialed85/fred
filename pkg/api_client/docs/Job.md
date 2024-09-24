@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **DeployTaskId** | Pointer to **string** |  | [optional] 
 **DeployTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
+**JobExecutorClaimedUntil** | Pointer to **time.Time** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
 **PublishTaskId** | Pointer to **string** |  | [optional] 
 **PublishTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 **ReferencedByExecutionJobIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
@@ -216,6 +218,56 @@ SetId sets Id field to given value.
 `func (o *Job) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetJobExecutorClaimedUntil
+
+`func (o *Job) GetJobExecutorClaimedUntil() time.Time`
+
+GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field if non-nil, zero value otherwise.
+
+### GetJobExecutorClaimedUntilOk
+
+`func (o *Job) GetJobExecutorClaimedUntilOk() (*time.Time, bool)`
+
+GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobExecutorClaimedUntil
+
+`func (o *Job) SetJobExecutorClaimedUntil(v time.Time)`
+
+SetJobExecutorClaimedUntil sets JobExecutorClaimedUntil field to given value.
+
+### HasJobExecutorClaimedUntil
+
+`func (o *Job) HasJobExecutorClaimedUntil() bool`
+
+HasJobExecutorClaimedUntil returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *Job) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Job) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Job) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *Job) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetPublishTaskId
 

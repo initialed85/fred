@@ -27,6 +27,8 @@ type Job struct {
 	DeployTaskId                            *string           `json:"deploy_task_id,omitempty"`
 	DeployTaskIdObject                      *Task             `json:"deploy_task_id_object,omitempty"`
 	Id                                      *string           `json:"id,omitempty"`
+	JobExecutorClaimedUntil                 *time.Time        `json:"job_executor_claimed_until,omitempty"`
+	Name                                    *string           `json:"name,omitempty"`
 	PublishTaskId                           *string           `json:"publish_task_id,omitempty"`
 	PublishTaskIdObject                     *Task             `json:"publish_task_id_object,omitempty"`
 	ReferencedByExecutionJobIdObjects       []Execution       `json:"referenced_by_execution_job_id_objects,omitempty"`
@@ -279,6 +281,70 @@ func (o *Job) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Job) SetId(v string) {
 	o.Id = &v
+}
+
+// GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field value if set, zero value otherwise.
+func (o *Job) GetJobExecutorClaimedUntil() time.Time {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		var ret time.Time
+		return ret
+	}
+	return *o.JobExecutorClaimedUntil
+}
+
+// GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetJobExecutorClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		return nil, false
+	}
+	return o.JobExecutorClaimedUntil, true
+}
+
+// HasJobExecutorClaimedUntil returns a boolean if a field has been set.
+func (o *Job) HasJobExecutorClaimedUntil() bool {
+	if o != nil && !IsNil(o.JobExecutorClaimedUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobExecutorClaimedUntil gets a reference to the given time.Time and assigns it to the JobExecutorClaimedUntil field.
+func (o *Job) SetJobExecutorClaimedUntil(v time.Time) {
+	o.JobExecutorClaimedUntil = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Job) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Job) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Job) SetName(v string) {
+	o.Name = &v
 }
 
 // GetPublishTaskId returns the PublishTaskId field value if set, zero value otherwise.
@@ -665,6 +731,12 @@ func (o Job) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.JobExecutorClaimedUntil) {
+		toSerialize["job_executor_claimed_until"] = o.JobExecutorClaimedUntil
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.PublishTaskId) {
 		toSerialize["publish_task_id"] = o.PublishTaskId
