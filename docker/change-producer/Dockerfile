@@ -15,18 +15,15 @@ FROM ubuntu:22.04
 ENV TZ Australia/Perth
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y \
-    tzdata imagemagick x264 libmicrohttpd-dev libjpeg8-dev libavutil-dev libavformat-dev libavcodec-dev libswscale-dev libavdevice-dev ffmpeg
+RUN apt-get update && apt-get install -y tzdata curl ca-certificates
 
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 COPY --from=builder /srv/bin/change-producer /srv/bin/change-producer
 
-RUN mkdir /srv/media
+WORKDIR /srv/
 
 ENV DJANGOLANG_API_ROOT=/api
-ENV DESTINATION_PATH=/srv/media
-ENV ENABLE_PASSTHROUGH=1
 
 ENTRYPOINT ["/srv/bin/change-producer"]
 CMD []

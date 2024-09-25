@@ -64,6 +64,10 @@ Done / WIP at the top, TODOs are in priority order.
 - [WIP] Have some sort of lean UI
 - [TODO] Fix `api/outputs/{primaryKey}` somehow generated w/ `Execution` model (no idea- if one is wrong, they should all be wrong)
 - [TODO] Fix perf issue relating to `depth` params + frontend (this might be Djangolang thing)
+- [TODO] Fix jobs stuck in "Running" when tasks are all "Errored"
+- [TODO] Add some timestamps to the various states etc
+- [TODO] Make it clear when a job executor is pulling the CI image (show it in the logs or something)
+- [TODO] Make it clear which node a job executor is running on
 - [TODO] Carry any environment variables set during a Task execution between the Tasks of an Execution (don't override CI-set ones though)
 - [TODO] SSH key authentication for Repositories
 - [TODO] Get it deployed to Kubernetes

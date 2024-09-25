@@ -10,11 +10,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/docker/cli/cli/streams"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/image"
 	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
+	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/google/uuid"
 	"github.com/initialed85/djangolang/pkg/helpers"
 	"github.com/initialed85/djangolang/pkg/query"
@@ -548,7 +550,7 @@ func Run() error {
 
 				log.Printf("pulling %s", task.Image)
 
-				_, err = apiClient.ImagePull(
+				imagePullReader, err := apiClient.ImagePull(
 					ctx,
 					task.Image,
 					image.PullOptions{
@@ -559,6 +561,15 @@ func Run() error {
 					_ = updateOutput(err)
 					return err
 				}
+
+				defer func() {
+					_ = imagePullReader.Close()
+				}()
+
+				_ = jsonmessage.DisplayJSONMessagesToStream(imagePullReader, streams.NewOut(os.Stdout), nil)
+				defer func() {
+					_, _ = io.ReadAll(imagePullReader)
+				}()
 
 				log.Printf("creating %s", containerName)
 
