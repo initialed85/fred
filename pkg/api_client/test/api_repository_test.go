@@ -11,11 +11,10 @@ package api_client
 
 import (
 	"context"
-	"testing"
-
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"testing"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func Test_api_client_RepositoryAPIService(t *testing.T) {
@@ -25,7 +24,7 @@ func Test_api_client_RepositoryAPIService(t *testing.T) {
 
 	t.Run("Test RepositoryAPIService DeleteRepository", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -38,7 +37,7 @@ func Test_api_client_RepositoryAPIService(t *testing.T) {
 
 	t.Run("Test RepositoryAPIService GetRepositories", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RepositoryAPI.GetRepositories(context.Background()).Execute()
 
@@ -50,7 +49,7 @@ func Test_api_client_RepositoryAPIService(t *testing.T) {
 
 	t.Run("Test RepositoryAPIService GetRepository", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -64,7 +63,7 @@ func Test_api_client_RepositoryAPIService(t *testing.T) {
 
 	t.Run("Test RepositoryAPIService PatchRepository", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
@@ -78,7 +77,7 @@ func Test_api_client_RepositoryAPIService(t *testing.T) {
 
 	t.Run("Test RepositoryAPIService PostRepositories", func(t *testing.T) {
 
-		t.Skip("skip test") // remove to run test
+		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.RepositoryAPI.PostRepositories(context.Background()).Execute()
 

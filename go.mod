@@ -9,7 +9,7 @@ require (
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/gomodule/redigo v1.9.2
 	github.com/google/uuid v1.6.0
-	github.com/initialed85/djangolang v0.1.5
+	github.com/initialed85/djangolang v0.1.6
 	github.com/jackc/pgx/v5 v5.7.1
 	github.com/opencontainers/image-spec v1.1.0
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0

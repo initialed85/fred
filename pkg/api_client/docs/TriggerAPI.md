@@ -533,7 +533,7 @@ No authorization required
 
 ## PostTriggers
 
-> ResponseWithGenericOfTrigger PostTriggers(ctx).Rule(rule).Depth(depth).Execute()
+> ResponseWithGenericOfTrigger PostTriggers(ctx).Trigger(trigger).Depth(depth).Execute()
 
 
 
@@ -550,12 +550,12 @@ import (
 )
 
 func main() {
-	rule := []openapiclient.Rule{*openapiclient.NewRule()} // []Rule | 
+	trigger := []openapiclient.Trigger{*openapiclient.NewTrigger()} // []Trigger | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggerAPI.PostTriggers(context.Background()).Rule(rule).Depth(depth).Execute()
+	resp, r, err := apiClient.TriggerAPI.PostTriggers(context.Background()).Trigger(trigger).Depth(depth).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TriggerAPI.PostTriggers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -576,7 +576,7 @@ Other parameters are passed through a pointer to a apiPostTriggersRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **rule** | [**[]Rule**](Rule.md) |  | 
+ **trigger** | [**[]Trigger**](Trigger.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

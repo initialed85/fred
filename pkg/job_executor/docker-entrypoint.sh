@@ -69,7 +69,7 @@ git log -n 1
 
 echo -e "\n${task_entrypoint}:\n"
 
-if ! ../${task_entrypoint}; then
+if ! "../${task_entrypoint}"; then
     echo -e "error: ${task_entrypoint} failed\n"
     echo -e "done."
     exit 1

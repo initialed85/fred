@@ -307,15 +307,15 @@ func Run() error {
 
 				phase := ""
 
-				if task == job.BuildTaskIDObject {
+				if job.BuildTaskIDObject != nil && task.ID == job.BuildTaskIDObject.ID {
 					phase = "build"
-				} else if task == job.TestTaskIDObject {
+				} else if job.TestTaskIDObject != nil && task.ID == job.TestTaskIDObject.ID {
 					phase = "test"
-				} else if task == job.PublishTaskIDObject {
+				} else if job.PublishTaskIDObject != nil && task.ID == job.PublishTaskIDObject.ID {
 					phase = "publish"
-				} else if task == job.DeployTaskIDObject {
+				} else if job.DeployTaskIDObject != nil && task.ID == job.DeployTaskIDObject.ID {
 					phase = "deploy"
-				} else if task == job.ValidateTaskIDObject {
+				} else if job.ValidateTaskIDObject != nil && task.ID == job.ValidateTaskIDObject.ID {
 					phase = "validate"
 				} else {
 					return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
@@ -352,15 +352,15 @@ func Run() error {
 						return err
 					}
 
-					if task == job.BuildTaskIDObject {
+					if job.BuildTaskIDObject != nil && task.ID == job.BuildTaskIDObject.ID {
 						execution.BuildOutputID = &output.ID
-					} else if task == job.TestTaskIDObject {
+					} else if job.TestTaskIDObject != nil && task.ID == job.TestTaskIDObject.ID {
 						execution.TestOutputID = &output.ID
-					} else if task == job.PublishTaskIDObject {
+					} else if job.PublishTaskIDObject != nil && task.ID == job.PublishTaskIDObject.ID {
 						execution.PublishOutputID = &output.ID
-					} else if task == job.DeployTaskIDObject {
+					} else if job.DeployTaskIDObject != nil && task.ID == job.DeployTaskIDObject.ID {
 						execution.DeployOutputID = &output.ID
-					} else if task == job.ValidateTaskIDObject {
+					} else if job.ValidateTaskIDObject != nil && task.ID == job.ValidateTaskIDObject.ID {
 						execution.ValidateOutputID = &output.ID
 					} else {
 						return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
@@ -845,6 +845,10 @@ func Run() error {
 				defer func() {
 					_ = tx.Rollback(ctx)
 				}()
+
+				if execution.Status == internal.ExecutionOrTaskStatusRunning {
+					execution.Status = internal.ExecutionOrTaskStatusSucceeded
+				}
 
 				err = execution.Update(ctx, tx, false)
 				if err != nil {

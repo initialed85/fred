@@ -561,7 +561,7 @@ No authorization required
 
 ## PostOutputs
 
-> ResponseWithGenericOfOutput PostOutputs(ctx).Output(output).Depth(depth).Execute()
+> ResponseWithGenericOfOutput PostOutputs(ctx).Execution(execution).Depth(depth).Execute()
 
 
 
@@ -578,12 +578,12 @@ import (
 )
 
 func main() {
-	output := []openapiclient.Output{*openapiclient.NewOutput()} // []Output | 
+	execution := []openapiclient.Execution{*openapiclient.NewExecution()} // []Execution | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OutputAPI.PostOutputs(context.Background()).Output(output).Depth(depth).Execute()
+	resp, r, err := apiClient.OutputAPI.PostOutputs(context.Background()).Execution(execution).Depth(depth).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OutputAPI.PostOutputs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -604,7 +604,7 @@ Other parameters are passed through a pointer to a apiPostOutputsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **output** | [**[]Output**](Output.md) |  | 
+ **execution** | [**[]Execution**](Execution.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

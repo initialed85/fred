@@ -6,7 +6,7 @@ const (
 	JobExecutorAdvisoryLockID                         = 3
 	ExecutionOrTaskStatusCreated                      = "created"
 	ExecutionOrTaskStatusRunning                      = "running"
-	ExecutionOrTaskStatusSucceeded                    = "succeded"
+	ExecutionOrTaskStatusSucceeded                    = "succeeded"
 	ExecutionOrTaskStatusFailing                      = "failing"
 	ExecutionOrTaskStatusFailed                       = "failed"
 	ExecutionOrTaskStatusErroring                     = "erroring"

@@ -102,8 +102,8 @@ github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0 h1:asbCHRVmodnJTuQ3qamDwqVOIjw
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0/go.mod h1:ggCgvZ2r7uOoQjOyu2Y1NhHmEPPzzuhWgcza5M1Ji1I=
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
-github.com/initialed85/djangolang v0.1.5 h1:wbi1QQheWIhyamzOySL4Oigvts5jVhDZCaR+jQu5JHM=
-github.com/initialed85/djangolang v0.1.5/go.mod h1:bEibKod2eU9ej8VLY2P2kZcCGP9s5KEEXvbVBV+hiCQ=
+github.com/initialed85/djangolang v0.1.6 h1:zVv87QkZfRNWR3k0mM+Q+t0XnisfO2xoP2RypWhsGUg=
+github.com/initialed85/djangolang v0.1.6/go.mod h1:bEibKod2eU9ej8VLY2P2kZcCGP9s5KEEXvbVBV+hiCQ=
 github.com/initialed85/structmeta v0.0.0-20240923104310-4adf4f5a7354 h1:J2ax29IYAhlqMinMit2I+uOPCcTkTmHsZzwAlPY2Rjs=
 github.com/initialed85/structmeta v0.0.0-20240923104310-4adf4f5a7354/go.mod h1:hTGWTsfgy6Um+L8e3Qcj8/pBkHGcIGxEpZAKziWhQfc=
 github.com/jackc/chunkreader v1.0.0 h1:4s39bBR8ByfqH+DKm8rQA3E1LHZWB9XWcrz8fqaZbe0=

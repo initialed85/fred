@@ -37,8 +37,8 @@ type Rule struct {
 	BranchName                               *string            `json:"branch_name"`
 	RepositoryID                             uuid.UUID          `json:"repository_id"`
 	RepositoryIDObject                       *Repository        `json:"repository_id_object"`
-	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
 	ReferencedByTriggerRuleIDObjects         []*Trigger         `json:"referenced_by_trigger_rule_id_objects"`
+	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
 	ReferencedByRuleRequiresJobRuleIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects"`
 }
 
@@ -310,8 +310,8 @@ func (m *Rule) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.BranchName = o.BranchName
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
-	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
 	m.ReferencedByTriggerRuleIDObjects = o.ReferencedByTriggerRuleIDObjects
+	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
 	m.ReferencedByRuleRequiresJobRuleIDObjects = o.ReferencedByRuleRequiresJobRuleIDObjects
 
 	return nil
@@ -680,42 +680,6 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
-				}
-
-				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
 					log.Printf("loading SelectRules->SelectTriggers for object.ReferencedByTriggerRuleIDObjects")
 				}
 
@@ -736,6 +700,42 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 				if config.Debug() {
 					log.Printf("loaded SelectRules->SelectTriggers for object.ReferencedByTriggerRuleIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
+			if ok {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
+				}
+
+				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

@@ -55,18 +55,21 @@ Done / WIP at the top, TODOs are in priority order.
 
 - [DONE] Database schema (and therefore endpoints because Djangolang)
 - [DONE] Change producer (syncs w/ repo)
-- [DONE] Trigger producer (consume Changes, produce Triggers for Jobs)
+- [WIP] Trigger producer (consume Changes, produce Triggers for Jobs)
+  - [TODO] Add folder filter for rules
+  - [TODO] Implement pipelines feature (split / merge / wait for other jobs etc)
 - [DONE] Job executor (consume Triggers, run Tasks under an Execution)
   - [DONE] Fix Task failures not bubbling up to Execution failures
 - [DONE] Use volumes for Repository (and other asset) reuse between the Tasks of an Execution
+- [WIP] Have some sort of lean UI
+- [TODO] Fix `api/outputs/{primaryKey}` somehow generated w/ `Execution` model (no idea- if one is wrong, they should all be wrong)
+- [TODO] Fix perf issue relating to `depth` params + frontend (this might be Djangolang thing)
 - [TODO] Carry any environment variables set during a Task execution between the Tasks of an Execution (don't override CI-set ones though)
 - [TODO] SSH key authentication for Repositories
 - [TODO] Get it deployed to Kubernetes
 - [TODO] Support for tags as well as branches
-- [TODO] Pipeline-related features (splitting / merging)
 - [TODO] Username / password (or token) authentication for Repositories
 - [TODO] Support for Repository webhooks (at least GitHub for now)
-- [TODO] Have some sort of lean UI
 - [TODO] Be able to trigger jobs manually
 
 ## Dev notes

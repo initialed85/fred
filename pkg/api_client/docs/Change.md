@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
-**ReferencedByTriggerChangeIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**ReferencedByTriggerChangeIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
 **TriggerProducedAt** | Pointer to **time.Time** |  | [optional] 
@@ -291,20 +291,20 @@ HasMessage returns a boolean if a field has been set.
 
 ### GetReferencedByTriggerChangeIdObjects
 
-`func (o *Change) GetReferencedByTriggerChangeIdObjects() []Rule`
+`func (o *Change) GetReferencedByTriggerChangeIdObjects() []Trigger`
 
 GetReferencedByTriggerChangeIdObjects returns the ReferencedByTriggerChangeIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByTriggerChangeIdObjectsOk
 
-`func (o *Change) GetReferencedByTriggerChangeIdObjectsOk() (*[]Rule, bool)`
+`func (o *Change) GetReferencedByTriggerChangeIdObjectsOk() (*[]Trigger, bool)`
 
 GetReferencedByTriggerChangeIdObjectsOk returns a tuple with the ReferencedByTriggerChangeIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByTriggerChangeIdObjects
 
-`func (o *Change) SetReferencedByTriggerChangeIdObjects(v []Rule)`
+`func (o *Change) SetReferencedByTriggerChangeIdObjects(v []Trigger)`
 
 SetReferencedByTriggerChangeIdObjects sets ReferencedByTriggerChangeIdObjects field to given value.
 

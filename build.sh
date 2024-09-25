@@ -62,15 +62,15 @@ while ! curl http://localhost:7070/api/openapi.json >./schema/openapi.json; do
 done
 kill -15 ${pid} || true >/dev/null 2>&1
 
-# # generate the client for use by the frontend
-# echo -e "\ngenerating typescript client..."
-# cd frontend
-# if [[ "${SKIP_UPDATE_FRONTEND}" != "1" ]]; then
-#     npm ci
-# fi
-# npm run openapi-typescript
-# npm run prettier
-# cd ..
+# generate the client for use by the frontend
+echo -e "\ngenerating typescript client..."
+cd frontend
+if [[ "${SKIP_UPDATE_FRONTEND}" != "1" ]]; then
+    npm ci
+fi
+npm run openapi-typescript
+npm run prettier
+cd ..
 
 # generate the client for use by Go code
 if test -e pkg/api_client; then

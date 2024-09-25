@@ -34,7 +34,7 @@
         "type": "array",
         "nullable": true,
         "items": {
-          "$ref": "#/components/schemas/Output",
+          "$ref": "#/components/schemas/Execution",
           "nullable": true
         }
       },
@@ -74,7 +74,7 @@
         "type": "array",
         "nullable": true,
         "items": {
-          "$ref": "#/components/schemas/Rule",
+          "$ref": "#/components/schemas/Trigger",
           "nullable": true
         }
       },
@@ -135,7 +135,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Rule",
+              "$ref": "#/components/schemas/Trigger",
               "nullable": true
             }
           },
@@ -672,7 +672,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Output",
+              "$ref": "#/components/schemas/Execution",
               "nullable": true
             }
           },
@@ -887,7 +887,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Rule",
+              "$ref": "#/components/schemas/Trigger",
               "nullable": true
             }
           },
@@ -989,7 +989,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Rule",
+              "$ref": "#/components/schemas/Trigger",
               "nullable": true
             }
           },
@@ -1112,7 +1112,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Output",
+              "$ref": "#/components/schemas/Execution",
               "nullable": true
             }
           },
@@ -12905,7 +12905,7 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_job_rule_id_objects__desc",
+            "name": "referenced_by_rule_requires_job_rule_id_objects__desc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12914,7 +12914,7 @@
             "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_job_rule_id_objects__asc",
+            "name": "referenced_by_rule_requires_job_rule_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12941,7 +12941,7 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_rule_requires_job_rule_id_objects__desc",
+            "name": "referenced_by_job_rule_id_objects__desc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12950,7 +12950,7 @@
             "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_rule_requires_job_rule_id_objects__asc",
+            "name": "referenced_by_job_rule_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
