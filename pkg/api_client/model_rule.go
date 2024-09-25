@@ -20,16 +20,16 @@ var _ MappedNullable = &Rule{}
 
 // Rule struct for Rule
 type Rule struct {
-	BranchName *string `json:"branch_name,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ReferencedByJobRuleIdObjects []Job `json:"referenced_by_job_rule_id_objects,omitempty"`
+	BranchName                               *string           `json:"branch_name,omitempty"`
+	CreatedAt                                *time.Time        `json:"created_at,omitempty"`
+	DeletedAt                                *time.Time        `json:"deleted_at,omitempty"`
+	Id                                       *string           `json:"id,omitempty"`
+	ReferencedByJobRuleIdObjects             []Job             `json:"referenced_by_job_rule_id_objects,omitempty"`
 	ReferencedByRuleRequiresJobRuleIdObjects []RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects,omitempty"`
-	ReferencedByTriggerRuleIdObjects []Trigger `json:"referenced_by_trigger_rule_id_objects,omitempty"`
-	RepositoryId *string `json:"repository_id,omitempty"`
-	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	ReferencedByTriggerRuleIdObjects         []Rule            `json:"referenced_by_trigger_rule_id_objects,omitempty"`
+	RepositoryId                             *string           `json:"repository_id,omitempty"`
+	RepositoryIdObject                       *Repository       `json:"repository_id_object,omitempty"`
+	UpdatedAt                                *time.Time        `json:"updated_at,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -244,9 +244,9 @@ func (o *Rule) SetReferencedByRuleRequiresJobRuleIdObjects(v []RuleRequiresJob) 
 }
 
 // GetReferencedByTriggerRuleIdObjects returns the ReferencedByTriggerRuleIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Trigger {
+func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Rule {
 	if o == nil {
-		var ret []Trigger
+		var ret []Rule
 		return ret
 	}
 	return o.ReferencedByTriggerRuleIdObjects
@@ -255,7 +255,7 @@ func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Trigger {
 // GetReferencedByTriggerRuleIdObjectsOk returns a tuple with the ReferencedByTriggerRuleIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() ([]Trigger, bool) {
+func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() ([]Rule, bool) {
 	if o == nil || IsNil(o.ReferencedByTriggerRuleIdObjects) {
 		return nil, false
 	}
@@ -271,8 +271,8 @@ func (o *Rule) HasReferencedByTriggerRuleIdObjects() bool {
 	return false
 }
 
-// SetReferencedByTriggerRuleIdObjects gets a reference to the given []Trigger and assigns it to the ReferencedByTriggerRuleIdObjects field.
-func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Trigger) {
+// SetReferencedByTriggerRuleIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByTriggerRuleIdObjects field.
+func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Rule) {
 	o.ReferencedByTriggerRuleIdObjects = v
 }
 
@@ -373,7 +373,7 @@ func (o *Rule) SetUpdatedAt(v time.Time) {
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -450,5 +450,3 @@ func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

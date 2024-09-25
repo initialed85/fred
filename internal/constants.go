@@ -7,6 +7,9 @@ const (
 	ExecutionOrTaskStatusCreated                      = "created"
 	ExecutionOrTaskStatusRunning                      = "running"
 	ExecutionOrTaskStatusSucceeded                    = "succeded"
+	ExecutionOrTaskStatusFailing                      = "failing"
 	ExecutionOrTaskStatusFailed                       = "failed"
+	ExecutionOrTaskStatusErroring                     = "erroring"
 	ExecutionOrTaskStatusErrored                      = "errored"
+	ExecutionOrTaskStatusSkipped                      = "skipped"
 )

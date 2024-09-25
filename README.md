@@ -51,12 +51,23 @@ When things happen, we'll have these events:
 
 ## Status
 
+Done / WIP at the top, TODOs are in priority order.
+
 - [DONE] Database schema (and therefore endpoints because Djangolang)
 - [DONE] Change producer (syncs w/ repo)
-- [WIP] Trigger producer (consume Changes, produce Triggers for Jobs)
-  - It's working, but it doesn't do anything pipeline-y yet
-- [WIP] Job executor (consume Triggers, run Tasks under an Execution)
-  - It's pulling and running Docker images but there's a few bugs to iron out with ports and volumes (mostly around Docker-in-Docker)
+- [DONE] Trigger producer (consume Changes, produce Triggers for Jobs)
+- [DONE] Job executor (consume Triggers, run Tasks under an Execution)
+  - [DONE] Fix Task failures not bubbling up to Execution failures
+- [DONE] Use volumes for Repository (and other asset) reuse between the Tasks of an Execution
+- [TODO] Carry any environment variables set during a Task execution between the Tasks of an Execution (don't override CI-set ones though)
+- [TODO] SSH key authentication for Repositories
+- [TODO] Get it deployed to Kubernetes
+- [TODO] Support for tags as well as branches
+- [TODO] Pipeline-related features (splitting / merging)
+- [TODO] Username / password (or token) authentication for Repositories
+- [TODO] Support for Repository webhooks (at least GitHub for now)
+- [TODO] Have some sort of lean UI
+- [TODO] Be able to trigger jobs manually
 
 ## Dev notes
 
@@ -84,4 +95,7 @@ DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./c
 
 # shell 8 (worker 2)
 DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
+
+# shell 9
+echo -e "$(curl 'http://localhost:7070/api/executions?created_at__desc=&limit=2&depth=2' | jq | sed 's/\\u001b/\\033/g')"
 ```

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **ReferencedByJobRuleIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **ReferencedByRuleRequiresJobRuleIdObjects** | Pointer to [**[]RuleRequiresJob**](RuleRequiresJob.md) |  | [optional] 
-**ReferencedByTriggerRuleIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
+**ReferencedByTriggerRuleIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -206,20 +206,20 @@ HasReferencedByRuleRequiresJobRuleIdObjects returns a boolean if a field has bee
 UnsetReferencedByRuleRequiresJobRuleIdObjects ensures that no value is present for ReferencedByRuleRequiresJobRuleIdObjects, not even an explicit nil
 ### GetReferencedByTriggerRuleIdObjects
 
-`func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Trigger`
+`func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Rule`
 
 GetReferencedByTriggerRuleIdObjects returns the ReferencedByTriggerRuleIdObjects field if non-nil, zero value otherwise.
 
 ### GetReferencedByTriggerRuleIdObjectsOk
 
-`func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() (*[]Trigger, bool)`
+`func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() (*[]Rule, bool)`
 
 GetReferencedByTriggerRuleIdObjectsOk returns a tuple with the ReferencedByTriggerRuleIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferencedByTriggerRuleIdObjects
 
-`func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Trigger)`
+`func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Rule)`
 
 SetReferencedByTriggerRuleIdObjects sets ReferencedByTriggerRuleIdObjects field to given value.
 

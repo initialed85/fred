@@ -11,8 +11,8 @@ API version: 1.0
 package api_client
 
 import (
-	"encoding/json"
 	"bytes"
+	"encoding/json"
 	"fmt"
 )
 
@@ -21,9 +21,9 @@ var _ MappedNullable = &GetChangesDefaultResponse{}
 
 // GetChangesDefaultResponse struct for GetChangesDefaultResponse
 type GetChangesDefaultResponse struct {
-	Error []string `json:"error"`
-	Status int32 `json:"status"`
-	Success bool `json:"success"`
+	Error   []string `json:"error"`
+	Status  int32    `json:"status"`
+	Success bool     `json:"success"`
 }
 
 type _GetChangesDefaultResponse GetChangesDefaultResponse
@@ -121,7 +121,7 @@ func (o *GetChangesDefaultResponse) SetSuccess(v bool) {
 }
 
 func (o GetChangesDefaultResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -151,10 +151,10 @@ func (o *GetChangesDefaultResponse) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -210,5 +210,3 @@ func (v *NullableGetChangesDefaultResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

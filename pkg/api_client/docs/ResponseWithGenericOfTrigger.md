@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Count** | Pointer to **int64** |  | [optional] 
 **Error** | Pointer to **[]string** |  | [optional] 
 **Limit** | Pointer to **int64** |  | [optional] 
-**Objects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
+**Objects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
 **Offset** | Pointer to **int64** |  | [optional] 
 **Status** | Pointer to **int64** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
@@ -119,20 +119,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetObjects
 
-`func (o *ResponseWithGenericOfTrigger) GetObjects() []Trigger`
+`func (o *ResponseWithGenericOfTrigger) GetObjects() []Rule`
 
 GetObjects returns the Objects field if non-nil, zero value otherwise.
 
 ### GetObjectsOk
 
-`func (o *ResponseWithGenericOfTrigger) GetObjectsOk() (*[]Trigger, bool)`
+`func (o *ResponseWithGenericOfTrigger) GetObjectsOk() (*[]Rule, bool)`
 
 GetObjectsOk returns a tuple with the Objects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObjects
 
-`func (o *ResponseWithGenericOfTrigger) SetObjects(v []Trigger)`
+`func (o *ResponseWithGenericOfTrigger) SetObjects(v []Rule)`
 
 SetObjects sets Objects field to given value.
 

@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // ChangeAPIService ChangeAPI service
 type ChangeAPIService service
 
 type ApiDeleteChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteChangeRequest) Execute() (*http.Response, error) {
 /*
 DeleteChange Method for DeleteChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteChangeRequest
 */
 func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) ApiDeleteChangeRequest {
 	return ApiDeleteChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) 
 // Execute executes the request
 func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.DeleteChange")
@@ -125,10 +124,10 @@ func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.
 }
 
 type ApiGetChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Resp
 /*
 GetChange Method for GetChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetChangeRequest
 */
 func (a *ChangeAPIService) GetChange(ctx context.Context, primaryKey string) ApiGetChangeRequest {
 	return ApiGetChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChange")
@@ -220,14 +220,14 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,197 +244,197 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 }
 
 type ApiGetChangesRequest struct {
-	ctx context.Context
-	ApiService *ChangeAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	branchNameEq *string
-	branchNameNe *string
-	branchNameGt *string
-	branchNameGte *string
-	branchNameLt *string
-	branchNameLte *string
-	branchNameIn *string
-	branchNameNotin *string
-	branchNameLike *string
-	branchNameNotlike *string
-	branchNameIlike *string
-	branchNameNotilike *string
-	branchNameDesc *string
-	branchNameAsc *string
-	commitHashEq *string
-	commitHashNe *string
-	commitHashGt *string
-	commitHashGte *string
-	commitHashLt *string
-	commitHashLte *string
-	commitHashIn *string
-	commitHashNotin *string
-	commitHashLike *string
-	commitHashNotlike *string
-	commitHashIlike *string
-	commitHashNotilike *string
-	commitHashDesc *string
-	commitHashAsc *string
-	messageEq *string
-	messageNe *string
-	messageGt *string
-	messageGte *string
-	messageLt *string
-	messageLte *string
-	messageIn *string
-	messageNotin *string
-	messageLike *string
-	messageNotlike *string
-	messageIlike *string
-	messageNotilike *string
-	messageDesc *string
-	messageAsc *string
-	authoredByEq *string
-	authoredByNe *string
-	authoredByGt *string
-	authoredByGte *string
-	authoredByLt *string
-	authoredByLte *string
-	authoredByIn *string
-	authoredByNotin *string
-	authoredByLike *string
-	authoredByNotlike *string
-	authoredByIlike *string
-	authoredByNotilike *string
-	authoredByDesc *string
-	authoredByAsc *string
-	authoredAtEq *time.Time
-	authoredAtNe *time.Time
-	authoredAtGt *time.Time
-	authoredAtGte *time.Time
-	authoredAtLt *time.Time
-	authoredAtLte *time.Time
-	authoredAtIn *time.Time
-	authoredAtNotin *time.Time
-	authoredAtLike *time.Time
-	authoredAtNotlike *time.Time
-	authoredAtIlike *time.Time
-	authoredAtNotilike *time.Time
-	authoredAtDesc *string
-	authoredAtAsc *string
-	committedByEq *string
-	committedByNe *string
-	committedByGt *string
-	committedByGte *string
-	committedByLt *string
-	committedByLte *string
-	committedByIn *string
-	committedByNotin *string
-	committedByLike *string
-	committedByNotlike *string
-	committedByIlike *string
-	committedByNotilike *string
-	committedByDesc *string
-	committedByAsc *string
-	committedAtEq *time.Time
-	committedAtNe *time.Time
-	committedAtGt *time.Time
-	committedAtGte *time.Time
-	committedAtLt *time.Time
-	committedAtLte *time.Time
-	committedAtIn *time.Time
-	committedAtNotin *time.Time
-	committedAtLike *time.Time
-	committedAtNotlike *time.Time
-	committedAtIlike *time.Time
-	committedAtNotilike *time.Time
-	committedAtDesc *string
-	committedAtAsc *string
-	triggerProducedAtEq *time.Time
-	triggerProducedAtNe *time.Time
-	triggerProducedAtGt *time.Time
-	triggerProducedAtGte *time.Time
-	triggerProducedAtLt *time.Time
-	triggerProducedAtLte *time.Time
-	triggerProducedAtIn *time.Time
-	triggerProducedAtNotin *time.Time
-	triggerProducedAtLike *time.Time
-	triggerProducedAtNotlike *time.Time
-	triggerProducedAtIlike *time.Time
-	triggerProducedAtNotilike *time.Time
-	triggerProducedAtDesc *string
-	triggerProducedAtAsc *string
-	repositoryIdEq *string
-	repositoryIdNe *string
-	repositoryIdGt *string
-	repositoryIdGte *string
-	repositoryIdLt *string
-	repositoryIdLte *string
-	repositoryIdIn *string
-	repositoryIdNotin *string
-	repositoryIdLike *string
-	repositoryIdNotlike *string
-	repositoryIdIlike *string
-	repositoryIdNotilike *string
-	repositoryIdDesc *string
-	repositoryIdAsc *string
-	repositoryIdObjectDesc *string
-	repositoryIdObjectAsc *string
+	ctx                                    context.Context
+	ApiService                             *ChangeAPIService
+	limit                                  *int32
+	offset                                 *int32
+	depth                                  *int32
+	idEq                                   *string
+	idNe                                   *string
+	idGt                                   *string
+	idGte                                  *string
+	idLt                                   *string
+	idLte                                  *string
+	idIn                                   *string
+	idNotin                                *string
+	idLike                                 *string
+	idNotlike                              *string
+	idIlike                                *string
+	idNotilike                             *string
+	idDesc                                 *string
+	idAsc                                  *string
+	createdAtEq                            *time.Time
+	createdAtNe                            *time.Time
+	createdAtGt                            *time.Time
+	createdAtGte                           *time.Time
+	createdAtLt                            *time.Time
+	createdAtLte                           *time.Time
+	createdAtIn                            *time.Time
+	createdAtNotin                         *time.Time
+	createdAtLike                          *time.Time
+	createdAtNotlike                       *time.Time
+	createdAtIlike                         *time.Time
+	createdAtNotilike                      *time.Time
+	createdAtDesc                          *string
+	createdAtAsc                           *string
+	updatedAtEq                            *time.Time
+	updatedAtNe                            *time.Time
+	updatedAtGt                            *time.Time
+	updatedAtGte                           *time.Time
+	updatedAtLt                            *time.Time
+	updatedAtLte                           *time.Time
+	updatedAtIn                            *time.Time
+	updatedAtNotin                         *time.Time
+	updatedAtLike                          *time.Time
+	updatedAtNotlike                       *time.Time
+	updatedAtIlike                         *time.Time
+	updatedAtNotilike                      *time.Time
+	updatedAtDesc                          *string
+	updatedAtAsc                           *string
+	deletedAtEq                            *time.Time
+	deletedAtNe                            *time.Time
+	deletedAtGt                            *time.Time
+	deletedAtGte                           *time.Time
+	deletedAtLt                            *time.Time
+	deletedAtLte                           *time.Time
+	deletedAtIn                            *time.Time
+	deletedAtNotin                         *time.Time
+	deletedAtLike                          *time.Time
+	deletedAtNotlike                       *time.Time
+	deletedAtIlike                         *time.Time
+	deletedAtNotilike                      *time.Time
+	deletedAtDesc                          *string
+	deletedAtAsc                           *string
+	branchNameEq                           *string
+	branchNameNe                           *string
+	branchNameGt                           *string
+	branchNameGte                          *string
+	branchNameLt                           *string
+	branchNameLte                          *string
+	branchNameIn                           *string
+	branchNameNotin                        *string
+	branchNameLike                         *string
+	branchNameNotlike                      *string
+	branchNameIlike                        *string
+	branchNameNotilike                     *string
+	branchNameDesc                         *string
+	branchNameAsc                          *string
+	commitHashEq                           *string
+	commitHashNe                           *string
+	commitHashGt                           *string
+	commitHashGte                          *string
+	commitHashLt                           *string
+	commitHashLte                          *string
+	commitHashIn                           *string
+	commitHashNotin                        *string
+	commitHashLike                         *string
+	commitHashNotlike                      *string
+	commitHashIlike                        *string
+	commitHashNotilike                     *string
+	commitHashDesc                         *string
+	commitHashAsc                          *string
+	messageEq                              *string
+	messageNe                              *string
+	messageGt                              *string
+	messageGte                             *string
+	messageLt                              *string
+	messageLte                             *string
+	messageIn                              *string
+	messageNotin                           *string
+	messageLike                            *string
+	messageNotlike                         *string
+	messageIlike                           *string
+	messageNotilike                        *string
+	messageDesc                            *string
+	messageAsc                             *string
+	authoredByEq                           *string
+	authoredByNe                           *string
+	authoredByGt                           *string
+	authoredByGte                          *string
+	authoredByLt                           *string
+	authoredByLte                          *string
+	authoredByIn                           *string
+	authoredByNotin                        *string
+	authoredByLike                         *string
+	authoredByNotlike                      *string
+	authoredByIlike                        *string
+	authoredByNotilike                     *string
+	authoredByDesc                         *string
+	authoredByAsc                          *string
+	authoredAtEq                           *time.Time
+	authoredAtNe                           *time.Time
+	authoredAtGt                           *time.Time
+	authoredAtGte                          *time.Time
+	authoredAtLt                           *time.Time
+	authoredAtLte                          *time.Time
+	authoredAtIn                           *time.Time
+	authoredAtNotin                        *time.Time
+	authoredAtLike                         *time.Time
+	authoredAtNotlike                      *time.Time
+	authoredAtIlike                        *time.Time
+	authoredAtNotilike                     *time.Time
+	authoredAtDesc                         *string
+	authoredAtAsc                          *string
+	committedByEq                          *string
+	committedByNe                          *string
+	committedByGt                          *string
+	committedByGte                         *string
+	committedByLt                          *string
+	committedByLte                         *string
+	committedByIn                          *string
+	committedByNotin                       *string
+	committedByLike                        *string
+	committedByNotlike                     *string
+	committedByIlike                       *string
+	committedByNotilike                    *string
+	committedByDesc                        *string
+	committedByAsc                         *string
+	committedAtEq                          *time.Time
+	committedAtNe                          *time.Time
+	committedAtGt                          *time.Time
+	committedAtGte                         *time.Time
+	committedAtLt                          *time.Time
+	committedAtLte                         *time.Time
+	committedAtIn                          *time.Time
+	committedAtNotin                       *time.Time
+	committedAtLike                        *time.Time
+	committedAtNotlike                     *time.Time
+	committedAtIlike                       *time.Time
+	committedAtNotilike                    *time.Time
+	committedAtDesc                        *string
+	committedAtAsc                         *string
+	triggerProducedAtEq                    *time.Time
+	triggerProducedAtNe                    *time.Time
+	triggerProducedAtGt                    *time.Time
+	triggerProducedAtGte                   *time.Time
+	triggerProducedAtLt                    *time.Time
+	triggerProducedAtLte                   *time.Time
+	triggerProducedAtIn                    *time.Time
+	triggerProducedAtNotin                 *time.Time
+	triggerProducedAtLike                  *time.Time
+	triggerProducedAtNotlike               *time.Time
+	triggerProducedAtIlike                 *time.Time
+	triggerProducedAtNotilike              *time.Time
+	triggerProducedAtDesc                  *string
+	triggerProducedAtAsc                   *string
+	repositoryIdEq                         *string
+	repositoryIdNe                         *string
+	repositoryIdGt                         *string
+	repositoryIdGte                        *string
+	repositoryIdLt                         *string
+	repositoryIdLte                        *string
+	repositoryIdIn                         *string
+	repositoryIdNotin                      *string
+	repositoryIdLike                       *string
+	repositoryIdNotlike                    *string
+	repositoryIdIlike                      *string
+	repositoryIdNotilike                   *string
+	repositoryIdDesc                       *string
+	repositoryIdAsc                        *string
+	repositoryIdObjectDesc                 *string
+	repositoryIdObjectAsc                  *string
 	referencedByTriggerChangeIdObjectsDesc *string
-	referencedByTriggerChangeIdObjectsAsc *string
+	referencedByTriggerChangeIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -1578,24 +1578,25 @@ func (r ApiGetChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Res
 /*
 GetChanges Method for GetChanges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetChangesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetChangesRequest
 */
 func (a *ChangeAPIService) GetChanges(ctx context.Context) ApiGetChangesRequest {
 	return ApiGetChangesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChanges")
@@ -2215,14 +2216,14 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2239,11 +2240,11 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 }
 
 type ApiPatchChangeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	change *Change
-	depth *int64
+	change     *Change
+	depth      *int64
 }
 
 func (r ApiPatchChangeRequest) Change(change Change) ApiPatchChangeRequest {
@@ -2264,26 +2265,27 @@ func (r ApiPatchChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PatchChange Method for PatchChange
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchChangeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchChangeRequest
 */
 func (a *ChangeAPIService) PatchChange(ctx context.Context, primaryKey string) ApiPatchChangeRequest {
 	return ApiPatchChangeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PatchChange")
@@ -2345,14 +2347,14 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2369,10 +2371,10 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 }
 
 type ApiPostChangesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChangeAPIService
-	change *[]Change
-	depth *int64
+	change     *[]Change
+	depth      *int64
 }
 
 func (r ApiPostChangesRequest) Change(change []Change) ApiPostChangesRequest {
@@ -2393,24 +2395,25 @@ func (r ApiPostChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PostChanges Method for PostChanges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostChangesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostChangesRequest
 */
 func (a *ChangeAPIService) PostChanges(ctx context.Context) ApiPostChangesRequest {
 	return ApiPostChangesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfChange
+//
+//	@return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfChange
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PostChanges")
@@ -2471,14 +2474,14 @@ func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

@@ -37,9 +37,9 @@ type Rule struct {
 	BranchName                               *string            `json:"branch_name"`
 	RepositoryID                             uuid.UUID          `json:"repository_id"`
 	RepositoryIDObject                       *Repository        `json:"repository_id_object"`
-	ReferencedByRuleRequiresJobRuleIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects"`
-	ReferencedByTriggerRuleIDObjects         []*Trigger         `json:"referenced_by_trigger_rule_id_objects"`
 	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
+	ReferencedByTriggerRuleIDObjects         []*Trigger         `json:"referenced_by_trigger_rule_id_objects"`
+	ReferencedByRuleRequiresJobRuleIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects"`
 }
 
 var RuleTable = "rule"
@@ -310,9 +310,9 @@ func (m *Rule) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.BranchName = o.BranchName
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
-	m.ReferencedByRuleRequiresJobRuleIDObjects = o.ReferencedByRuleRequiresJobRuleIDObjects
-	m.ReferencedByTriggerRuleIDObjects = o.ReferencedByTriggerRuleIDObjects
 	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
+	m.ReferencedByTriggerRuleIDObjects = o.ReferencedByTriggerRuleIDObjects
+	m.ReferencedByRuleRequiresJobRuleIDObjects = o.ReferencedByRuleRequiresJobRuleIDObjects
 
 	return nil
 }
@@ -680,13 +680,13 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects")
+					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
 				}
 
-				object.ReferencedByRuleRequiresJobRuleIDObjects, _, _, _, _, err = SelectRuleRequiresJobs(
+				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", RuleRequiresJobTableRuleIDColumn),
+					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
 					nil,
 					nil,
 					nil,
@@ -699,7 +699,7 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -752,13 +752,13 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
+					log.Printf("loading SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects")
 				}
 
-				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
+				object.ReferencedByRuleRequiresJobRuleIDObjects, _, _, _, _, err = SelectRuleRequiresJobs(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
+					fmt.Sprintf("%v = $1", RuleRequiresJobTableRuleIDColumn),
 					nil,
 					nil,
 					nil,
@@ -771,7 +771,7 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}

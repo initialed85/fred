@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfJob{}
 
 // ResponseWithGenericOfJob struct for ResponseWithGenericOfJob
 type ResponseWithGenericOfJob struct {
-	Count *int64 `json:"count,omitempty"`
-	Error []string `json:"error,omitempty"`
-	Limit *int64 `json:"limit,omitempty"`
-	Objects []Job `json:"objects,omitempty"`
-	Offset *int64 `json:"offset,omitempty"`
-	Status *int64 `json:"status,omitempty"`
-	Success *bool `json:"success,omitempty"`
-	TotalCount *int64 `json:"total_count,omitempty"`
+	Count      *int64   `json:"count,omitempty"`
+	Error      []string `json:"error,omitempty"`
+	Limit      *int64   `json:"limit,omitempty"`
+	Objects    []Job    `json:"objects,omitempty"`
+	Offset     *int64   `json:"offset,omitempty"`
+	Status     *int64   `json:"status,omitempty"`
+	Success    *bool    `json:"success,omitempty"`
+	TotalCount *int64   `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfJob instantiates a new ResponseWithGenericOfJob object
@@ -305,7 +305,7 @@ func (o *ResponseWithGenericOfJob) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfJob) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -376,5 +376,3 @@ func (v *NullableResponseWithGenericOfJob) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

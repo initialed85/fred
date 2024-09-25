@@ -74,7 +74,7 @@
         "type": "array",
         "nullable": true,
         "items": {
-          "$ref": "#/components/schemas/Trigger",
+          "$ref": "#/components/schemas/Rule",
           "nullable": true
         }
       },
@@ -135,7 +135,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Trigger",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -887,7 +887,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Trigger",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -989,7 +989,7 @@
             "type": "array",
             "nullable": true,
             "items": {
-              "$ref": "#/components/schemas/Trigger",
+              "$ref": "#/components/schemas/Rule",
               "nullable": true
             }
           },
@@ -12905,7 +12905,7 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_rule_requires_job_rule_id_objects__desc",
+            "name": "referenced_by_job_rule_id_objects__desc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12914,7 +12914,7 @@
             "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_rule_requires_job_rule_id_objects__asc",
+            "name": "referenced_by_job_rule_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12941,7 +12941,7 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_job_rule_id_objects__desc",
+            "name": "referenced_by_rule_requires_job_rule_id_objects__desc",
             "in": "query",
             "required": false,
             "schema": {
@@ -12950,7 +12950,7 @@
             "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_job_rule_id_objects__asc",
+            "name": "referenced_by_rule_requires_job_rule_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -14354,24 +14354,6 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_output_task_id_objects__desc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_output_task_id_objects__asc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
             "name": "referenced_by_job_build_task_id_objects__desc",
             "in": "query",
             "required": false,
@@ -14454,6 +14436,24 @@
           },
           {
             "name": "referenced_by_job_validate_task_id_objects__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_output_task_id_objects__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_output_task_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {
@@ -17144,24 +17144,6 @@
             "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
           },
           {
-            "name": "referenced_by_execution_trigger_id_objects__desc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
-            "name": "referenced_by_execution_trigger_id_objects__asc",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
-          },
-          {
             "name": "referenced_by_trigger_has_execution_trigger_id_objects__desc",
             "in": "query",
             "required": false,
@@ -17172,6 +17154,24 @@
           },
           {
             "name": "referenced_by_trigger_has_execution_trigger_id_objects__asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_execution_trigger_id_objects__desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)"
+          },
+          {
+            "name": "referenced_by_execution_trigger_id_objects__asc",
             "in": "query",
             "required": false,
             "schema": {

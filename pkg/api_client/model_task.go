@@ -20,20 +20,20 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Platform *string `json:"platform,omitempty"`
-	ReferencedByJobBuildTaskIdObjects []Job `json:"referenced_by_job_build_task_id_objects,omitempty"`
-	ReferencedByJobDeployTaskIdObjects []Job `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
-	ReferencedByJobPublishTaskIdObjects []Job `json:"referenced_by_job_publish_task_id_objects,omitempty"`
-	ReferencedByJobTestTaskIdObjects []Job `json:"referenced_by_job_test_task_id_objects,omitempty"`
-	ReferencedByJobValidateTaskIdObjects []Job `json:"referenced_by_job_validate_task_id_objects,omitempty"`
-	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
-	Script *string `json:"script,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt                            *time.Time `json:"created_at,omitempty"`
+	DeletedAt                            *time.Time `json:"deleted_at,omitempty"`
+	Id                                   *string    `json:"id,omitempty"`
+	Image                                *string    `json:"image,omitempty"`
+	Name                                 *string    `json:"name,omitempty"`
+	Platform                             *string    `json:"platform,omitempty"`
+	ReferencedByJobBuildTaskIdObjects    []Job      `json:"referenced_by_job_build_task_id_objects,omitempty"`
+	ReferencedByJobDeployTaskIdObjects   []Job      `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
+	ReferencedByJobPublishTaskIdObjects  []Job      `json:"referenced_by_job_publish_task_id_objects,omitempty"`
+	ReferencedByJobTestTaskIdObjects     []Job      `json:"referenced_by_job_test_task_id_objects,omitempty"`
+	ReferencedByJobValidateTaskIdObjects []Job      `json:"referenced_by_job_validate_task_id_objects,omitempty"`
+	ReferencedByOutputTaskIdObjects      []Output   `json:"referenced_by_output_task_id_objects,omitempty"`
+	Script                               *string    `json:"script,omitempty"`
+	UpdatedAt                            *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -508,7 +508,7 @@ func (o *Task) SetUpdatedAt(v time.Time) {
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -597,5 +597,3 @@ func (v *NullableTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

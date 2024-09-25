@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // TriggerHasExecutionAPIService TriggerHasExecutionAPI service
 type TriggerHasExecutionAPIService service
 
 type ApiDeleteTriggerHasExecutionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerHasExecutionAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteTriggerHasExecutionRequest) Execute() (*http.Response, error) {
 /*
 DeleteTriggerHasExecution Method for DeleteTriggerHasExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteTriggerHasExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteTriggerHasExecutionRequest
 */
 func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecution(ctx context.Context, primaryKey string) ApiDeleteTriggerHasExecutionRequest {
 	return ApiDeleteTriggerHasExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecution(ctx context.Co
 // Execute executes the request
 func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecutionExecute(r ApiDeleteTriggerHasExecutionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.DeleteTriggerHasExecution")
@@ -125,10 +124,10 @@ func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecutionExecute(r ApiDe
 }
 
 type ApiGetTriggerHasExecutionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TriggerHasExecutionAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetTriggerHasExecutionRequest) Execute() (*ResponseWithGenericOfTrigg
 /*
 GetTriggerHasExecution Method for GetTriggerHasExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetTriggerHasExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetTriggerHasExecutionRequest
 */
 func (a *TriggerHasExecutionAPIService) GetTriggerHasExecution(ctx context.Context, primaryKey string) ApiGetTriggerHasExecutionRequest {
 	return ApiGetTriggerHasExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
+//
+//	@return ResponseWithGenericOfTriggerHasExecution
 func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionExecute(r ApiGetTriggerHasExecutionRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTriggerHasExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.GetTriggerHasExecution")
@@ -220,14 +220,14 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionExecute(r ApiGetTr
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,99 +244,99 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionExecute(r ApiGetTr
 }
 
 type ApiGetTriggerHasExecutionsRequest struct {
-	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	triggerIdEq *string
-	triggerIdNe *string
-	triggerIdGt *string
-	triggerIdGte *string
-	triggerIdLt *string
-	triggerIdLte *string
-	triggerIdIn *string
-	triggerIdNotin *string
-	triggerIdLike *string
-	triggerIdNotlike *string
-	triggerIdIlike *string
-	triggerIdNotilike *string
-	triggerIdDesc *string
-	triggerIdAsc *string
-	triggerIdObjectDesc *string
-	triggerIdObjectAsc *string
-	executionIdEq *string
-	executionIdNe *string
-	executionIdGt *string
-	executionIdGte *string
-	executionIdLt *string
-	executionIdLte *string
-	executionIdIn *string
-	executionIdNotin *string
-	executionIdLike *string
-	executionIdNotlike *string
-	executionIdIlike *string
-	executionIdNotilike *string
-	executionIdDesc *string
-	executionIdAsc *string
+	ctx                   context.Context
+	ApiService            *TriggerHasExecutionAPIService
+	limit                 *int32
+	offset                *int32
+	depth                 *int32
+	idEq                  *string
+	idNe                  *string
+	idGt                  *string
+	idGte                 *string
+	idLt                  *string
+	idLte                 *string
+	idIn                  *string
+	idNotin               *string
+	idLike                *string
+	idNotlike             *string
+	idIlike               *string
+	idNotilike            *string
+	idDesc                *string
+	idAsc                 *string
+	createdAtEq           *time.Time
+	createdAtNe           *time.Time
+	createdAtGt           *time.Time
+	createdAtGte          *time.Time
+	createdAtLt           *time.Time
+	createdAtLte          *time.Time
+	createdAtIn           *time.Time
+	createdAtNotin        *time.Time
+	createdAtLike         *time.Time
+	createdAtNotlike      *time.Time
+	createdAtIlike        *time.Time
+	createdAtNotilike     *time.Time
+	createdAtDesc         *string
+	createdAtAsc          *string
+	updatedAtEq           *time.Time
+	updatedAtNe           *time.Time
+	updatedAtGt           *time.Time
+	updatedAtGte          *time.Time
+	updatedAtLt           *time.Time
+	updatedAtLte          *time.Time
+	updatedAtIn           *time.Time
+	updatedAtNotin        *time.Time
+	updatedAtLike         *time.Time
+	updatedAtNotlike      *time.Time
+	updatedAtIlike        *time.Time
+	updatedAtNotilike     *time.Time
+	updatedAtDesc         *string
+	updatedAtAsc          *string
+	deletedAtEq           *time.Time
+	deletedAtNe           *time.Time
+	deletedAtGt           *time.Time
+	deletedAtGte          *time.Time
+	deletedAtLt           *time.Time
+	deletedAtLte          *time.Time
+	deletedAtIn           *time.Time
+	deletedAtNotin        *time.Time
+	deletedAtLike         *time.Time
+	deletedAtNotlike      *time.Time
+	deletedAtIlike        *time.Time
+	deletedAtNotilike     *time.Time
+	deletedAtDesc         *string
+	deletedAtAsc          *string
+	triggerIdEq           *string
+	triggerIdNe           *string
+	triggerIdGt           *string
+	triggerIdGte          *string
+	triggerIdLt           *string
+	triggerIdLte          *string
+	triggerIdIn           *string
+	triggerIdNotin        *string
+	triggerIdLike         *string
+	triggerIdNotlike      *string
+	triggerIdIlike        *string
+	triggerIdNotilike     *string
+	triggerIdDesc         *string
+	triggerIdAsc          *string
+	triggerIdObjectDesc   *string
+	triggerIdObjectAsc    *string
+	executionIdEq         *string
+	executionIdNe         *string
+	executionIdGt         *string
+	executionIdGte        *string
+	executionIdLt         *string
+	executionIdLte        *string
+	executionIdIn         *string
+	executionIdNotin      *string
+	executionIdLike       *string
+	executionIdNotlike    *string
+	executionIdIlike      *string
+	executionIdNotilike   *string
+	executionIdDesc       *string
+	executionIdAsc        *string
 	executionIdObjectDesc *string
-	executionIdObjectAsc *string
+	executionIdObjectAsc  *string
 }
 
 // SQL LIMIT operator
@@ -892,24 +892,25 @@ func (r ApiGetTriggerHasExecutionsRequest) Execute() (*ResponseWithGenericOfTrig
 /*
 GetTriggerHasExecutions Method for GetTriggerHasExecutions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTriggerHasExecutionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTriggerHasExecutionsRequest
 */
 func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutions(ctx context.Context) ApiGetTriggerHasExecutionsRequest {
 	return ApiGetTriggerHasExecutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
+//
+//	@return ResponseWithGenericOfTriggerHasExecution
 func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetTriggerHasExecutionsRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTriggerHasExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.GetTriggerHasExecutions")
@@ -1235,14 +1236,14 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetT
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1259,11 +1260,11 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetT
 }
 
 type ApiPatchTriggerHasExecutionRequest struct {
-	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
-	primaryKey string
+	ctx                 context.Context
+	ApiService          *TriggerHasExecutionAPIService
+	primaryKey          string
 	triggerHasExecution *TriggerHasExecution
-	depth *int64
+	depth               *int64
 }
 
 func (r ApiPatchTriggerHasExecutionRequest) TriggerHasExecution(triggerHasExecution TriggerHasExecution) ApiPatchTriggerHasExecutionRequest {
@@ -1284,26 +1285,27 @@ func (r ApiPatchTriggerHasExecutionRequest) Execute() (*ResponseWithGenericOfTri
 /*
 PatchTriggerHasExecution Method for PatchTriggerHasExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchTriggerHasExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchTriggerHasExecutionRequest
 */
 func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecution(ctx context.Context, primaryKey string) ApiPatchTriggerHasExecutionRequest {
 	return ApiPatchTriggerHasExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
+//
+//	@return ResponseWithGenericOfTriggerHasExecution
 func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPatchTriggerHasExecutionRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTriggerHasExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.PatchTriggerHasExecution")
@@ -1365,14 +1367,14 @@ func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1389,10 +1391,10 @@ func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPat
 }
 
 type ApiPostTriggerHasExecutionsRequest struct {
-	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
+	ctx                 context.Context
+	ApiService          *TriggerHasExecutionAPIService
 	triggerHasExecution *[]TriggerHasExecution
-	depth *int64
+	depth               *int64
 }
 
 func (r ApiPostTriggerHasExecutionsRequest) TriggerHasExecution(triggerHasExecution []TriggerHasExecution) ApiPostTriggerHasExecutionsRequest {
@@ -1413,24 +1415,25 @@ func (r ApiPostTriggerHasExecutionsRequest) Execute() (*ResponseWithGenericOfTri
 /*
 PostTriggerHasExecutions Method for PostTriggerHasExecutions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostTriggerHasExecutionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostTriggerHasExecutionsRequest
 */
 func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutions(ctx context.Context) ApiPostTriggerHasExecutionsRequest {
 	return ApiPostTriggerHasExecutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
+//
+//	@return ResponseWithGenericOfTriggerHasExecution
 func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutionsExecute(r ApiPostTriggerHasExecutionsRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTriggerHasExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.PostTriggerHasExecutions")
@@ -1491,14 +1494,14 @@ func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutionsExecute(r ApiPos
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

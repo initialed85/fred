@@ -20,17 +20,17 @@ var _ MappedNullable = &Repository{}
 
 // Repository struct for Repository
 type Repository struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastSynced *time.Time `json:"last_synced,omitempty"`
-	Password *string `json:"password,omitempty"`
-	ReferencedByChangeRepositoryIdObjects []Change `json:"referenced_by_change_repository_id_objects,omitempty"`
-	ReferencedByRuleRepositoryIdObjects []Rule `json:"referenced_by_rule_repository_id_objects,omitempty"`
-	SshKey *string `json:"ssh_key,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Username *string `json:"username,omitempty"`
+	CreatedAt                             *time.Time `json:"created_at,omitempty"`
+	DeletedAt                             *time.Time `json:"deleted_at,omitempty"`
+	Id                                    *string    `json:"id,omitempty"`
+	LastSynced                            *time.Time `json:"last_synced,omitempty"`
+	Password                              *string    `json:"password,omitempty"`
+	ReferencedByChangeRepositoryIdObjects []Change   `json:"referenced_by_change_repository_id_objects,omitempty"`
+	ReferencedByRuleRepositoryIdObjects   []Rule     `json:"referenced_by_rule_repository_id_objects,omitempty"`
+	SshKey                                *string    `json:"ssh_key,omitempty"`
+	UpdatedAt                             *time.Time `json:"updated_at,omitempty"`
+	Url                                   *string    `json:"url,omitempty"`
+	Username                              *string    `json:"username,omitempty"`
 }
 
 // NewRepository instantiates a new Repository object
@@ -405,7 +405,7 @@ func (o *Repository) SetUsername(v string) {
 }
 
 func (o Repository) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -485,5 +485,3 @@ func (v *NullableRepository) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

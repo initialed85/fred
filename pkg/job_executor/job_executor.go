@@ -15,6 +15,7 @@ import (
 	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/client"
+	"github.com/google/uuid"
 	"github.com/initialed85/djangolang/pkg/helpers"
 	"github.com/initialed85/djangolang/pkg/query"
 	"github.com/initialed85/fred/internal"
@@ -30,6 +31,10 @@ import (
 var dockerEntrypointScript string
 
 var log = helpers.GetLogger("job_executor")
+
+func formatUUID(u uuid.UUID) string {
+	return strings.ReplaceAll(u.String(), "-", "")
+}
 
 func ClaimTriggerForJobExecutor(ctx context.Context, tx pgx.Tx, claimDuration time.Duration) (*api.Trigger, error) {
 	now := time.Now().UTC()
@@ -300,9 +305,32 @@ func Run() error {
 				ctx, cancel := context.WithCancel(ctx)
 				defer cancel()
 
+				phase := ""
+
+				if task == job.BuildTaskIDObject {
+					phase = "build"
+				} else if task == job.TestTaskIDObject {
+					phase = "test"
+				} else if task == job.PublishTaskIDObject {
+					phase = "publish"
+				} else if task == job.DeployTaskIDObject {
+					phase = "deploy"
+				} else if task == job.ValidateTaskIDObject {
+					phase = "validate"
+				} else {
+					return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
+				}
+
+				volumeName := fmt.Sprintf("fred-%s-%s", trigger.ChangeIDObject.CommitHash, formatUUID(execution.ID))
+				containerName := fmt.Sprintf("%s-%s", volumeName, phase)
+
 				output := &api.Output{
 					TaskID: task.ID,
 					Status: internal.ExecutionOrTaskStatusRunning,
+				}
+
+				if execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring {
+					output.Status = internal.ExecutionOrTaskStatusSkipped
 				}
 
 				var exitStatus *int
@@ -335,14 +363,16 @@ func Run() error {
 					} else if task == job.ValidateTaskIDObject {
 						execution.ValidateOutputID = &output.ID
 					} else {
-						return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", output)
+						return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
 					}
 
-					execution.Status = internal.ExecutionOrTaskStatusRunning
+					if !(execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring) {
+						execution.Status = internal.ExecutionOrTaskStatusRunning
 
-					err = execution.Update(ctx, tx, false)
-					if err != nil {
-						return err
+						err = execution.Update(ctx, tx, false)
+						if err != nil {
+							return err
+						}
 					}
 
 					err = tx.Commit(ctx)
@@ -354,6 +384,37 @@ func Run() error {
 				}()
 				if err != nil {
 					return err
+				}
+
+				defer func() {
+					if output.Status == internal.ExecutionOrTaskStatusErrored || output.Status == internal.ExecutionOrTaskStatusFailed {
+						tx, err := db.Begin(ctx)
+						if err != nil {
+							log.Printf("warning: %s", err.Error())
+							return
+						}
+
+						defer func() {
+							_ = tx.Rollback(ctx)
+						}()
+
+						if output.Status == internal.ExecutionOrTaskStatusErrored {
+							execution.Status = internal.ExecutionOrTaskStatusErrored
+						} else if output.Status == internal.ExecutionOrTaskStatusFailed {
+							execution.Status = internal.ExecutionOrTaskStatusFailed
+						}
+
+						err = tx.Commit(ctx)
+						if err != nil {
+							log.Printf("warning: %s", err.Error())
+							return
+						}
+					}
+				}()
+
+				if execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring {
+					log.Printf("%s skipped (due to failing / erroring parent execution)", containerName)
+					return nil
 				}
 
 				updateOutput := func(givenErr error) error {
@@ -413,15 +474,63 @@ func Run() error {
 					_ = apiClient.Close()
 				}()
 
-				containerName := fmt.Sprintf("change-%s-job-%s-task-%s", trigger.ChangeID, job.ID, task.ID)
-
-				tempDir, err := os.MkdirTemp(tempPath, fmt.Sprintf("%s-*", containerName))
+				tempDir := filepath.Join(tempPath, volumeName)
+				err = os.MkdirAll(tempDir, 0o777)
 				if err != nil {
 					_ = updateOutput(err)
 					return err
 				}
 
-				dockerEntrypointOutsideFilePath := filepath.Join(tempDir, "docker-entrypoint.sh")
+				repositoryUrl := trigger.ChangeIDObject.RepositoryIDObject.URL
+				repositoryBranchName := trigger.ChangeIDObject.BranchName
+				parts := strings.Split(repositoryUrl, "/")
+				repositoryFolderName := parts[len(parts)-1]
+				repositoryCommitHash := trigger.ChangeIDObject.CommitHash
+
+				platformParts := strings.Split(task.Platform, "/")
+				if len(platformParts) != 2 {
+					err := fmt.Errorf("platform %#+v doesn't seem sane (want [os]/[arch])", task.Platform)
+					_ = updateOutput(err)
+					return err
+				}
+				platformOS := platformParts[0]
+				platformArch := platformParts[1]
+
+				builtinEnvVars := []string{
+					fmt.Sprintf("FRED_REPOSITORY_ID=%s", trigger.ChangeIDObject.RepositoryID.String()),
+					fmt.Sprintf("FRED_CHANGE_ID=%s", trigger.ChangeID.String()),
+					fmt.Sprintf("FRED_RULE_ID=%s", trigger.RuleID.String()),
+					fmt.Sprintf("FRED_JOB_ID=%s", job.ID.String()),
+					fmt.Sprintf("FRED_JOB_NAME=%s", job.Name),
+					fmt.Sprintf("FRED_TASK_ID=%s", task.ID.String()),
+					fmt.Sprintf("FRED_TASK_NAME=%s", task.Name),
+					fmt.Sprintf("FRED_TASK_PLATFORM=%s", task.Platform),
+					fmt.Sprintf("FRED_TASK_PLATFORM_OS=%s", platformOS),
+					fmt.Sprintf("FRED_TASK_PLATFORM_ARCH=%s", platformArch),
+					fmt.Sprintf("FRED_TASK_IMAGE=%s", task.Image),
+					fmt.Sprintf("FRED_TRIGGER_ID=%s", trigger.ID.String()),
+					fmt.Sprintf("FRED_EXECUTION_ID=%s", execution.ID.String()),
+					fmt.Sprintf("FRED_OUTPUT_ID=%s", output.ID.String()),
+					fmt.Sprintf("FRED_PHASE_NAME=%s", phase),
+					fmt.Sprintf("FRED_REPOSITORY_URL=%s", repositoryUrl),
+					fmt.Sprintf("FRED_REPOSITORY_BRANCH_NAME=%s", repositoryBranchName),
+					fmt.Sprintf("FRED_REPOSITORY_FOLDER_NAME=%s", repositoryFolderName),
+					fmt.Sprintf("FRED_REPOSITORY_COMMIT_HASH=%s", repositoryCommitHash),
+					"CI=true",
+					"COMPOSE_DOCKER_CLI_BUILD=1",
+					"DOCKER_BUILDKIT=1",
+					fmt.Sprintf("COMPOSE_PROJECT_NAME=%s", containerName),
+				}
+
+				builtinEnvVarsFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-builtin-env-vars.txt", phase))
+				err = os.WriteFile(builtinEnvVarsFilePath, []byte(strings.Join(builtinEnvVars, "\n")+"\n"), 0o777)
+				if err != nil {
+					_ = updateOutput(err)
+					return err
+				}
+				log.Printf("prepared %s", builtinEnvVarsFilePath)
+
+				dockerEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-docker-entrypoint.sh", phase))
 				err = os.WriteFile(dockerEntrypointOutsideFilePath, []byte(dockerEntrypointScript), 0o777)
 				if err != nil {
 					_ = updateOutput(err)
@@ -429,7 +538,7 @@ func Run() error {
 				}
 				log.Printf("prepared %s", dockerEntrypointOutsideFilePath)
 
-				taskEntrypointOutsideFilePath := filepath.Join(tempDir, "task-entrypoint.sh")
+				taskEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-task-entrypoint.sh", phase))
 				err = os.WriteFile(taskEntrypointOutsideFilePath, []byte(task.Script), 0o777)
 				if err != nil {
 					_ = updateOutput(err)
@@ -453,37 +562,16 @@ func Run() error {
 
 				log.Printf("creating %s", containerName)
 
-				repositoryUrl := trigger.ChangeIDObject.RepositoryIDObject.URL
-				repositoryBranchName := trigger.ChangeIDObject.BranchName
-				parts := strings.Split(repositoryUrl, "/")
-				repositoryFolderName := parts[len(parts)-1]
-				repositoryCommitHash := trigger.ChangeIDObject.CommitHash
-
-				platformParts := strings.Split(task.Platform, "/")
-				if len(platformParts) != 2 {
-					err := fmt.Errorf("platform %#+v doesn't seem sane (want [os]/[arch])", task.Platform)
-					_ = updateOutput(err)
-					return err
-				}
-				os := platformParts[0]
-				arch := platformParts[1]
+				envVars := make([]string, 0)
+				envVars = append(envVars, builtinEnvVars...)
 
 				containerCreateResponse, err := apiClient.ContainerCreate(
 					ctx,
 					&container.Config{
-						Image: task.Image,
-						Env: []string{
-							"CI=true",
-							"COMPOSE_DOCKER_CLI_BUILD=1",
-							"DOCKER_BUILDKIT=1",
-							fmt.Sprintf("COMPOSE_PROJECT_NAME=%s", containerName),
-							fmt.Sprintf("REPOSITORY_URL=%s", repositoryUrl),
-							fmt.Sprintf("REPOSITORY_BRANCH_NAME=%s", repositoryBranchName),
-							fmt.Sprintf("REPOSITORY_FOLDER_NAME=%s", repositoryFolderName),
-							fmt.Sprintf("REPOSITORY_COMMIT_HASH=%s", repositoryCommitHash),
-						},
+						Image:        task.Image,
+						Env:          envVars,
 						WorkingDir:   tempDir,
-						Entrypoint:   []string{fmt.Sprintf("/%s/docker-entrypoint.sh", tempDir)},
+						Entrypoint:   []string{fmt.Sprintf("/%s/%s-docker-entrypoint.sh", tempDir, phase)},
 						Cmd:          []string{},
 						StopTimeout:  helpers.Ptr(1),
 						Tty:          true,
@@ -518,8 +606,8 @@ func Run() error {
 					},
 					&network.NetworkingConfig{},
 					&ocispec.Platform{
-						Architecture: arch,
-						OS:           os,
+						Architecture: platformArch,
+						OS:           platformOS,
 					},
 					containerName,
 				)
@@ -713,51 +801,39 @@ func Run() error {
 
 			log.Printf("execution %s started", execution.ID)
 
-			failed := false
-
-			if !failed && job.BuildTaskIDObject != nil {
+			if job.BuildTaskIDObject != nil {
 				err = doTask(job.BuildTaskIDObject, execution)
 				if err != nil {
 					return err
 				}
-
-				failed = execution.BuildOutputIDObject != nil && execution.BuildOutputIDObject.Status == internal.ExecutionOrTaskStatusFailed
 			}
 
-			if !failed && job.TestTaskIDObject != nil {
+			if job.TestTaskIDObject != nil {
 				err = doTask(job.TestTaskIDObject, execution)
 				if err != nil {
 					return err
 				}
-
-				failed = execution.TestOutputIDObject != nil && execution.TestOutputIDObject.Status == internal.ExecutionOrTaskStatusFailed
 			}
 
-			if !failed && job.PublishTaskIDObject != nil {
+			if job.PublishTaskIDObject != nil {
 				err = doTask(job.PublishTaskIDObject, execution)
 				if err != nil {
 					return err
 				}
-
-				failed = execution.PublishOutputIDObject != nil && execution.PublishOutputIDObject.Status == internal.ExecutionOrTaskStatusFailed
 			}
 
-			if !failed && job.DeployTaskIDObject != nil {
+			if job.DeployTaskIDObject != nil {
 				err = doTask(job.DeployTaskIDObject, execution)
 				if err != nil {
 					return err
 				}
-
-				failed = execution.DeployOutputIDObject != nil && execution.DeployOutputIDObject.Status == internal.ExecutionOrTaskStatusFailed
 			}
 
-			if !failed && job.ValidateTaskIDObject != nil {
+			if job.ValidateTaskIDObject != nil {
 				err = doTask(job.ValidateTaskIDObject, execution)
 				if err != nil {
 					return err
 				}
-
-				failed = execution.ValidateOutputIDObject != nil && execution.ValidateOutputIDObject.Status == internal.ExecutionOrTaskStatusFailed
 			}
 
 			err = func() error {
@@ -769,12 +845,6 @@ func Run() error {
 				defer func() {
 					_ = tx.Rollback(ctx)
 				}()
-
-				if failed {
-					execution.Status = internal.ExecutionOrTaskStatusFailed
-				} else {
-					execution.Status = internal.ExecutionOrTaskStatusSucceeded
-				}
 
 				err = execution.Update(ctx, tx, false)
 				if err != nil {

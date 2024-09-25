@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // ExecutionAPIService ExecutionAPI service
 type ExecutionAPIService service
 
 type ApiDeleteExecutionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteExecutionRequest) Execute() (*http.Response, error) {
 /*
 DeleteExecution Method for DeleteExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteExecutionRequest
 */
 func (a *ExecutionAPIService) DeleteExecution(ctx context.Context, primaryKey string) ApiDeleteExecutionRequest {
 	return ApiDeleteExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *ExecutionAPIService) DeleteExecution(ctx context.Context, primaryKey st
 // Execute executes the request
 func (a *ExecutionAPIService) DeleteExecutionExecute(r ApiDeleteExecutionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.DeleteExecution")
@@ -125,10 +124,10 @@ func (a *ExecutionAPIService) DeleteExecutionExecute(r ApiDeleteExecutionRequest
 }
 
 type ApiGetExecutionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetExecutionRequest) Execute() (*ResponseWithGenericOfExecution, *htt
 /*
 GetExecution Method for GetExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetExecutionRequest
 */
 func (a *ExecutionAPIService) GetExecution(ctx context.Context, primaryKey string) ApiGetExecutionRequest {
 	return ApiGetExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfExecution
+//
+//	@return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfExecution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.GetExecution")
@@ -220,14 +220,14 @@ func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,195 +244,195 @@ func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*Re
 }
 
 type ApiGetExecutionsRequest struct {
-	ctx context.Context
-	ApiService *ExecutionAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	statusEq *string
-	statusNe *string
-	statusGt *string
-	statusGte *string
-	statusLt *string
-	statusLte *string
-	statusIn *string
-	statusNotin *string
-	statusLike *string
-	statusNotlike *string
-	statusIlike *string
-	statusNotilike *string
-	statusDesc *string
-	statusAsc *string
-	triggerIdEq *string
-	triggerIdNe *string
-	triggerIdGt *string
-	triggerIdGte *string
-	triggerIdLt *string
-	triggerIdLte *string
-	triggerIdIn *string
-	triggerIdNotin *string
-	triggerIdLike *string
-	triggerIdNotlike *string
-	triggerIdIlike *string
-	triggerIdNotilike *string
-	triggerIdDesc *string
-	triggerIdAsc *string
-	triggerIdObjectDesc *string
-	triggerIdObjectAsc *string
-	buildOutputIdEq *string
-	buildOutputIdNe *string
-	buildOutputIdGt *string
-	buildOutputIdGte *string
-	buildOutputIdLt *string
-	buildOutputIdLte *string
-	buildOutputIdIn *string
-	buildOutputIdNotin *string
-	buildOutputIdLike *string
-	buildOutputIdNotlike *string
-	buildOutputIdIlike *string
-	buildOutputIdNotilike *string
-	buildOutputIdDesc *string
-	buildOutputIdAsc *string
-	buildOutputIdObjectDesc *string
-	buildOutputIdObjectAsc *string
-	testOutputIdEq *string
-	testOutputIdNe *string
-	testOutputIdGt *string
-	testOutputIdGte *string
-	testOutputIdLt *string
-	testOutputIdLte *string
-	testOutputIdIn *string
-	testOutputIdNotin *string
-	testOutputIdLike *string
-	testOutputIdNotlike *string
-	testOutputIdIlike *string
-	testOutputIdNotilike *string
-	testOutputIdDesc *string
-	testOutputIdAsc *string
-	testOutputIdObjectDesc *string
-	testOutputIdObjectAsc *string
-	publishOutputIdEq *string
-	publishOutputIdNe *string
-	publishOutputIdGt *string
-	publishOutputIdGte *string
-	publishOutputIdLt *string
-	publishOutputIdLte *string
-	publishOutputIdIn *string
-	publishOutputIdNotin *string
-	publishOutputIdLike *string
-	publishOutputIdNotlike *string
-	publishOutputIdIlike *string
-	publishOutputIdNotilike *string
-	publishOutputIdDesc *string
-	publishOutputIdAsc *string
-	publishOutputIdObjectDesc *string
-	publishOutputIdObjectAsc *string
-	deployOutputIdEq *string
-	deployOutputIdNe *string
-	deployOutputIdGt *string
-	deployOutputIdGte *string
-	deployOutputIdLt *string
-	deployOutputIdLte *string
-	deployOutputIdIn *string
-	deployOutputIdNotin *string
-	deployOutputIdLike *string
-	deployOutputIdNotlike *string
-	deployOutputIdIlike *string
-	deployOutputIdNotilike *string
-	deployOutputIdDesc *string
-	deployOutputIdAsc *string
-	deployOutputIdObjectDesc *string
-	deployOutputIdObjectAsc *string
-	validateOutputIdEq *string
-	validateOutputIdNe *string
-	validateOutputIdGt *string
-	validateOutputIdGte *string
-	validateOutputIdLt *string
-	validateOutputIdLte *string
-	validateOutputIdIn *string
-	validateOutputIdNotin *string
-	validateOutputIdLike *string
-	validateOutputIdNotlike *string
-	validateOutputIdIlike *string
-	validateOutputIdNotilike *string
-	validateOutputIdDesc *string
-	validateOutputIdAsc *string
-	validateOutputIdObjectDesc *string
-	validateOutputIdObjectAsc *string
-	jobIdEq *string
-	jobIdNe *string
-	jobIdGt *string
-	jobIdGte *string
-	jobIdLt *string
-	jobIdLte *string
-	jobIdIn *string
-	jobIdNotin *string
-	jobIdLike *string
-	jobIdNotlike *string
-	jobIdIlike *string
-	jobIdNotilike *string
-	jobIdDesc *string
-	jobIdAsc *string
-	jobIdObjectDesc *string
-	jobIdObjectAsc *string
+	ctx                                                   context.Context
+	ApiService                                            *ExecutionAPIService
+	limit                                                 *int32
+	offset                                                *int32
+	depth                                                 *int32
+	idEq                                                  *string
+	idNe                                                  *string
+	idGt                                                  *string
+	idGte                                                 *string
+	idLt                                                  *string
+	idLte                                                 *string
+	idIn                                                  *string
+	idNotin                                               *string
+	idLike                                                *string
+	idNotlike                                             *string
+	idIlike                                               *string
+	idNotilike                                            *string
+	idDesc                                                *string
+	idAsc                                                 *string
+	createdAtEq                                           *time.Time
+	createdAtNe                                           *time.Time
+	createdAtGt                                           *time.Time
+	createdAtGte                                          *time.Time
+	createdAtLt                                           *time.Time
+	createdAtLte                                          *time.Time
+	createdAtIn                                           *time.Time
+	createdAtNotin                                        *time.Time
+	createdAtLike                                         *time.Time
+	createdAtNotlike                                      *time.Time
+	createdAtIlike                                        *time.Time
+	createdAtNotilike                                     *time.Time
+	createdAtDesc                                         *string
+	createdAtAsc                                          *string
+	updatedAtEq                                           *time.Time
+	updatedAtNe                                           *time.Time
+	updatedAtGt                                           *time.Time
+	updatedAtGte                                          *time.Time
+	updatedAtLt                                           *time.Time
+	updatedAtLte                                          *time.Time
+	updatedAtIn                                           *time.Time
+	updatedAtNotin                                        *time.Time
+	updatedAtLike                                         *time.Time
+	updatedAtNotlike                                      *time.Time
+	updatedAtIlike                                        *time.Time
+	updatedAtNotilike                                     *time.Time
+	updatedAtDesc                                         *string
+	updatedAtAsc                                          *string
+	deletedAtEq                                           *time.Time
+	deletedAtNe                                           *time.Time
+	deletedAtGt                                           *time.Time
+	deletedAtGte                                          *time.Time
+	deletedAtLt                                           *time.Time
+	deletedAtLte                                          *time.Time
+	deletedAtIn                                           *time.Time
+	deletedAtNotin                                        *time.Time
+	deletedAtLike                                         *time.Time
+	deletedAtNotlike                                      *time.Time
+	deletedAtIlike                                        *time.Time
+	deletedAtNotilike                                     *time.Time
+	deletedAtDesc                                         *string
+	deletedAtAsc                                          *string
+	statusEq                                              *string
+	statusNe                                              *string
+	statusGt                                              *string
+	statusGte                                             *string
+	statusLt                                              *string
+	statusLte                                             *string
+	statusIn                                              *string
+	statusNotin                                           *string
+	statusLike                                            *string
+	statusNotlike                                         *string
+	statusIlike                                           *string
+	statusNotilike                                        *string
+	statusDesc                                            *string
+	statusAsc                                             *string
+	triggerIdEq                                           *string
+	triggerIdNe                                           *string
+	triggerIdGt                                           *string
+	triggerIdGte                                          *string
+	triggerIdLt                                           *string
+	triggerIdLte                                          *string
+	triggerIdIn                                           *string
+	triggerIdNotin                                        *string
+	triggerIdLike                                         *string
+	triggerIdNotlike                                      *string
+	triggerIdIlike                                        *string
+	triggerIdNotilike                                     *string
+	triggerIdDesc                                         *string
+	triggerIdAsc                                          *string
+	triggerIdObjectDesc                                   *string
+	triggerIdObjectAsc                                    *string
+	buildOutputIdEq                                       *string
+	buildOutputIdNe                                       *string
+	buildOutputIdGt                                       *string
+	buildOutputIdGte                                      *string
+	buildOutputIdLt                                       *string
+	buildOutputIdLte                                      *string
+	buildOutputIdIn                                       *string
+	buildOutputIdNotin                                    *string
+	buildOutputIdLike                                     *string
+	buildOutputIdNotlike                                  *string
+	buildOutputIdIlike                                    *string
+	buildOutputIdNotilike                                 *string
+	buildOutputIdDesc                                     *string
+	buildOutputIdAsc                                      *string
+	buildOutputIdObjectDesc                               *string
+	buildOutputIdObjectAsc                                *string
+	testOutputIdEq                                        *string
+	testOutputIdNe                                        *string
+	testOutputIdGt                                        *string
+	testOutputIdGte                                       *string
+	testOutputIdLt                                        *string
+	testOutputIdLte                                       *string
+	testOutputIdIn                                        *string
+	testOutputIdNotin                                     *string
+	testOutputIdLike                                      *string
+	testOutputIdNotlike                                   *string
+	testOutputIdIlike                                     *string
+	testOutputIdNotilike                                  *string
+	testOutputIdDesc                                      *string
+	testOutputIdAsc                                       *string
+	testOutputIdObjectDesc                                *string
+	testOutputIdObjectAsc                                 *string
+	publishOutputIdEq                                     *string
+	publishOutputIdNe                                     *string
+	publishOutputIdGt                                     *string
+	publishOutputIdGte                                    *string
+	publishOutputIdLt                                     *string
+	publishOutputIdLte                                    *string
+	publishOutputIdIn                                     *string
+	publishOutputIdNotin                                  *string
+	publishOutputIdLike                                   *string
+	publishOutputIdNotlike                                *string
+	publishOutputIdIlike                                  *string
+	publishOutputIdNotilike                               *string
+	publishOutputIdDesc                                   *string
+	publishOutputIdAsc                                    *string
+	publishOutputIdObjectDesc                             *string
+	publishOutputIdObjectAsc                              *string
+	deployOutputIdEq                                      *string
+	deployOutputIdNe                                      *string
+	deployOutputIdGt                                      *string
+	deployOutputIdGte                                     *string
+	deployOutputIdLt                                      *string
+	deployOutputIdLte                                     *string
+	deployOutputIdIn                                      *string
+	deployOutputIdNotin                                   *string
+	deployOutputIdLike                                    *string
+	deployOutputIdNotlike                                 *string
+	deployOutputIdIlike                                   *string
+	deployOutputIdNotilike                                *string
+	deployOutputIdDesc                                    *string
+	deployOutputIdAsc                                     *string
+	deployOutputIdObjectDesc                              *string
+	deployOutputIdObjectAsc                               *string
+	validateOutputIdEq                                    *string
+	validateOutputIdNe                                    *string
+	validateOutputIdGt                                    *string
+	validateOutputIdGte                                   *string
+	validateOutputIdLt                                    *string
+	validateOutputIdLte                                   *string
+	validateOutputIdIn                                    *string
+	validateOutputIdNotin                                 *string
+	validateOutputIdLike                                  *string
+	validateOutputIdNotlike                               *string
+	validateOutputIdIlike                                 *string
+	validateOutputIdNotilike                              *string
+	validateOutputIdDesc                                  *string
+	validateOutputIdAsc                                   *string
+	validateOutputIdObjectDesc                            *string
+	validateOutputIdObjectAsc                             *string
+	jobIdEq                                               *string
+	jobIdNe                                               *string
+	jobIdGt                                               *string
+	jobIdGte                                              *string
+	jobIdLt                                               *string
+	jobIdLte                                              *string
+	jobIdIn                                               *string
+	jobIdNotin                                            *string
+	jobIdLike                                             *string
+	jobIdNotlike                                          *string
+	jobIdIlike                                            *string
+	jobIdNotilike                                         *string
+	jobIdDesc                                             *string
+	jobIdAsc                                              *string
+	jobIdObjectDesc                                       *string
+	jobIdObjectAsc                                        *string
 	referencedByTriggerHasExecutionExecutionIdObjectsDesc *string
-	referencedByTriggerHasExecutionExecutionIdObjectsAsc *string
+	referencedByTriggerHasExecutionExecutionIdObjectsAsc  *string
 }
 
 // SQL LIMIT operator
@@ -1564,24 +1564,25 @@ func (r ApiGetExecutionsRequest) Execute() (*ResponseWithGenericOfExecution, *ht
 /*
 GetExecutions Method for GetExecutions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetExecutionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetExecutionsRequest
 */
 func (a *ExecutionAPIService) GetExecutions(ctx context.Context) ApiGetExecutionsRequest {
 	return ApiGetExecutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfExecution
+//
+//	@return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfExecution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.GetExecutions")
@@ -2195,14 +2196,14 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2219,11 +2220,11 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 }
 
 type ApiPatchExecutionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	execution *Execution
-	depth *int64
+	execution  *Execution
+	depth      *int64
 }
 
 func (r ApiPatchExecutionRequest) Execution(execution Execution) ApiPatchExecutionRequest {
@@ -2244,26 +2245,27 @@ func (r ApiPatchExecutionRequest) Execute() (*ResponseWithGenericOfExecution, *h
 /*
 PatchExecution Method for PatchExecution
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchExecutionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchExecutionRequest
 */
 func (a *ExecutionAPIService) PatchExecution(ctx context.Context, primaryKey string) ApiPatchExecutionRequest {
 	return ApiPatchExecutionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfExecution
+//
+//	@return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfExecution
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.PatchExecution")
@@ -2325,14 +2327,14 @@ func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2349,10 +2351,10 @@ func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) 
 }
 
 type ApiPostExecutionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ExecutionAPIService
-	execution *[]Execution
-	depth *int64
+	execution  *[]Execution
+	depth      *int64
 }
 
 func (r ApiPostExecutionsRequest) Execution(execution []Execution) ApiPostExecutionsRequest {
@@ -2373,24 +2375,25 @@ func (r ApiPostExecutionsRequest) Execute() (*ResponseWithGenericOfExecution, *h
 /*
 PostExecutions Method for PostExecutions
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostExecutionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostExecutionsRequest
 */
 func (a *ExecutionAPIService) PostExecutions(ctx context.Context) ApiPostExecutionsRequest {
 	return ApiPostExecutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfExecution
+//
+//	@return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) PostExecutionsExecute(r ApiPostExecutionsRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfExecution
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.PostExecutions")
@@ -2451,14 +2454,14 @@ func (a *ExecutionAPIService) PostExecutionsExecute(r ApiPostExecutionsRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v GetChangesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

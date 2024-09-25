@@ -20,26 +20,26 @@ var _ MappedNullable = &Job{}
 
 // Job struct for Job
 type Job struct {
-	BuildTaskId *string `json:"build_task_id,omitempty"`
-	BuildTaskIdObject *Task `json:"build_task_id_object,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	DeployTaskId *string `json:"deploy_task_id,omitempty"`
-	DeployTaskIdObject *Task `json:"deploy_task_id_object,omitempty"`
-	Id *string `json:"id,omitempty"`
-	JobExecutorClaimedUntil *time.Time `json:"job_executor_claimed_until,omitempty"`
-	Name *string `json:"name,omitempty"`
-	PublishTaskId *string `json:"publish_task_id,omitempty"`
-	PublishTaskIdObject *Task `json:"publish_task_id_object,omitempty"`
-	ReferencedByExecutionJobIdObjects []Execution `json:"referenced_by_execution_job_id_objects,omitempty"`
+	BuildTaskId                             *string           `json:"build_task_id,omitempty"`
+	BuildTaskIdObject                       *Task             `json:"build_task_id_object,omitempty"`
+	CreatedAt                               *time.Time        `json:"created_at,omitempty"`
+	DeletedAt                               *time.Time        `json:"deleted_at,omitempty"`
+	DeployTaskId                            *string           `json:"deploy_task_id,omitempty"`
+	DeployTaskIdObject                      *Task             `json:"deploy_task_id_object,omitempty"`
+	Id                                      *string           `json:"id,omitempty"`
+	JobExecutorClaimedUntil                 *time.Time        `json:"job_executor_claimed_until,omitempty"`
+	Name                                    *string           `json:"name,omitempty"`
+	PublishTaskId                           *string           `json:"publish_task_id,omitempty"`
+	PublishTaskIdObject                     *Task             `json:"publish_task_id_object,omitempty"`
+	ReferencedByExecutionJobIdObjects       []Execution       `json:"referenced_by_execution_job_id_objects,omitempty"`
 	ReferencedByRuleRequiresJobJobIdObjects []RuleRequiresJob `json:"referenced_by_rule_requires_job_job_id_objects,omitempty"`
-	RuleId *string `json:"rule_id,omitempty"`
-	RuleIdObject *Rule `json:"rule_id_object,omitempty"`
-	TestTaskId *string `json:"test_task_id,omitempty"`
-	TestTaskIdObject *Task `json:"test_task_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	ValidateTaskId *string `json:"validate_task_id,omitempty"`
-	ValidateTaskIdObject *Task `json:"validate_task_id_object,omitempty"`
+	RuleId                                  *string           `json:"rule_id,omitempty"`
+	RuleIdObject                            *Rule             `json:"rule_id_object,omitempty"`
+	TestTaskId                              *string           `json:"test_task_id,omitempty"`
+	TestTaskIdObject                        *Task             `json:"test_task_id_object,omitempty"`
+	UpdatedAt                               *time.Time        `json:"updated_at,omitempty"`
+	ValidateTaskId                          *string           `json:"validate_task_id,omitempty"`
+	ValidateTaskIdObject                    *Task             `json:"validate_task_id_object,omitempty"`
 }
 
 // NewJob instantiates a new Job object
@@ -702,7 +702,7 @@ func (o *Job) SetValidateTaskIdObject(v Task) {
 }
 
 func (o Job) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -809,5 +809,3 @@ func (v *NullableJob) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -20,21 +20,21 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
-	Buffer *string `json:"buffer,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Error *string `json:"error,omitempty"`
-	ExitStatus *int64 `json:"exit_status,omitempty"`
-	Id *string `json:"id,omitempty"`
-	ReferencedByExecutionBuildOutputIdObjects []Execution `json:"referenced_by_execution_build_output_id_objects,omitempty"`
-	ReferencedByExecutionDeployOutputIdObjects []Execution `json:"referenced_by_execution_deploy_output_id_objects,omitempty"`
-	ReferencedByExecutionPublishOutputIdObjects []Execution `json:"referenced_by_execution_publish_output_id_objects,omitempty"`
-	ReferencedByExecutionTestOutputIdObjects []Execution `json:"referenced_by_execution_test_output_id_objects,omitempty"`
+	Buffer                                       *string     `json:"buffer,omitempty"`
+	CreatedAt                                    *time.Time  `json:"created_at,omitempty"`
+	DeletedAt                                    *time.Time  `json:"deleted_at,omitempty"`
+	Error                                        *string     `json:"error,omitempty"`
+	ExitStatus                                   *int64      `json:"exit_status,omitempty"`
+	Id                                           *string     `json:"id,omitempty"`
+	ReferencedByExecutionBuildOutputIdObjects    []Execution `json:"referenced_by_execution_build_output_id_objects,omitempty"`
+	ReferencedByExecutionDeployOutputIdObjects   []Execution `json:"referenced_by_execution_deploy_output_id_objects,omitempty"`
+	ReferencedByExecutionPublishOutputIdObjects  []Execution `json:"referenced_by_execution_publish_output_id_objects,omitempty"`
+	ReferencedByExecutionTestOutputIdObjects     []Execution `json:"referenced_by_execution_test_output_id_objects,omitempty"`
 	ReferencedByExecutionValidateOutputIdObjects []Execution `json:"referenced_by_execution_validate_output_id_objects,omitempty"`
-	Status *string `json:"status,omitempty"`
-	TaskId *string `json:"task_id,omitempty"`
-	TaskIdObject *Task `json:"task_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Status                                       *string     `json:"status,omitempty"`
+	TaskId                                       *string     `json:"task_id,omitempty"`
+	TaskIdObject                                 *Task       `json:"task_id_object,omitempty"`
+	UpdatedAt                                    *time.Time  `json:"updated_at,omitempty"`
 }
 
 // NewOutput instantiates a new Output object
@@ -540,7 +540,7 @@ func (o *Output) SetUpdatedAt(v time.Time) {
 }
 
 func (o Output) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -632,5 +632,3 @@ func (v *NullableOutput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
