@@ -30,25 +30,24 @@ import (
 )
 
 type Task struct {
-	ID                                   uuid.UUID  `json:"id"`
-	CreatedAt                            time.Time  `json:"created_at"`
-	UpdatedAt                            time.Time  `json:"updated_at"`
-	DeletedAt                            *time.Time `json:"deleted_at"`
-	Name                                 string     `json:"name"`
-	Platform                             string     `json:"platform"`
-	Image                                string     `json:"image"`
-	Script                               string     `json:"script"`
-	ReferencedByOutputTaskIDObjects      []*Output  `json:"referenced_by_output_task_id_objects"`
-	ReferencedByJobBuildTaskIDObjects    []*Job     `json:"referenced_by_job_build_task_id_objects"`
-	ReferencedByJobTestTaskIDObjects     []*Job     `json:"referenced_by_job_test_task_id_objects"`
-	ReferencedByJobPublishTaskIDObjects  []*Job     `json:"referenced_by_job_publish_task_id_objects"`
-	ReferencedByJobDeployTaskIDObjects   []*Job     `json:"referenced_by_job_deploy_task_id_objects"`
-	ReferencedByJobValidateTaskIDObjects []*Job     `json:"referenced_by_job_validate_task_id_objects"`
+	ID                                 uuid.UUID    `json:"id"`
+	CreatedAt                          time.Time    `json:"created_at"`
+	UpdatedAt                          time.Time    `json:"updated_at"`
+	DeletedAt                          *time.Time   `json:"deleted_at"`
+	Name                               string       `json:"name"`
+	Index                              int64        `json:"index"`
+	Platform                           string       `json:"platform"`
+	Image                              string       `json:"image"`
+	Script                             string       `json:"script"`
+	JobID                              uuid.UUID    `json:"job_id"`
+	JobIDObject                        *Job         `json:"job_id_object"`
+	ReferencedByOutputTaskIDObjects    []*Output    `json:"referenced_by_output_task_id_objects"`
+	ReferencedByExecutionTaskIDObjects []*Execution `json:"referenced_by_execution_task_id_objects"`
 }
 
 var TaskTable = "task"
 
-var TaskTableNamespaceID int32 = 1337 + 9
+var TaskTableNamespaceID int32 = 1337 + 10
 
 var (
 	TaskTableIDColumn        = "id"
@@ -56,9 +55,11 @@ var (
 	TaskTableUpdatedAtColumn = "updated_at"
 	TaskTableDeletedAtColumn = "deleted_at"
 	TaskTableNameColumn      = "name"
+	TaskTableIndexColumn     = "index"
 	TaskTablePlatformColumn  = "platform"
 	TaskTableImageColumn     = "image"
 	TaskTableScriptColumn    = "script"
+	TaskTableJobIDColumn     = "job_id"
 )
 
 var (
@@ -67,9 +68,11 @@ var (
 	TaskTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
 	TaskTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
 	TaskTableNameColumnWithTypeCast      = `"name" AS name`
+	TaskTableIndexColumnWithTypeCast     = `"index" AS index`
 	TaskTablePlatformColumnWithTypeCast  = `"platform" AS platform`
 	TaskTableImageColumnWithTypeCast     = `"image" AS image`
 	TaskTableScriptColumnWithTypeCast    = `"script" AS script`
+	TaskTableJobIDColumnWithTypeCast     = `"job_id" AS job_id`
 )
 
 var TaskTableColumns = []string{
@@ -78,9 +81,11 @@ var TaskTableColumns = []string{
 	TaskTableUpdatedAtColumn,
 	TaskTableDeletedAtColumn,
 	TaskTableNameColumn,
+	TaskTableIndexColumn,
 	TaskTablePlatformColumn,
 	TaskTableImageColumn,
 	TaskTableScriptColumn,
+	TaskTableJobIDColumn,
 }
 
 var TaskTableColumnsWithTypeCasts = []string{
@@ -89,9 +94,11 @@ var TaskTableColumnsWithTypeCasts = []string{
 	TaskTableUpdatedAtColumnWithTypeCast,
 	TaskTableDeletedAtColumnWithTypeCast,
 	TaskTableNameColumnWithTypeCast,
+	TaskTableIndexColumnWithTypeCast,
 	TaskTablePlatformColumnWithTypeCast,
 	TaskTableImageColumnWithTypeCast,
 	TaskTableScriptColumnWithTypeCast,
+	TaskTableJobIDColumnWithTypeCast,
 }
 
 var TaskIntrospectedTable *introspect.Table
@@ -267,6 +274,25 @@ func (m *Task) FromItem(item map[string]any) error {
 
 			m.Name = temp2
 
+		case "index":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseInt(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(int64)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuindex.UUID", temp1))
+				}
+			}
+
+			m.Index = temp2
+
 		case "platform":
 			if v == nil {
 				continue
@@ -324,6 +350,25 @@ func (m *Task) FromItem(item map[string]any) error {
 
 			m.Script = temp2
 
+		case "job_id":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseUUID(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(uuid.UUID)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_id.UUID", temp1))
+				}
+			}
+
+			m.JobID = temp2
+
 		}
 	}
 
@@ -358,15 +403,14 @@ func (m *Task) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.Name = o.Name
+	m.Index = o.Index
 	m.Platform = o.Platform
 	m.Image = o.Image
 	m.Script = o.Script
+	m.JobID = o.JobID
+	m.JobIDObject = o.JobIDObject
 	m.ReferencedByOutputTaskIDObjects = o.ReferencedByOutputTaskIDObjects
-	m.ReferencedByJobBuildTaskIDObjects = o.ReferencedByJobBuildTaskIDObjects
-	m.ReferencedByJobTestTaskIDObjects = o.ReferencedByJobTestTaskIDObjects
-	m.ReferencedByJobPublishTaskIDObjects = o.ReferencedByJobPublishTaskIDObjects
-	m.ReferencedByJobDeployTaskIDObjects = o.ReferencedByJobDeployTaskIDObjects
-	m.ReferencedByJobValidateTaskIDObjects = o.ReferencedByJobValidateTaskIDObjects
+	m.ReferencedByExecutionTaskIDObjects = o.ReferencedByExecutionTaskIDObjects
 
 	return nil
 }
@@ -430,6 +474,17 @@ func (m *Task) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroInt(m.Index) || slices.Contains(forceSetValuesForFields, TaskTableIndexColumn) || isRequired(TaskTableColumnLookup, TaskTableIndexColumn) {
+		columns = append(columns, TaskTableIndexColumn)
+
+		v, err := types.FormatInt(m.Index)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Index; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroString(m.Platform) || slices.Contains(forceSetValuesForFields, TaskTablePlatformColumn) || isRequired(TaskTableColumnLookup, TaskTablePlatformColumn) {
 		columns = append(columns, TaskTablePlatformColumn)
 
@@ -458,6 +513,17 @@ func (m *Task) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 		v, err := types.FormatString(m.Script)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.Script; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, TaskTableJobIDColumn) || isRequired(TaskTableColumnLookup, TaskTableJobIDColumn) {
+		columns = append(columns, TaskTableJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -565,6 +631,17 @@ func (m *Task) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroInt(m.Index) || slices.Contains(forceSetValuesForFields, TaskTableIndexColumn) {
+		columns = append(columns, TaskTableIndexColumn)
+
+		v, err := types.FormatInt(m.Index)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Index; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroString(m.Platform) || slices.Contains(forceSetValuesForFields, TaskTablePlatformColumn) {
 		columns = append(columns, TaskTablePlatformColumn)
 
@@ -593,6 +670,17 @@ func (m *Task) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 		v, err := types.FormatString(m.Script)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.Script; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, TaskTableJobIDColumn) {
+		columns = append(columns, TaskTableJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -715,8 +803,15 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TaskTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, TaskTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", TaskTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TaskTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectTask early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Task{}, 0, 0, 0, 0, nil
 	}
 
@@ -745,9 +840,38 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 			return nil, 0, 0, 0, 0, err
 		}
 
+		if !types.IsZeroUUID(object.JobID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", JobTable, object.JobID), true)
+			shouldLoad := query.ShouldLoad(ctx, JobTable)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectTasks->SelectJob for object.JobIDObject{%s: %v}", JobTablePrimaryKeyColumn, object.JobID)
+				}
+
+				object.JobIDObject, _, _, _, _, err = SelectJob(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", JobTablePrimaryKeyColumn),
+					object.JobID,
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return nil, 0, 0, 0, 0, err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectTasks->SelectJob for object.JobIDObject in %s", time.Since(thisBefore))
+				}
+			}
+		}
+
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", OutputTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
@@ -782,18 +906,19 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 		}
 
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobBuildTaskIDObjects")
+					log.Printf("loading SelectTasks->SelectExecutions for object.ReferencedByExecutionTaskIDObjects")
 				}
 
-				object.ReferencedByJobBuildTaskIDObjects, _, _, _, _, err = SelectJobs(
+				object.ReferencedByExecutionTaskIDObjects, _, _, _, _, err = SelectExecutions(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", JobTableBuildTaskIDColumn),
+					fmt.Sprintf("%v = $1", ExecutionTableTaskIDColumn),
 					nil,
 					nil,
 					nil,
@@ -806,151 +931,7 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobBuildTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobTestTaskIDObjects")
-				}
-
-				object.ReferencedByJobTestTaskIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTableTestTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobTestTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobPublishTaskIDObjects")
-				}
-
-				object.ReferencedByJobPublishTaskIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTablePublishTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobPublishTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobDeployTaskIDObjects")
-				}
-
-				object.ReferencedByJobDeployTaskIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTableDeployTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobDeployTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TaskTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectJobs for object.ReferencedByJobValidateTaskIDObjects")
-				}
-
-				object.ReferencedByJobValidateTaskIDObjects, _, _, _, _, err = SelectJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTableValidateTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectJobs for object.ReferencedByJobValidateTaskIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectTasks->SelectExecutions for object.ReferencedByExecutionTaskIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -1007,10 +988,6 @@ func SelectTask(ctx context.Context, tx pgx.Tx, where string, values ...any) (*T
 func handleGetTasks(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Task, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1409,6 +1386,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return response, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1519,6 +1497,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return response, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1592,6 +1571,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1645,6 +1625,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1707,6 +1688,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1742,6 +1724,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return server.EmptyResponse{}, nil
 			},
 			Task{},
+			TaskIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

@@ -29,81 +29,70 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-type RuleRequiresJob struct {
-	ID           uuid.UUID  `json:"id"`
-	CreatedAt    time.Time  `json:"created_at"`
-	UpdatedAt    time.Time  `json:"updated_at"`
-	DeletedAt    *time.Time `json:"deleted_at"`
-	RuleID       uuid.UUID  `json:"rule_id"`
-	RuleIDObject *Rule      `json:"rule_id_object"`
-	JobID        uuid.UUID  `json:"job_id"`
-	JobIDObject  *Job       `json:"job_id_object"`
+type M2mRuleTriggerJob struct {
+	ID                                              uuid.UUID    `json:"id"`
+	CreatedAt                                       time.Time    `json:"created_at"`
+	UpdatedAt                                       time.Time    `json:"updated_at"`
+	DeletedAt                                       *time.Time   `json:"deleted_at"`
+	ReferencedByExecutionM2mRuleTriggerJobIDObjects []*Execution `json:"referenced_by_execution_m2m_rule_trigger_job_id_objects"`
 }
 
-var RuleRequiresJobTable = "rule_requires_job"
+var M2mRuleTriggerJobTable = "m2m_rule_trigger_job"
 
-var RuleRequiresJobTableNamespaceID int32 = 1337 + 7
+var M2mRuleTriggerJobTableNamespaceID int32 = 1337 + 5
 
 var (
-	RuleRequiresJobTableIDColumn        = "id"
-	RuleRequiresJobTableCreatedAtColumn = "created_at"
-	RuleRequiresJobTableUpdatedAtColumn = "updated_at"
-	RuleRequiresJobTableDeletedAtColumn = "deleted_at"
-	RuleRequiresJobTableRuleIDColumn    = "rule_id"
-	RuleRequiresJobTableJobIDColumn     = "job_id"
+	M2mRuleTriggerJobTableIDColumn        = "id"
+	M2mRuleTriggerJobTableCreatedAtColumn = "created_at"
+	M2mRuleTriggerJobTableUpdatedAtColumn = "updated_at"
+	M2mRuleTriggerJobTableDeletedAtColumn = "deleted_at"
 )
 
 var (
-	RuleRequiresJobTableIDColumnWithTypeCast        = `"id" AS id`
-	RuleRequiresJobTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
-	RuleRequiresJobTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
-	RuleRequiresJobTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
-	RuleRequiresJobTableRuleIDColumnWithTypeCast    = `"rule_id" AS rule_id`
-	RuleRequiresJobTableJobIDColumnWithTypeCast     = `"job_id" AS job_id`
+	M2mRuleTriggerJobTableIDColumnWithTypeCast        = `"id" AS id`
+	M2mRuleTriggerJobTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
+	M2mRuleTriggerJobTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
+	M2mRuleTriggerJobTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
 )
 
-var RuleRequiresJobTableColumns = []string{
-	RuleRequiresJobTableIDColumn,
-	RuleRequiresJobTableCreatedAtColumn,
-	RuleRequiresJobTableUpdatedAtColumn,
-	RuleRequiresJobTableDeletedAtColumn,
-	RuleRequiresJobTableRuleIDColumn,
-	RuleRequiresJobTableJobIDColumn,
+var M2mRuleTriggerJobTableColumns = []string{
+	M2mRuleTriggerJobTableIDColumn,
+	M2mRuleTriggerJobTableCreatedAtColumn,
+	M2mRuleTriggerJobTableUpdatedAtColumn,
+	M2mRuleTriggerJobTableDeletedAtColumn,
 }
 
-var RuleRequiresJobTableColumnsWithTypeCasts = []string{
-	RuleRequiresJobTableIDColumnWithTypeCast,
-	RuleRequiresJobTableCreatedAtColumnWithTypeCast,
-	RuleRequiresJobTableUpdatedAtColumnWithTypeCast,
-	RuleRequiresJobTableDeletedAtColumnWithTypeCast,
-	RuleRequiresJobTableRuleIDColumnWithTypeCast,
-	RuleRequiresJobTableJobIDColumnWithTypeCast,
+var M2mRuleTriggerJobTableColumnsWithTypeCasts = []string{
+	M2mRuleTriggerJobTableIDColumnWithTypeCast,
+	M2mRuleTriggerJobTableCreatedAtColumnWithTypeCast,
+	M2mRuleTriggerJobTableUpdatedAtColumnWithTypeCast,
+	M2mRuleTriggerJobTableDeletedAtColumnWithTypeCast,
 }
 
-var RuleRequiresJobIntrospectedTable *introspect.Table
+var M2mRuleTriggerJobIntrospectedTable *introspect.Table
 
-var RuleRequiresJobTableColumnLookup map[string]*introspect.Column
+var M2mRuleTriggerJobTableColumnLookup map[string]*introspect.Column
 
 var (
-	RuleRequiresJobTablePrimaryKeyColumn = RuleRequiresJobTableIDColumn
+	M2mRuleTriggerJobTablePrimaryKeyColumn = M2mRuleTriggerJobTableIDColumn
 )
 
 func init() {
-	RuleRequiresJobIntrospectedTable = tableByName[RuleRequiresJobTable]
+	M2mRuleTriggerJobIntrospectedTable = tableByName[M2mRuleTriggerJobTable]
 
 	/* only needed during templating */
-	if RuleRequiresJobIntrospectedTable == nil {
-		RuleRequiresJobIntrospectedTable = &introspect.Table{}
+	if M2mRuleTriggerJobIntrospectedTable == nil {
+		M2mRuleTriggerJobIntrospectedTable = &introspect.Table{}
 	}
 
-	RuleRequiresJobTableColumnLookup = RuleRequiresJobIntrospectedTable.ColumnByName
+	M2mRuleTriggerJobTableColumnLookup = M2mRuleTriggerJobIntrospectedTable.ColumnByName
 }
 
-type RuleRequiresJobOnePathParams struct {
+type M2mRuleTriggerJobOnePathParams struct {
 	PrimaryKey uuid.UUID `json:"primaryKey"`
 }
 
-type RuleRequiresJobLoadQueryParams struct {
+type M2mRuleTriggerJobLoadQueryParams struct {
 	Depth *int `json:"depth"`
 }
 
@@ -123,24 +112,24 @@ var _ = []any{
 	sql.ErrNoRows,
 }
 
-func (m *RuleRequiresJob) GetPrimaryKeyColumn() string {
-	return RuleRequiresJobTablePrimaryKeyColumn
+func (m *M2mRuleTriggerJob) GetPrimaryKeyColumn() string {
+	return M2mRuleTriggerJobTablePrimaryKeyColumn
 }
 
-func (m *RuleRequiresJob) GetPrimaryKeyValue() any {
+func (m *M2mRuleTriggerJob) GetPrimaryKeyValue() any {
 	return m.ID
 }
 
-func (m *RuleRequiresJob) FromItem(item map[string]any) error {
+func (m *M2mRuleTriggerJob) FromItem(item map[string]any) error {
 	if item == nil {
 		return fmt.Errorf(
-			"item unexpectedly nil during RuleRequiresJobFromItem",
+			"item unexpectedly nil during M2mRuleTriggerJobFromItem",
 		)
 	}
 
 	if len(item) == 0 {
 		return fmt.Errorf(
-			"item unexpectedly empty during RuleRequiresJobFromItem",
+			"item unexpectedly empty during M2mRuleTriggerJobFromItem",
 		)
 	}
 
@@ -149,10 +138,10 @@ func (m *RuleRequiresJob) FromItem(item map[string]any) error {
 	}
 
 	for k, v := range item {
-		_, ok := RuleRequiresJobTableColumnLookup[k]
+		_, ok := M2mRuleTriggerJobTableColumnLookup[k]
 		if !ok {
 			return fmt.Errorf(
-				"item contained unexpected key %#+v during RuleRequiresJobFromItem; item: %#+v",
+				"item contained unexpected key %#+v during M2mRuleTriggerJobFromItem; item: %#+v",
 				k, item,
 			)
 		}
@@ -234,54 +223,16 @@ func (m *RuleRequiresJob) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
-		case "rule_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uurule_id.UUID", temp1))
-				}
-			}
-
-			m.RuleID = temp2
-
-		case "job_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_id.UUID", temp1))
-				}
-			}
-
-			m.JobID = temp2
-
 		}
 	}
 
 	return nil
 }
 
-func (m *RuleRequiresJob) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) error {
+func (m *M2mRuleTriggerJob) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) error {
 	extraWhere := ""
 	if len(includeDeleteds) > 0 && includeDeleteds[0] {
-		if slices.Contains(RuleRequiresJobTableColumns, "deleted_at") {
+		if slices.Contains(M2mRuleTriggerJobTableColumns, "deleted_at") {
 			extraWhere = "\n    AND (deleted_at IS null OR deleted_at IS NOT null)"
 		}
 	}
@@ -291,7 +242,7 @@ func (m *RuleRequiresJob) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds
 
 	ctx = query.WithMaxDepth(ctx, nil)
 
-	o, _, _, _, _, err := SelectRuleRequiresJob(
+	o, _, _, _, _, err := SelectM2mRuleTriggerJob(
 		ctx,
 		tx,
 		fmt.Sprintf("%v = $1%v", m.GetPrimaryKeyColumn(), extraWhere),
@@ -305,20 +256,17 @@ func (m *RuleRequiresJob) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
-	m.RuleID = o.RuleID
-	m.RuleIDObject = o.RuleIDObject
-	m.JobID = o.JobID
-	m.JobIDObject = o.JobIDObject
+	m.ReferencedByExecutionM2mRuleTriggerJobIDObjects = o.ReferencedByExecutionM2mRuleTriggerJobIDObjects
 
 	return nil
 }
 
-func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
+func (m *M2mRuleTriggerJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
 	columns := make([]string, 0)
 	values := make([]any, 0)
 
-	if setPrimaryKey && (setZeroValues || !types.IsZeroUUID(m.ID) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableIDColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableIDColumn)) {
-		columns = append(columns, RuleRequiresJobTableIDColumn)
+	if setPrimaryKey && (setZeroValues || !types.IsZeroUUID(m.ID) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableIDColumn) || isRequired(M2mRuleTriggerJobTableColumnLookup, M2mRuleTriggerJobTableIDColumn)) {
+		columns = append(columns, M2mRuleTriggerJobTableIDColumn)
 
 		v, err := types.FormatUUID(m.ID)
 		if err != nil {
@@ -328,8 +276,8 @@ func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey b
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.CreatedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableCreatedAtColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableCreatedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableCreatedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.CreatedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableCreatedAtColumn) || isRequired(M2mRuleTriggerJobTableColumnLookup, M2mRuleTriggerJobTableCreatedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableCreatedAtColumn)
 
 		v, err := types.FormatTime(m.CreatedAt)
 		if err != nil {
@@ -339,8 +287,8 @@ func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey b
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.UpdatedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableUpdatedAtColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableUpdatedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableUpdatedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.UpdatedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableUpdatedAtColumn) || isRequired(M2mRuleTriggerJobTableColumnLookup, M2mRuleTriggerJobTableUpdatedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableUpdatedAtColumn)
 
 		v, err := types.FormatTime(m.UpdatedAt)
 		if err != nil {
@@ -350,34 +298,12 @@ func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey b
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.DeletedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableDeletedAtColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableDeletedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableDeletedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.DeletedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableDeletedAtColumn) || isRequired(M2mRuleTriggerJobTableColumnLookup, M2mRuleTriggerJobTableDeletedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableDeletedAtColumn)
 
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.RuleID) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableRuleIDColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableRuleIDColumn) {
-		columns = append(columns, RuleRequiresJobTableRuleIDColumn)
-
-		v, err := types.FormatUUID(m.RuleID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.RuleID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableJobIDColumn) || isRequired(RuleRequiresJobTableColumnLookup, RuleRequiresJobTableJobIDColumn) {
-		columns = append(columns, RuleRequiresJobTableJobIDColumn)
-
-		v, err := types.FormatUUID(m.JobID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -391,28 +317,28 @@ func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey b
 	item, err := query.Insert(
 		ctx,
 		tx,
-		RuleRequiresJobTable,
+		M2mRuleTriggerJobTable,
 		columns,
 		nil,
 		false,
 		false,
-		RuleRequiresJobTableColumns,
+		M2mRuleTriggerJobTableColumns,
 		values...,
 	)
 	if err != nil {
 		return fmt.Errorf("failed to insert %#+v; %v", m, err)
 	}
-	v := (*item)[RuleRequiresJobTableIDColumn]
+	v := (*item)[M2mRuleTriggerJobTableIDColumn]
 
 	if v == nil {
-		return fmt.Errorf("failed to find %v in %#+v", RuleRequiresJobTableIDColumn, item)
+		return fmt.Errorf("failed to find %v in %#+v", M2mRuleTriggerJobTableIDColumn, item)
 	}
 
 	wrapError := func(err error) error {
 		return fmt.Errorf(
 			"failed to treat %v: %#+v as uuid.UUID: %v",
-			RuleRequiresJobTableIDColumn,
-			(*item)[RuleRequiresJobTableIDColumn],
+			M2mRuleTriggerJobTableIDColumn,
+			(*item)[M2mRuleTriggerJobTableIDColumn],
 			err,
 		)
 	}
@@ -437,12 +363,12 @@ func (m *RuleRequiresJob) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey b
 	return nil
 }
 
-func (m *RuleRequiresJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSetValuesForFields ...string) error {
+func (m *M2mRuleTriggerJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSetValuesForFields ...string) error {
 	columns := make([]string, 0)
 	values := make([]any, 0)
 
-	if setZeroValues || !types.IsZeroTime(m.CreatedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableCreatedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableCreatedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.CreatedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableCreatedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableCreatedAtColumn)
 
 		v, err := types.FormatTime(m.CreatedAt)
 		if err != nil {
@@ -452,8 +378,8 @@ func (m *RuleRequiresJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues b
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.UpdatedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableUpdatedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableUpdatedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.UpdatedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableUpdatedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableUpdatedAtColumn)
 
 		v, err := types.FormatTime(m.UpdatedAt)
 		if err != nil {
@@ -463,34 +389,12 @@ func (m *RuleRequiresJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues b
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.DeletedAt) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableDeletedAtColumn) {
-		columns = append(columns, RuleRequiresJobTableDeletedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.DeletedAt) || slices.Contains(forceSetValuesForFields, M2mRuleTriggerJobTableDeletedAtColumn) {
+		columns = append(columns, M2mRuleTriggerJobTableDeletedAtColumn)
 
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.RuleID) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableRuleIDColumn) {
-		columns = append(columns, RuleRequiresJobTableRuleIDColumn)
-
-		v, err := types.FormatUUID(m.RuleID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.RuleID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, RuleRequiresJobTableJobIDColumn) {
-		columns = append(columns, RuleRequiresJobTableJobIDColumn)
-
-		v, err := types.FormatUUID(m.JobID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -511,10 +415,10 @@ func (m *RuleRequiresJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues b
 	_, err = query.Update(
 		ctx,
 		tx,
-		RuleRequiresJobTable,
+		M2mRuleTriggerJobTable,
 		columns,
-		fmt.Sprintf("%v = $$??", RuleRequiresJobTableIDColumn),
-		RuleRequiresJobTableColumns,
+		fmt.Sprintf("%v = $$??", M2mRuleTriggerJobTableIDColumn),
+		M2mRuleTriggerJobTableColumns,
 		values...,
 	)
 	if err != nil {
@@ -529,13 +433,13 @@ func (m *RuleRequiresJob) Update(ctx context.Context, tx pgx.Tx, setZeroValues b
 	return nil
 }
 
-func (m *RuleRequiresJob) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error {
+func (m *M2mRuleTriggerJob) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error {
 	hardDelete := false
 	if len(hardDeletes) > 0 {
 		hardDelete = hardDeletes[0]
 	}
 
-	if !hardDelete && slices.Contains(RuleRequiresJobTableColumns, "deleted_at") {
+	if !hardDelete && slices.Contains(M2mRuleTriggerJobTableColumns, "deleted_at") {
 		m.DeletedAt = helpers.Ptr(time.Now().UTC())
 		err := m.Update(ctx, tx, false, "deleted_at")
 		if err != nil {
@@ -559,8 +463,8 @@ func (m *RuleRequiresJob) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...
 	err = query.Delete(
 		ctx,
 		tx,
-		RuleRequiresJobTable,
-		fmt.Sprintf("%v = $$??", RuleRequiresJobTableIDColumn),
+		M2mRuleTriggerJobTable,
+		fmt.Sprintf("%v = $$??", M2mRuleTriggerJobTableIDColumn),
 		values...,
 	)
 	if err != nil {
@@ -572,33 +476,33 @@ func (m *RuleRequiresJob) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...
 	return nil
 }
 
-func (m *RuleRequiresJob) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, RuleRequiresJobTable, timeouts...)
+func (m *M2mRuleTriggerJob) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
+	return query.LockTable(ctx, tx, M2mRuleTriggerJobTable, timeouts...)
 }
 
-func (m *RuleRequiresJob) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, RuleRequiresJobTable, overallTimeout, individualAttempttimeout)
+func (m *M2mRuleTriggerJob) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
+	return query.LockTableWithRetries(ctx, tx, M2mRuleTriggerJobTable, overallTimeout, individualAttempttimeout)
 }
 
-func (m *RuleRequiresJob) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
-	return query.AdvisoryLock(ctx, tx, RuleRequiresJobTableNamespaceID, key, timeouts...)
+func (m *M2mRuleTriggerJob) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
+	return query.AdvisoryLock(ctx, tx, M2mRuleTriggerJobTableNamespaceID, key, timeouts...)
 }
 
-func (m *RuleRequiresJob) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int32, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.AdvisoryLockWithRetries(ctx, tx, RuleRequiresJobTableNamespaceID, key, overallTimeout, individualAttempttimeout)
+func (m *M2mRuleTriggerJob) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int32, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
+	return query.AdvisoryLockWithRetries(ctx, tx, M2mRuleTriggerJobTableNamespaceID, key, overallTimeout, individualAttempttimeout)
 }
 
-func SelectRuleRequiresJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, limit *int, offset *int, values ...any) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func SelectM2mRuleTriggerJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, limit *int, offset *int, values ...any) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	before := time.Now()
 
 	if config.Debug() {
-		log.Printf("entered SelectRuleRequiresJobs")
+		log.Printf("entered SelectM2mRuleTriggerJobs")
 
 		defer func() {
-			log.Printf("exited SelectRuleRequiresJobs in %s", time.Since(before))
+			log.Printf("exited SelectM2mRuleTriggerJobs in %s", time.Since(before))
 		}()
 	}
-	if slices.Contains(RuleRequiresJobTableColumns, "deleted_at") {
+	if slices.Contains(M2mRuleTriggerJobTableColumns, "deleted_at") {
 		if !strings.Contains(where, "deleted_at") {
 			if where != "" {
 				where += "\n    AND "
@@ -613,16 +517,23 @@ func SelectRuleRequiresJobs(ctx context.Context, tx pgx.Tx, where string, orderB
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RuleRequiresJobTable, nil), !isLoadQuery)
-	if !ok {
-		return []*RuleRequiresJob{}, 0, 0, 0, 0, nil
+
+	shouldLoad := query.ShouldLoad(ctx, M2mRuleTriggerJobTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", M2mRuleTriggerJobTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", M2mRuleTriggerJobTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectM2mRuleTriggerJob early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
+		return []*M2mRuleTriggerJob{}, 0, 0, 0, 0, nil
 	}
 
 	items, count, totalCount, page, totalPages, err := query.Select(
 		ctx,
 		tx,
-		RuleRequiresJobTableColumnsWithTypeCasts,
-		RuleRequiresJobTable,
+		M2mRuleTriggerJobTableColumnsWithTypeCasts,
+		M2mRuleTriggerJobTable,
 		where,
 		orderBy,
 		limit,
@@ -630,71 +541,54 @@ func SelectRuleRequiresJobs(ctx context.Context, tx pgx.Tx, where string, orderB
 		values...,
 	)
 	if err != nil {
-		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectRuleRequiresJobs; %v", err)
+		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectM2mRuleTriggerJobs; %v", err)
 	}
 
-	objects := make([]*RuleRequiresJob, 0)
+	objects := make([]*M2mRuleTriggerJob, 0)
 
 	for _, item := range *items {
-		object := &RuleRequiresJob{}
+		object := &M2mRuleTriggerJob{}
 
 		err = object.FromItem(item)
 		if err != nil {
 			return nil, 0, 0, 0, 0, err
 		}
 
-		if !types.IsZeroUUID(object.RuleID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RuleTable, object.RuleID), true)
-			if ok {
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRuleRequiresJobs->SelectRule for object.RuleIDObject")
+					log.Printf("loading SelectM2mRuleTriggerJobs->SelectExecutions for object.ReferencedByExecutionM2mRuleTriggerJobIDObjects")
 				}
 
-				object.RuleIDObject, _, _, _, _, err = SelectRule(
+				object.ReferencedByExecutionM2mRuleTriggerJobIDObjects, _, _, _, _, err = SelectExecutions(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", RuleTablePrimaryKeyColumn),
-					object.RuleID,
+					fmt.Sprintf("%v = $1", ExecutionTableM2mRuleTriggerJobIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
+						return err
 					}
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectRuleRequiresJobs->SelectRule for object.RuleIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectM2mRuleTriggerJobs->SelectExecutions for object.ReferencedByExecutionM2mRuleTriggerJobIDObjects in %s", time.Since(thisBefore))
 				}
+
 			}
-		}
 
-		if !types.IsZeroUUID(object.JobID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", JobTable, object.JobID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectRuleRequiresJobs->SelectJob for object.JobIDObject")
-				}
-
-				object.JobIDObject, _, _, _, _, err = SelectJob(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTablePrimaryKeyColumn),
-					object.JobID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectRuleRequiresJobs->SelectJob for object.JobIDObject in %s", time.Since(thisBefore))
-				}
-			}
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
 		}
 
 		objects = append(objects, object)
@@ -703,13 +597,13 @@ func SelectRuleRequiresJobs(ctx context.Context, tx pgx.Tx, where string, orderB
 	return objects, count, totalCount, page, totalPages, nil
 }
 
-func SelectRuleRequiresJob(ctx context.Context, tx pgx.Tx, where string, values ...any) (*RuleRequiresJob, int64, int64, int64, int64, error) {
+func SelectM2mRuleTriggerJob(ctx context.Context, tx pgx.Tx, where string, values ...any) (*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	ctx, cleanup := query.WithQueryID(ctx)
 	defer cleanup()
 
 	ctx = query.WithMaxDepth(ctx, nil)
 
-	objects, _, _, _, _, err := SelectRuleRequiresJobs(
+	objects, _, _, _, _, err := SelectM2mRuleTriggerJobs(
 		ctx,
 		tx,
 		where,
@@ -719,11 +613,11 @@ func SelectRuleRequiresJob(ctx context.Context, tx pgx.Tx, where string, values 
 		values...,
 	)
 	if err != nil {
-		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectRuleRequiresJob; %v", err)
+		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectM2mRuleTriggerJob; %v", err)
 	}
 
 	if len(objects) > 1 {
-		return nil, 0, 0, 0, 0, fmt.Errorf("attempt to call SelectRuleRequiresJob returned more than 1 row")
+		return nil, 0, 0, 0, 0, fmt.Errorf("attempt to call SelectM2mRuleTriggerJob returned more than 1 row")
 	}
 
 	if len(objects) < 1 {
@@ -740,13 +634,9 @@ func SelectRuleRequiresJob(ctx context.Context, tx pgx.Tx, where string, values 
 	return object, count, totalCount, page, totalPages, nil
 }
 
-func handleGetRuleRequiresJobs(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func handleGetM2mRuleTriggerJobs(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -754,7 +644,7 @@ func handleGetRuleRequiresJobs(arguments *server.SelectManyArguments, db *pgxpoo
 		_ = tx.Rollback(arguments.Ctx)
 	}()
 
-	objects, count, totalCount, page, totalPages, err := SelectRuleRequiresJobs(arguments.Ctx, tx, arguments.Where, arguments.OrderBy, arguments.Limit, arguments.Offset, arguments.Values...)
+	objects, count, totalCount, page, totalPages, err := SelectM2mRuleTriggerJobs(arguments.Ctx, tx, arguments.Where, arguments.OrderBy, arguments.Limit, arguments.Offset, arguments.Values...)
 	if err != nil {
 		return nil, 0, 0, 0, 0, err
 	}
@@ -767,7 +657,7 @@ func handleGetRuleRequiresJobs(arguments *server.SelectManyArguments, db *pgxpoo
 	return objects, count, totalCount, page, totalPages, nil
 }
 
-func handleGetRuleRequiresJob(arguments *server.SelectOneArguments, db *pgxpool.Pool, primaryKey uuid.UUID) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func handleGetM2mRuleTriggerJob(arguments *server.SelectOneArguments, db *pgxpool.Pool, primaryKey uuid.UUID) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		return nil, 0, 0, 0, 0, err
@@ -777,7 +667,7 @@ func handleGetRuleRequiresJob(arguments *server.SelectOneArguments, db *pgxpool.
 		_ = tx.Rollback(arguments.Ctx)
 	}()
 
-	object, count, totalCount, page, totalPages, err := SelectRuleRequiresJob(arguments.Ctx, tx, arguments.Where, arguments.Values...)
+	object, count, totalCount, page, totalPages, err := SelectM2mRuleTriggerJob(arguments.Ctx, tx, arguments.Where, arguments.Values...)
 	if err != nil {
 		return nil, 0, 0, 0, 0, err
 	}
@@ -787,10 +677,10 @@ func handleGetRuleRequiresJob(arguments *server.SelectOneArguments, db *pgxpool.
 		return nil, 0, 0, 0, 0, err
 	}
 
-	return []*RuleRequiresJob{object}, count, totalCount, page, totalPages, nil
+	return []*M2mRuleTriggerJob{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostRuleRequiresJobs(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*RuleRequiresJob, forceSetValuesForFieldsByObjectIndex [][]string) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func handlePostM2mRuleTriggerJobs(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*M2mRuleTriggerJob, forceSetValuesForFieldsByObjectIndex [][]string) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -820,7 +710,7 @@ func handlePostRuleRequiresJobs(arguments *server.LoadArguments, db *pgxpool.Poo
 
 	errs := make(chan error, 1)
 	go func() {
-		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.INSERT}, RuleRequiresJobTable, xid)
+		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.INSERT}, M2mRuleTriggerJobTable, xid)
 		if err != nil {
 			err = fmt.Errorf("failed to wait for change; %v", err)
 			errs <- err
@@ -854,7 +744,7 @@ func handlePostRuleRequiresJobs(arguments *server.LoadArguments, db *pgxpool.Poo
 	return objects, count, totalCount, page, totalPages, nil
 }
 
-func handlePutRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *RuleRequiresJob) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func handlePutM2mRuleTriggerJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *M2mRuleTriggerJob) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -880,7 +770,7 @@ func handlePutRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Pool,
 
 	errs := make(chan error, 1)
 	go func() {
-		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.UPDATE, stream.SOFT_DELETE, stream.SOFT_RESTORE, stream.SOFT_UPDATE}, RuleRequiresJobTable, xid)
+		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.UPDATE, stream.SOFT_DELETE, stream.SOFT_RESTORE, stream.SOFT_UPDATE}, M2mRuleTriggerJobTable, xid)
 		if err != nil {
 			err = fmt.Errorf("failed to wait for change; %v", err)
 			errs <- err
@@ -911,10 +801,10 @@ func handlePutRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Pool,
 	page := int64(1)
 	totalPages := page
 
-	return []*RuleRequiresJob{object}, count, totalCount, page, totalPages, nil
+	return []*M2mRuleTriggerJob{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePatchRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *RuleRequiresJob, forceSetValuesForFields []string) ([]*RuleRequiresJob, int64, int64, int64, int64, error) {
+func handlePatchM2mRuleTriggerJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *M2mRuleTriggerJob, forceSetValuesForFields []string) ([]*M2mRuleTriggerJob, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -940,7 +830,7 @@ func handlePatchRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Poo
 
 	errs := make(chan error, 1)
 	go func() {
-		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.UPDATE, stream.SOFT_DELETE, stream.SOFT_RESTORE, stream.SOFT_UPDATE}, RuleRequiresJobTable, xid)
+		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.UPDATE, stream.SOFT_DELETE, stream.SOFT_RESTORE, stream.SOFT_UPDATE}, M2mRuleTriggerJobTable, xid)
 		if err != nil {
 			err = fmt.Errorf("failed to wait for change; %v", err)
 			errs <- err
@@ -971,10 +861,10 @@ func handlePatchRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Poo
 	page := int64(1)
 	totalPages := page
 
-	return []*RuleRequiresJob{object}, count, totalCount, page, totalPages, nil
+	return []*M2mRuleTriggerJob{object}, count, totalCount, page, totalPages, nil
 }
 
-func handleDeleteRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *RuleRequiresJob) error {
+func handleDeleteM2mRuleTriggerJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, object *M2mRuleTriggerJob) error {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1000,7 +890,7 @@ func handleDeleteRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Po
 
 	errs := make(chan error, 1)
 	go func() {
-		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.DELETE, stream.SOFT_DELETE}, RuleRequiresJobTable, xid)
+		_, err := waitForChange(arguments.Ctx, []stream.Action{stream.DELETE, stream.SOFT_DELETE}, M2mRuleTriggerJobTable, xid)
 		if err != nil {
 			err = fmt.Errorf("failed to wait for change; %v", err)
 			errs <- err
@@ -1029,7 +919,7 @@ func handleDeleteRuleRequiresJob(arguments *server.LoadArguments, db *pgxpool.Po
 	return nil
 }
 
-func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
+func GetM2mRuleTriggerJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
 	r := chi.NewRouter()
 
 	for _, m := range httpMiddlewares {
@@ -1039,7 +929,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		getManyHandler, err := getHTTPHandler(
 			http.MethodGet,
-			"/rule-requires-jobs",
+			"/m-2m-rule-trigger-jobs",
 			http.StatusOK,
 			func(
 				ctx context.Context,
@@ -1047,7 +937,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 				queryParams map[string]any,
 				req server.EmptyRequest,
 				rawReq any,
-			) (server.Response[RuleRequiresJob], error) {
+			) (server.Response[M2mRuleTriggerJob], error) {
 				before := time.Now()
 
 				redisConn := redisPool.Get()
@@ -1055,13 +945,13 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					_ = redisConn.Close()
 				}()
 
-				arguments, err := server.GetSelectManyArguments(ctx, queryParams, RuleRequiresJobIntrospectedTable, nil, nil)
+				arguments, err := server.GetSelectManyArguments(ctx, queryParams, M2mRuleTriggerJobIntrospectedTable, nil, nil)
 				if err != nil {
 					if config.Debug() {
 						log.Printf("request cache not yet reached; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				cachedResponseAsJSON, cacheHit, err := server.GetCachedResponseAsJSON(arguments.RequestHash, redisConn)
@@ -1070,11 +960,11 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 						log.Printf("request cache failed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				if cacheHit {
-					var cachedResponse server.Response[RuleRequiresJob]
+					var cachedResponse server.Response[M2mRuleTriggerJob]
 
 					/* TODO: it'd be nice to be able to avoid this (i.e. just pass straight through) */
 					err = json.Unmarshal(cachedResponseAsJSON, &cachedResponse)
@@ -1083,7 +973,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 							log.Printf("request cache hit but failed unmarshal; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 						}
 
-						return server.Response[RuleRequiresJob]{}, err
+						return server.Response[M2mRuleTriggerJob]{}, err
 					}
 
 					if config.Debug() {
@@ -1093,13 +983,13 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					return cachedResponse, nil
 				}
 
-				objects, count, totalCount, _, _, err := handleGetRuleRequiresJobs(arguments, db)
+				objects, count, totalCount, _, _, err := handleGetM2mRuleTriggerJobs(arguments, db)
 				if err != nil {
 					if config.Debug() {
 						log.Printf("request cache missed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				limit := int64(0)
@@ -1112,7 +1002,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					offset = int64(*arguments.Offset)
 				}
 
-				response := server.Response[RuleRequiresJob]{
+				response := server.Response[M2mRuleTriggerJob]{
 					Status:     http.StatusOK,
 					Success:    true,
 					Error:      nil,
@@ -1130,7 +1020,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 						log.Printf("request cache missed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				err = server.StoreCachedResponse(arguments.RequestHash, redisConn, responseAsJSON)
@@ -1144,7 +1034,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 
 				return response, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1155,15 +1046,15 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		getOneHandler, err := getHTTPHandler(
 			http.MethodGet,
-			"/rule-requires-jobs/{primaryKey}",
+			"/m-2m-rule-trigger-jobs/{primaryKey}",
 			http.StatusOK,
 			func(
 				ctx context.Context,
-				pathParams RuleRequiresJobOnePathParams,
-				queryParams RuleRequiresJobLoadQueryParams,
+				pathParams M2mRuleTriggerJobOnePathParams,
+				queryParams M2mRuleTriggerJobLoadQueryParams,
 				req server.EmptyRequest,
 				rawReq any,
-			) (server.Response[RuleRequiresJob], error) {
+			) (server.Response[M2mRuleTriggerJob], error) {
 				before := time.Now()
 
 				redisConn := redisPool.Get()
@@ -1171,13 +1062,13 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					_ = redisConn.Close()
 				}()
 
-				arguments, err := server.GetSelectOneArguments(ctx, queryParams.Depth, RuleRequiresJobIntrospectedTable, pathParams.PrimaryKey, nil, nil)
+				arguments, err := server.GetSelectOneArguments(ctx, queryParams.Depth, M2mRuleTriggerJobIntrospectedTable, pathParams.PrimaryKey, nil, nil)
 				if err != nil {
 					if config.Debug() {
 						log.Printf("request cache not yet reached; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				cachedResponseAsJSON, cacheHit, err := server.GetCachedResponseAsJSON(arguments.RequestHash, redisConn)
@@ -1186,11 +1077,11 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 						log.Printf("request cache failed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				if cacheHit {
-					var cachedResponse server.Response[RuleRequiresJob]
+					var cachedResponse server.Response[M2mRuleTriggerJob]
 
 					/* TODO: it'd be nice to be able to avoid this (i.e. just pass straight through) */
 					err = json.Unmarshal(cachedResponseAsJSON, &cachedResponse)
@@ -1199,7 +1090,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 							log.Printf("request cache hit but failed unmarshal; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 						}
 
-						return server.Response[RuleRequiresJob]{}, err
+						return server.Response[M2mRuleTriggerJob]{}, err
 					}
 
 					if config.Debug() {
@@ -1209,20 +1100,20 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					return cachedResponse, nil
 				}
 
-				objects, count, totalCount, _, _, err := handleGetRuleRequiresJob(arguments, db, pathParams.PrimaryKey)
+				objects, count, totalCount, _, _, err := handleGetM2mRuleTriggerJob(arguments, db, pathParams.PrimaryKey)
 				if err != nil {
 					if config.Debug() {
 						log.Printf("request cache missed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				limit := int64(0)
 
 				offset := int64(0)
 
-				response := server.Response[RuleRequiresJob]{
+				response := server.Response[M2mRuleTriggerJob]{
 					Status:     http.StatusOK,
 					Success:    true,
 					Error:      nil,
@@ -1240,7 +1131,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 						log.Printf("request cache missed; request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
 					}
 
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				err = server.StoreCachedResponse(arguments.RequestHash, redisConn, responseAsJSON)
@@ -1254,7 +1145,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 
 				return response, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1265,25 +1157,25 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		postHandler, err := getHTTPHandler(
 			http.MethodPost,
-			"/rule-requires-jobs",
+			"/m-2m-rule-trigger-jobs",
 			http.StatusCreated,
 			func(
 				ctx context.Context,
 				pathParams server.EmptyPathParams,
-				queryParams RuleRequiresJobLoadQueryParams,
-				req []*RuleRequiresJob,
+				queryParams M2mRuleTriggerJobLoadQueryParams,
+				req []*M2mRuleTriggerJob,
 				rawReq any,
-			) (server.Response[RuleRequiresJob], error) {
+			) (server.Response[M2mRuleTriggerJob], error) {
 				allRawItems, ok := rawReq.([]any)
 				if !ok {
-					return server.Response[RuleRequiresJob]{}, fmt.Errorf("failed to cast %#+v to []map[string]any", rawReq)
+					return server.Response[M2mRuleTriggerJob]{}, fmt.Errorf("failed to cast %#+v to []map[string]any", rawReq)
 				}
 
 				allItems := make([]map[string]any, 0)
 				for _, rawItem := range allRawItems {
 					item, ok := rawItem.(map[string]any)
 					if !ok {
-						return server.Response[RuleRequiresJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", rawItem)
+						return server.Response[M2mRuleTriggerJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", rawItem)
 					}
 
 					allItems = append(allItems, item)
@@ -1293,7 +1185,7 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 				for _, item := range allItems {
 					forceSetValuesForFields := make([]string, 0)
 					for _, possibleField := range maps.Keys(item) {
-						if !slices.Contains(RuleRequiresJobTableColumns, possibleField) {
+						if !slices.Contains(M2mRuleTriggerJobTableColumns, possibleField) {
 							continue
 						}
 
@@ -1304,19 +1196,19 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 
 				arguments, err := server.GetLoadArguments(ctx, queryParams.Depth)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostRuleRequiresJobs(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostM2mRuleTriggerJobs(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				limit := int64(0)
 
 				offset := int64(0)
 
-				return server.Response[RuleRequiresJob]{
+				return server.Response[M2mRuleTriggerJob]{
 					Status:     http.StatusOK,
 					Success:    true,
 					Error:      nil,
@@ -1327,7 +1219,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					Offset:     offset,
 				}, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1338,38 +1231,38 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		putHandler, err := getHTTPHandler(
 			http.MethodPatch,
-			"/rule-requires-jobs/{primaryKey}",
+			"/m-2m-rule-trigger-jobs/{primaryKey}",
 			http.StatusOK,
 			func(
 				ctx context.Context,
-				pathParams RuleRequiresJobOnePathParams,
-				queryParams RuleRequiresJobLoadQueryParams,
-				req RuleRequiresJob,
+				pathParams M2mRuleTriggerJobOnePathParams,
+				queryParams M2mRuleTriggerJobLoadQueryParams,
+				req M2mRuleTriggerJob,
 				rawReq any,
-			) (server.Response[RuleRequiresJob], error) {
+			) (server.Response[M2mRuleTriggerJob], error) {
 				item, ok := rawReq.(map[string]any)
 				if !ok {
-					return server.Response[RuleRequiresJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", item)
+					return server.Response[M2mRuleTriggerJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", item)
 				}
 
 				arguments, err := server.GetLoadArguments(ctx, queryParams.Depth)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				object := &req
 				object.ID = pathParams.PrimaryKey
 
-				objects, count, totalCount, _, _, err := handlePutRuleRequiresJob(arguments, db, waitForChange, object)
+				objects, count, totalCount, _, _, err := handlePutM2mRuleTriggerJob(arguments, db, waitForChange, object)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				limit := int64(0)
 
 				offset := int64(0)
 
-				return server.Response[RuleRequiresJob]{
+				return server.Response[M2mRuleTriggerJob]{
 					Status:     http.StatusOK,
 					Success:    true,
 					Error:      nil,
@@ -1380,7 +1273,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					Offset:     offset,
 				}, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1391,23 +1285,23 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		patchHandler, err := getHTTPHandler(
 			http.MethodPatch,
-			"/rule-requires-jobs/{primaryKey}",
+			"/m-2m-rule-trigger-jobs/{primaryKey}",
 			http.StatusOK,
 			func(
 				ctx context.Context,
-				pathParams RuleRequiresJobOnePathParams,
-				queryParams RuleRequiresJobLoadQueryParams,
-				req RuleRequiresJob,
+				pathParams M2mRuleTriggerJobOnePathParams,
+				queryParams M2mRuleTriggerJobLoadQueryParams,
+				req M2mRuleTriggerJob,
 				rawReq any,
-			) (server.Response[RuleRequiresJob], error) {
+			) (server.Response[M2mRuleTriggerJob], error) {
 				item, ok := rawReq.(map[string]any)
 				if !ok {
-					return server.Response[RuleRequiresJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", item)
+					return server.Response[M2mRuleTriggerJob]{}, fmt.Errorf("failed to cast %#+v to map[string]any", item)
 				}
 
 				forceSetValuesForFields := make([]string, 0)
 				for _, possibleField := range maps.Keys(item) {
-					if !slices.Contains(RuleRequiresJobTableColumns, possibleField) {
+					if !slices.Contains(M2mRuleTriggerJobTableColumns, possibleField) {
 						continue
 					}
 
@@ -1416,22 +1310,22 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 
 				arguments, err := server.GetLoadArguments(ctx, queryParams.Depth)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				object := &req
 				object.ID = pathParams.PrimaryKey
 
-				objects, count, totalCount, _, _, err := handlePatchRuleRequiresJob(arguments, db, waitForChange, object, forceSetValuesForFields)
+				objects, count, totalCount, _, _, err := handlePatchM2mRuleTriggerJob(arguments, db, waitForChange, object, forceSetValuesForFields)
 				if err != nil {
-					return server.Response[RuleRequiresJob]{}, err
+					return server.Response[M2mRuleTriggerJob]{}, err
 				}
 
 				limit := int64(0)
 
 				offset := int64(0)
 
-				return server.Response[RuleRequiresJob]{
+				return server.Response[M2mRuleTriggerJob]{
 					Status:     http.StatusOK,
 					Success:    true,
 					Error:      nil,
@@ -1442,7 +1336,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					Offset:     offset,
 				}, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1453,12 +1348,12 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	func() {
 		deleteHandler, err := getHTTPHandler(
 			http.MethodDelete,
-			"/rule-requires-jobs/{primaryKey}",
+			"/m-2m-rule-trigger-jobs/{primaryKey}",
 			http.StatusNoContent,
 			func(
 				ctx context.Context,
-				pathParams RuleRequiresJobOnePathParams,
-				queryParams RuleRequiresJobLoadQueryParams,
+				pathParams M2mRuleTriggerJobOnePathParams,
+				queryParams M2mRuleTriggerJobLoadQueryParams,
 				req server.EmptyRequest,
 				rawReq any,
 			) (server.EmptyResponse, error) {
@@ -1467,17 +1362,18 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 					return server.EmptyResponse{}, err
 				}
 
-				object := &RuleRequiresJob{}
+				object := &M2mRuleTriggerJob{}
 				object.ID = pathParams.PrimaryKey
 
-				err = handleDeleteRuleRequiresJob(arguments, db, waitForChange, object)
+				err = handleDeleteM2mRuleTriggerJob(arguments, db, waitForChange, object)
 				if err != nil {
 					return server.EmptyResponse{}, err
 				}
 
 				return server.EmptyResponse{}, nil
 			},
-			RuleRequiresJob{},
+			M2mRuleTriggerJob{},
+			M2mRuleTriggerJobIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1488,8 +1384,8 @@ func GetRuleRequiresJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddl
 	return r
 }
 
-func NewRuleRequiresJobFromItem(item map[string]any) (any, error) {
-	object := &RuleRequiresJob{}
+func NewM2mRuleTriggerJobFromItem(item map[string]any) (any, error) {
+	object := &M2mRuleTriggerJob{}
 
 	err := object.FromItem(item)
 	if err != nil {
@@ -1501,10 +1397,10 @@ func NewRuleRequiresJobFromItem(item map[string]any) (any, error) {
 
 func init() {
 	register(
-		RuleRequiresJobTable,
-		RuleRequiresJob{},
-		NewRuleRequiresJobFromItem,
-		"/rule-requires-jobs",
-		GetRuleRequiresJobRouter,
+		M2mRuleTriggerJobTable,
+		M2mRuleTriggerJob{},
+		NewM2mRuleTriggerJobFromItem,
+		"/m-2m-rule-trigger-jobs",
+		GetM2mRuleTriggerJobRouter,
 	)
 }

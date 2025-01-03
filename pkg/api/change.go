@@ -30,21 +30,20 @@ import (
 )
 
 type Change struct {
-	ID                                 uuid.UUID   `json:"id"`
-	CreatedAt                          time.Time   `json:"created_at"`
-	UpdatedAt                          time.Time   `json:"updated_at"`
-	DeletedAt                          *time.Time  `json:"deleted_at"`
-	BranchName                         string      `json:"branch_name"`
-	CommitHash                         string      `json:"commit_hash"`
-	Message                            string      `json:"message"`
-	AuthoredBy                         string      `json:"authored_by"`
-	AuthoredAt                         time.Time   `json:"authored_at"`
-	CommittedBy                        string      `json:"committed_by"`
-	CommittedAt                        time.Time   `json:"committed_at"`
-	TriggerProducedAt                  *time.Time  `json:"trigger_produced_at"`
-	RepositoryID                       uuid.UUID   `json:"repository_id"`
-	RepositoryIDObject                 *Repository `json:"repository_id_object"`
-	ReferencedByTriggerChangeIDObjects []*Trigger  `json:"referenced_by_trigger_change_id_objects"`
+	ID                 uuid.UUID   `json:"id"`
+	CreatedAt          time.Time   `json:"created_at"`
+	UpdatedAt          time.Time   `json:"updated_at"`
+	DeletedAt          *time.Time  `json:"deleted_at"`
+	CommitHash         string      `json:"commit_hash"`
+	BranchName         string      `json:"branch_name"`
+	Message            string      `json:"message"`
+	AuthoredBy         string      `json:"authored_by"`
+	AuthoredAt         time.Time   `json:"authored_at"`
+	CommittedBy        string      `json:"committed_by"`
+	CommittedAt        time.Time   `json:"committed_at"`
+	TriggersProducedAt *time.Time  `json:"triggers_produced_at"`
+	RepositoryID       uuid.UUID   `json:"repository_id"`
+	RepositoryIDObject *Repository `json:"repository_id_object"`
 }
 
 var ChangeTable = "change"
@@ -52,35 +51,35 @@ var ChangeTable = "change"
 var ChangeTableNamespaceID int32 = 1337 + 1
 
 var (
-	ChangeTableIDColumn                = "id"
-	ChangeTableCreatedAtColumn         = "created_at"
-	ChangeTableUpdatedAtColumn         = "updated_at"
-	ChangeTableDeletedAtColumn         = "deleted_at"
-	ChangeTableBranchNameColumn        = "branch_name"
-	ChangeTableCommitHashColumn        = "commit_hash"
-	ChangeTableMessageColumn           = "message"
-	ChangeTableAuthoredByColumn        = "authored_by"
-	ChangeTableAuthoredAtColumn        = "authored_at"
-	ChangeTableCommittedByColumn       = "committed_by"
-	ChangeTableCommittedAtColumn       = "committed_at"
-	ChangeTableTriggerProducedAtColumn = "trigger_produced_at"
-	ChangeTableRepositoryIDColumn      = "repository_id"
+	ChangeTableIDColumn                 = "id"
+	ChangeTableCreatedAtColumn          = "created_at"
+	ChangeTableUpdatedAtColumn          = "updated_at"
+	ChangeTableDeletedAtColumn          = "deleted_at"
+	ChangeTableCommitHashColumn         = "commit_hash"
+	ChangeTableBranchNameColumn         = "branch_name"
+	ChangeTableMessageColumn            = "message"
+	ChangeTableAuthoredByColumn         = "authored_by"
+	ChangeTableAuthoredAtColumn         = "authored_at"
+	ChangeTableCommittedByColumn        = "committed_by"
+	ChangeTableCommittedAtColumn        = "committed_at"
+	ChangeTableTriggersProducedAtColumn = "triggers_produced_at"
+	ChangeTableRepositoryIDColumn       = "repository_id"
 )
 
 var (
-	ChangeTableIDColumnWithTypeCast                = `"id" AS id`
-	ChangeTableCreatedAtColumnWithTypeCast         = `"created_at" AS created_at`
-	ChangeTableUpdatedAtColumnWithTypeCast         = `"updated_at" AS updated_at`
-	ChangeTableDeletedAtColumnWithTypeCast         = `"deleted_at" AS deleted_at`
-	ChangeTableBranchNameColumnWithTypeCast        = `"branch_name" AS branch_name`
-	ChangeTableCommitHashColumnWithTypeCast        = `"commit_hash" AS commit_hash`
-	ChangeTableMessageColumnWithTypeCast           = `"message" AS message`
-	ChangeTableAuthoredByColumnWithTypeCast        = `"authored_by" AS authored_by`
-	ChangeTableAuthoredAtColumnWithTypeCast        = `"authored_at" AS authored_at`
-	ChangeTableCommittedByColumnWithTypeCast       = `"committed_by" AS committed_by`
-	ChangeTableCommittedAtColumnWithTypeCast       = `"committed_at" AS committed_at`
-	ChangeTableTriggerProducedAtColumnWithTypeCast = `"trigger_produced_at" AS trigger_produced_at`
-	ChangeTableRepositoryIDColumnWithTypeCast      = `"repository_id" AS repository_id`
+	ChangeTableIDColumnWithTypeCast                 = `"id" AS id`
+	ChangeTableCreatedAtColumnWithTypeCast          = `"created_at" AS created_at`
+	ChangeTableUpdatedAtColumnWithTypeCast          = `"updated_at" AS updated_at`
+	ChangeTableDeletedAtColumnWithTypeCast          = `"deleted_at" AS deleted_at`
+	ChangeTableCommitHashColumnWithTypeCast         = `"commit_hash" AS commit_hash`
+	ChangeTableBranchNameColumnWithTypeCast         = `"branch_name" AS branch_name`
+	ChangeTableMessageColumnWithTypeCast            = `"message" AS message`
+	ChangeTableAuthoredByColumnWithTypeCast         = `"authored_by" AS authored_by`
+	ChangeTableAuthoredAtColumnWithTypeCast         = `"authored_at" AS authored_at`
+	ChangeTableCommittedByColumnWithTypeCast        = `"committed_by" AS committed_by`
+	ChangeTableCommittedAtColumnWithTypeCast        = `"committed_at" AS committed_at`
+	ChangeTableTriggersProducedAtColumnWithTypeCast = `"triggers_produced_at" AS triggers_produced_at`
+	ChangeTableRepositoryIDColumnWithTypeCast       = `"repository_id" AS repository_id`
 )
 
 var ChangeTableColumns = []string{
@@ -88,14 +87,14 @@ var ChangeTableColumns = []string{
 	ChangeTableCreatedAtColumn,
 	ChangeTableUpdatedAtColumn,
 	ChangeTableDeletedAtColumn,
-	ChangeTableBranchNameColumn,
 	ChangeTableCommitHashColumn,
+	ChangeTableBranchNameColumn,
 	ChangeTableMessageColumn,
 	ChangeTableAuthoredByColumn,
 	ChangeTableAuthoredAtColumn,
 	ChangeTableCommittedByColumn,
 	ChangeTableCommittedAtColumn,
-	ChangeTableTriggerProducedAtColumn,
+	ChangeTableTriggersProducedAtColumn,
 	ChangeTableRepositoryIDColumn,
 }
 
@@ -104,14 +103,14 @@ var ChangeTableColumnsWithTypeCasts = []string{
 	ChangeTableCreatedAtColumnWithTypeCast,
 	ChangeTableUpdatedAtColumnWithTypeCast,
 	ChangeTableDeletedAtColumnWithTypeCast,
-	ChangeTableBranchNameColumnWithTypeCast,
 	ChangeTableCommitHashColumnWithTypeCast,
+	ChangeTableBranchNameColumnWithTypeCast,
 	ChangeTableMessageColumnWithTypeCast,
 	ChangeTableAuthoredByColumnWithTypeCast,
 	ChangeTableAuthoredAtColumnWithTypeCast,
 	ChangeTableCommittedByColumnWithTypeCast,
 	ChangeTableCommittedAtColumnWithTypeCast,
-	ChangeTableTriggerProducedAtColumnWithTypeCast,
+	ChangeTableTriggersProducedAtColumnWithTypeCast,
 	ChangeTableRepositoryIDColumnWithTypeCast,
 }
 
@@ -269,25 +268,6 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
-		case "branch_name":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseString(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(string)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch_name.UUID", temp1))
-				}
-			}
-
-			m.BranchName = temp2
-
 		case "commit_hash":
 			if v == nil {
 				continue
@@ -306,6 +286,25 @@ func (m *Change) FromItem(item map[string]any) error {
 			}
 
 			m.CommitHash = temp2
+
+		case "branch_name":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch_name.UUID", temp1))
+				}
+			}
+
+			m.BranchName = temp2
 
 		case "message":
 			if v == nil {
@@ -402,7 +401,7 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.CommittedAt = temp2
 
-		case "trigger_produced_at":
+		case "triggers_produced_at":
 			if v == nil {
 				continue
 			}
@@ -415,11 +414,11 @@ func (m *Change) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(time.Time)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutrigger_produced_at.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutriggers_produced_at.UUID", temp1))
 				}
 			}
 
-			m.TriggerProducedAt = &temp2
+			m.TriggersProducedAt = &temp2
 
 		case "repository_id":
 			if v == nil {
@@ -473,17 +472,16 @@ func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
-	m.BranchName = o.BranchName
 	m.CommitHash = o.CommitHash
+	m.BranchName = o.BranchName
 	m.Message = o.Message
 	m.AuthoredBy = o.AuthoredBy
 	m.AuthoredAt = o.AuthoredAt
 	m.CommittedBy = o.CommittedBy
 	m.CommittedAt = o.CommittedAt
-	m.TriggerProducedAt = o.TriggerProducedAt
+	m.TriggersProducedAt = o.TriggersProducedAt
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
-	m.ReferencedByTriggerChangeIDObjects = o.ReferencedByTriggerChangeIDObjects
 
 	return nil
 }
@@ -536,23 +534,23 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) || isRequired(ChangeTableColumnLookup, ChangeTableBranchNameColumn) {
-		columns = append(columns, ChangeTableBranchNameColumn)
-
-		v, err := types.FormatString(m.BranchName)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.BranchName; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	if setZeroValues || !types.IsZeroString(m.CommitHash) || slices.Contains(forceSetValuesForFields, ChangeTableCommitHashColumn) || isRequired(ChangeTableColumnLookup, ChangeTableCommitHashColumn) {
 		columns = append(columns, ChangeTableCommitHashColumn)
 
 		v, err := types.FormatString(m.CommitHash)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.CommitHash; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) || isRequired(ChangeTableColumnLookup, ChangeTableBranchNameColumn) {
+		columns = append(columns, ChangeTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
 		}
 
 		values = append(values, v)
@@ -613,12 +611,12 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggerProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducedAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTriggerProducedAtColumn) {
-		columns = append(columns, ChangeTableTriggerProducedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.TriggersProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggersProducedAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTriggersProducedAtColumn) {
+		columns = append(columns, ChangeTableTriggersProducedAtColumn)
 
-		v, err := types.FormatTime(m.TriggerProducedAt)
+		v, err := types.FormatTime(m.TriggersProducedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerProducedAt; %v", err)
+			return fmt.Errorf("failed to handle m.TriggersProducedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -726,23 +724,23 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) {
-		columns = append(columns, ChangeTableBranchNameColumn)
-
-		v, err := types.FormatString(m.BranchName)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.BranchName; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	if setZeroValues || !types.IsZeroString(m.CommitHash) || slices.Contains(forceSetValuesForFields, ChangeTableCommitHashColumn) {
 		columns = append(columns, ChangeTableCommitHashColumn)
 
 		v, err := types.FormatString(m.CommitHash)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.CommitHash; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) {
+		columns = append(columns, ChangeTableBranchNameColumn)
+
+		v, err := types.FormatString(m.BranchName)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.BranchName; %v", err)
 		}
 
 		values = append(values, v)
@@ -803,12 +801,12 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggerProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducedAtColumn) {
-		columns = append(columns, ChangeTableTriggerProducedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.TriggersProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggersProducedAtColumn) {
+		columns = append(columns, ChangeTableTriggersProducedAtColumn)
 
-		v, err := types.FormatTime(m.TriggerProducedAt)
+		v, err := types.FormatTime(m.TriggersProducedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerProducedAt; %v", err)
+			return fmt.Errorf("failed to handle m.TriggersProducedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -942,8 +940,15 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", ChangeTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, ChangeTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ChangeTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", ChangeTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectChange early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Change{}, 0, 0, 0, 0, nil
 	}
 
@@ -974,11 +979,12 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 
 		if !types.IsZeroUUID(object.RepositoryID) {
 			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RepositoryTable, object.RepositoryID), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, RepositoryTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectChanges->SelectRepository for object.RepositoryIDObject")
+					log.Printf("loading SelectChanges->SelectRepository for object.RepositoryIDObject{%s: %v}", RepositoryTablePrimaryKeyColumn, object.RepositoryID)
 				}
 
 				object.RepositoryIDObject, _, _, _, _, err = SelectRepository(
@@ -997,42 +1003,6 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 					log.Printf("loaded SelectChanges->SelectRepository for object.RepositoryIDObject in %s", time.Since(thisBefore))
 				}
 			}
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ChangeTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectChanges->SelectTriggers for object.ReferencedByTriggerChangeIDObjects")
-				}
-
-				object.ReferencedByTriggerChangeIDObjects, _, _, _, _, err = SelectTriggers(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", TriggerTableChangeIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectChanges->SelectTriggers for object.ReferencedByTriggerChangeIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
 		}
 
 		objects = append(objects, object)
@@ -1081,10 +1051,6 @@ func SelectChange(ctx context.Context, tx pgx.Tx, where string, values ...any) (
 func handleGetChanges(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Change, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1483,6 +1449,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return response, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1593,6 +1560,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return response, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1666,6 +1634,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1719,6 +1688,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1781,6 +1751,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1816,6 +1787,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return server.EmptyResponse{}, nil
 			},
 			Change{},
+			ChangeIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

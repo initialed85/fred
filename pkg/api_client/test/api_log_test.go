@@ -1,7 +1,7 @@
 /*
 Djangolang
 
-Testing TriggerAPIService
+Testing LogAPIService
 
 */
 
@@ -17,31 +17,31 @@ import (
 	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
-func Test_api_client_TriggerAPIService(t *testing.T) {
+func Test_api_client_LogAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test TriggerAPIService DeleteTrigger", func(t *testing.T) {
+	t.Run("Test LogAPIService DeleteLog", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		httpRes, err := apiClient.TriggerAPI.DeleteTrigger(context.Background(), primaryKey).Execute()
+		httpRes, err := apiClient.LogAPI.DeleteLog(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test TriggerAPIService GetTrigger", func(t *testing.T) {
+	t.Run("Test LogAPIService GetLog", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		resp, httpRes, err := apiClient.TriggerAPI.GetTrigger(context.Background(), primaryKey).Execute()
+		resp, httpRes, err := apiClient.LogAPI.GetLog(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -49,11 +49,11 @@ func Test_api_client_TriggerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test TriggerAPIService GetTriggers", func(t *testing.T) {
+	t.Run("Test LogAPIService GetLogs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.TriggerAPI.GetTriggers(context.Background()).Execute()
+		resp, httpRes, err := apiClient.LogAPI.GetLogs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -61,13 +61,13 @@ func Test_api_client_TriggerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test TriggerAPIService PatchTrigger", func(t *testing.T) {
+	t.Run("Test LogAPIService PatchLog", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		resp, httpRes, err := apiClient.TriggerAPI.PatchTrigger(context.Background(), primaryKey).Execute()
+		resp, httpRes, err := apiClient.LogAPI.PatchLog(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,11 +75,11 @@ func Test_api_client_TriggerAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test TriggerAPIService PostTriggers", func(t *testing.T) {
+	t.Run("Test LogAPIService PostLogs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.TriggerAPI.PostTriggers(context.Background()).Execute()
+		resp, httpRes, err := apiClient.LogAPI.PostLogs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

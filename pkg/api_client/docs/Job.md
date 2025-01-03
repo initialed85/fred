@@ -4,26 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BuildTaskId** | Pointer to **string** |  | [optional] 
-**BuildTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
-**DeployTaskId** | Pointer to **string** |  | [optional] 
-**DeployTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**JobExecutorClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**PublishTaskId** | Pointer to **string** |  | [optional] 
-**PublishTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
-**ReferencedByExecutionJobIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
-**ReferencedByRuleRequiresJobJobIdObjects** | Pointer to [**[]RuleRequiresJob**](RuleRequiresJob.md) |  | [optional] 
-**RuleId** | Pointer to **string** |  | [optional] 
-**RuleIdObject** | Pointer to [**Rule**](Rule.md) |  | [optional] 
-**TestTaskId** | Pointer to **string** |  | [optional] 
-**TestTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
+**ReferencedByRuleJobTriggerJobIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**ReferencedByTaskJobIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**RuleTriggerRuleId** | Pointer to **string** |  | [optional] 
+**RuleTriggerRuleIdObject** | Pointer to [**Rule**](Rule.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**ValidateTaskId** | Pointer to **string** |  | [optional] 
-**ValidateTaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
 
 ## Methods
 
@@ -43,56 +32,6 @@ will change when the set of required properties is changed
 NewJobWithDefaults instantiates a new Job object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetBuildTaskId
-
-`func (o *Job) GetBuildTaskId() string`
-
-GetBuildTaskId returns the BuildTaskId field if non-nil, zero value otherwise.
-
-### GetBuildTaskIdOk
-
-`func (o *Job) GetBuildTaskIdOk() (*string, bool)`
-
-GetBuildTaskIdOk returns a tuple with the BuildTaskId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBuildTaskId
-
-`func (o *Job) SetBuildTaskId(v string)`
-
-SetBuildTaskId sets BuildTaskId field to given value.
-
-### HasBuildTaskId
-
-`func (o *Job) HasBuildTaskId() bool`
-
-HasBuildTaskId returns a boolean if a field has been set.
-
-### GetBuildTaskIdObject
-
-`func (o *Job) GetBuildTaskIdObject() Task`
-
-GetBuildTaskIdObject returns the BuildTaskIdObject field if non-nil, zero value otherwise.
-
-### GetBuildTaskIdObjectOk
-
-`func (o *Job) GetBuildTaskIdObjectOk() (*Task, bool)`
-
-GetBuildTaskIdObjectOk returns a tuple with the BuildTaskIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBuildTaskIdObject
-
-`func (o *Job) SetBuildTaskIdObject(v Task)`
-
-SetBuildTaskIdObject sets BuildTaskIdObject field to given value.
-
-### HasBuildTaskIdObject
-
-`func (o *Job) HasBuildTaskIdObject() bool`
-
-HasBuildTaskIdObject returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -144,56 +83,6 @@ SetDeletedAt sets DeletedAt field to given value.
 
 HasDeletedAt returns a boolean if a field has been set.
 
-### GetDeployTaskId
-
-`func (o *Job) GetDeployTaskId() string`
-
-GetDeployTaskId returns the DeployTaskId field if non-nil, zero value otherwise.
-
-### GetDeployTaskIdOk
-
-`func (o *Job) GetDeployTaskIdOk() (*string, bool)`
-
-GetDeployTaskIdOk returns a tuple with the DeployTaskId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeployTaskId
-
-`func (o *Job) SetDeployTaskId(v string)`
-
-SetDeployTaskId sets DeployTaskId field to given value.
-
-### HasDeployTaskId
-
-`func (o *Job) HasDeployTaskId() bool`
-
-HasDeployTaskId returns a boolean if a field has been set.
-
-### GetDeployTaskIdObject
-
-`func (o *Job) GetDeployTaskIdObject() Task`
-
-GetDeployTaskIdObject returns the DeployTaskIdObject field if non-nil, zero value otherwise.
-
-### GetDeployTaskIdObjectOk
-
-`func (o *Job) GetDeployTaskIdObjectOk() (*Task, bool)`
-
-GetDeployTaskIdObjectOk returns a tuple with the DeployTaskIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDeployTaskIdObject
-
-`func (o *Job) SetDeployTaskIdObject(v Task)`
-
-SetDeployTaskIdObject sets DeployTaskIdObject field to given value.
-
-### HasDeployTaskIdObject
-
-`func (o *Job) HasDeployTaskIdObject() bool`
-
-HasDeployTaskIdObject returns a boolean if a field has been set.
-
 ### GetId
 
 `func (o *Job) GetId() string`
@@ -218,31 +107,6 @@ SetId sets Id field to given value.
 `func (o *Job) HasId() bool`
 
 HasId returns a boolean if a field has been set.
-
-### GetJobExecutorClaimedUntil
-
-`func (o *Job) GetJobExecutorClaimedUntil() time.Time`
-
-GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field if non-nil, zero value otherwise.
-
-### GetJobExecutorClaimedUntilOk
-
-`func (o *Job) GetJobExecutorClaimedUntilOk() (*time.Time, bool)`
-
-GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetJobExecutorClaimedUntil
-
-`func (o *Job) SetJobExecutorClaimedUntil(v time.Time)`
-
-SetJobExecutorClaimedUntil sets JobExecutorClaimedUntil field to given value.
-
-### HasJobExecutorClaimedUntil
-
-`func (o *Job) HasJobExecutorClaimedUntil() bool`
-
-HasJobExecutorClaimedUntil returns a boolean if a field has been set.
 
 ### GetName
 
@@ -269,225 +133,125 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
-### GetPublishTaskId
+### GetReferencedByRuleJobTriggerJobIdObjects
 
-`func (o *Job) GetPublishTaskId() string`
+`func (o *Job) GetReferencedByRuleJobTriggerJobIdObjects() []Rule`
 
-GetPublishTaskId returns the PublishTaskId field if non-nil, zero value otherwise.
+GetReferencedByRuleJobTriggerJobIdObjects returns the ReferencedByRuleJobTriggerJobIdObjects field if non-nil, zero value otherwise.
 
-### GetPublishTaskIdOk
+### GetReferencedByRuleJobTriggerJobIdObjectsOk
 
-`func (o *Job) GetPublishTaskIdOk() (*string, bool)`
+`func (o *Job) GetReferencedByRuleJobTriggerJobIdObjectsOk() (*[]Rule, bool)`
 
-GetPublishTaskIdOk returns a tuple with the PublishTaskId field if it's non-nil, zero value otherwise
+GetReferencedByRuleJobTriggerJobIdObjectsOk returns a tuple with the ReferencedByRuleJobTriggerJobIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishTaskId
+### SetReferencedByRuleJobTriggerJobIdObjects
 
-`func (o *Job) SetPublishTaskId(v string)`
+`func (o *Job) SetReferencedByRuleJobTriggerJobIdObjects(v []Rule)`
 
-SetPublishTaskId sets PublishTaskId field to given value.
+SetReferencedByRuleJobTriggerJobIdObjects sets ReferencedByRuleJobTriggerJobIdObjects field to given value.
 
-### HasPublishTaskId
+### HasReferencedByRuleJobTriggerJobIdObjects
 
-`func (o *Job) HasPublishTaskId() bool`
+`func (o *Job) HasReferencedByRuleJobTriggerJobIdObjects() bool`
 
-HasPublishTaskId returns a boolean if a field has been set.
+HasReferencedByRuleJobTriggerJobIdObjects returns a boolean if a field has been set.
 
-### GetPublishTaskIdObject
+### SetReferencedByRuleJobTriggerJobIdObjectsNil
 
-`func (o *Job) GetPublishTaskIdObject() Task`
+`func (o *Job) SetReferencedByRuleJobTriggerJobIdObjectsNil(b bool)`
 
-GetPublishTaskIdObject returns the PublishTaskIdObject field if non-nil, zero value otherwise.
+ SetReferencedByRuleJobTriggerJobIdObjectsNil sets the value for ReferencedByRuleJobTriggerJobIdObjects to be an explicit nil
 
-### GetPublishTaskIdObjectOk
+### UnsetReferencedByRuleJobTriggerJobIdObjects
+`func (o *Job) UnsetReferencedByRuleJobTriggerJobIdObjects()`
 
-`func (o *Job) GetPublishTaskIdObjectOk() (*Task, bool)`
+UnsetReferencedByRuleJobTriggerJobIdObjects ensures that no value is present for ReferencedByRuleJobTriggerJobIdObjects, not even an explicit nil
+### GetReferencedByTaskJobIdObjects
 
-GetPublishTaskIdObjectOk returns a tuple with the PublishTaskIdObject field if it's non-nil, zero value otherwise
+`func (o *Job) GetReferencedByTaskJobIdObjects() []Rule`
+
+GetReferencedByTaskJobIdObjects returns the ReferencedByTaskJobIdObjects field if non-nil, zero value otherwise.
+
+### GetReferencedByTaskJobIdObjectsOk
+
+`func (o *Job) GetReferencedByTaskJobIdObjectsOk() (*[]Rule, bool)`
+
+GetReferencedByTaskJobIdObjectsOk returns a tuple with the ReferencedByTaskJobIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishTaskIdObject
+### SetReferencedByTaskJobIdObjects
 
-`func (o *Job) SetPublishTaskIdObject(v Task)`
+`func (o *Job) SetReferencedByTaskJobIdObjects(v []Rule)`
 
-SetPublishTaskIdObject sets PublishTaskIdObject field to given value.
+SetReferencedByTaskJobIdObjects sets ReferencedByTaskJobIdObjects field to given value.
 
-### HasPublishTaskIdObject
+### HasReferencedByTaskJobIdObjects
 
-`func (o *Job) HasPublishTaskIdObject() bool`
+`func (o *Job) HasReferencedByTaskJobIdObjects() bool`
 
-HasPublishTaskIdObject returns a boolean if a field has been set.
+HasReferencedByTaskJobIdObjects returns a boolean if a field has been set.
 
-### GetReferencedByExecutionJobIdObjects
+### SetReferencedByTaskJobIdObjectsNil
 
-`func (o *Job) GetReferencedByExecutionJobIdObjects() []Execution`
+`func (o *Job) SetReferencedByTaskJobIdObjectsNil(b bool)`
 
-GetReferencedByExecutionJobIdObjects returns the ReferencedByExecutionJobIdObjects field if non-nil, zero value otherwise.
+ SetReferencedByTaskJobIdObjectsNil sets the value for ReferencedByTaskJobIdObjects to be an explicit nil
 
-### GetReferencedByExecutionJobIdObjectsOk
+### UnsetReferencedByTaskJobIdObjects
+`func (o *Job) UnsetReferencedByTaskJobIdObjects()`
 
-`func (o *Job) GetReferencedByExecutionJobIdObjectsOk() (*[]Execution, bool)`
+UnsetReferencedByTaskJobIdObjects ensures that no value is present for ReferencedByTaskJobIdObjects, not even an explicit nil
+### GetRuleTriggerRuleId
 
-GetReferencedByExecutionJobIdObjectsOk returns a tuple with the ReferencedByExecutionJobIdObjects field if it's non-nil, zero value otherwise
+`func (o *Job) GetRuleTriggerRuleId() string`
+
+GetRuleTriggerRuleId returns the RuleTriggerRuleId field if non-nil, zero value otherwise.
+
+### GetRuleTriggerRuleIdOk
+
+`func (o *Job) GetRuleTriggerRuleIdOk() (*string, bool)`
+
+GetRuleTriggerRuleIdOk returns a tuple with the RuleTriggerRuleId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByExecutionJobIdObjects
+### SetRuleTriggerRuleId
 
-`func (o *Job) SetReferencedByExecutionJobIdObjects(v []Execution)`
+`func (o *Job) SetRuleTriggerRuleId(v string)`
 
-SetReferencedByExecutionJobIdObjects sets ReferencedByExecutionJobIdObjects field to given value.
+SetRuleTriggerRuleId sets RuleTriggerRuleId field to given value.
 
-### HasReferencedByExecutionJobIdObjects
+### HasRuleTriggerRuleId
 
-`func (o *Job) HasReferencedByExecutionJobIdObjects() bool`
+`func (o *Job) HasRuleTriggerRuleId() bool`
 
-HasReferencedByExecutionJobIdObjects returns a boolean if a field has been set.
+HasRuleTriggerRuleId returns a boolean if a field has been set.
 
-### SetReferencedByExecutionJobIdObjectsNil
+### GetRuleTriggerRuleIdObject
 
-`func (o *Job) SetReferencedByExecutionJobIdObjectsNil(b bool)`
+`func (o *Job) GetRuleTriggerRuleIdObject() Rule`
 
- SetReferencedByExecutionJobIdObjectsNil sets the value for ReferencedByExecutionJobIdObjects to be an explicit nil
+GetRuleTriggerRuleIdObject returns the RuleTriggerRuleIdObject field if non-nil, zero value otherwise.
 
-### UnsetReferencedByExecutionJobIdObjects
-`func (o *Job) UnsetReferencedByExecutionJobIdObjects()`
+### GetRuleTriggerRuleIdObjectOk
 
-UnsetReferencedByExecutionJobIdObjects ensures that no value is present for ReferencedByExecutionJobIdObjects, not even an explicit nil
-### GetReferencedByRuleRequiresJobJobIdObjects
+`func (o *Job) GetRuleTriggerRuleIdObjectOk() (*Rule, bool)`
 
-`func (o *Job) GetReferencedByRuleRequiresJobJobIdObjects() []RuleRequiresJob`
-
-GetReferencedByRuleRequiresJobJobIdObjects returns the ReferencedByRuleRequiresJobJobIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByRuleRequiresJobJobIdObjectsOk
-
-`func (o *Job) GetReferencedByRuleRequiresJobJobIdObjectsOk() (*[]RuleRequiresJob, bool)`
-
-GetReferencedByRuleRequiresJobJobIdObjectsOk returns a tuple with the ReferencedByRuleRequiresJobJobIdObjects field if it's non-nil, zero value otherwise
+GetRuleTriggerRuleIdObjectOk returns a tuple with the RuleTriggerRuleIdObject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByRuleRequiresJobJobIdObjects
+### SetRuleTriggerRuleIdObject
 
-`func (o *Job) SetReferencedByRuleRequiresJobJobIdObjects(v []RuleRequiresJob)`
+`func (o *Job) SetRuleTriggerRuleIdObject(v Rule)`
 
-SetReferencedByRuleRequiresJobJobIdObjects sets ReferencedByRuleRequiresJobJobIdObjects field to given value.
+SetRuleTriggerRuleIdObject sets RuleTriggerRuleIdObject field to given value.
 
-### HasReferencedByRuleRequiresJobJobIdObjects
+### HasRuleTriggerRuleIdObject
 
-`func (o *Job) HasReferencedByRuleRequiresJobJobIdObjects() bool`
+`func (o *Job) HasRuleTriggerRuleIdObject() bool`
 
-HasReferencedByRuleRequiresJobJobIdObjects returns a boolean if a field has been set.
-
-### SetReferencedByRuleRequiresJobJobIdObjectsNil
-
-`func (o *Job) SetReferencedByRuleRequiresJobJobIdObjectsNil(b bool)`
-
- SetReferencedByRuleRequiresJobJobIdObjectsNil sets the value for ReferencedByRuleRequiresJobJobIdObjects to be an explicit nil
-
-### UnsetReferencedByRuleRequiresJobJobIdObjects
-`func (o *Job) UnsetReferencedByRuleRequiresJobJobIdObjects()`
-
-UnsetReferencedByRuleRequiresJobJobIdObjects ensures that no value is present for ReferencedByRuleRequiresJobJobIdObjects, not even an explicit nil
-### GetRuleId
-
-`func (o *Job) GetRuleId() string`
-
-GetRuleId returns the RuleId field if non-nil, zero value otherwise.
-
-### GetRuleIdOk
-
-`func (o *Job) GetRuleIdOk() (*string, bool)`
-
-GetRuleIdOk returns a tuple with the RuleId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRuleId
-
-`func (o *Job) SetRuleId(v string)`
-
-SetRuleId sets RuleId field to given value.
-
-### HasRuleId
-
-`func (o *Job) HasRuleId() bool`
-
-HasRuleId returns a boolean if a field has been set.
-
-### GetRuleIdObject
-
-`func (o *Job) GetRuleIdObject() Rule`
-
-GetRuleIdObject returns the RuleIdObject field if non-nil, zero value otherwise.
-
-### GetRuleIdObjectOk
-
-`func (o *Job) GetRuleIdObjectOk() (*Rule, bool)`
-
-GetRuleIdObjectOk returns a tuple with the RuleIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRuleIdObject
-
-`func (o *Job) SetRuleIdObject(v Rule)`
-
-SetRuleIdObject sets RuleIdObject field to given value.
-
-### HasRuleIdObject
-
-`func (o *Job) HasRuleIdObject() bool`
-
-HasRuleIdObject returns a boolean if a field has been set.
-
-### GetTestTaskId
-
-`func (o *Job) GetTestTaskId() string`
-
-GetTestTaskId returns the TestTaskId field if non-nil, zero value otherwise.
-
-### GetTestTaskIdOk
-
-`func (o *Job) GetTestTaskIdOk() (*string, bool)`
-
-GetTestTaskIdOk returns a tuple with the TestTaskId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTestTaskId
-
-`func (o *Job) SetTestTaskId(v string)`
-
-SetTestTaskId sets TestTaskId field to given value.
-
-### HasTestTaskId
-
-`func (o *Job) HasTestTaskId() bool`
-
-HasTestTaskId returns a boolean if a field has been set.
-
-### GetTestTaskIdObject
-
-`func (o *Job) GetTestTaskIdObject() Task`
-
-GetTestTaskIdObject returns the TestTaskIdObject field if non-nil, zero value otherwise.
-
-### GetTestTaskIdObjectOk
-
-`func (o *Job) GetTestTaskIdObjectOk() (*Task, bool)`
-
-GetTestTaskIdObjectOk returns a tuple with the TestTaskIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTestTaskIdObject
-
-`func (o *Job) SetTestTaskIdObject(v Task)`
-
-SetTestTaskIdObject sets TestTaskIdObject field to given value.
-
-### HasTestTaskIdObject
-
-`func (o *Job) HasTestTaskIdObject() bool`
-
-HasTestTaskIdObject returns a boolean if a field has been set.
+HasRuleTriggerRuleIdObject returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -513,56 +277,6 @@ SetUpdatedAt sets UpdatedAt field to given value.
 `func (o *Job) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
-
-### GetValidateTaskId
-
-`func (o *Job) GetValidateTaskId() string`
-
-GetValidateTaskId returns the ValidateTaskId field if non-nil, zero value otherwise.
-
-### GetValidateTaskIdOk
-
-`func (o *Job) GetValidateTaskIdOk() (*string, bool)`
-
-GetValidateTaskIdOk returns a tuple with the ValidateTaskId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidateTaskId
-
-`func (o *Job) SetValidateTaskId(v string)`
-
-SetValidateTaskId sets ValidateTaskId field to given value.
-
-### HasValidateTaskId
-
-`func (o *Job) HasValidateTaskId() bool`
-
-HasValidateTaskId returns a boolean if a field has been set.
-
-### GetValidateTaskIdObject
-
-`func (o *Job) GetValidateTaskIdObject() Task`
-
-GetValidateTaskIdObject returns the ValidateTaskIdObject field if non-nil, zero value otherwise.
-
-### GetValidateTaskIdObjectOk
-
-`func (o *Job) GetValidateTaskIdObjectOk() (*Task, bool)`
-
-GetValidateTaskIdObjectOk returns a tuple with the ValidateTaskIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValidateTaskIdObject
-
-`func (o *Job) SetValidateTaskIdObject(v Task)`
-
-SetValidateTaskIdObject sets ValidateTaskIdObject field to given value.
-
-### HasValidateTaskIdObject
-
-`func (o *Job) HasValidateTaskIdObject() bool`
-
-HasValidateTaskIdObject returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

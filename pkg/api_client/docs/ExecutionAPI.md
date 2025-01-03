@@ -152,7 +152,7 @@ No authorization required
 
 ## GetExecutions
 
-> ResponseWithGenericOfExecution GetExecutions(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).TriggerIdEq(triggerIdEq).TriggerIdNe(triggerIdNe).TriggerIdGt(triggerIdGt).TriggerIdGte(triggerIdGte).TriggerIdLt(triggerIdLt).TriggerIdLte(triggerIdLte).TriggerIdIn(triggerIdIn).TriggerIdNotin(triggerIdNotin).TriggerIdLike(triggerIdLike).TriggerIdNotlike(triggerIdNotlike).TriggerIdIlike(triggerIdIlike).TriggerIdNotilike(triggerIdNotilike).TriggerIdDesc(triggerIdDesc).TriggerIdAsc(triggerIdAsc).TriggerIdObjectDesc(triggerIdObjectDesc).TriggerIdObjectAsc(triggerIdObjectAsc).BuildOutputIdEq(buildOutputIdEq).BuildOutputIdNe(buildOutputIdNe).BuildOutputIdGt(buildOutputIdGt).BuildOutputIdGte(buildOutputIdGte).BuildOutputIdLt(buildOutputIdLt).BuildOutputIdLte(buildOutputIdLte).BuildOutputIdIn(buildOutputIdIn).BuildOutputIdNotin(buildOutputIdNotin).BuildOutputIdLike(buildOutputIdLike).BuildOutputIdNotlike(buildOutputIdNotlike).BuildOutputIdIlike(buildOutputIdIlike).BuildOutputIdNotilike(buildOutputIdNotilike).BuildOutputIdDesc(buildOutputIdDesc).BuildOutputIdAsc(buildOutputIdAsc).BuildOutputIdObjectDesc(buildOutputIdObjectDesc).BuildOutputIdObjectAsc(buildOutputIdObjectAsc).TestOutputIdEq(testOutputIdEq).TestOutputIdNe(testOutputIdNe).TestOutputIdGt(testOutputIdGt).TestOutputIdGte(testOutputIdGte).TestOutputIdLt(testOutputIdLt).TestOutputIdLte(testOutputIdLte).TestOutputIdIn(testOutputIdIn).TestOutputIdNotin(testOutputIdNotin).TestOutputIdLike(testOutputIdLike).TestOutputIdNotlike(testOutputIdNotlike).TestOutputIdIlike(testOutputIdIlike).TestOutputIdNotilike(testOutputIdNotilike).TestOutputIdDesc(testOutputIdDesc).TestOutputIdAsc(testOutputIdAsc).TestOutputIdObjectDesc(testOutputIdObjectDesc).TestOutputIdObjectAsc(testOutputIdObjectAsc).PublishOutputIdEq(publishOutputIdEq).PublishOutputIdNe(publishOutputIdNe).PublishOutputIdGt(publishOutputIdGt).PublishOutputIdGte(publishOutputIdGte).PublishOutputIdLt(publishOutputIdLt).PublishOutputIdLte(publishOutputIdLte).PublishOutputIdIn(publishOutputIdIn).PublishOutputIdNotin(publishOutputIdNotin).PublishOutputIdLike(publishOutputIdLike).PublishOutputIdNotlike(publishOutputIdNotlike).PublishOutputIdIlike(publishOutputIdIlike).PublishOutputIdNotilike(publishOutputIdNotilike).PublishOutputIdDesc(publishOutputIdDesc).PublishOutputIdAsc(publishOutputIdAsc).PublishOutputIdObjectDesc(publishOutputIdObjectDesc).PublishOutputIdObjectAsc(publishOutputIdObjectAsc).DeployOutputIdEq(deployOutputIdEq).DeployOutputIdNe(deployOutputIdNe).DeployOutputIdGt(deployOutputIdGt).DeployOutputIdGte(deployOutputIdGte).DeployOutputIdLt(deployOutputIdLt).DeployOutputIdLte(deployOutputIdLte).DeployOutputIdIn(deployOutputIdIn).DeployOutputIdNotin(deployOutputIdNotin).DeployOutputIdLike(deployOutputIdLike).DeployOutputIdNotlike(deployOutputIdNotlike).DeployOutputIdIlike(deployOutputIdIlike).DeployOutputIdNotilike(deployOutputIdNotilike).DeployOutputIdDesc(deployOutputIdDesc).DeployOutputIdAsc(deployOutputIdAsc).DeployOutputIdObjectDesc(deployOutputIdObjectDesc).DeployOutputIdObjectAsc(deployOutputIdObjectAsc).ValidateOutputIdEq(validateOutputIdEq).ValidateOutputIdNe(validateOutputIdNe).ValidateOutputIdGt(validateOutputIdGt).ValidateOutputIdGte(validateOutputIdGte).ValidateOutputIdLt(validateOutputIdLt).ValidateOutputIdLte(validateOutputIdLte).ValidateOutputIdIn(validateOutputIdIn).ValidateOutputIdNotin(validateOutputIdNotin).ValidateOutputIdLike(validateOutputIdLike).ValidateOutputIdNotlike(validateOutputIdNotlike).ValidateOutputIdIlike(validateOutputIdIlike).ValidateOutputIdNotilike(validateOutputIdNotilike).ValidateOutputIdDesc(validateOutputIdDesc).ValidateOutputIdAsc(validateOutputIdAsc).ValidateOutputIdObjectDesc(validateOutputIdObjectDesc).ValidateOutputIdObjectAsc(validateOutputIdObjectAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).ReferencedByTriggerHasExecutionExecutionIdObjectsDesc(referencedByTriggerHasExecutionExecutionIdObjectsDesc).ReferencedByTriggerHasExecutionExecutionIdObjectsAsc(referencedByTriggerHasExecutionExecutionIdObjectsAsc).Execute()
+> ResponseWithGenericOfExecution GetExecutions(ctx).Limit(limit).Offset(offset).Depth(depth).TaskLoad(taskLoad).M2mRuleTriggerJobLoad(m2mRuleTriggerJobLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).StartedAtEq(startedAtEq).StartedAtNe(startedAtNe).StartedAtGt(startedAtGt).StartedAtGte(startedAtGte).StartedAtLt(startedAtLt).StartedAtLte(startedAtLte).StartedAtIn(startedAtIn).StartedAtNotin(startedAtNotin).StartedAtLike(startedAtLike).StartedAtNotlike(startedAtNotlike).StartedAtIlike(startedAtIlike).StartedAtNotilike(startedAtNotilike).StartedAtDesc(startedAtDesc).StartedAtAsc(startedAtAsc).EndedAtEq(endedAtEq).EndedAtNe(endedAtNe).EndedAtGt(endedAtGt).EndedAtGte(endedAtGte).EndedAtLt(endedAtLt).EndedAtLte(endedAtLte).EndedAtIn(endedAtIn).EndedAtNotin(endedAtNotin).EndedAtLike(endedAtLike).EndedAtNotlike(endedAtNotlike).EndedAtIlike(endedAtIlike).EndedAtNotilike(endedAtNotilike).EndedAtDesc(endedAtDesc).EndedAtAsc(endedAtAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).M2mRuleTriggerJobIdEq(m2mRuleTriggerJobIdEq).M2mRuleTriggerJobIdNe(m2mRuleTriggerJobIdNe).M2mRuleTriggerJobIdGt(m2mRuleTriggerJobIdGt).M2mRuleTriggerJobIdGte(m2mRuleTriggerJobIdGte).M2mRuleTriggerJobIdLt(m2mRuleTriggerJobIdLt).M2mRuleTriggerJobIdLte(m2mRuleTriggerJobIdLte).M2mRuleTriggerJobIdIn(m2mRuleTriggerJobIdIn).M2mRuleTriggerJobIdNotin(m2mRuleTriggerJobIdNotin).M2mRuleTriggerJobIdLike(m2mRuleTriggerJobIdLike).M2mRuleTriggerJobIdNotlike(m2mRuleTriggerJobIdNotlike).M2mRuleTriggerJobIdIlike(m2mRuleTriggerJobIdIlike).M2mRuleTriggerJobIdNotilike(m2mRuleTriggerJobIdNotilike).M2mRuleTriggerJobIdDesc(m2mRuleTriggerJobIdDesc).M2mRuleTriggerJobIdAsc(m2mRuleTriggerJobIdAsc).M2mRuleTriggerJobIdObjectDesc(m2mRuleTriggerJobIdObjectDesc).M2mRuleTriggerJobIdObjectAsc(m2mRuleTriggerJobIdObjectAsc).Execute()
 
 
 
@@ -173,6 +173,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
+	taskLoad := "taskLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
+	m2mRuleTriggerJobLoad := "m2mRuleTriggerJobLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -243,124 +245,70 @@ func main() {
 	statusNotilike := "statusNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	statusDesc := "statusDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	statusAsc := "statusAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	triggerIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	triggerIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	triggerIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	triggerIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	triggerIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	triggerIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	triggerIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	triggerIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdDesc := "triggerIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdAsc := "triggerIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdObjectDesc := "triggerIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdObjectAsc := "triggerIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	buildOutputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	buildOutputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	buildOutputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	buildOutputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	buildOutputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	buildOutputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	buildOutputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	buildOutputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	buildOutputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	buildOutputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	buildOutputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	buildOutputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	buildOutputIdDesc := "buildOutputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	buildOutputIdAsc := "buildOutputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	buildOutputIdObjectDesc := "buildOutputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	buildOutputIdObjectAsc := "buildOutputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	testOutputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	testOutputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	testOutputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	testOutputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	testOutputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	testOutputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	testOutputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	testOutputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	testOutputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	testOutputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	testOutputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	testOutputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	testOutputIdDesc := "testOutputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	testOutputIdAsc := "testOutputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	testOutputIdObjectDesc := "testOutputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	testOutputIdObjectAsc := "testOutputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	publishOutputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	publishOutputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	publishOutputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	publishOutputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	publishOutputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	publishOutputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	publishOutputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	publishOutputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	publishOutputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	publishOutputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	publishOutputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	publishOutputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	publishOutputIdDesc := "publishOutputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	publishOutputIdAsc := "publishOutputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	publishOutputIdObjectDesc := "publishOutputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	publishOutputIdObjectAsc := "publishOutputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	deployOutputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	deployOutputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	deployOutputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	deployOutputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	deployOutputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	deployOutputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	deployOutputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	deployOutputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	deployOutputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	deployOutputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	deployOutputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	deployOutputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	deployOutputIdDesc := "deployOutputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	deployOutputIdAsc := "deployOutputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	deployOutputIdObjectDesc := "deployOutputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	deployOutputIdObjectAsc := "deployOutputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	validateOutputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	validateOutputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	validateOutputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	validateOutputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	validateOutputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	validateOutputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	validateOutputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	validateOutputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	validateOutputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	validateOutputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	validateOutputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	validateOutputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	validateOutputIdDesc := "validateOutputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	validateOutputIdAsc := "validateOutputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	validateOutputIdObjectDesc := "validateOutputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	validateOutputIdObjectAsc := "validateOutputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	jobIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	jobIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	jobIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	jobIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	jobIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	jobIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	jobIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	jobIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdDesc := "jobIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdAsc := "jobIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdObjectDesc := "jobIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdObjectAsc := "jobIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByTriggerHasExecutionExecutionIdObjectsDesc := "referencedByTriggerHasExecutionExecutionIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByTriggerHasExecutionExecutionIdObjectsAsc := "referencedByTriggerHasExecutionExecutionIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	startedAtEq := time.Now() // time.Time | SQL = comparison (optional)
+	startedAtNe := time.Now() // time.Time | SQL != comparison (optional)
+	startedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	startedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	startedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	startedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	startedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	startedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	startedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	startedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	startedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	startedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	startedAtDesc := "startedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	startedAtAsc := "startedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	endedAtEq := time.Now() // time.Time | SQL = comparison (optional)
+	endedAtNe := time.Now() // time.Time | SQL != comparison (optional)
+	endedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	endedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	endedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	endedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	endedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	endedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	endedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	endedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	endedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	endedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	endedAtDesc := "endedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	endedAtAsc := "endedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	taskIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
+	taskIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
+	taskIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
+	taskIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
+	taskIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
+	taskIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
+	taskIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
+	taskIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	taskIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	taskIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	taskIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	taskIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	taskIdDesc := "taskIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	taskIdAsc := "taskIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	taskIdObjectDesc := "taskIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	taskIdObjectAsc := "taskIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	m2mRuleTriggerJobIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
+	m2mRuleTriggerJobIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
+	m2mRuleTriggerJobIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
+	m2mRuleTriggerJobIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
+	m2mRuleTriggerJobIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
+	m2mRuleTriggerJobIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
+	m2mRuleTriggerJobIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
+	m2mRuleTriggerJobIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	m2mRuleTriggerJobIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	m2mRuleTriggerJobIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	m2mRuleTriggerJobIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	m2mRuleTriggerJobIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	m2mRuleTriggerJobIdDesc := "m2mRuleTriggerJobIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	m2mRuleTriggerJobIdAsc := "m2mRuleTriggerJobIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	m2mRuleTriggerJobIdObjectDesc := "m2mRuleTriggerJobIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	m2mRuleTriggerJobIdObjectAsc := "m2mRuleTriggerJobIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ExecutionAPI.GetExecutions(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).TriggerIdEq(triggerIdEq).TriggerIdNe(triggerIdNe).TriggerIdGt(triggerIdGt).TriggerIdGte(triggerIdGte).TriggerIdLt(triggerIdLt).TriggerIdLte(triggerIdLte).TriggerIdIn(triggerIdIn).TriggerIdNotin(triggerIdNotin).TriggerIdLike(triggerIdLike).TriggerIdNotlike(triggerIdNotlike).TriggerIdIlike(triggerIdIlike).TriggerIdNotilike(triggerIdNotilike).TriggerIdDesc(triggerIdDesc).TriggerIdAsc(triggerIdAsc).TriggerIdObjectDesc(triggerIdObjectDesc).TriggerIdObjectAsc(triggerIdObjectAsc).BuildOutputIdEq(buildOutputIdEq).BuildOutputIdNe(buildOutputIdNe).BuildOutputIdGt(buildOutputIdGt).BuildOutputIdGte(buildOutputIdGte).BuildOutputIdLt(buildOutputIdLt).BuildOutputIdLte(buildOutputIdLte).BuildOutputIdIn(buildOutputIdIn).BuildOutputIdNotin(buildOutputIdNotin).BuildOutputIdLike(buildOutputIdLike).BuildOutputIdNotlike(buildOutputIdNotlike).BuildOutputIdIlike(buildOutputIdIlike).BuildOutputIdNotilike(buildOutputIdNotilike).BuildOutputIdDesc(buildOutputIdDesc).BuildOutputIdAsc(buildOutputIdAsc).BuildOutputIdObjectDesc(buildOutputIdObjectDesc).BuildOutputIdObjectAsc(buildOutputIdObjectAsc).TestOutputIdEq(testOutputIdEq).TestOutputIdNe(testOutputIdNe).TestOutputIdGt(testOutputIdGt).TestOutputIdGte(testOutputIdGte).TestOutputIdLt(testOutputIdLt).TestOutputIdLte(testOutputIdLte).TestOutputIdIn(testOutputIdIn).TestOutputIdNotin(testOutputIdNotin).TestOutputIdLike(testOutputIdLike).TestOutputIdNotlike(testOutputIdNotlike).TestOutputIdIlike(testOutputIdIlike).TestOutputIdNotilike(testOutputIdNotilike).TestOutputIdDesc(testOutputIdDesc).TestOutputIdAsc(testOutputIdAsc).TestOutputIdObjectDesc(testOutputIdObjectDesc).TestOutputIdObjectAsc(testOutputIdObjectAsc).PublishOutputIdEq(publishOutputIdEq).PublishOutputIdNe(publishOutputIdNe).PublishOutputIdGt(publishOutputIdGt).PublishOutputIdGte(publishOutputIdGte).PublishOutputIdLt(publishOutputIdLt).PublishOutputIdLte(publishOutputIdLte).PublishOutputIdIn(publishOutputIdIn).PublishOutputIdNotin(publishOutputIdNotin).PublishOutputIdLike(publishOutputIdLike).PublishOutputIdNotlike(publishOutputIdNotlike).PublishOutputIdIlike(publishOutputIdIlike).PublishOutputIdNotilike(publishOutputIdNotilike).PublishOutputIdDesc(publishOutputIdDesc).PublishOutputIdAsc(publishOutputIdAsc).PublishOutputIdObjectDesc(publishOutputIdObjectDesc).PublishOutputIdObjectAsc(publishOutputIdObjectAsc).DeployOutputIdEq(deployOutputIdEq).DeployOutputIdNe(deployOutputIdNe).DeployOutputIdGt(deployOutputIdGt).DeployOutputIdGte(deployOutputIdGte).DeployOutputIdLt(deployOutputIdLt).DeployOutputIdLte(deployOutputIdLte).DeployOutputIdIn(deployOutputIdIn).DeployOutputIdNotin(deployOutputIdNotin).DeployOutputIdLike(deployOutputIdLike).DeployOutputIdNotlike(deployOutputIdNotlike).DeployOutputIdIlike(deployOutputIdIlike).DeployOutputIdNotilike(deployOutputIdNotilike).DeployOutputIdDesc(deployOutputIdDesc).DeployOutputIdAsc(deployOutputIdAsc).DeployOutputIdObjectDesc(deployOutputIdObjectDesc).DeployOutputIdObjectAsc(deployOutputIdObjectAsc).ValidateOutputIdEq(validateOutputIdEq).ValidateOutputIdNe(validateOutputIdNe).ValidateOutputIdGt(validateOutputIdGt).ValidateOutputIdGte(validateOutputIdGte).ValidateOutputIdLt(validateOutputIdLt).ValidateOutputIdLte(validateOutputIdLte).ValidateOutputIdIn(validateOutputIdIn).ValidateOutputIdNotin(validateOutputIdNotin).ValidateOutputIdLike(validateOutputIdLike).ValidateOutputIdNotlike(validateOutputIdNotlike).ValidateOutputIdIlike(validateOutputIdIlike).ValidateOutputIdNotilike(validateOutputIdNotilike).ValidateOutputIdDesc(validateOutputIdDesc).ValidateOutputIdAsc(validateOutputIdAsc).ValidateOutputIdObjectDesc(validateOutputIdObjectDesc).ValidateOutputIdObjectAsc(validateOutputIdObjectAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).ReferencedByTriggerHasExecutionExecutionIdObjectsDesc(referencedByTriggerHasExecutionExecutionIdObjectsDesc).ReferencedByTriggerHasExecutionExecutionIdObjectsAsc(referencedByTriggerHasExecutionExecutionIdObjectsAsc).Execute()
+	resp, r, err := apiClient.ExecutionAPI.GetExecutions(context.Background()).Limit(limit).Offset(offset).Depth(depth).TaskLoad(taskLoad).M2mRuleTriggerJobLoad(m2mRuleTriggerJobLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).StatusEq(statusEq).StatusNe(statusNe).StatusGt(statusGt).StatusGte(statusGte).StatusLt(statusLt).StatusLte(statusLte).StatusIn(statusIn).StatusNotin(statusNotin).StatusLike(statusLike).StatusNotlike(statusNotlike).StatusIlike(statusIlike).StatusNotilike(statusNotilike).StatusDesc(statusDesc).StatusAsc(statusAsc).StartedAtEq(startedAtEq).StartedAtNe(startedAtNe).StartedAtGt(startedAtGt).StartedAtGte(startedAtGte).StartedAtLt(startedAtLt).StartedAtLte(startedAtLte).StartedAtIn(startedAtIn).StartedAtNotin(startedAtNotin).StartedAtLike(startedAtLike).StartedAtNotlike(startedAtNotlike).StartedAtIlike(startedAtIlike).StartedAtNotilike(startedAtNotilike).StartedAtDesc(startedAtDesc).StartedAtAsc(startedAtAsc).EndedAtEq(endedAtEq).EndedAtNe(endedAtNe).EndedAtGt(endedAtGt).EndedAtGte(endedAtGte).EndedAtLt(endedAtLt).EndedAtLte(endedAtLte).EndedAtIn(endedAtIn).EndedAtNotin(endedAtNotin).EndedAtLike(endedAtLike).EndedAtNotlike(endedAtNotlike).EndedAtIlike(endedAtIlike).EndedAtNotilike(endedAtNotilike).EndedAtDesc(endedAtDesc).EndedAtAsc(endedAtAsc).TaskIdEq(taskIdEq).TaskIdNe(taskIdNe).TaskIdGt(taskIdGt).TaskIdGte(taskIdGte).TaskIdLt(taskIdLt).TaskIdLte(taskIdLte).TaskIdIn(taskIdIn).TaskIdNotin(taskIdNotin).TaskIdLike(taskIdLike).TaskIdNotlike(taskIdNotlike).TaskIdIlike(taskIdIlike).TaskIdNotilike(taskIdNotilike).TaskIdDesc(taskIdDesc).TaskIdAsc(taskIdAsc).TaskIdObjectDesc(taskIdObjectDesc).TaskIdObjectAsc(taskIdObjectAsc).M2mRuleTriggerJobIdEq(m2mRuleTriggerJobIdEq).M2mRuleTriggerJobIdNe(m2mRuleTriggerJobIdNe).M2mRuleTriggerJobIdGt(m2mRuleTriggerJobIdGt).M2mRuleTriggerJobIdGte(m2mRuleTriggerJobIdGte).M2mRuleTriggerJobIdLt(m2mRuleTriggerJobIdLt).M2mRuleTriggerJobIdLte(m2mRuleTriggerJobIdLte).M2mRuleTriggerJobIdIn(m2mRuleTriggerJobIdIn).M2mRuleTriggerJobIdNotin(m2mRuleTriggerJobIdNotin).M2mRuleTriggerJobIdLike(m2mRuleTriggerJobIdLike).M2mRuleTriggerJobIdNotlike(m2mRuleTriggerJobIdNotlike).M2mRuleTriggerJobIdIlike(m2mRuleTriggerJobIdIlike).M2mRuleTriggerJobIdNotilike(m2mRuleTriggerJobIdNotilike).M2mRuleTriggerJobIdDesc(m2mRuleTriggerJobIdDesc).M2mRuleTriggerJobIdAsc(m2mRuleTriggerJobIdAsc).M2mRuleTriggerJobIdObjectDesc(m2mRuleTriggerJobIdObjectDesc).M2mRuleTriggerJobIdObjectAsc(m2mRuleTriggerJobIdObjectAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ExecutionAPI.GetExecutions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -384,6 +332,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
+ **taskLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
+ **m2mRuleTriggerJobLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -454,120 +404,66 @@ Name | Type | Description  | Notes
  **statusNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **statusDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **statusAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdEq** | **string** | SQL &#x3D; comparison | 
- **triggerIdNe** | **string** | SQL !&#x3D; comparison | 
- **triggerIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **triggerIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **triggerIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **triggerIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **triggerIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **triggerIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **triggerIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **buildOutputIdEq** | **string** | SQL &#x3D; comparison | 
- **buildOutputIdNe** | **string** | SQL !&#x3D; comparison | 
- **buildOutputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **buildOutputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **buildOutputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **buildOutputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **buildOutputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **buildOutputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **buildOutputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **buildOutputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **buildOutputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **buildOutputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **buildOutputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **buildOutputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **buildOutputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **buildOutputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **testOutputIdEq** | **string** | SQL &#x3D; comparison | 
- **testOutputIdNe** | **string** | SQL !&#x3D; comparison | 
- **testOutputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **testOutputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **testOutputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **testOutputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **testOutputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **testOutputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **testOutputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **testOutputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **testOutputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **testOutputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **testOutputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **testOutputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **testOutputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **testOutputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **publishOutputIdEq** | **string** | SQL &#x3D; comparison | 
- **publishOutputIdNe** | **string** | SQL !&#x3D; comparison | 
- **publishOutputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **publishOutputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **publishOutputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **publishOutputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **publishOutputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **publishOutputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **publishOutputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **publishOutputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **publishOutputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **publishOutputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **publishOutputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **publishOutputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **publishOutputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **publishOutputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **deployOutputIdEq** | **string** | SQL &#x3D; comparison | 
- **deployOutputIdNe** | **string** | SQL !&#x3D; comparison | 
- **deployOutputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **deployOutputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **deployOutputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **deployOutputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **deployOutputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **deployOutputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **deployOutputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **deployOutputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **deployOutputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **deployOutputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **deployOutputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **deployOutputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **deployOutputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **deployOutputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **validateOutputIdEq** | **string** | SQL &#x3D; comparison | 
- **validateOutputIdNe** | **string** | SQL !&#x3D; comparison | 
- **validateOutputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **validateOutputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **validateOutputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **validateOutputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **validateOutputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **validateOutputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **validateOutputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **validateOutputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **validateOutputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **validateOutputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **validateOutputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **validateOutputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **validateOutputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **validateOutputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobIdEq** | **string** | SQL &#x3D; comparison | 
- **jobIdNe** | **string** | SQL !&#x3D; comparison | 
- **jobIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **jobIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **jobIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **jobIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **jobIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **jobIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **jobIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByTriggerHasExecutionExecutionIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByTriggerHasExecutionExecutionIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **startedAtEq** | **time.Time** | SQL &#x3D; comparison | 
+ **startedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **startedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **startedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **startedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **startedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **startedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **startedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **startedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **startedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **startedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **startedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **startedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **startedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **endedAtEq** | **time.Time** | SQL &#x3D; comparison | 
+ **endedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **endedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **endedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **endedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **endedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **endedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **endedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **endedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **endedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **endedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **endedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **endedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **endedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **taskIdEq** | **string** | SQL &#x3D; comparison | 
+ **taskIdNe** | **string** | SQL !&#x3D; comparison | 
+ **taskIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **taskIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **taskIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **taskIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **taskIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **taskIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **taskIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **taskIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **taskIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **taskIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **taskIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **taskIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **taskIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **taskIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **m2mRuleTriggerJobIdEq** | **string** | SQL &#x3D; comparison | 
+ **m2mRuleTriggerJobIdNe** | **string** | SQL !&#x3D; comparison | 
+ **m2mRuleTriggerJobIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **m2mRuleTriggerJobIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **m2mRuleTriggerJobIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **m2mRuleTriggerJobIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **m2mRuleTriggerJobIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **m2mRuleTriggerJobIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **m2mRuleTriggerJobIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **m2mRuleTriggerJobIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **m2mRuleTriggerJobIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **m2mRuleTriggerJobIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **m2mRuleTriggerJobIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **m2mRuleTriggerJobIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **m2mRuleTriggerJobIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **m2mRuleTriggerJobIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 

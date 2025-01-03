@@ -3,6 +3,9 @@ package internal
 import (
 	"context"
 	_log "log"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	_config "github.com/initialed85/djangolang/pkg/config"
@@ -25,16 +28,25 @@ func Run(
 		db.Close()
 	}()
 
+	innerCtx, innerCancel := context.WithCancel(ctx)
+
+	go func() {
+		done := make(chan os.Signal, 1)
+		signal.Notify(done, syscall.SIGINT, syscall.SIGTERM)
+		<-done
+		innerCancel()
+	}()
+
 	t := time.NewTicker(time.Second * 1)
 
 	log.Printf("running...")
 
 	for {
 		select {
-		case <-ctx.Done():
+		case <-innerCtx.Done():
 			return nil
 		case <-t.C:
-			err = work(ctx, db)
+			err = work(innerCtx, db)
 			if err != nil {
 				return err
 			}

@@ -20,7 +20,7 @@ func Run() error {
 		log,
 		func(ctx context.Context, db *pgxpool.Pool, tx pgx.Tx) error {
 			// there's probably no need to run multiple trigger producer replicas, but if by chance you do, this should ensure consistency
-			err := (&api.Trigger{}).AdvisoryLockWithRetries(ctx, tx, internal.TriggerProducerAdvisoryLockID, time.Second*10, time.Second*1)
+			err := (&api.M2mRuleTriggerJob{}).AdvisoryLockWithRetries(ctx, tx, internal.TriggerProducerAdvisoryLockID, time.Second*10, time.Second*1)
 			if err != nil {
 				return err
 			}
@@ -32,7 +32,7 @@ func Run() error {
 				tx,
 				fmt.Sprintf(
 					"%s IS null",
-					api.ChangeTableTriggerProducedAtColumn,
+					api.ChangeTableTriggersProducedAtColumn,
 				),
 				helpers.Ptr(fmt.Sprintf(
 					"%s ASC",
@@ -78,9 +78,10 @@ func Run() error {
 							continue
 						}
 
-						trigger := &api.Trigger{
-							RuleID:   rule.ID,
-							ChangeID: change.ID,
+						trigger := &api.M2mRuleTriggerJob{
+							RepositoryID: change.RepositoryID,
+							ChangeID:     change.ID,
+							RuleID:       rule.ID,
 						}
 
 						err = trigger.Insert(ctx, tx, false, false)
@@ -92,7 +93,7 @@ func Run() error {
 					}
 				}
 
-				change.TriggerProducedAt = helpers.Ptr(time.Now().UTC())
+				change.HandledAt = helpers.Ptr(time.Now().UTC())
 				err = change.Update(ctx, tx, false)
 				if err != nil {
 					return fmt.Errorf("failed to produce trigger for %s: %s", internal.GetChangeSummary(change), err)

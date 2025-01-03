@@ -249,6 +249,9 @@ type ApiGetRulesRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	repositoryLoad *string
+	jobLoad *string
+	referencedByJobLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -335,12 +338,24 @@ type ApiGetRulesRequest struct {
 	repositoryIdAsc *string
 	repositoryIdObjectDesc *string
 	repositoryIdObjectAsc *string
-	referencedByRuleRequiresJobRuleIdObjectsDesc *string
-	referencedByRuleRequiresJobRuleIdObjectsAsc *string
-	referencedByTriggerRuleIdObjectsDesc *string
-	referencedByTriggerRuleIdObjectsAsc *string
-	referencedByJobRuleIdObjectsDesc *string
-	referencedByJobRuleIdObjectsAsc *string
+	jobTriggerJobIdEq *string
+	jobTriggerJobIdNe *string
+	jobTriggerJobIdGt *string
+	jobTriggerJobIdGte *string
+	jobTriggerJobIdLt *string
+	jobTriggerJobIdLte *string
+	jobTriggerJobIdIn *string
+	jobTriggerJobIdNotin *string
+	jobTriggerJobIdLike *string
+	jobTriggerJobIdNotlike *string
+	jobTriggerJobIdIlike *string
+	jobTriggerJobIdNotilike *string
+	jobTriggerJobIdDesc *string
+	jobTriggerJobIdAsc *string
+	jobTriggerJobIdObjectDesc *string
+	jobTriggerJobIdObjectAsc *string
+	referencedByJobRuleTriggerRuleIdObjectsDesc *string
+	referencedByJobRuleTriggerRuleIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -358,6 +373,24 @@ func (r ApiGetRulesRequest) Offset(offset int32) ApiGetRulesRequest {
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetRulesRequest) Depth(depth int32) ApiGetRulesRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) RepositoryLoad(repositoryLoad string) ApiGetRulesRequest {
+	r.repositoryLoad = &repositoryLoad
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) JobLoad(jobLoad string) ApiGetRulesRequest {
+	r.jobLoad = &jobLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetRulesRequest) ReferencedByJobLoad(referencedByJobLoad string) ApiGetRulesRequest {
+	r.referencedByJobLoad = &referencedByJobLoad
 	return r
 }
 
@@ -877,39 +910,111 @@ func (r ApiGetRulesRequest) RepositoryIdObjectAsc(repositoryIdObjectAsc string) 
 	return r
 }
 
+// SQL &#x3D; comparison
+func (r ApiGetRulesRequest) JobTriggerJobIdEq(jobTriggerJobIdEq string) ApiGetRulesRequest {
+	r.jobTriggerJobIdEq = &jobTriggerJobIdEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetRulesRequest) JobTriggerJobIdNe(jobTriggerJobIdNe string) ApiGetRulesRequest {
+	r.jobTriggerJobIdNe = &jobTriggerJobIdNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetRulesRequest) JobTriggerJobIdGt(jobTriggerJobIdGt string) ApiGetRulesRequest {
+	r.jobTriggerJobIdGt = &jobTriggerJobIdGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetRulesRequest) JobTriggerJobIdGte(jobTriggerJobIdGte string) ApiGetRulesRequest {
+	r.jobTriggerJobIdGte = &jobTriggerJobIdGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetRulesRequest) JobTriggerJobIdLt(jobTriggerJobIdLt string) ApiGetRulesRequest {
+	r.jobTriggerJobIdLt = &jobTriggerJobIdLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetRulesRequest) JobTriggerJobIdLte(jobTriggerJobIdLte string) ApiGetRulesRequest {
+	r.jobTriggerJobIdLte = &jobTriggerJobIdLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetRulesRequest) JobTriggerJobIdIn(jobTriggerJobIdIn string) ApiGetRulesRequest {
+	r.jobTriggerJobIdIn = &jobTriggerJobIdIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetRulesRequest) JobTriggerJobIdNotin(jobTriggerJobIdNotin string) ApiGetRulesRequest {
+	r.jobTriggerJobIdNotin = &jobTriggerJobIdNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetRulesRequest) JobTriggerJobIdLike(jobTriggerJobIdLike string) ApiGetRulesRequest {
+	r.jobTriggerJobIdLike = &jobTriggerJobIdLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetRulesRequest) JobTriggerJobIdNotlike(jobTriggerJobIdNotlike string) ApiGetRulesRequest {
+	r.jobTriggerJobIdNotlike = &jobTriggerJobIdNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetRulesRequest) JobTriggerJobIdIlike(jobTriggerJobIdIlike string) ApiGetRulesRequest {
+	r.jobTriggerJobIdIlike = &jobTriggerJobIdIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetRulesRequest) JobTriggerJobIdNotilike(jobTriggerJobIdNotilike string) ApiGetRulesRequest {
+	r.jobTriggerJobIdNotilike = &jobTriggerJobIdNotilike
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsDesc(referencedByRuleRequiresJobRuleIdObjectsDesc string) ApiGetRulesRequest {
-	r.referencedByRuleRequiresJobRuleIdObjectsDesc = &referencedByRuleRequiresJobRuleIdObjectsDesc
+func (r ApiGetRulesRequest) JobTriggerJobIdDesc(jobTriggerJobIdDesc string) ApiGetRulesRequest {
+	r.jobTriggerJobIdDesc = &jobTriggerJobIdDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByRuleRequiresJobRuleIdObjectsAsc(referencedByRuleRequiresJobRuleIdObjectsAsc string) ApiGetRulesRequest {
-	r.referencedByRuleRequiresJobRuleIdObjectsAsc = &referencedByRuleRequiresJobRuleIdObjectsAsc
+func (r ApiGetRulesRequest) JobTriggerJobIdAsc(jobTriggerJobIdAsc string) ApiGetRulesRequest {
+	r.jobTriggerJobIdAsc = &jobTriggerJobIdAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsDesc(referencedByTriggerRuleIdObjectsDesc string) ApiGetRulesRequest {
-	r.referencedByTriggerRuleIdObjectsDesc = &referencedByTriggerRuleIdObjectsDesc
+func (r ApiGetRulesRequest) JobTriggerJobIdObjectDesc(jobTriggerJobIdObjectDesc string) ApiGetRulesRequest {
+	r.jobTriggerJobIdObjectDesc = &jobTriggerJobIdObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByTriggerRuleIdObjectsAsc(referencedByTriggerRuleIdObjectsAsc string) ApiGetRulesRequest {
-	r.referencedByTriggerRuleIdObjectsAsc = &referencedByTriggerRuleIdObjectsAsc
+func (r ApiGetRulesRequest) JobTriggerJobIdObjectAsc(jobTriggerJobIdObjectAsc string) ApiGetRulesRequest {
+	r.jobTriggerJobIdObjectAsc = &jobTriggerJobIdObjectAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsDesc(referencedByJobRuleIdObjectsDesc string) ApiGetRulesRequest {
-	r.referencedByJobRuleIdObjectsDesc = &referencedByJobRuleIdObjectsDesc
+func (r ApiGetRulesRequest) ReferencedByJobRuleTriggerRuleIdObjectsDesc(referencedByJobRuleTriggerRuleIdObjectsDesc string) ApiGetRulesRequest {
+	r.referencedByJobRuleTriggerRuleIdObjectsDesc = &referencedByJobRuleTriggerRuleIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRulesRequest) ReferencedByJobRuleIdObjectsAsc(referencedByJobRuleIdObjectsAsc string) ApiGetRulesRequest {
-	r.referencedByJobRuleIdObjectsAsc = &referencedByJobRuleIdObjectsAsc
+func (r ApiGetRulesRequest) ReferencedByJobRuleTriggerRuleIdObjectsAsc(referencedByJobRuleTriggerRuleIdObjectsAsc string) ApiGetRulesRequest {
+	r.referencedByJobRuleTriggerRuleIdObjectsAsc = &referencedByJobRuleTriggerRuleIdObjectsAsc
 	return r
 }
 
@@ -959,6 +1064,15 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.repositoryLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository__load", r.repositoryLoad, "form", "")
+	}
+	if r.jobLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job__load", r.jobLoad, "form", "")
+	}
+	if r.referencedByJobLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job__load", r.referencedByJobLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1218,23 +1332,59 @@ func (a *RuleAPIService) GetRulesExecute(r ApiGetRulesRequest) (*ResponseWithGen
 	if r.repositoryIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id_object__asc", r.repositoryIdObjectAsc, "form", "")
 	}
-	if r.referencedByRuleRequiresJobRuleIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__desc", r.referencedByRuleRequiresJobRuleIdObjectsDesc, "form", "")
+	if r.jobTriggerJobIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__eq", r.jobTriggerJobIdEq, "form", "")
 	}
-	if r.referencedByRuleRequiresJobRuleIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_rule_id_objects__asc", r.referencedByRuleRequiresJobRuleIdObjectsAsc, "form", "")
+	if r.jobTriggerJobIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__ne", r.jobTriggerJobIdNe, "form", "")
 	}
-	if r.referencedByTriggerRuleIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__desc", r.referencedByTriggerRuleIdObjectsDesc, "form", "")
+	if r.jobTriggerJobIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__gt", r.jobTriggerJobIdGt, "form", "")
 	}
-	if r.referencedByTriggerRuleIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_rule_id_objects__asc", r.referencedByTriggerRuleIdObjectsAsc, "form", "")
+	if r.jobTriggerJobIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__gte", r.jobTriggerJobIdGte, "form", "")
 	}
-	if r.referencedByJobRuleIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__desc", r.referencedByJobRuleIdObjectsDesc, "form", "")
+	if r.jobTriggerJobIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__lt", r.jobTriggerJobIdLt, "form", "")
 	}
-	if r.referencedByJobRuleIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_id_objects__asc", r.referencedByJobRuleIdObjectsAsc, "form", "")
+	if r.jobTriggerJobIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__lte", r.jobTriggerJobIdLte, "form", "")
+	}
+	if r.jobTriggerJobIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__in", r.jobTriggerJobIdIn, "form", "")
+	}
+	if r.jobTriggerJobIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__notin", r.jobTriggerJobIdNotin, "form", "")
+	}
+	if r.jobTriggerJobIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__like", r.jobTriggerJobIdLike, "form", "")
+	}
+	if r.jobTriggerJobIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__notlike", r.jobTriggerJobIdNotlike, "form", "")
+	}
+	if r.jobTriggerJobIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__ilike", r.jobTriggerJobIdIlike, "form", "")
+	}
+	if r.jobTriggerJobIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__notilike", r.jobTriggerJobIdNotilike, "form", "")
+	}
+	if r.jobTriggerJobIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__desc", r.jobTriggerJobIdDesc, "form", "")
+	}
+	if r.jobTriggerJobIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id__asc", r.jobTriggerJobIdAsc, "form", "")
+	}
+	if r.jobTriggerJobIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id_object__desc", r.jobTriggerJobIdObjectDesc, "form", "")
+	}
+	if r.jobTriggerJobIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_trigger_job_id_object__asc", r.jobTriggerJobIdObjectAsc, "form", "")
+	}
+	if r.referencedByJobRuleTriggerRuleIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_trigger_rule_id_objects__desc", r.referencedByJobRuleTriggerRuleIdObjectsDesc, "form", "")
+	}
+	if r.referencedByJobRuleTriggerRuleIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_rule_trigger_rule_id_objects__asc", r.referencedByJobRuleTriggerRuleIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

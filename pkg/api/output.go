@@ -30,26 +30,25 @@ import (
 )
 
 type Output struct {
-	ID                                           uuid.UUID    `json:"id"`
-	CreatedAt                                    time.Time    `json:"created_at"`
-	UpdatedAt                                    time.Time    `json:"updated_at"`
-	DeletedAt                                    *time.Time   `json:"deleted_at"`
-	Status                                       string       `json:"status"`
-	ExitStatus                                   int64        `json:"exit_status"`
-	Buffer                                       string       `json:"buffer"`
-	Error                                        *string      `json:"error"`
-	TaskID                                       uuid.UUID    `json:"task_id"`
-	TaskIDObject                                 *Task        `json:"task_id_object"`
-	ReferencedByExecutionBuildOutputIDObjects    []*Execution `json:"referenced_by_execution_build_output_id_objects"`
-	ReferencedByExecutionTestOutputIDObjects     []*Execution `json:"referenced_by_execution_test_output_id_objects"`
-	ReferencedByExecutionPublishOutputIDObjects  []*Execution `json:"referenced_by_execution_publish_output_id_objects"`
-	ReferencedByExecutionDeployOutputIDObjects   []*Execution `json:"referenced_by_execution_deploy_output_id_objects"`
-	ReferencedByExecutionValidateOutputIDObjects []*Execution `json:"referenced_by_execution_validate_output_id_objects"`
+	ID                             uuid.UUID  `json:"id"`
+	CreatedAt                      time.Time  `json:"created_at"`
+	UpdatedAt                      time.Time  `json:"updated_at"`
+	DeletedAt                      *time.Time `json:"deleted_at"`
+	Status                         string     `json:"status"`
+	StartedAt                      *time.Time `json:"started_at"`
+	EndedAt                        *time.Time `json:"ended_at"`
+	ExitStatus                     int64      `json:"exit_status"`
+	Error                          *string    `json:"error"`
+	TaskID                         uuid.UUID  `json:"task_id"`
+	TaskIDObject                   *Task      `json:"task_id_object"`
+	Logid                          uuid.UUID  `json:"logid"`
+	LogidObject                    *Log       `json:"logid_object"`
+	ReferencedByLogOutputIDObjects []*Log     `json:"referenced_by_log_output_id_objects"`
 }
 
 var OutputTable = "output"
 
-var OutputTableNamespaceID int32 = 1337 + 4
+var OutputTableNamespaceID int32 = 1337 + 6
 
 var (
 	OutputTableIDColumn         = "id"
@@ -57,10 +56,12 @@ var (
 	OutputTableUpdatedAtColumn  = "updated_at"
 	OutputTableDeletedAtColumn  = "deleted_at"
 	OutputTableStatusColumn     = "status"
+	OutputTableStartedAtColumn  = "started_at"
+	OutputTableEndedAtColumn    = "ended_at"
 	OutputTableExitStatusColumn = "exit_status"
-	OutputTableBufferColumn     = "buffer"
 	OutputTableErrorColumn      = "error"
 	OutputTableTaskIDColumn     = "task_id"
+	OutputTableLogidColumn      = "logid"
 )
 
 var (
@@ -69,10 +70,12 @@ var (
 	OutputTableUpdatedAtColumnWithTypeCast  = `"updated_at" AS updated_at`
 	OutputTableDeletedAtColumnWithTypeCast  = `"deleted_at" AS deleted_at`
 	OutputTableStatusColumnWithTypeCast     = `"status" AS status`
+	OutputTableStartedAtColumnWithTypeCast  = `"started_at" AS started_at`
+	OutputTableEndedAtColumnWithTypeCast    = `"ended_at" AS ended_at`
 	OutputTableExitStatusColumnWithTypeCast = `"exit_status" AS exit_status`
-	OutputTableBufferColumnWithTypeCast     = `"buffer" AS buffer`
 	OutputTableErrorColumnWithTypeCast      = `"error" AS error`
 	OutputTableTaskIDColumnWithTypeCast     = `"task_id" AS task_id`
+	OutputTableLogidColumnWithTypeCast      = `"logid" AS logid`
 )
 
 var OutputTableColumns = []string{
@@ -81,10 +84,12 @@ var OutputTableColumns = []string{
 	OutputTableUpdatedAtColumn,
 	OutputTableDeletedAtColumn,
 	OutputTableStatusColumn,
+	OutputTableStartedAtColumn,
+	OutputTableEndedAtColumn,
 	OutputTableExitStatusColumn,
-	OutputTableBufferColumn,
 	OutputTableErrorColumn,
 	OutputTableTaskIDColumn,
+	OutputTableLogidColumn,
 }
 
 var OutputTableColumnsWithTypeCasts = []string{
@@ -93,10 +98,12 @@ var OutputTableColumnsWithTypeCasts = []string{
 	OutputTableUpdatedAtColumnWithTypeCast,
 	OutputTableDeletedAtColumnWithTypeCast,
 	OutputTableStatusColumnWithTypeCast,
+	OutputTableStartedAtColumnWithTypeCast,
+	OutputTableEndedAtColumnWithTypeCast,
 	OutputTableExitStatusColumnWithTypeCast,
-	OutputTableBufferColumnWithTypeCast,
 	OutputTableErrorColumnWithTypeCast,
 	OutputTableTaskIDColumnWithTypeCast,
+	OutputTableLogidColumnWithTypeCast,
 }
 
 var OutputIntrospectedTable *introspect.Table
@@ -272,6 +279,44 @@ func (m *Output) FromItem(item map[string]any) error {
 
 			m.Status = temp2
 
+		case "started_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uustarted_at.UUID", temp1))
+				}
+			}
+
+			m.StartedAt = &temp2
+
+		case "ended_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuended_at.UUID", temp1))
+				}
+			}
+
+			m.EndedAt = &temp2
+
 		case "exit_status":
 			if v == nil {
 				continue
@@ -290,25 +335,6 @@ func (m *Output) FromItem(item map[string]any) error {
 			}
 
 			m.ExitStatus = temp2
-
-		case "buffer":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseString(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(string)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubuffer.UUID", temp1))
-				}
-			}
-
-			m.Buffer = temp2
 
 		case "error":
 			if v == nil {
@@ -348,6 +374,25 @@ func (m *Output) FromItem(item map[string]any) error {
 
 			m.TaskID = temp2
 
+		case "logid":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseUUID(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(uuid.UUID)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uulogid.UUID", temp1))
+				}
+			}
+
+			m.Logid = temp2
+
 		}
 	}
 
@@ -382,16 +427,15 @@ func (m *Output) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.Status = o.Status
+	m.StartedAt = o.StartedAt
+	m.EndedAt = o.EndedAt
 	m.ExitStatus = o.ExitStatus
-	m.Buffer = o.Buffer
 	m.Error = o.Error
 	m.TaskID = o.TaskID
 	m.TaskIDObject = o.TaskIDObject
-	m.ReferencedByExecutionBuildOutputIDObjects = o.ReferencedByExecutionBuildOutputIDObjects
-	m.ReferencedByExecutionTestOutputIDObjects = o.ReferencedByExecutionTestOutputIDObjects
-	m.ReferencedByExecutionPublishOutputIDObjects = o.ReferencedByExecutionPublishOutputIDObjects
-	m.ReferencedByExecutionDeployOutputIDObjects = o.ReferencedByExecutionDeployOutputIDObjects
-	m.ReferencedByExecutionValidateOutputIDObjects = o.ReferencedByExecutionValidateOutputIDObjects
+	m.Logid = o.Logid
+	m.LogidObject = o.LogidObject
+	m.ReferencedByLogOutputIDObjects = o.ReferencedByLogOutputIDObjects
 
 	return nil
 }
@@ -455,23 +499,34 @@ func (m *Output) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroTime(m.StartedAt) || slices.Contains(forceSetValuesForFields, OutputTableStartedAtColumn) || isRequired(OutputTableColumnLookup, OutputTableStartedAtColumn) {
+		columns = append(columns, OutputTableStartedAtColumn)
+
+		v, err := types.FormatTime(m.StartedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.StartedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.EndedAt) || slices.Contains(forceSetValuesForFields, OutputTableEndedAtColumn) || isRequired(OutputTableColumnLookup, OutputTableEndedAtColumn) {
+		columns = append(columns, OutputTableEndedAtColumn)
+
+		v, err := types.FormatTime(m.EndedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.EndedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroInt(m.ExitStatus) || slices.Contains(forceSetValuesForFields, OutputTableExitStatusColumn) || isRequired(OutputTableColumnLookup, OutputTableExitStatusColumn) {
 		columns = append(columns, OutputTableExitStatusColumn)
 
 		v, err := types.FormatInt(m.ExitStatus)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.ExitStatus; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroString(m.Buffer) || slices.Contains(forceSetValuesForFields, OutputTableBufferColumn) || isRequired(OutputTableColumnLookup, OutputTableBufferColumn) {
-		columns = append(columns, OutputTableBufferColumn)
-
-		v, err := types.FormatString(m.Buffer)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.Buffer; %v", err)
 		}
 
 		values = append(values, v)
@@ -494,6 +549,17 @@ func (m *Output) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		v, err := types.FormatUUID(m.TaskID)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.TaskID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.Logid) || slices.Contains(forceSetValuesForFields, OutputTableLogidColumn) || isRequired(OutputTableColumnLookup, OutputTableLogidColumn) {
+		columns = append(columns, OutputTableLogidColumn)
+
+		v, err := types.FormatUUID(m.Logid)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Logid; %v", err)
 		}
 
 		values = append(values, v)
@@ -601,23 +667,34 @@ func (m *Output) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroTime(m.StartedAt) || slices.Contains(forceSetValuesForFields, OutputTableStartedAtColumn) {
+		columns = append(columns, OutputTableStartedAtColumn)
+
+		v, err := types.FormatTime(m.StartedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.StartedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.EndedAt) || slices.Contains(forceSetValuesForFields, OutputTableEndedAtColumn) {
+		columns = append(columns, OutputTableEndedAtColumn)
+
+		v, err := types.FormatTime(m.EndedAt)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.EndedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroInt(m.ExitStatus) || slices.Contains(forceSetValuesForFields, OutputTableExitStatusColumn) {
 		columns = append(columns, OutputTableExitStatusColumn)
 
 		v, err := types.FormatInt(m.ExitStatus)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.ExitStatus; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroString(m.Buffer) || slices.Contains(forceSetValuesForFields, OutputTableBufferColumn) {
-		columns = append(columns, OutputTableBufferColumn)
-
-		v, err := types.FormatString(m.Buffer)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.Buffer; %v", err)
 		}
 
 		values = append(values, v)
@@ -640,6 +717,17 @@ func (m *Output) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		v, err := types.FormatUUID(m.TaskID)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.TaskID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.Logid) || slices.Contains(forceSetValuesForFields, OutputTableLogidColumn) {
+		columns = append(columns, OutputTableLogidColumn)
+
+		v, err := types.FormatUUID(m.Logid)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Logid; %v", err)
 		}
 
 		values = append(values, v)
@@ -762,8 +850,15 @@ func SelectOutputs(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, OutputTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", OutputTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectOutput early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Output{}, 0, 0, 0, 0, nil
 	}
 
@@ -794,11 +889,12 @@ func SelectOutputs(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 
 		if !types.IsZeroUUID(object.TaskID) {
 			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TaskTable, object.TaskID), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, TaskTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectTask for object.TaskIDObject")
+					log.Printf("loading SelectOutputs->SelectTask for object.TaskIDObject{%s: %v}", TaskTablePrimaryKeyColumn, object.TaskID)
 				}
 
 				object.TaskIDObject, _, _, _, _, err = SelectTask(
@@ -819,55 +915,48 @@ func SelectOutputs(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 			}
 		}
 
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+		if !types.IsZeroUUID(object.Logid) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", LogTable, object.Logid), true)
+			shouldLoad := query.ShouldLoad(ctx, LogTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectExecutions for object.ReferencedByExecutionBuildOutputIDObjects")
+					log.Printf("loading SelectOutputs->SelectLog for object.LogidObject{%s: %v}", LogTablePrimaryKeyColumn, object.Logid)
 				}
 
-				object.ReferencedByExecutionBuildOutputIDObjects, _, _, _, _, err = SelectExecutions(
+				object.LogidObject, _, _, _, _, err = SelectLog(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableBuildOutputIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
+					fmt.Sprintf("%v = $1", LogTablePrimaryKeyColumn),
+					object.Logid,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
-						return err
+						return nil, 0, 0, 0, 0, err
 					}
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectOutputs->SelectExecutions for object.ReferencedByExecutionBuildOutputIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectOutputs->SelectLog for object.LogidObject in %s", time.Since(thisBefore))
 				}
-
 			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
 		}
 
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", LogTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", LogTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectExecutions for object.ReferencedByExecutionTestOutputIDObjects")
+					log.Printf("loading SelectOutputs->SelectLogs for object.ReferencedByLogOutputIDObjects")
 				}
 
-				object.ReferencedByExecutionTestOutputIDObjects, _, _, _, _, err = SelectExecutions(
+				object.ReferencedByLogOutputIDObjects, _, _, _, _, err = SelectLogs(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableTestOutputIDColumn),
+					fmt.Sprintf("%v = $1", LogTableOutputIDColumn),
 					nil,
 					nil,
 					nil,
@@ -880,115 +969,7 @@ func SelectOutputs(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectOutputs->SelectExecutions for object.ReferencedByExecutionTestOutputIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectExecutions for object.ReferencedByExecutionPublishOutputIDObjects")
-				}
-
-				object.ReferencedByExecutionPublishOutputIDObjects, _, _, _, _, err = SelectExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ExecutionTablePublishOutputIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectOutputs->SelectExecutions for object.ReferencedByExecutionPublishOutputIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectExecutions for object.ReferencedByExecutionDeployOutputIDObjects")
-				}
-
-				object.ReferencedByExecutionDeployOutputIDObjects, _, _, _, _, err = SelectExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableDeployOutputIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectOutputs->SelectExecutions for object.ReferencedByExecutionDeployOutputIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectOutputs->SelectExecutions for object.ReferencedByExecutionValidateOutputIDObjects")
-				}
-
-				object.ReferencedByExecutionValidateOutputIDObjects, _, _, _, _, err = SelectExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableValidateOutputIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectOutputs->SelectExecutions for object.ReferencedByExecutionValidateOutputIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectOutputs->SelectLogs for object.ReferencedByLogOutputIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -1045,10 +1026,6 @@ func SelectOutput(ctx context.Context, tx pgx.Tx, where string, values ...any) (
 func handleGetOutputs(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Output, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1447,6 +1424,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return response, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1557,6 +1535,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return response, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1630,6 +1609,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1683,6 +1663,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1745,6 +1726,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				}, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1780,6 +1762,7 @@ func GetOutputRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 				return server.EmptyResponse{}, nil
 			},
 			Output{},
+			OutputIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

@@ -130,6 +130,8 @@ type ApiGetRepositoriesRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	referencedByChangeLoad *string
+	referencedByRuleLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -186,20 +188,6 @@ type ApiGetRepositoriesRequest struct {
 	deletedAtNotilike *time.Time
 	deletedAtDesc *string
 	deletedAtAsc *string
-	lastSyncedEq *time.Time
-	lastSyncedNe *time.Time
-	lastSyncedGt *time.Time
-	lastSyncedGte *time.Time
-	lastSyncedLt *time.Time
-	lastSyncedLte *time.Time
-	lastSyncedIn *time.Time
-	lastSyncedNotin *time.Time
-	lastSyncedLike *time.Time
-	lastSyncedNotlike *time.Time
-	lastSyncedIlike *time.Time
-	lastSyncedNotilike *time.Time
-	lastSyncedDesc *string
-	lastSyncedAsc *string
 	urlEq *string
 	urlNe *string
 	urlGt *string
@@ -214,52 +202,38 @@ type ApiGetRepositoriesRequest struct {
 	urlNotilike *string
 	urlDesc *string
 	urlAsc *string
-	usernameEq *string
-	usernameNe *string
-	usernameGt *string
-	usernameGte *string
-	usernameLt *string
-	usernameLte *string
-	usernameIn *string
-	usernameNotin *string
-	usernameLike *string
-	usernameNotlike *string
-	usernameIlike *string
-	usernameNotilike *string
-	usernameDesc *string
-	usernameAsc *string
-	passwordEq *string
-	passwordNe *string
-	passwordGt *string
-	passwordGte *string
-	passwordLt *string
-	passwordLte *string
-	passwordIn *string
-	passwordNotin *string
-	passwordLike *string
-	passwordNotlike *string
-	passwordIlike *string
-	passwordNotilike *string
-	passwordDesc *string
-	passwordAsc *string
-	sshKeyEq *string
-	sshKeyNe *string
-	sshKeyGt *string
-	sshKeyGte *string
-	sshKeyLt *string
-	sshKeyLte *string
-	sshKeyIn *string
-	sshKeyNotin *string
-	sshKeyLike *string
-	sshKeyNotlike *string
-	sshKeyIlike *string
-	sshKeyNotilike *string
-	sshKeyDesc *string
-	sshKeyAsc *string
-	referencedByRuleRepositoryIdObjectsDesc *string
-	referencedByRuleRepositoryIdObjectsAsc *string
+	nameEq *string
+	nameNe *string
+	nameGt *string
+	nameGte *string
+	nameLt *string
+	nameLte *string
+	nameIn *string
+	nameNotin *string
+	nameLike *string
+	nameNotlike *string
+	nameIlike *string
+	nameNotilike *string
+	nameDesc *string
+	nameAsc *string
+	lastSyncedAtEq *time.Time
+	lastSyncedAtNe *time.Time
+	lastSyncedAtGt *time.Time
+	lastSyncedAtGte *time.Time
+	lastSyncedAtLt *time.Time
+	lastSyncedAtLte *time.Time
+	lastSyncedAtIn *time.Time
+	lastSyncedAtNotin *time.Time
+	lastSyncedAtLike *time.Time
+	lastSyncedAtNotlike *time.Time
+	lastSyncedAtIlike *time.Time
+	lastSyncedAtNotilike *time.Time
+	lastSyncedAtDesc *string
+	lastSyncedAtAsc *string
 	referencedByChangeRepositoryIdObjectsDesc *string
 	referencedByChangeRepositoryIdObjectsAsc *string
+	referencedByRuleRepositoryIdObjectsDesc *string
+	referencedByRuleRepositoryIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -277,6 +251,18 @@ func (r ApiGetRepositoriesRequest) Offset(offset int32) ApiGetRepositoriesReques
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetRepositoriesRequest) Depth(depth int32) ApiGetRepositoriesRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetRepositoriesRequest) ReferencedByChangeLoad(referencedByChangeLoad string) ApiGetRepositoriesRequest {
+	r.referencedByChangeLoad = &referencedByChangeLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetRepositoriesRequest) ReferencedByRuleLoad(referencedByRuleLoad string) ApiGetRepositoriesRequest {
+	r.referencedByRuleLoad = &referencedByRuleLoad
 	return r
 }
 
@@ -617,90 +603,6 @@ func (r ApiGetRepositoriesRequest) DeletedAtAsc(deletedAtAsc string) ApiGetRepos
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) LastSyncedEq(lastSyncedEq time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedEq = &lastSyncedEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) LastSyncedNe(lastSyncedNe time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedNe = &lastSyncedNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) LastSyncedGt(lastSyncedGt time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedGt = &lastSyncedGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) LastSyncedGte(lastSyncedGte time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedGte = &lastSyncedGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) LastSyncedLt(lastSyncedLt time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedLt = &lastSyncedLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) LastSyncedLte(lastSyncedLte time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedLte = &lastSyncedLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) LastSyncedIn(lastSyncedIn time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedIn = &lastSyncedIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) LastSyncedNotin(lastSyncedNotin time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedNotin = &lastSyncedNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) LastSyncedLike(lastSyncedLike time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedLike = &lastSyncedLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) LastSyncedNotlike(lastSyncedNotlike time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedNotlike = &lastSyncedNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) LastSyncedIlike(lastSyncedIlike time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedIlike = &lastSyncedIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) LastSyncedNotilike(lastSyncedNotilike time.Time) ApiGetRepositoriesRequest {
-	r.lastSyncedNotilike = &lastSyncedNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) LastSyncedDesc(lastSyncedDesc string) ApiGetRepositoriesRequest {
-	r.lastSyncedDesc = &lastSyncedDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) LastSyncedAsc(lastSyncedAsc string) ApiGetRepositoriesRequest {
-	r.lastSyncedAsc = &lastSyncedAsc
-	return r
-}
-
-// SQL &#x3D; comparison
 func (r ApiGetRepositoriesRequest) UrlEq(urlEq string) ApiGetRepositoriesRequest {
 	r.urlEq = &urlEq
 	return r
@@ -785,266 +687,170 @@ func (r ApiGetRepositoriesRequest) UrlAsc(urlAsc string) ApiGetRepositoriesReque
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) UsernameEq(usernameEq string) ApiGetRepositoriesRequest {
-	r.usernameEq = &usernameEq
+func (r ApiGetRepositoriesRequest) NameEq(nameEq string) ApiGetRepositoriesRequest {
+	r.nameEq = &nameEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) UsernameNe(usernameNe string) ApiGetRepositoriesRequest {
-	r.usernameNe = &usernameNe
+func (r ApiGetRepositoriesRequest) NameNe(nameNe string) ApiGetRepositoriesRequest {
+	r.nameNe = &nameNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) UsernameGt(usernameGt string) ApiGetRepositoriesRequest {
-	r.usernameGt = &usernameGt
+func (r ApiGetRepositoriesRequest) NameGt(nameGt string) ApiGetRepositoriesRequest {
+	r.nameGt = &nameGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) UsernameGte(usernameGte string) ApiGetRepositoriesRequest {
-	r.usernameGte = &usernameGte
+func (r ApiGetRepositoriesRequest) NameGte(nameGte string) ApiGetRepositoriesRequest {
+	r.nameGte = &nameGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) UsernameLt(usernameLt string) ApiGetRepositoriesRequest {
-	r.usernameLt = &usernameLt
+func (r ApiGetRepositoriesRequest) NameLt(nameLt string) ApiGetRepositoriesRequest {
+	r.nameLt = &nameLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) UsernameLte(usernameLte string) ApiGetRepositoriesRequest {
-	r.usernameLte = &usernameLte
+func (r ApiGetRepositoriesRequest) NameLte(nameLte string) ApiGetRepositoriesRequest {
+	r.nameLte = &nameLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) UsernameIn(usernameIn string) ApiGetRepositoriesRequest {
-	r.usernameIn = &usernameIn
+func (r ApiGetRepositoriesRequest) NameIn(nameIn string) ApiGetRepositoriesRequest {
+	r.nameIn = &nameIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) UsernameNotin(usernameNotin string) ApiGetRepositoriesRequest {
-	r.usernameNotin = &usernameNotin
+func (r ApiGetRepositoriesRequest) NameNotin(nameNotin string) ApiGetRepositoriesRequest {
+	r.nameNotin = &nameNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) UsernameLike(usernameLike string) ApiGetRepositoriesRequest {
-	r.usernameLike = &usernameLike
+func (r ApiGetRepositoriesRequest) NameLike(nameLike string) ApiGetRepositoriesRequest {
+	r.nameLike = &nameLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) UsernameNotlike(usernameNotlike string) ApiGetRepositoriesRequest {
-	r.usernameNotlike = &usernameNotlike
+func (r ApiGetRepositoriesRequest) NameNotlike(nameNotlike string) ApiGetRepositoriesRequest {
+	r.nameNotlike = &nameNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) UsernameIlike(usernameIlike string) ApiGetRepositoriesRequest {
-	r.usernameIlike = &usernameIlike
+func (r ApiGetRepositoriesRequest) NameIlike(nameIlike string) ApiGetRepositoriesRequest {
+	r.nameIlike = &nameIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) UsernameNotilike(usernameNotilike string) ApiGetRepositoriesRequest {
-	r.usernameNotilike = &usernameNotilike
+func (r ApiGetRepositoriesRequest) NameNotilike(nameNotilike string) ApiGetRepositoriesRequest {
+	r.nameNotilike = &nameNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) UsernameDesc(usernameDesc string) ApiGetRepositoriesRequest {
-	r.usernameDesc = &usernameDesc
+func (r ApiGetRepositoriesRequest) NameDesc(nameDesc string) ApiGetRepositoriesRequest {
+	r.nameDesc = &nameDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) UsernameAsc(usernameAsc string) ApiGetRepositoriesRequest {
-	r.usernameAsc = &usernameAsc
+func (r ApiGetRepositoriesRequest) NameAsc(nameAsc string) ApiGetRepositoriesRequest {
+	r.nameAsc = &nameAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) PasswordEq(passwordEq string) ApiGetRepositoriesRequest {
-	r.passwordEq = &passwordEq
+func (r ApiGetRepositoriesRequest) LastSyncedAtEq(lastSyncedAtEq time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtEq = &lastSyncedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) PasswordNe(passwordNe string) ApiGetRepositoriesRequest {
-	r.passwordNe = &passwordNe
+func (r ApiGetRepositoriesRequest) LastSyncedAtNe(lastSyncedAtNe time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtNe = &lastSyncedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) PasswordGt(passwordGt string) ApiGetRepositoriesRequest {
-	r.passwordGt = &passwordGt
+func (r ApiGetRepositoriesRequest) LastSyncedAtGt(lastSyncedAtGt time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtGt = &lastSyncedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) PasswordGte(passwordGte string) ApiGetRepositoriesRequest {
-	r.passwordGte = &passwordGte
+func (r ApiGetRepositoriesRequest) LastSyncedAtGte(lastSyncedAtGte time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtGte = &lastSyncedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) PasswordLt(passwordLt string) ApiGetRepositoriesRequest {
-	r.passwordLt = &passwordLt
+func (r ApiGetRepositoriesRequest) LastSyncedAtLt(lastSyncedAtLt time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtLt = &lastSyncedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) PasswordLte(passwordLte string) ApiGetRepositoriesRequest {
-	r.passwordLte = &passwordLte
+func (r ApiGetRepositoriesRequest) LastSyncedAtLte(lastSyncedAtLte time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtLte = &lastSyncedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) PasswordIn(passwordIn string) ApiGetRepositoriesRequest {
-	r.passwordIn = &passwordIn
+func (r ApiGetRepositoriesRequest) LastSyncedAtIn(lastSyncedAtIn time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtIn = &lastSyncedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) PasswordNotin(passwordNotin string) ApiGetRepositoriesRequest {
-	r.passwordNotin = &passwordNotin
+func (r ApiGetRepositoriesRequest) LastSyncedAtNotin(lastSyncedAtNotin time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtNotin = &lastSyncedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) PasswordLike(passwordLike string) ApiGetRepositoriesRequest {
-	r.passwordLike = &passwordLike
+func (r ApiGetRepositoriesRequest) LastSyncedAtLike(lastSyncedAtLike time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtLike = &lastSyncedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) PasswordNotlike(passwordNotlike string) ApiGetRepositoriesRequest {
-	r.passwordNotlike = &passwordNotlike
+func (r ApiGetRepositoriesRequest) LastSyncedAtNotlike(lastSyncedAtNotlike time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtNotlike = &lastSyncedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) PasswordIlike(passwordIlike string) ApiGetRepositoriesRequest {
-	r.passwordIlike = &passwordIlike
+func (r ApiGetRepositoriesRequest) LastSyncedAtIlike(lastSyncedAtIlike time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtIlike = &lastSyncedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) PasswordNotilike(passwordNotilike string) ApiGetRepositoriesRequest {
-	r.passwordNotilike = &passwordNotilike
+func (r ApiGetRepositoriesRequest) LastSyncedAtNotilike(lastSyncedAtNotilike time.Time) ApiGetRepositoriesRequest {
+	r.lastSyncedAtNotilike = &lastSyncedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) PasswordDesc(passwordDesc string) ApiGetRepositoriesRequest {
-	r.passwordDesc = &passwordDesc
+func (r ApiGetRepositoriesRequest) LastSyncedAtDesc(lastSyncedAtDesc string) ApiGetRepositoriesRequest {
+	r.lastSyncedAtDesc = &lastSyncedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) PasswordAsc(passwordAsc string) ApiGetRepositoriesRequest {
-	r.passwordAsc = &passwordAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) SshKeyEq(sshKeyEq string) ApiGetRepositoriesRequest {
-	r.sshKeyEq = &sshKeyEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) SshKeyNe(sshKeyNe string) ApiGetRepositoriesRequest {
-	r.sshKeyNe = &sshKeyNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SshKeyGt(sshKeyGt string) ApiGetRepositoriesRequest {
-	r.sshKeyGt = &sshKeyGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SshKeyGte(sshKeyGte string) ApiGetRepositoriesRequest {
-	r.sshKeyGte = &sshKeyGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SshKeyLt(sshKeyLt string) ApiGetRepositoriesRequest {
-	r.sshKeyLt = &sshKeyLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SshKeyLte(sshKeyLte string) ApiGetRepositoriesRequest {
-	r.sshKeyLte = &sshKeyLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) SshKeyIn(sshKeyIn string) ApiGetRepositoriesRequest {
-	r.sshKeyIn = &sshKeyIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) SshKeyNotin(sshKeyNotin string) ApiGetRepositoriesRequest {
-	r.sshKeyNotin = &sshKeyNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SshKeyLike(sshKeyLike string) ApiGetRepositoriesRequest {
-	r.sshKeyLike = &sshKeyLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SshKeyNotlike(sshKeyNotlike string) ApiGetRepositoriesRequest {
-	r.sshKeyNotlike = &sshKeyNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SshKeyIlike(sshKeyIlike string) ApiGetRepositoriesRequest {
-	r.sshKeyIlike = &sshKeyIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SshKeyNotilike(sshKeyNotilike string) ApiGetRepositoriesRequest {
-	r.sshKeyNotilike = &sshKeyNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) SshKeyDesc(sshKeyDesc string) ApiGetRepositoriesRequest {
-	r.sshKeyDesc = &sshKeyDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) SshKeyAsc(sshKeyAsc string) ApiGetRepositoriesRequest {
-	r.sshKeyAsc = &sshKeyAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc string) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsDesc = &referencedByRuleRepositoryIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc string) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsAsc = &referencedByRuleRepositoryIdObjectsAsc
+func (r ApiGetRepositoriesRequest) LastSyncedAtAsc(lastSyncedAtAsc string) ApiGetRepositoriesRequest {
+	r.lastSyncedAtAsc = &lastSyncedAtAsc
 	return r
 }
 
@@ -1057,6 +863,18 @@ func (r ApiGetRepositoriesRequest) ReferencedByChangeRepositoryIdObjectsDesc(ref
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetRepositoriesRequest) ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc string) ApiGetRepositoriesRequest {
 	r.referencedByChangeRepositoryIdObjectsAsc = &referencedByChangeRepositoryIdObjectsAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc string) ApiGetRepositoriesRequest {
+	r.referencedByRuleRepositoryIdObjectsDesc = &referencedByRuleRepositoryIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc string) ApiGetRepositoriesRequest {
+	r.referencedByRuleRepositoryIdObjectsAsc = &referencedByRuleRepositoryIdObjectsAsc
 	return r
 }
 
@@ -1106,6 +924,12 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.referencedByChangeLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change__load", r.referencedByChangeLoad, "form", "")
+	}
+	if r.referencedByRuleLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule__load", r.referencedByRuleLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1275,48 +1099,6 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
-	if r.lastSyncedEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__eq", r.lastSyncedEq, "form", "")
-	}
-	if r.lastSyncedNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__ne", r.lastSyncedNe, "form", "")
-	}
-	if r.lastSyncedGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__gt", r.lastSyncedGt, "form", "")
-	}
-	if r.lastSyncedGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__gte", r.lastSyncedGte, "form", "")
-	}
-	if r.lastSyncedLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__lt", r.lastSyncedLt, "form", "")
-	}
-	if r.lastSyncedLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__lte", r.lastSyncedLte, "form", "")
-	}
-	if r.lastSyncedIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__in", r.lastSyncedIn, "form", "")
-	}
-	if r.lastSyncedNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__notin", r.lastSyncedNotin, "form", "")
-	}
-	if r.lastSyncedLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__like", r.lastSyncedLike, "form", "")
-	}
-	if r.lastSyncedNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__notlike", r.lastSyncedNotlike, "form", "")
-	}
-	if r.lastSyncedIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__ilike", r.lastSyncedIlike, "form", "")
-	}
-	if r.lastSyncedNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__notilike", r.lastSyncedNotilike, "form", "")
-	}
-	if r.lastSyncedDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__desc", r.lastSyncedDesc, "form", "")
-	}
-	if r.lastSyncedAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced__asc", r.lastSyncedAsc, "form", "")
-	}
 	if r.urlEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "url__eq", r.urlEq, "form", "")
 	}
@@ -1359,143 +1141,101 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	if r.urlAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "url__asc", r.urlAsc, "form", "")
 	}
-	if r.usernameEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__eq", r.usernameEq, "form", "")
+	if r.nameEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__eq", r.nameEq, "form", "")
 	}
-	if r.usernameNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__ne", r.usernameNe, "form", "")
+	if r.nameNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ne", r.nameNe, "form", "")
 	}
-	if r.usernameGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__gt", r.usernameGt, "form", "")
+	if r.nameGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gt", r.nameGt, "form", "")
 	}
-	if r.usernameGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__gte", r.usernameGte, "form", "")
+	if r.nameGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__gte", r.nameGte, "form", "")
 	}
-	if r.usernameLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__lt", r.usernameLt, "form", "")
+	if r.nameLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lt", r.nameLt, "form", "")
 	}
-	if r.usernameLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__lte", r.usernameLte, "form", "")
+	if r.nameLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__lte", r.nameLte, "form", "")
 	}
-	if r.usernameIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__in", r.usernameIn, "form", "")
+	if r.nameIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__in", r.nameIn, "form", "")
 	}
-	if r.usernameNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__notin", r.usernameNotin, "form", "")
+	if r.nameNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notin", r.nameNotin, "form", "")
 	}
-	if r.usernameLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__like", r.usernameLike, "form", "")
+	if r.nameLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__like", r.nameLike, "form", "")
 	}
-	if r.usernameNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__notlike", r.usernameNotlike, "form", "")
+	if r.nameNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notlike", r.nameNotlike, "form", "")
 	}
-	if r.usernameIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__ilike", r.usernameIlike, "form", "")
+	if r.nameIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__ilike", r.nameIlike, "form", "")
 	}
-	if r.usernameNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__notilike", r.usernameNotilike, "form", "")
+	if r.nameNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notilike", r.nameNotilike, "form", "")
 	}
-	if r.usernameDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__desc", r.usernameDesc, "form", "")
+	if r.nameDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__desc", r.nameDesc, "form", "")
 	}
-	if r.usernameAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "username__asc", r.usernameAsc, "form", "")
+	if r.nameAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
 	}
-	if r.passwordEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__eq", r.passwordEq, "form", "")
+	if r.lastSyncedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__eq", r.lastSyncedAtEq, "form", "")
 	}
-	if r.passwordNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__ne", r.passwordNe, "form", "")
+	if r.lastSyncedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__ne", r.lastSyncedAtNe, "form", "")
 	}
-	if r.passwordGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__gt", r.passwordGt, "form", "")
+	if r.lastSyncedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__gt", r.lastSyncedAtGt, "form", "")
 	}
-	if r.passwordGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__gte", r.passwordGte, "form", "")
+	if r.lastSyncedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__gte", r.lastSyncedAtGte, "form", "")
 	}
-	if r.passwordLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__lt", r.passwordLt, "form", "")
+	if r.lastSyncedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__lt", r.lastSyncedAtLt, "form", "")
 	}
-	if r.passwordLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__lte", r.passwordLte, "form", "")
+	if r.lastSyncedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__lte", r.lastSyncedAtLte, "form", "")
 	}
-	if r.passwordIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__in", r.passwordIn, "form", "")
+	if r.lastSyncedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__in", r.lastSyncedAtIn, "form", "")
 	}
-	if r.passwordNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__notin", r.passwordNotin, "form", "")
+	if r.lastSyncedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__notin", r.lastSyncedAtNotin, "form", "")
 	}
-	if r.passwordLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__like", r.passwordLike, "form", "")
+	if r.lastSyncedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__like", r.lastSyncedAtLike, "form", "")
 	}
-	if r.passwordNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__notlike", r.passwordNotlike, "form", "")
+	if r.lastSyncedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__notlike", r.lastSyncedAtNotlike, "form", "")
 	}
-	if r.passwordIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__ilike", r.passwordIlike, "form", "")
+	if r.lastSyncedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__ilike", r.lastSyncedAtIlike, "form", "")
 	}
-	if r.passwordNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__notilike", r.passwordNotilike, "form", "")
+	if r.lastSyncedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__notilike", r.lastSyncedAtNotilike, "form", "")
 	}
-	if r.passwordDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__desc", r.passwordDesc, "form", "")
+	if r.lastSyncedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__desc", r.lastSyncedAtDesc, "form", "")
 	}
-	if r.passwordAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "password__asc", r.passwordAsc, "form", "")
-	}
-	if r.sshKeyEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__eq", r.sshKeyEq, "form", "")
-	}
-	if r.sshKeyNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__ne", r.sshKeyNe, "form", "")
-	}
-	if r.sshKeyGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__gt", r.sshKeyGt, "form", "")
-	}
-	if r.sshKeyGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__gte", r.sshKeyGte, "form", "")
-	}
-	if r.sshKeyLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__lt", r.sshKeyLt, "form", "")
-	}
-	if r.sshKeyLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__lte", r.sshKeyLte, "form", "")
-	}
-	if r.sshKeyIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__in", r.sshKeyIn, "form", "")
-	}
-	if r.sshKeyNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__notin", r.sshKeyNotin, "form", "")
-	}
-	if r.sshKeyLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__like", r.sshKeyLike, "form", "")
-	}
-	if r.sshKeyNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__notlike", r.sshKeyNotlike, "form", "")
-	}
-	if r.sshKeyIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__ilike", r.sshKeyIlike, "form", "")
-	}
-	if r.sshKeyNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__notilike", r.sshKeyNotilike, "form", "")
-	}
-	if r.sshKeyDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__desc", r.sshKeyDesc, "form", "")
-	}
-	if r.sshKeyAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ssh_key__asc", r.sshKeyAsc, "form", "")
-	}
-	if r.referencedByRuleRepositoryIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__desc", r.referencedByRuleRepositoryIdObjectsDesc, "form", "")
-	}
-	if r.referencedByRuleRepositoryIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__asc", r.referencedByRuleRepositoryIdObjectsAsc, "form", "")
+	if r.lastSyncedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "last_synced_at__asc", r.lastSyncedAtAsc, "form", "")
 	}
 	if r.referencedByChangeRepositoryIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change_repository_id_objects__desc", r.referencedByChangeRepositoryIdObjectsDesc, "form", "")
 	}
 	if r.referencedByChangeRepositoryIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change_repository_id_objects__asc", r.referencedByChangeRepositoryIdObjectsAsc, "form", "")
+	}
+	if r.referencedByRuleRepositoryIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__desc", r.referencedByRuleRepositoryIdObjectsDesc, "form", "")
+	}
+	if r.referencedByRuleRepositoryIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__asc", r.referencedByRuleRepositoryIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

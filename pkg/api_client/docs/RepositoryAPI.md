@@ -82,7 +82,7 @@ No authorization required
 
 ## GetRepositories
 
-> ResponseWithGenericOfRepository GetRepositories(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).LastSyncedEq(lastSyncedEq).LastSyncedNe(lastSyncedNe).LastSyncedGt(lastSyncedGt).LastSyncedGte(lastSyncedGte).LastSyncedLt(lastSyncedLt).LastSyncedLte(lastSyncedLte).LastSyncedIn(lastSyncedIn).LastSyncedNotin(lastSyncedNotin).LastSyncedLike(lastSyncedLike).LastSyncedNotlike(lastSyncedNotlike).LastSyncedIlike(lastSyncedIlike).LastSyncedNotilike(lastSyncedNotilike).LastSyncedDesc(lastSyncedDesc).LastSyncedAsc(lastSyncedAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).UsernameEq(usernameEq).UsernameNe(usernameNe).UsernameGt(usernameGt).UsernameGte(usernameGte).UsernameLt(usernameLt).UsernameLte(usernameLte).UsernameIn(usernameIn).UsernameNotin(usernameNotin).UsernameLike(usernameLike).UsernameNotlike(usernameNotlike).UsernameIlike(usernameIlike).UsernameNotilike(usernameNotilike).UsernameDesc(usernameDesc).UsernameAsc(usernameAsc).PasswordEq(passwordEq).PasswordNe(passwordNe).PasswordGt(passwordGt).PasswordGte(passwordGte).PasswordLt(passwordLt).PasswordLte(passwordLte).PasswordIn(passwordIn).PasswordNotin(passwordNotin).PasswordLike(passwordLike).PasswordNotlike(passwordNotlike).PasswordIlike(passwordIlike).PasswordNotilike(passwordNotilike).PasswordDesc(passwordDesc).PasswordAsc(passwordAsc).SshKeyEq(sshKeyEq).SshKeyNe(sshKeyNe).SshKeyGt(sshKeyGt).SshKeyGte(sshKeyGte).SshKeyLt(sshKeyLt).SshKeyLte(sshKeyLte).SshKeyIn(sshKeyIn).SshKeyNotin(sshKeyNotin).SshKeyLike(sshKeyLike).SshKeyNotlike(sshKeyNotlike).SshKeyIlike(sshKeyIlike).SshKeyNotilike(sshKeyNotilike).SshKeyDesc(sshKeyDesc).SshKeyAsc(sshKeyAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).Execute()
+> ResponseWithGenericOfRepository GetRepositories(ctx).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).LastSyncedAtEq(lastSyncedAtEq).LastSyncedAtNe(lastSyncedAtNe).LastSyncedAtGt(lastSyncedAtGt).LastSyncedAtGte(lastSyncedAtGte).LastSyncedAtLt(lastSyncedAtLt).LastSyncedAtLte(lastSyncedAtLte).LastSyncedAtIn(lastSyncedAtIn).LastSyncedAtNotin(lastSyncedAtNotin).LastSyncedAtLike(lastSyncedAtLike).LastSyncedAtNotlike(lastSyncedAtNotlike).LastSyncedAtIlike(lastSyncedAtIlike).LastSyncedAtNotilike(lastSyncedAtNotilike).LastSyncedAtDesc(lastSyncedAtDesc).LastSyncedAtAsc(lastSyncedAtAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
 
 
 
@@ -103,6 +103,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
+	referencedByChangeLoad := "referencedByChangeLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
+	referencedByRuleLoad := "referencedByRuleLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -159,20 +161,6 @@ func main() {
 	deletedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtDesc := "deletedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	deletedAtAsc := "deletedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	lastSyncedEq := time.Now() // time.Time | SQL = comparison (optional)
-	lastSyncedNe := time.Now() // time.Time | SQL != comparison (optional)
-	lastSyncedGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
-	lastSyncedGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
-	lastSyncedLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
-	lastSyncedLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
-	lastSyncedIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
-	lastSyncedNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
-	lastSyncedLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedDesc := "lastSyncedDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	lastSyncedAsc := "lastSyncedAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	urlEq := "urlEq_example" // string | SQL = comparison (optional)
 	urlNe := "urlNe_example" // string | SQL != comparison (optional)
 	urlGt := "urlGt_example" // string | SQL > comparison, may not work with all column types (optional)
@@ -187,56 +175,42 @@ func main() {
 	urlNotilike := "urlNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	urlDesc := "urlDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	urlAsc := "urlAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	usernameEq := "usernameEq_example" // string | SQL = comparison (optional)
-	usernameNe := "usernameNe_example" // string | SQL != comparison (optional)
-	usernameGt := "usernameGt_example" // string | SQL > comparison, may not work with all column types (optional)
-	usernameGte := "usernameGte_example" // string | SQL >= comparison, may not work with all column types (optional)
-	usernameLt := "usernameLt_example" // string | SQL < comparison, may not work with all column types (optional)
-	usernameLte := "usernameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
-	usernameIn := "usernameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
-	usernameNotin := "usernameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	usernameLike := "usernameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	usernameNotlike := "usernameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	usernameIlike := "usernameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	usernameNotilike := "usernameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	usernameDesc := "usernameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	usernameAsc := "usernameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	passwordEq := "passwordEq_example" // string | SQL = comparison (optional)
-	passwordNe := "passwordNe_example" // string | SQL != comparison (optional)
-	passwordGt := "passwordGt_example" // string | SQL > comparison, may not work with all column types (optional)
-	passwordGte := "passwordGte_example" // string | SQL >= comparison, may not work with all column types (optional)
-	passwordLt := "passwordLt_example" // string | SQL < comparison, may not work with all column types (optional)
-	passwordLte := "passwordLte_example" // string | SQL <= comparison, may not work with all column types (optional)
-	passwordIn := "passwordIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
-	passwordNotin := "passwordNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	passwordLike := "passwordLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	passwordNotlike := "passwordNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	passwordIlike := "passwordIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	passwordNotilike := "passwordNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	passwordDesc := "passwordDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	passwordAsc := "passwordAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	sshKeyEq := "sshKeyEq_example" // string | SQL = comparison (optional)
-	sshKeyNe := "sshKeyNe_example" // string | SQL != comparison (optional)
-	sshKeyGt := "sshKeyGt_example" // string | SQL > comparison, may not work with all column types (optional)
-	sshKeyGte := "sshKeyGte_example" // string | SQL >= comparison, may not work with all column types (optional)
-	sshKeyLt := "sshKeyLt_example" // string | SQL < comparison, may not work with all column types (optional)
-	sshKeyLte := "sshKeyLte_example" // string | SQL <= comparison, may not work with all column types (optional)
-	sshKeyIn := "sshKeyIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
-	sshKeyNotin := "sshKeyNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	sshKeyLike := "sshKeyLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	sshKeyNotlike := "sshKeyNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	sshKeyIlike := "sshKeyIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	sshKeyNotilike := "sshKeyNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	sshKeyDesc := "sshKeyDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	sshKeyAsc := "sshKeyAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByRuleRepositoryIdObjectsDesc := "referencedByRuleRepositoryIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByRuleRepositoryIdObjectsAsc := "referencedByRuleRepositoryIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	nameEq := "nameEq_example" // string | SQL = comparison (optional)
+	nameNe := "nameNe_example" // string | SQL != comparison (optional)
+	nameGt := "nameGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	nameGte := "nameGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	nameLt := "nameLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	nameLte := "nameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	nameIn := "nameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	nameNotin := "nameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	nameLike := "nameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameNotlike := "nameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameIlike := "nameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameNotilike := "nameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	nameDesc := "nameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	nameAsc := "nameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	lastSyncedAtEq := time.Now() // time.Time | SQL = comparison (optional)
+	lastSyncedAtNe := time.Now() // time.Time | SQL != comparison (optional)
+	lastSyncedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	lastSyncedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	lastSyncedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	lastSyncedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	lastSyncedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	lastSyncedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	lastSyncedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	lastSyncedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	lastSyncedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	lastSyncedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	lastSyncedAtDesc := "lastSyncedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	lastSyncedAtAsc := "lastSyncedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByChangeRepositoryIdObjectsDesc := "referencedByChangeRepositoryIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByChangeRepositoryIdObjectsAsc := "referencedByChangeRepositoryIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByRuleRepositoryIdObjectsDesc := "referencedByRuleRepositoryIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByRuleRepositoryIdObjectsAsc := "referencedByRuleRepositoryIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RepositoryAPI.GetRepositories(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).LastSyncedEq(lastSyncedEq).LastSyncedNe(lastSyncedNe).LastSyncedGt(lastSyncedGt).LastSyncedGte(lastSyncedGte).LastSyncedLt(lastSyncedLt).LastSyncedLte(lastSyncedLte).LastSyncedIn(lastSyncedIn).LastSyncedNotin(lastSyncedNotin).LastSyncedLike(lastSyncedLike).LastSyncedNotlike(lastSyncedNotlike).LastSyncedIlike(lastSyncedIlike).LastSyncedNotilike(lastSyncedNotilike).LastSyncedDesc(lastSyncedDesc).LastSyncedAsc(lastSyncedAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).UsernameEq(usernameEq).UsernameNe(usernameNe).UsernameGt(usernameGt).UsernameGte(usernameGte).UsernameLt(usernameLt).UsernameLte(usernameLte).UsernameIn(usernameIn).UsernameNotin(usernameNotin).UsernameLike(usernameLike).UsernameNotlike(usernameNotlike).UsernameIlike(usernameIlike).UsernameNotilike(usernameNotilike).UsernameDesc(usernameDesc).UsernameAsc(usernameAsc).PasswordEq(passwordEq).PasswordNe(passwordNe).PasswordGt(passwordGt).PasswordGte(passwordGte).PasswordLt(passwordLt).PasswordLte(passwordLte).PasswordIn(passwordIn).PasswordNotin(passwordNotin).PasswordLike(passwordLike).PasswordNotlike(passwordNotlike).PasswordIlike(passwordIlike).PasswordNotilike(passwordNotilike).PasswordDesc(passwordDesc).PasswordAsc(passwordAsc).SshKeyEq(sshKeyEq).SshKeyNe(sshKeyNe).SshKeyGt(sshKeyGt).SshKeyGte(sshKeyGte).SshKeyLt(sshKeyLt).SshKeyLte(sshKeyLte).SshKeyIn(sshKeyIn).SshKeyNotin(sshKeyNotin).SshKeyLike(sshKeyLike).SshKeyNotlike(sshKeyNotlike).SshKeyIlike(sshKeyIlike).SshKeyNotilike(sshKeyNotilike).SshKeyDesc(sshKeyDesc).SshKeyAsc(sshKeyAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).Execute()
+	resp, r, err := apiClient.RepositoryAPI.GetRepositories(context.Background()).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).LastSyncedAtEq(lastSyncedAtEq).LastSyncedAtNe(lastSyncedAtNe).LastSyncedAtGt(lastSyncedAtGt).LastSyncedAtGte(lastSyncedAtGte).LastSyncedAtLt(lastSyncedAtLt).LastSyncedAtLte(lastSyncedAtLte).LastSyncedAtIn(lastSyncedAtIn).LastSyncedAtNotin(lastSyncedAtNotin).LastSyncedAtLike(lastSyncedAtLike).LastSyncedAtNotlike(lastSyncedAtNotlike).LastSyncedAtIlike(lastSyncedAtIlike).LastSyncedAtNotilike(lastSyncedAtNotilike).LastSyncedAtDesc(lastSyncedAtDesc).LastSyncedAtAsc(lastSyncedAtAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RepositoryAPI.GetRepositories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,6 +234,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
+ **referencedByChangeLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
+ **referencedByRuleLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -316,20 +292,6 @@ Name | Type | Description  | Notes
  **deletedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **deletedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **lastSyncedEq** | **time.Time** | SQL &#x3D; comparison | 
- **lastSyncedNe** | **time.Time** | SQL !&#x3D; comparison | 
- **lastSyncedGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
- **lastSyncedGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **lastSyncedLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
- **lastSyncedLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **lastSyncedIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
- **lastSyncedNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
- **lastSyncedLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **lastSyncedAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **urlEq** | **string** | SQL &#x3D; comparison | 
  **urlNe** | **string** | SQL !&#x3D; comparison | 
  **urlGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -344,52 +306,38 @@ Name | Type | Description  | Notes
  **urlNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **urlDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **urlAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **usernameEq** | **string** | SQL &#x3D; comparison | 
- **usernameNe** | **string** | SQL !&#x3D; comparison | 
- **usernameGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **usernameGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **usernameLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **usernameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **usernameIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **usernameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **usernameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **usernameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **usernameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **usernameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **usernameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **usernameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **passwordEq** | **string** | SQL &#x3D; comparison | 
- **passwordNe** | **string** | SQL !&#x3D; comparison | 
- **passwordGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **passwordGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **passwordLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **passwordLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **passwordIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **passwordNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **passwordLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **passwordNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **passwordIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **passwordNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **passwordDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **passwordAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **sshKeyEq** | **string** | SQL &#x3D; comparison | 
- **sshKeyNe** | **string** | SQL !&#x3D; comparison | 
- **sshKeyGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **sshKeyGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **sshKeyLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **sshKeyLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **sshKeyIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **sshKeyNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **sshKeyLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **sshKeyNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **sshKeyIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **sshKeyNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **sshKeyDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **sshKeyAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByRuleRepositoryIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByRuleRepositoryIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **nameEq** | **string** | SQL &#x3D; comparison | 
+ **nameNe** | **string** | SQL !&#x3D; comparison | 
+ **nameGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **nameGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **nameLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **nameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **nameIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **nameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **nameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **nameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **nameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **lastSyncedAtEq** | **time.Time** | SQL &#x3D; comparison | 
+ **lastSyncedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **lastSyncedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **lastSyncedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **lastSyncedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **lastSyncedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **lastSyncedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **lastSyncedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **lastSyncedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **lastSyncedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **lastSyncedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **lastSyncedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **lastSyncedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **lastSyncedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **referencedByChangeRepositoryIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByChangeRepositoryIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByRuleRepositoryIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByRuleRepositoryIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 

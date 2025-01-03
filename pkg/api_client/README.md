@@ -83,7 +83,6 @@ Class | Method | HTTP request | Description
 *ChangeAPI* | [**GetChanges**](docs/ChangeAPI.md#getchanges) | **Get** /api/changes | 
 *ChangeAPI* | [**PatchChange**](docs/ChangeAPI.md#patchchange) | **Patch** /api/changes/{primaryKey} | 
 *ChangeAPI* | [**PostChanges**](docs/ChangeAPI.md#postchanges) | **Post** /api/changes | 
-*CustomAPI* | [**PatchCustomClaimTriggerForJobExecutor**](docs/CustomAPI.md#patchcustomclaimtriggerforjobexecutor) | **Patch** /api/custom/claim-trigger-for-job-executor | 
 *ExecutionAPI* | [**DeleteExecution**](docs/ExecutionAPI.md#deleteexecution) | **Delete** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecution**](docs/ExecutionAPI.md#getexecution) | **Get** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecutions**](docs/ExecutionAPI.md#getexecutions) | **Get** /api/executions | 
@@ -94,6 +93,16 @@ Class | Method | HTTP request | Description
 *JobAPI* | [**GetJobs**](docs/JobAPI.md#getjobs) | **Get** /api/jobs | 
 *JobAPI* | [**PatchJob**](docs/JobAPI.md#patchjob) | **Patch** /api/jobs/{primaryKey} | 
 *JobAPI* | [**PostJobs**](docs/JobAPI.md#postjobs) | **Post** /api/jobs | 
+*LogAPI* | [**DeleteLog**](docs/LogAPI.md#deletelog) | **Delete** /api/logs/{primaryKey} | 
+*LogAPI* | [**GetLog**](docs/LogAPI.md#getlog) | **Get** /api/logs/{primaryKey} | 
+*LogAPI* | [**GetLogs**](docs/LogAPI.md#getlogs) | **Get** /api/logs | 
+*LogAPI* | [**PatchLog**](docs/LogAPI.md#patchlog) | **Patch** /api/logs/{primaryKey} | 
+*LogAPI* | [**PostLogs**](docs/LogAPI.md#postlogs) | **Post** /api/logs | 
+*M2mRuleTriggerJobAPI* | [**DeleteM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#deletem2mruletriggerjob) | **Delete** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+*M2mRuleTriggerJobAPI* | [**GetM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#getm2mruletriggerjob) | **Get** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+*M2mRuleTriggerJobAPI* | [**GetM2mRuleTriggerJobs**](docs/M2mRuleTriggerJobAPI.md#getm2mruletriggerjobs) | **Get** /api/m-2m-rule-trigger-jobs | 
+*M2mRuleTriggerJobAPI* | [**PatchM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#patchm2mruletriggerjob) | **Patch** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+*M2mRuleTriggerJobAPI* | [**PostM2mRuleTriggerJobs**](docs/M2mRuleTriggerJobAPI.md#postm2mruletriggerjobs) | **Post** /api/m-2m-rule-trigger-jobs | 
 *OutputAPI* | [**DeleteOutput**](docs/OutputAPI.md#deleteoutput) | **Delete** /api/outputs/{primaryKey} | 
 *OutputAPI* | [**GetOutput**](docs/OutputAPI.md#getoutput) | **Get** /api/outputs/{primaryKey} | 
 *OutputAPI* | [**GetOutputs**](docs/OutputAPI.md#getoutputs) | **Get** /api/outputs | 
@@ -109,52 +118,34 @@ Class | Method | HTTP request | Description
 *RuleAPI* | [**GetRules**](docs/RuleAPI.md#getrules) | **Get** /api/rules | 
 *RuleAPI* | [**PatchRule**](docs/RuleAPI.md#patchrule) | **Patch** /api/rules/{primaryKey} | 
 *RuleAPI* | [**PostRules**](docs/RuleAPI.md#postrules) | **Post** /api/rules | 
-*RuleRequiresJobAPI* | [**DeleteRuleRequiresJob**](docs/RuleRequiresJobAPI.md#deleterulerequiresjob) | **Delete** /api/rule-requires-jobs/{primaryKey} | 
-*RuleRequiresJobAPI* | [**GetRuleRequiresJob**](docs/RuleRequiresJobAPI.md#getrulerequiresjob) | **Get** /api/rule-requires-jobs/{primaryKey} | 
-*RuleRequiresJobAPI* | [**GetRuleRequiresJobs**](docs/RuleRequiresJobAPI.md#getrulerequiresjobs) | **Get** /api/rule-requires-jobs | 
-*RuleRequiresJobAPI* | [**PatchRuleRequiresJob**](docs/RuleRequiresJobAPI.md#patchrulerequiresjob) | **Patch** /api/rule-requires-jobs/{primaryKey} | 
-*RuleRequiresJobAPI* | [**PostRuleRequiresJobs**](docs/RuleRequiresJobAPI.md#postrulerequiresjobs) | **Post** /api/rule-requires-jobs | 
 *TaskAPI* | [**DeleteTask**](docs/TaskAPI.md#deletetask) | **Delete** /api/tasks/{primaryKey} | 
 *TaskAPI* | [**GetTask**](docs/TaskAPI.md#gettask) | **Get** /api/tasks/{primaryKey} | 
 *TaskAPI* | [**GetTasks**](docs/TaskAPI.md#gettasks) | **Get** /api/tasks | 
 *TaskAPI* | [**PatchTask**](docs/TaskAPI.md#patchtask) | **Patch** /api/tasks/{primaryKey} | 
 *TaskAPI* | [**PostTasks**](docs/TaskAPI.md#posttasks) | **Post** /api/tasks | 
-*TriggerAPI* | [**DeleteTrigger**](docs/TriggerAPI.md#deletetrigger) | **Delete** /api/triggers/{primaryKey} | 
-*TriggerAPI* | [**GetTrigger**](docs/TriggerAPI.md#gettrigger) | **Get** /api/triggers/{primaryKey} | 
-*TriggerAPI* | [**GetTriggers**](docs/TriggerAPI.md#gettriggers) | **Get** /api/triggers | 
-*TriggerAPI* | [**PatchTrigger**](docs/TriggerAPI.md#patchtrigger) | **Patch** /api/triggers/{primaryKey} | 
-*TriggerAPI* | [**PostTriggers**](docs/TriggerAPI.md#posttriggers) | **Post** /api/triggers | 
-*TriggerHasExecutionAPI* | [**DeleteTriggerHasExecution**](docs/TriggerHasExecutionAPI.md#deletetriggerhasexecution) | **Delete** /api/trigger-has-executions/{primaryKey} | 
-*TriggerHasExecutionAPI* | [**GetTriggerHasExecution**](docs/TriggerHasExecutionAPI.md#gettriggerhasexecution) | **Get** /api/trigger-has-executions/{primaryKey} | 
-*TriggerHasExecutionAPI* | [**GetTriggerHasExecutions**](docs/TriggerHasExecutionAPI.md#gettriggerhasexecutions) | **Get** /api/trigger-has-executions | 
-*TriggerHasExecutionAPI* | [**PatchTriggerHasExecution**](docs/TriggerHasExecutionAPI.md#patchtriggerhasexecution) | **Patch** /api/trigger-has-executions/{primaryKey} | 
-*TriggerHasExecutionAPI* | [**PostTriggerHasExecutions**](docs/TriggerHasExecutionAPI.md#posttriggerhasexecutions) | **Post** /api/trigger-has-executions | 
 
 
 ## Documentation For Models
 
  - [Change](docs/Change.md)
- - [ClaimRequest](docs/ClaimRequest.md)
  - [Execution](docs/Execution.md)
  - [GetChangesDefaultResponse](docs/GetChangesDefaultResponse.md)
  - [Job](docs/Job.md)
+ - [Log](docs/Log.md)
+ - [M2MRuleTriggerJob](docs/M2MRuleTriggerJob.md)
  - [Output](docs/Output.md)
  - [Repository](docs/Repository.md)
  - [ResponseWithGenericOfChange](docs/ResponseWithGenericOfChange.md)
  - [ResponseWithGenericOfExecution](docs/ResponseWithGenericOfExecution.md)
  - [ResponseWithGenericOfJob](docs/ResponseWithGenericOfJob.md)
+ - [ResponseWithGenericOfLog](docs/ResponseWithGenericOfLog.md)
+ - [ResponseWithGenericOfM2mRuleTriggerJob](docs/ResponseWithGenericOfM2mRuleTriggerJob.md)
  - [ResponseWithGenericOfOutput](docs/ResponseWithGenericOfOutput.md)
  - [ResponseWithGenericOfRepository](docs/ResponseWithGenericOfRepository.md)
  - [ResponseWithGenericOfRule](docs/ResponseWithGenericOfRule.md)
- - [ResponseWithGenericOfRuleRequiresJob](docs/ResponseWithGenericOfRuleRequiresJob.md)
  - [ResponseWithGenericOfTask](docs/ResponseWithGenericOfTask.md)
- - [ResponseWithGenericOfTrigger](docs/ResponseWithGenericOfTrigger.md)
- - [ResponseWithGenericOfTriggerHasExecution](docs/ResponseWithGenericOfTriggerHasExecution.md)
  - [Rule](docs/Rule.md)
- - [RuleRequiresJob](docs/RuleRequiresJob.md)
  - [Task](docs/Task.md)
- - [Trigger](docs/Trigger.md)
- - [TriggerHasExecution](docs/TriggerHasExecution.md)
 
 
 ## Documentation For Authorization

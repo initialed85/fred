@@ -249,6 +249,7 @@ type ApiGetChangesRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	repositoryLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -305,20 +306,6 @@ type ApiGetChangesRequest struct {
 	deletedAtNotilike *time.Time
 	deletedAtDesc *string
 	deletedAtAsc *string
-	branchNameEq *string
-	branchNameNe *string
-	branchNameGt *string
-	branchNameGte *string
-	branchNameLt *string
-	branchNameLte *string
-	branchNameIn *string
-	branchNameNotin *string
-	branchNameLike *string
-	branchNameNotlike *string
-	branchNameIlike *string
-	branchNameNotilike *string
-	branchNameDesc *string
-	branchNameAsc *string
 	commitHashEq *string
 	commitHashNe *string
 	commitHashGt *string
@@ -333,6 +320,20 @@ type ApiGetChangesRequest struct {
 	commitHashNotilike *string
 	commitHashDesc *string
 	commitHashAsc *string
+	branchNameEq *string
+	branchNameNe *string
+	branchNameGt *string
+	branchNameGte *string
+	branchNameLt *string
+	branchNameLte *string
+	branchNameIn *string
+	branchNameNotin *string
+	branchNameLike *string
+	branchNameNotlike *string
+	branchNameIlike *string
+	branchNameNotilike *string
+	branchNameDesc *string
+	branchNameAsc *string
 	messageEq *string
 	messageNe *string
 	messageGt *string
@@ -403,20 +404,20 @@ type ApiGetChangesRequest struct {
 	committedAtNotilike *time.Time
 	committedAtDesc *string
 	committedAtAsc *string
-	triggerProducedAtEq *time.Time
-	triggerProducedAtNe *time.Time
-	triggerProducedAtGt *time.Time
-	triggerProducedAtGte *time.Time
-	triggerProducedAtLt *time.Time
-	triggerProducedAtLte *time.Time
-	triggerProducedAtIn *time.Time
-	triggerProducedAtNotin *time.Time
-	triggerProducedAtLike *time.Time
-	triggerProducedAtNotlike *time.Time
-	triggerProducedAtIlike *time.Time
-	triggerProducedAtNotilike *time.Time
-	triggerProducedAtDesc *string
-	triggerProducedAtAsc *string
+	triggersProducedAtEq *time.Time
+	triggersProducedAtNe *time.Time
+	triggersProducedAtGt *time.Time
+	triggersProducedAtGte *time.Time
+	triggersProducedAtLt *time.Time
+	triggersProducedAtLte *time.Time
+	triggersProducedAtIn *time.Time
+	triggersProducedAtNotin *time.Time
+	triggersProducedAtLike *time.Time
+	triggersProducedAtNotlike *time.Time
+	triggersProducedAtIlike *time.Time
+	triggersProducedAtNotilike *time.Time
+	triggersProducedAtDesc *string
+	triggersProducedAtAsc *string
 	repositoryIdEq *string
 	repositoryIdNe *string
 	repositoryIdGt *string
@@ -433,8 +434,6 @@ type ApiGetChangesRequest struct {
 	repositoryIdAsc *string
 	repositoryIdObjectDesc *string
 	repositoryIdObjectAsc *string
-	referencedByTriggerChangeIdObjectsDesc *string
-	referencedByTriggerChangeIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -452,6 +451,12 @@ func (r ApiGetChangesRequest) Offset(offset int32) ApiGetChangesRequest {
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetChangesRequest) Depth(depth int32) ApiGetChangesRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) RepositoryLoad(repositoryLoad string) ApiGetChangesRequest {
+	r.repositoryLoad = &repositoryLoad
 	return r
 }
 
@@ -792,90 +797,6 @@ func (r ApiGetChangesRequest) DeletedAtAsc(deletedAtAsc string) ApiGetChangesReq
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetChangesRequest) BranchNameEq(branchNameEq string) ApiGetChangesRequest {
-	r.branchNameEq = &branchNameEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetChangesRequest) BranchNameNe(branchNameNe string) ApiGetChangesRequest {
-	r.branchNameNe = &branchNameNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameGt(branchNameGt string) ApiGetChangesRequest {
-	r.branchNameGt = &branchNameGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameGte(branchNameGte string) ApiGetChangesRequest {
-	r.branchNameGte = &branchNameGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameLt(branchNameLt string) ApiGetChangesRequest {
-	r.branchNameLt = &branchNameLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameLte(branchNameLte string) ApiGetChangesRequest {
-	r.branchNameLte = &branchNameLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) BranchNameIn(branchNameIn string) ApiGetChangesRequest {
-	r.branchNameIn = &branchNameIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) BranchNameNotin(branchNameNotin string) ApiGetChangesRequest {
-	r.branchNameNotin = &branchNameNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameLike(branchNameLike string) ApiGetChangesRequest {
-	r.branchNameLike = &branchNameLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameNotlike(branchNameNotlike string) ApiGetChangesRequest {
-	r.branchNameNotlike = &branchNameNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameIlike(branchNameIlike string) ApiGetChangesRequest {
-	r.branchNameIlike = &branchNameIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameNotilike(branchNameNotilike string) ApiGetChangesRequest {
-	r.branchNameNotilike = &branchNameNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) BranchNameDesc(branchNameDesc string) ApiGetChangesRequest {
-	r.branchNameDesc = &branchNameDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) BranchNameAsc(branchNameAsc string) ApiGetChangesRequest {
-	r.branchNameAsc = &branchNameAsc
-	return r
-}
-
-// SQL &#x3D; comparison
 func (r ApiGetChangesRequest) CommitHashEq(commitHashEq string) ApiGetChangesRequest {
 	r.commitHashEq = &commitHashEq
 	return r
@@ -956,6 +877,90 @@ func (r ApiGetChangesRequest) CommitHashDesc(commitHashDesc string) ApiGetChange
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetChangesRequest) CommitHashAsc(commitHashAsc string) ApiGetChangesRequest {
 	r.commitHashAsc = &commitHashAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) BranchNameEq(branchNameEq string) ApiGetChangesRequest {
+	r.branchNameEq = &branchNameEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) BranchNameNe(branchNameNe string) ApiGetChangesRequest {
+	r.branchNameNe = &branchNameNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameGt(branchNameGt string) ApiGetChangesRequest {
+	r.branchNameGt = &branchNameGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameGte(branchNameGte string) ApiGetChangesRequest {
+	r.branchNameGte = &branchNameGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameLt(branchNameLt string) ApiGetChangesRequest {
+	r.branchNameLt = &branchNameLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) BranchNameLte(branchNameLte string) ApiGetChangesRequest {
+	r.branchNameLte = &branchNameLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) BranchNameIn(branchNameIn string) ApiGetChangesRequest {
+	r.branchNameIn = &branchNameIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) BranchNameNotin(branchNameNotin string) ApiGetChangesRequest {
+	r.branchNameNotin = &branchNameNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameLike(branchNameLike string) ApiGetChangesRequest {
+	r.branchNameLike = &branchNameLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameNotlike(branchNameNotlike string) ApiGetChangesRequest {
+	r.branchNameNotlike = &branchNameNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameIlike(branchNameIlike string) ApiGetChangesRequest {
+	r.branchNameIlike = &branchNameIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) BranchNameNotilike(branchNameNotilike string) ApiGetChangesRequest {
+	r.branchNameNotilike = &branchNameNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) BranchNameDesc(branchNameDesc string) ApiGetChangesRequest {
+	r.branchNameDesc = &branchNameDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) BranchNameAsc(branchNameAsc string) ApiGetChangesRequest {
+	r.branchNameAsc = &branchNameAsc
 	return r
 }
 
@@ -1380,86 +1385,86 @@ func (r ApiGetChangesRequest) CommittedAtAsc(committedAtAsc string) ApiGetChange
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetChangesRequest) TriggerProducedAtEq(triggerProducedAtEq time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtEq = &triggerProducedAtEq
+func (r ApiGetChangesRequest) TriggersProducedAtEq(triggersProducedAtEq time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtEq = &triggersProducedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetChangesRequest) TriggerProducedAtNe(triggerProducedAtNe time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtNe = &triggerProducedAtNe
+func (r ApiGetChangesRequest) TriggersProducedAtNe(triggersProducedAtNe time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtNe = &triggersProducedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducedAtGt(triggerProducedAtGt time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtGt = &triggerProducedAtGt
+func (r ApiGetChangesRequest) TriggersProducedAtGt(triggersProducedAtGt time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtGt = &triggersProducedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducedAtGte(triggerProducedAtGte time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtGte = &triggerProducedAtGte
+func (r ApiGetChangesRequest) TriggersProducedAtGte(triggersProducedAtGte time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtGte = &triggersProducedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducedAtLt(triggerProducedAtLt time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtLt = &triggerProducedAtLt
+func (r ApiGetChangesRequest) TriggersProducedAtLt(triggersProducedAtLt time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtLt = &triggersProducedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducedAtLte(triggerProducedAtLte time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtLte = &triggerProducedAtLte
+func (r ApiGetChangesRequest) TriggersProducedAtLte(triggersProducedAtLte time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtLte = &triggersProducedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggerProducedAtIn(triggerProducedAtIn time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtIn = &triggerProducedAtIn
+func (r ApiGetChangesRequest) TriggersProducedAtIn(triggersProducedAtIn time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtIn = &triggersProducedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggerProducedAtNotin(triggerProducedAtNotin time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtNotin = &triggerProducedAtNotin
+func (r ApiGetChangesRequest) TriggersProducedAtNotin(triggersProducedAtNotin time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtNotin = &triggersProducedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducedAtLike(triggerProducedAtLike time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtLike = &triggerProducedAtLike
+func (r ApiGetChangesRequest) TriggersProducedAtLike(triggersProducedAtLike time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtLike = &triggersProducedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducedAtNotlike(triggerProducedAtNotlike time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtNotlike = &triggerProducedAtNotlike
+func (r ApiGetChangesRequest) TriggersProducedAtNotlike(triggersProducedAtNotlike time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtNotlike = &triggersProducedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducedAtIlike(triggerProducedAtIlike time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtIlike = &triggerProducedAtIlike
+func (r ApiGetChangesRequest) TriggersProducedAtIlike(triggersProducedAtIlike time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtIlike = &triggersProducedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducedAtNotilike(triggerProducedAtNotilike time.Time) ApiGetChangesRequest {
-	r.triggerProducedAtNotilike = &triggerProducedAtNotilike
+func (r ApiGetChangesRequest) TriggersProducedAtNotilike(triggersProducedAtNotilike time.Time) ApiGetChangesRequest {
+	r.triggersProducedAtNotilike = &triggersProducedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggerProducedAtDesc(triggerProducedAtDesc string) ApiGetChangesRequest {
-	r.triggerProducedAtDesc = &triggerProducedAtDesc
+func (r ApiGetChangesRequest) TriggersProducedAtDesc(triggersProducedAtDesc string) ApiGetChangesRequest {
+	r.triggersProducedAtDesc = &triggersProducedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggerProducedAtAsc(triggerProducedAtAsc string) ApiGetChangesRequest {
-	r.triggerProducedAtAsc = &triggerProducedAtAsc
+func (r ApiGetChangesRequest) TriggersProducedAtAsc(triggersProducedAtAsc string) ApiGetChangesRequest {
+	r.triggersProducedAtAsc = &triggersProducedAtAsc
 	return r
 }
 
@@ -1559,18 +1564,6 @@ func (r ApiGetChangesRequest) RepositoryIdObjectAsc(repositoryIdObjectAsc string
 	return r
 }
 
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) ReferencedByTriggerChangeIdObjectsDesc(referencedByTriggerChangeIdObjectsDesc string) ApiGetChangesRequest {
-	r.referencedByTriggerChangeIdObjectsDesc = &referencedByTriggerChangeIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) ReferencedByTriggerChangeIdObjectsAsc(referencedByTriggerChangeIdObjectsAsc string) ApiGetChangesRequest {
-	r.referencedByTriggerChangeIdObjectsAsc = &referencedByTriggerChangeIdObjectsAsc
-	return r
-}
-
 func (r ApiGetChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Response, error) {
 	return r.ApiService.GetChangesExecute(r)
 }
@@ -1617,6 +1610,9 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.repositoryLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository__load", r.repositoryLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1786,48 +1782,6 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
-	if r.branchNameEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__eq", r.branchNameEq, "form", "")
-	}
-	if r.branchNameNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ne", r.branchNameNe, "form", "")
-	}
-	if r.branchNameGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gt", r.branchNameGt, "form", "")
-	}
-	if r.branchNameGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gte", r.branchNameGte, "form", "")
-	}
-	if r.branchNameLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lt", r.branchNameLt, "form", "")
-	}
-	if r.branchNameLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lte", r.branchNameLte, "form", "")
-	}
-	if r.branchNameIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__in", r.branchNameIn, "form", "")
-	}
-	if r.branchNameNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notin", r.branchNameNotin, "form", "")
-	}
-	if r.branchNameLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__like", r.branchNameLike, "form", "")
-	}
-	if r.branchNameNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notlike", r.branchNameNotlike, "form", "")
-	}
-	if r.branchNameIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ilike", r.branchNameIlike, "form", "")
-	}
-	if r.branchNameNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notilike", r.branchNameNotilike, "form", "")
-	}
-	if r.branchNameDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__desc", r.branchNameDesc, "form", "")
-	}
-	if r.branchNameAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__asc", r.branchNameAsc, "form", "")
-	}
 	if r.commitHashEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__eq", r.commitHashEq, "form", "")
 	}
@@ -1869,6 +1823,48 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	}
 	if r.commitHashAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__asc", r.commitHashAsc, "form", "")
+	}
+	if r.branchNameEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__eq", r.branchNameEq, "form", "")
+	}
+	if r.branchNameNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ne", r.branchNameNe, "form", "")
+	}
+	if r.branchNameGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gt", r.branchNameGt, "form", "")
+	}
+	if r.branchNameGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gte", r.branchNameGte, "form", "")
+	}
+	if r.branchNameLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lt", r.branchNameLt, "form", "")
+	}
+	if r.branchNameLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lte", r.branchNameLte, "form", "")
+	}
+	if r.branchNameIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__in", r.branchNameIn, "form", "")
+	}
+	if r.branchNameNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notin", r.branchNameNotin, "form", "")
+	}
+	if r.branchNameLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__like", r.branchNameLike, "form", "")
+	}
+	if r.branchNameNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notlike", r.branchNameNotlike, "form", "")
+	}
+	if r.branchNameIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ilike", r.branchNameIlike, "form", "")
+	}
+	if r.branchNameNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notilike", r.branchNameNotilike, "form", "")
+	}
+	if r.branchNameDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__desc", r.branchNameDesc, "form", "")
+	}
+	if r.branchNameAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__asc", r.branchNameAsc, "form", "")
 	}
 	if r.messageEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "message__eq", r.messageEq, "form", "")
@@ -2080,47 +2076,47 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	if r.committedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__asc", r.committedAtAsc, "form", "")
 	}
-	if r.triggerProducedAtEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__eq", r.triggerProducedAtEq, "form", "")
+	if r.triggersProducedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__eq", r.triggersProducedAtEq, "form", "")
 	}
-	if r.triggerProducedAtNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__ne", r.triggerProducedAtNe, "form", "")
+	if r.triggersProducedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__ne", r.triggersProducedAtNe, "form", "")
 	}
-	if r.triggerProducedAtGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__gt", r.triggerProducedAtGt, "form", "")
+	if r.triggersProducedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__gt", r.triggersProducedAtGt, "form", "")
 	}
-	if r.triggerProducedAtGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__gte", r.triggerProducedAtGte, "form", "")
+	if r.triggersProducedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__gte", r.triggersProducedAtGte, "form", "")
 	}
-	if r.triggerProducedAtLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__lt", r.triggerProducedAtLt, "form", "")
+	if r.triggersProducedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__lt", r.triggersProducedAtLt, "form", "")
 	}
-	if r.triggerProducedAtLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__lte", r.triggerProducedAtLte, "form", "")
+	if r.triggersProducedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__lte", r.triggersProducedAtLte, "form", "")
 	}
-	if r.triggerProducedAtIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__in", r.triggerProducedAtIn, "form", "")
+	if r.triggersProducedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__in", r.triggersProducedAtIn, "form", "")
 	}
-	if r.triggerProducedAtNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notin", r.triggerProducedAtNotin, "form", "")
+	if r.triggersProducedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notin", r.triggersProducedAtNotin, "form", "")
 	}
-	if r.triggerProducedAtLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__like", r.triggerProducedAtLike, "form", "")
+	if r.triggersProducedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__like", r.triggersProducedAtLike, "form", "")
 	}
-	if r.triggerProducedAtNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notlike", r.triggerProducedAtNotlike, "form", "")
+	if r.triggersProducedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notlike", r.triggersProducedAtNotlike, "form", "")
 	}
-	if r.triggerProducedAtIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__ilike", r.triggerProducedAtIlike, "form", "")
+	if r.triggersProducedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__ilike", r.triggersProducedAtIlike, "form", "")
 	}
-	if r.triggerProducedAtNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__notilike", r.triggerProducedAtNotilike, "form", "")
+	if r.triggersProducedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notilike", r.triggersProducedAtNotilike, "form", "")
 	}
-	if r.triggerProducedAtDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__desc", r.triggerProducedAtDesc, "form", "")
+	if r.triggersProducedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__desc", r.triggersProducedAtDesc, "form", "")
 	}
-	if r.triggerProducedAtAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_produced_at__asc", r.triggerProducedAtAsc, "form", "")
+	if r.triggersProducedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__asc", r.triggersProducedAtAsc, "form", "")
 	}
 	if r.repositoryIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id__eq", r.repositoryIdEq, "form", "")
@@ -2169,12 +2165,6 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	}
 	if r.repositoryIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id_object__asc", r.repositoryIdObjectAsc, "form", "")
-	}
-	if r.referencedByTriggerChangeIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_change_id_objects__desc", r.referencedByTriggerChangeIdObjectsDesc, "form", "")
-	}
-	if r.referencedByTriggerChangeIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_trigger_change_id_objects__asc", r.referencedByTriggerChangeIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

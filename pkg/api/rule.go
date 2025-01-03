@@ -30,38 +30,40 @@ import (
 )
 
 type Rule struct {
-	ID                                       uuid.UUID          `json:"id"`
-	CreatedAt                                time.Time          `json:"created_at"`
-	UpdatedAt                                time.Time          `json:"updated_at"`
-	DeletedAt                                *time.Time         `json:"deleted_at"`
-	BranchName                               *string            `json:"branch_name"`
-	RepositoryID                             uuid.UUID          `json:"repository_id"`
-	RepositoryIDObject                       *Repository        `json:"repository_id_object"`
-	ReferencedByTriggerRuleIDObjects         []*Trigger         `json:"referenced_by_trigger_rule_id_objects"`
-	ReferencedByJobRuleIDObjects             []*Job             `json:"referenced_by_job_rule_id_objects"`
-	ReferencedByRuleRequiresJobRuleIDObjects []*RuleRequiresJob `json:"referenced_by_rule_requires_job_rule_id_objects"`
+	ID                                      uuid.UUID   `json:"id"`
+	CreatedAt                               time.Time   `json:"created_at"`
+	UpdatedAt                               time.Time   `json:"updated_at"`
+	DeletedAt                               *time.Time  `json:"deleted_at"`
+	BranchName                              *string     `json:"branch_name"`
+	RepositoryID                            uuid.UUID   `json:"repository_id"`
+	RepositoryIDObject                      *Repository `json:"repository_id_object"`
+	JobTriggerJobID                         uuid.UUID   `json:"job_trigger_job_id"`
+	JobTriggerJobIDObject                   *Job        `json:"job_trigger_job_id_object"`
+	ReferencedByJobRuleTriggerRuleIDObjects []*Job      `json:"referenced_by_job_rule_trigger_rule_id_objects"`
 }
 
 var RuleTable = "rule"
 
-var RuleTableNamespaceID int32 = 1337 + 6
+var RuleTableNamespaceID int32 = 1337 + 8
 
 var (
-	RuleTableIDColumn           = "id"
-	RuleTableCreatedAtColumn    = "created_at"
-	RuleTableUpdatedAtColumn    = "updated_at"
-	RuleTableDeletedAtColumn    = "deleted_at"
-	RuleTableBranchNameColumn   = "branch_name"
-	RuleTableRepositoryIDColumn = "repository_id"
+	RuleTableIDColumn              = "id"
+	RuleTableCreatedAtColumn       = "created_at"
+	RuleTableUpdatedAtColumn       = "updated_at"
+	RuleTableDeletedAtColumn       = "deleted_at"
+	RuleTableBranchNameColumn      = "branch_name"
+	RuleTableRepositoryIDColumn    = "repository_id"
+	RuleTableJobTriggerJobIDColumn = "job_trigger_job_id"
 )
 
 var (
-	RuleTableIDColumnWithTypeCast           = `"id" AS id`
-	RuleTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
-	RuleTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
-	RuleTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
-	RuleTableBranchNameColumnWithTypeCast   = `"branch_name" AS branch_name`
-	RuleTableRepositoryIDColumnWithTypeCast = `"repository_id" AS repository_id`
+	RuleTableIDColumnWithTypeCast              = `"id" AS id`
+	RuleTableCreatedAtColumnWithTypeCast       = `"created_at" AS created_at`
+	RuleTableUpdatedAtColumnWithTypeCast       = `"updated_at" AS updated_at`
+	RuleTableDeletedAtColumnWithTypeCast       = `"deleted_at" AS deleted_at`
+	RuleTableBranchNameColumnWithTypeCast      = `"branch_name" AS branch_name`
+	RuleTableRepositoryIDColumnWithTypeCast    = `"repository_id" AS repository_id`
+	RuleTableJobTriggerJobIDColumnWithTypeCast = `"job_trigger_job_id" AS job_trigger_job_id`
 )
 
 var RuleTableColumns = []string{
@@ -71,6 +73,7 @@ var RuleTableColumns = []string{
 	RuleTableDeletedAtColumn,
 	RuleTableBranchNameColumn,
 	RuleTableRepositoryIDColumn,
+	RuleTableJobTriggerJobIDColumn,
 }
 
 var RuleTableColumnsWithTypeCasts = []string{
@@ -80,6 +83,7 @@ var RuleTableColumnsWithTypeCasts = []string{
 	RuleTableDeletedAtColumnWithTypeCast,
 	RuleTableBranchNameColumnWithTypeCast,
 	RuleTableRepositoryIDColumnWithTypeCast,
+	RuleTableJobTriggerJobIDColumnWithTypeCast,
 }
 
 var RuleIntrospectedTable *introspect.Table
@@ -274,6 +278,25 @@ func (m *Rule) FromItem(item map[string]any) error {
 
 			m.RepositoryID = temp2
 
+		case "job_trigger_job_id":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseUUID(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(uuid.UUID)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_trigger_job_id.UUID", temp1))
+				}
+			}
+
+			m.JobTriggerJobID = temp2
+
 		}
 	}
 
@@ -310,9 +333,9 @@ func (m *Rule) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.BranchName = o.BranchName
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
-	m.ReferencedByTriggerRuleIDObjects = o.ReferencedByTriggerRuleIDObjects
-	m.ReferencedByJobRuleIDObjects = o.ReferencedByJobRuleIDObjects
-	m.ReferencedByRuleRequiresJobRuleIDObjects = o.ReferencedByRuleRequiresJobRuleIDObjects
+	m.JobTriggerJobID = o.JobTriggerJobID
+	m.JobTriggerJobIDObject = o.JobTriggerJobIDObject
+	m.ReferencedByJobRuleTriggerRuleIDObjects = o.ReferencedByJobRuleTriggerRuleIDObjects
 
 	return nil
 }
@@ -382,6 +405,17 @@ func (m *Rule) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 		v, err := types.FormatUUID(m.RepositoryID)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.RepositoryID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobTriggerJobID) || slices.Contains(forceSetValuesForFields, RuleTableJobTriggerJobIDColumn) || isRequired(RuleTableColumnLookup, RuleTableJobTriggerJobIDColumn) {
+		columns = append(columns, RuleTableJobTriggerJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobTriggerJobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobTriggerJobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -495,6 +529,17 @@ func (m *Rule) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 		v, err := types.FormatUUID(m.RepositoryID)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.RepositoryID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobTriggerJobID) || slices.Contains(forceSetValuesForFields, RuleTableJobTriggerJobIDColumn) {
+		columns = append(columns, RuleTableJobTriggerJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobTriggerJobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobTriggerJobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -617,8 +662,15 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RuleTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, RuleTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", RuleTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RuleTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectRule early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Rule{}, 0, 0, 0, 0, nil
 	}
 
@@ -649,11 +701,12 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 		if !types.IsZeroUUID(object.RepositoryID) {
 			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RepositoryTable, object.RepositoryID), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, RepositoryTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectRepository for object.RepositoryIDObject")
+					log.Printf("loading SelectRules->SelectRepository for object.RepositoryIDObject{%s: %v}", RepositoryTablePrimaryKeyColumn, object.RepositoryID)
 				}
 
 				object.RepositoryIDObject, _, _, _, _, err = SelectRepository(
@@ -674,55 +727,48 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 			}
 		}
 
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+		if !types.IsZeroUUID(object.JobTriggerJobID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", JobTable, object.JobTriggerJobID), true)
+			shouldLoad := query.ShouldLoad(ctx, JobTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectTriggers for object.ReferencedByTriggerRuleIDObjects")
+					log.Printf("loading SelectRules->SelectJob for object.JobTriggerJobIDObject{%s: %v}", JobTablePrimaryKeyColumn, object.JobTriggerJobID)
 				}
 
-				object.ReferencedByTriggerRuleIDObjects, _, _, _, _, err = SelectTriggers(
+				object.JobTriggerJobIDObject, _, _, _, _, err = SelectJob(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", TriggerTableRuleIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
+					fmt.Sprintf("%v = $1", JobTablePrimaryKeyColumn),
+					object.JobTriggerJobID,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
-						return err
+						return nil, 0, 0, 0, 0, err
 					}
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectTriggers for object.ReferencedByTriggerRuleIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectRules->SelectJob for object.JobTriggerJobIDObject in %s", time.Since(thisBefore))
 				}
-
 			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
 		}
 
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", JobTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", JobTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects")
+					log.Printf("loading SelectRules->SelectJobs for object.ReferencedByJobRuleTriggerRuleIDObjects")
 				}
 
-				object.ReferencedByJobRuleIDObjects, _, _, _, _, err = SelectJobs(
+				object.ReferencedByJobRuleTriggerRuleIDObjects, _, _, _, _, err = SelectJobs(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", JobTableRuleIDColumn),
+					fmt.Sprintf("%v = $1", JobTableRuleTriggerRuleIDColumn),
 					nil,
 					nil,
 					nil,
@@ -735,43 +781,7 @@ func SelectRules(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects")
-				}
-
-				object.ReferencedByRuleRequiresJobRuleIDObjects, _, _, _, _, err = SelectRuleRequiresJobs(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", RuleRequiresJobTableRuleIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectRules->SelectRuleRequiresJobs for object.ReferencedByRuleRequiresJobRuleIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectRules->SelectJobs for object.ReferencedByJobRuleTriggerRuleIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -828,10 +838,6 @@ func SelectRule(ctx context.Context, tx pgx.Tx, where string, values ...any) (*R
 func handleGetRules(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Rule, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1230,6 +1236,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return response, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1340,6 +1347,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return response, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1413,6 +1421,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1466,6 +1475,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1528,6 +1538,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				}, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1563,6 +1574,7 @@ func GetRuleRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 				return server.EmptyResponse{}, nil
 			},
 			Rule{},
+			RuleIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

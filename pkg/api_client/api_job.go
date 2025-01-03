@@ -249,6 +249,9 @@ type ApiGetJobsRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	ruleLoad *string
+	referencedByTaskLoad *string
+	referencedByRuleLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -319,120 +322,26 @@ type ApiGetJobsRequest struct {
 	nameNotilike *string
 	nameDesc *string
 	nameAsc *string
-	jobExecutorClaimedUntilEq *time.Time
-	jobExecutorClaimedUntilNe *time.Time
-	jobExecutorClaimedUntilGt *time.Time
-	jobExecutorClaimedUntilGte *time.Time
-	jobExecutorClaimedUntilLt *time.Time
-	jobExecutorClaimedUntilLte *time.Time
-	jobExecutorClaimedUntilIn *time.Time
-	jobExecutorClaimedUntilNotin *time.Time
-	jobExecutorClaimedUntilLike *time.Time
-	jobExecutorClaimedUntilNotlike *time.Time
-	jobExecutorClaimedUntilIlike *time.Time
-	jobExecutorClaimedUntilNotilike *time.Time
-	jobExecutorClaimedUntilDesc *string
-	jobExecutorClaimedUntilAsc *string
-	ruleIdEq *string
-	ruleIdNe *string
-	ruleIdGt *string
-	ruleIdGte *string
-	ruleIdLt *string
-	ruleIdLte *string
-	ruleIdIn *string
-	ruleIdNotin *string
-	ruleIdLike *string
-	ruleIdNotlike *string
-	ruleIdIlike *string
-	ruleIdNotilike *string
-	ruleIdDesc *string
-	ruleIdAsc *string
-	ruleIdObjectDesc *string
-	ruleIdObjectAsc *string
-	buildTaskIdEq *string
-	buildTaskIdNe *string
-	buildTaskIdGt *string
-	buildTaskIdGte *string
-	buildTaskIdLt *string
-	buildTaskIdLte *string
-	buildTaskIdIn *string
-	buildTaskIdNotin *string
-	buildTaskIdLike *string
-	buildTaskIdNotlike *string
-	buildTaskIdIlike *string
-	buildTaskIdNotilike *string
-	buildTaskIdDesc *string
-	buildTaskIdAsc *string
-	buildTaskIdObjectDesc *string
-	buildTaskIdObjectAsc *string
-	testTaskIdEq *string
-	testTaskIdNe *string
-	testTaskIdGt *string
-	testTaskIdGte *string
-	testTaskIdLt *string
-	testTaskIdLte *string
-	testTaskIdIn *string
-	testTaskIdNotin *string
-	testTaskIdLike *string
-	testTaskIdNotlike *string
-	testTaskIdIlike *string
-	testTaskIdNotilike *string
-	testTaskIdDesc *string
-	testTaskIdAsc *string
-	testTaskIdObjectDesc *string
-	testTaskIdObjectAsc *string
-	publishTaskIdEq *string
-	publishTaskIdNe *string
-	publishTaskIdGt *string
-	publishTaskIdGte *string
-	publishTaskIdLt *string
-	publishTaskIdLte *string
-	publishTaskIdIn *string
-	publishTaskIdNotin *string
-	publishTaskIdLike *string
-	publishTaskIdNotlike *string
-	publishTaskIdIlike *string
-	publishTaskIdNotilike *string
-	publishTaskIdDesc *string
-	publishTaskIdAsc *string
-	publishTaskIdObjectDesc *string
-	publishTaskIdObjectAsc *string
-	deployTaskIdEq *string
-	deployTaskIdNe *string
-	deployTaskIdGt *string
-	deployTaskIdGte *string
-	deployTaskIdLt *string
-	deployTaskIdLte *string
-	deployTaskIdIn *string
-	deployTaskIdNotin *string
-	deployTaskIdLike *string
-	deployTaskIdNotlike *string
-	deployTaskIdIlike *string
-	deployTaskIdNotilike *string
-	deployTaskIdDesc *string
-	deployTaskIdAsc *string
-	deployTaskIdObjectDesc *string
-	deployTaskIdObjectAsc *string
-	validateTaskIdEq *string
-	validateTaskIdNe *string
-	validateTaskIdGt *string
-	validateTaskIdGte *string
-	validateTaskIdLt *string
-	validateTaskIdLte *string
-	validateTaskIdIn *string
-	validateTaskIdNotin *string
-	validateTaskIdLike *string
-	validateTaskIdNotlike *string
-	validateTaskIdIlike *string
-	validateTaskIdNotilike *string
-	validateTaskIdDesc *string
-	validateTaskIdAsc *string
-	validateTaskIdObjectDesc *string
-	validateTaskIdObjectAsc *string
-	referencedByRuleRequiresJobJobIdObjectsDesc *string
-	referencedByRuleRequiresJobJobIdObjectsAsc *string
-	referencedByExecutionJobIdObjectsDesc *string
-	referencedByExecutionJobIdObjectsAsc *string
+	ruleTriggerRuleIdEq *string
+	ruleTriggerRuleIdNe *string
+	ruleTriggerRuleIdGt *string
+	ruleTriggerRuleIdGte *string
+	ruleTriggerRuleIdLt *string
+	ruleTriggerRuleIdLte *string
+	ruleTriggerRuleIdIn *string
+	ruleTriggerRuleIdNotin *string
+	ruleTriggerRuleIdLike *string
+	ruleTriggerRuleIdNotlike *string
+	ruleTriggerRuleIdIlike *string
+	ruleTriggerRuleIdNotilike *string
+	ruleTriggerRuleIdDesc *string
+	ruleTriggerRuleIdAsc *string
+	ruleTriggerRuleIdObjectDesc *string
+	ruleTriggerRuleIdObjectAsc *string
+	referencedByTaskJobIdObjectsDesc *string
+	referencedByTaskJobIdObjectsAsc *string
+	referencedByRuleJobTriggerJobIdObjectsDesc *string
+	referencedByRuleJobTriggerJobIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -450,6 +359,24 @@ func (r ApiGetJobsRequest) Offset(offset int32) ApiGetJobsRequest {
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetJobsRequest) Depth(depth int32) ApiGetJobsRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) RuleLoad(ruleLoad string) ApiGetJobsRequest {
+	r.ruleLoad = &ruleLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) ReferencedByTaskLoad(referencedByTaskLoad string) ApiGetJobsRequest {
+	r.referencedByTaskLoad = &referencedByTaskLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetJobsRequest) ReferencedByRuleLoad(referencedByRuleLoad string) ApiGetJobsRequest {
+	r.referencedByRuleLoad = &referencedByRuleLoad
 	return r
 }
 
@@ -874,686 +801,122 @@ func (r ApiGetJobsRequest) NameAsc(nameAsc string) ApiGetJobsRequest {
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilEq(jobExecutorClaimedUntilEq time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilEq = &jobExecutorClaimedUntilEq
+func (r ApiGetJobsRequest) RuleTriggerRuleIdEq(ruleTriggerRuleIdEq string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdEq = &ruleTriggerRuleIdEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilNe(jobExecutorClaimedUntilNe time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilNe = &jobExecutorClaimedUntilNe
+func (r ApiGetJobsRequest) RuleTriggerRuleIdNe(ruleTriggerRuleIdNe string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdNe = &ruleTriggerRuleIdNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilGt(jobExecutorClaimedUntilGt time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilGt = &jobExecutorClaimedUntilGt
+func (r ApiGetJobsRequest) RuleTriggerRuleIdGt(ruleTriggerRuleIdGt string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdGt = &ruleTriggerRuleIdGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilGte(jobExecutorClaimedUntilGte time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilGte = &jobExecutorClaimedUntilGte
+func (r ApiGetJobsRequest) RuleTriggerRuleIdGte(ruleTriggerRuleIdGte string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdGte = &ruleTriggerRuleIdGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilLt(jobExecutorClaimedUntilLt time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilLt = &jobExecutorClaimedUntilLt
+func (r ApiGetJobsRequest) RuleTriggerRuleIdLt(ruleTriggerRuleIdLt string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdLt = &ruleTriggerRuleIdLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilLte(jobExecutorClaimedUntilLte time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilLte = &jobExecutorClaimedUntilLte
+func (r ApiGetJobsRequest) RuleTriggerRuleIdLte(ruleTriggerRuleIdLte string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdLte = &ruleTriggerRuleIdLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilIn(jobExecutorClaimedUntilIn time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilIn = &jobExecutorClaimedUntilIn
+func (r ApiGetJobsRequest) RuleTriggerRuleIdIn(ruleTriggerRuleIdIn string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdIn = &ruleTriggerRuleIdIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotin(jobExecutorClaimedUntilNotin time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilNotin = &jobExecutorClaimedUntilNotin
+func (r ApiGetJobsRequest) RuleTriggerRuleIdNotin(ruleTriggerRuleIdNotin string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdNotin = &ruleTriggerRuleIdNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilLike(jobExecutorClaimedUntilLike time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilLike = &jobExecutorClaimedUntilLike
+func (r ApiGetJobsRequest) RuleTriggerRuleIdLike(ruleTriggerRuleIdLike string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdLike = &ruleTriggerRuleIdLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotlike(jobExecutorClaimedUntilNotlike time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilNotlike = &jobExecutorClaimedUntilNotlike
+func (r ApiGetJobsRequest) RuleTriggerRuleIdNotlike(ruleTriggerRuleIdNotlike string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdNotlike = &ruleTriggerRuleIdNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilIlike(jobExecutorClaimedUntilIlike time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilIlike = &jobExecutorClaimedUntilIlike
+func (r ApiGetJobsRequest) RuleTriggerRuleIdIlike(ruleTriggerRuleIdIlike string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdIlike = &ruleTriggerRuleIdIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilNotilike(jobExecutorClaimedUntilNotilike time.Time) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilNotilike = &jobExecutorClaimedUntilNotilike
+func (r ApiGetJobsRequest) RuleTriggerRuleIdNotilike(ruleTriggerRuleIdNotilike string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdNotilike = &ruleTriggerRuleIdNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilDesc(jobExecutorClaimedUntilDesc string) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilDesc = &jobExecutorClaimedUntilDesc
+func (r ApiGetJobsRequest) RuleTriggerRuleIdDesc(ruleTriggerRuleIdDesc string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdDesc = &ruleTriggerRuleIdDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) JobExecutorClaimedUntilAsc(jobExecutorClaimedUntilAsc string) ApiGetJobsRequest {
-	r.jobExecutorClaimedUntilAsc = &jobExecutorClaimedUntilAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) RuleIdEq(ruleIdEq string) ApiGetJobsRequest {
-	r.ruleIdEq = &ruleIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) RuleIdNe(ruleIdNe string) ApiGetJobsRequest {
-	r.ruleIdNe = &ruleIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) RuleIdGt(ruleIdGt string) ApiGetJobsRequest {
-	r.ruleIdGt = &ruleIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) RuleIdGte(ruleIdGte string) ApiGetJobsRequest {
-	r.ruleIdGte = &ruleIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) RuleIdLt(ruleIdLt string) ApiGetJobsRequest {
-	r.ruleIdLt = &ruleIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) RuleIdLte(ruleIdLte string) ApiGetJobsRequest {
-	r.ruleIdLte = &ruleIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) RuleIdIn(ruleIdIn string) ApiGetJobsRequest {
-	r.ruleIdIn = &ruleIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) RuleIdNotin(ruleIdNotin string) ApiGetJobsRequest {
-	r.ruleIdNotin = &ruleIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) RuleIdLike(ruleIdLike string) ApiGetJobsRequest {
-	r.ruleIdLike = &ruleIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) RuleIdNotlike(ruleIdNotlike string) ApiGetJobsRequest {
-	r.ruleIdNotlike = &ruleIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) RuleIdIlike(ruleIdIlike string) ApiGetJobsRequest {
-	r.ruleIdIlike = &ruleIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) RuleIdNotilike(ruleIdNotilike string) ApiGetJobsRequest {
-	r.ruleIdNotilike = &ruleIdNotilike
+func (r ApiGetJobsRequest) RuleTriggerRuleIdAsc(ruleTriggerRuleIdAsc string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdAsc = &ruleTriggerRuleIdAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) RuleIdDesc(ruleIdDesc string) ApiGetJobsRequest {
-	r.ruleIdDesc = &ruleIdDesc
+func (r ApiGetJobsRequest) RuleTriggerRuleIdObjectDesc(ruleTriggerRuleIdObjectDesc string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdObjectDesc = &ruleTriggerRuleIdObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) RuleIdAsc(ruleIdAsc string) ApiGetJobsRequest {
-	r.ruleIdAsc = &ruleIdAsc
+func (r ApiGetJobsRequest) RuleTriggerRuleIdObjectAsc(ruleTriggerRuleIdObjectAsc string) ApiGetJobsRequest {
+	r.ruleTriggerRuleIdObjectAsc = &ruleTriggerRuleIdObjectAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) RuleIdObjectDesc(ruleIdObjectDesc string) ApiGetJobsRequest {
-	r.ruleIdObjectDesc = &ruleIdObjectDesc
+func (r ApiGetJobsRequest) ReferencedByTaskJobIdObjectsDesc(referencedByTaskJobIdObjectsDesc string) ApiGetJobsRequest {
+	r.referencedByTaskJobIdObjectsDesc = &referencedByTaskJobIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) RuleIdObjectAsc(ruleIdObjectAsc string) ApiGetJobsRequest {
-	r.ruleIdObjectAsc = &ruleIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) BuildTaskIdEq(buildTaskIdEq string) ApiGetJobsRequest {
-	r.buildTaskIdEq = &buildTaskIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) BuildTaskIdNe(buildTaskIdNe string) ApiGetJobsRequest {
-	r.buildTaskIdNe = &buildTaskIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) BuildTaskIdGt(buildTaskIdGt string) ApiGetJobsRequest {
-	r.buildTaskIdGt = &buildTaskIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) BuildTaskIdGte(buildTaskIdGte string) ApiGetJobsRequest {
-	r.buildTaskIdGte = &buildTaskIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) BuildTaskIdLt(buildTaskIdLt string) ApiGetJobsRequest {
-	r.buildTaskIdLt = &buildTaskIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) BuildTaskIdLte(buildTaskIdLte string) ApiGetJobsRequest {
-	r.buildTaskIdLte = &buildTaskIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) BuildTaskIdIn(buildTaskIdIn string) ApiGetJobsRequest {
-	r.buildTaskIdIn = &buildTaskIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) BuildTaskIdNotin(buildTaskIdNotin string) ApiGetJobsRequest {
-	r.buildTaskIdNotin = &buildTaskIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) BuildTaskIdLike(buildTaskIdLike string) ApiGetJobsRequest {
-	r.buildTaskIdLike = &buildTaskIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) BuildTaskIdNotlike(buildTaskIdNotlike string) ApiGetJobsRequest {
-	r.buildTaskIdNotlike = &buildTaskIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) BuildTaskIdIlike(buildTaskIdIlike string) ApiGetJobsRequest {
-	r.buildTaskIdIlike = &buildTaskIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) BuildTaskIdNotilike(buildTaskIdNotilike string) ApiGetJobsRequest {
-	r.buildTaskIdNotilike = &buildTaskIdNotilike
+func (r ApiGetJobsRequest) ReferencedByTaskJobIdObjectsAsc(referencedByTaskJobIdObjectsAsc string) ApiGetJobsRequest {
+	r.referencedByTaskJobIdObjectsAsc = &referencedByTaskJobIdObjectsAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) BuildTaskIdDesc(buildTaskIdDesc string) ApiGetJobsRequest {
-	r.buildTaskIdDesc = &buildTaskIdDesc
+func (r ApiGetJobsRequest) ReferencedByRuleJobTriggerJobIdObjectsDesc(referencedByRuleJobTriggerJobIdObjectsDesc string) ApiGetJobsRequest {
+	r.referencedByRuleJobTriggerJobIdObjectsDesc = &referencedByRuleJobTriggerJobIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) BuildTaskIdAsc(buildTaskIdAsc string) ApiGetJobsRequest {
-	r.buildTaskIdAsc = &buildTaskIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) BuildTaskIdObjectDesc(buildTaskIdObjectDesc string) ApiGetJobsRequest {
-	r.buildTaskIdObjectDesc = &buildTaskIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) BuildTaskIdObjectAsc(buildTaskIdObjectAsc string) ApiGetJobsRequest {
-	r.buildTaskIdObjectAsc = &buildTaskIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) TestTaskIdEq(testTaskIdEq string) ApiGetJobsRequest {
-	r.testTaskIdEq = &testTaskIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) TestTaskIdNe(testTaskIdNe string) ApiGetJobsRequest {
-	r.testTaskIdNe = &testTaskIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) TestTaskIdGt(testTaskIdGt string) ApiGetJobsRequest {
-	r.testTaskIdGt = &testTaskIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) TestTaskIdGte(testTaskIdGte string) ApiGetJobsRequest {
-	r.testTaskIdGte = &testTaskIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) TestTaskIdLt(testTaskIdLt string) ApiGetJobsRequest {
-	r.testTaskIdLt = &testTaskIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) TestTaskIdLte(testTaskIdLte string) ApiGetJobsRequest {
-	r.testTaskIdLte = &testTaskIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) TestTaskIdIn(testTaskIdIn string) ApiGetJobsRequest {
-	r.testTaskIdIn = &testTaskIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) TestTaskIdNotin(testTaskIdNotin string) ApiGetJobsRequest {
-	r.testTaskIdNotin = &testTaskIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) TestTaskIdLike(testTaskIdLike string) ApiGetJobsRequest {
-	r.testTaskIdLike = &testTaskIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) TestTaskIdNotlike(testTaskIdNotlike string) ApiGetJobsRequest {
-	r.testTaskIdNotlike = &testTaskIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) TestTaskIdIlike(testTaskIdIlike string) ApiGetJobsRequest {
-	r.testTaskIdIlike = &testTaskIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) TestTaskIdNotilike(testTaskIdNotilike string) ApiGetJobsRequest {
-	r.testTaskIdNotilike = &testTaskIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) TestTaskIdDesc(testTaskIdDesc string) ApiGetJobsRequest {
-	r.testTaskIdDesc = &testTaskIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) TestTaskIdAsc(testTaskIdAsc string) ApiGetJobsRequest {
-	r.testTaskIdAsc = &testTaskIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) TestTaskIdObjectDesc(testTaskIdObjectDesc string) ApiGetJobsRequest {
-	r.testTaskIdObjectDesc = &testTaskIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) TestTaskIdObjectAsc(testTaskIdObjectAsc string) ApiGetJobsRequest {
-	r.testTaskIdObjectAsc = &testTaskIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) PublishTaskIdEq(publishTaskIdEq string) ApiGetJobsRequest {
-	r.publishTaskIdEq = &publishTaskIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) PublishTaskIdNe(publishTaskIdNe string) ApiGetJobsRequest {
-	r.publishTaskIdNe = &publishTaskIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) PublishTaskIdGt(publishTaskIdGt string) ApiGetJobsRequest {
-	r.publishTaskIdGt = &publishTaskIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) PublishTaskIdGte(publishTaskIdGte string) ApiGetJobsRequest {
-	r.publishTaskIdGte = &publishTaskIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) PublishTaskIdLt(publishTaskIdLt string) ApiGetJobsRequest {
-	r.publishTaskIdLt = &publishTaskIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) PublishTaskIdLte(publishTaskIdLte string) ApiGetJobsRequest {
-	r.publishTaskIdLte = &publishTaskIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) PublishTaskIdIn(publishTaskIdIn string) ApiGetJobsRequest {
-	r.publishTaskIdIn = &publishTaskIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) PublishTaskIdNotin(publishTaskIdNotin string) ApiGetJobsRequest {
-	r.publishTaskIdNotin = &publishTaskIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) PublishTaskIdLike(publishTaskIdLike string) ApiGetJobsRequest {
-	r.publishTaskIdLike = &publishTaskIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) PublishTaskIdNotlike(publishTaskIdNotlike string) ApiGetJobsRequest {
-	r.publishTaskIdNotlike = &publishTaskIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) PublishTaskIdIlike(publishTaskIdIlike string) ApiGetJobsRequest {
-	r.publishTaskIdIlike = &publishTaskIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) PublishTaskIdNotilike(publishTaskIdNotilike string) ApiGetJobsRequest {
-	r.publishTaskIdNotilike = &publishTaskIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) PublishTaskIdDesc(publishTaskIdDesc string) ApiGetJobsRequest {
-	r.publishTaskIdDesc = &publishTaskIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) PublishTaskIdAsc(publishTaskIdAsc string) ApiGetJobsRequest {
-	r.publishTaskIdAsc = &publishTaskIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) PublishTaskIdObjectDesc(publishTaskIdObjectDesc string) ApiGetJobsRequest {
-	r.publishTaskIdObjectDesc = &publishTaskIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) PublishTaskIdObjectAsc(publishTaskIdObjectAsc string) ApiGetJobsRequest {
-	r.publishTaskIdObjectAsc = &publishTaskIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) DeployTaskIdEq(deployTaskIdEq string) ApiGetJobsRequest {
-	r.deployTaskIdEq = &deployTaskIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) DeployTaskIdNe(deployTaskIdNe string) ApiGetJobsRequest {
-	r.deployTaskIdNe = &deployTaskIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) DeployTaskIdGt(deployTaskIdGt string) ApiGetJobsRequest {
-	r.deployTaskIdGt = &deployTaskIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) DeployTaskIdGte(deployTaskIdGte string) ApiGetJobsRequest {
-	r.deployTaskIdGte = &deployTaskIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) DeployTaskIdLt(deployTaskIdLt string) ApiGetJobsRequest {
-	r.deployTaskIdLt = &deployTaskIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) DeployTaskIdLte(deployTaskIdLte string) ApiGetJobsRequest {
-	r.deployTaskIdLte = &deployTaskIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) DeployTaskIdIn(deployTaskIdIn string) ApiGetJobsRequest {
-	r.deployTaskIdIn = &deployTaskIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) DeployTaskIdNotin(deployTaskIdNotin string) ApiGetJobsRequest {
-	r.deployTaskIdNotin = &deployTaskIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) DeployTaskIdLike(deployTaskIdLike string) ApiGetJobsRequest {
-	r.deployTaskIdLike = &deployTaskIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) DeployTaskIdNotlike(deployTaskIdNotlike string) ApiGetJobsRequest {
-	r.deployTaskIdNotlike = &deployTaskIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) DeployTaskIdIlike(deployTaskIdIlike string) ApiGetJobsRequest {
-	r.deployTaskIdIlike = &deployTaskIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) DeployTaskIdNotilike(deployTaskIdNotilike string) ApiGetJobsRequest {
-	r.deployTaskIdNotilike = &deployTaskIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) DeployTaskIdDesc(deployTaskIdDesc string) ApiGetJobsRequest {
-	r.deployTaskIdDesc = &deployTaskIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) DeployTaskIdAsc(deployTaskIdAsc string) ApiGetJobsRequest {
-	r.deployTaskIdAsc = &deployTaskIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) DeployTaskIdObjectDesc(deployTaskIdObjectDesc string) ApiGetJobsRequest {
-	r.deployTaskIdObjectDesc = &deployTaskIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) DeployTaskIdObjectAsc(deployTaskIdObjectAsc string) ApiGetJobsRequest {
-	r.deployTaskIdObjectAsc = &deployTaskIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetJobsRequest) ValidateTaskIdEq(validateTaskIdEq string) ApiGetJobsRequest {
-	r.validateTaskIdEq = &validateTaskIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetJobsRequest) ValidateTaskIdNe(validateTaskIdNe string) ApiGetJobsRequest {
-	r.validateTaskIdNe = &validateTaskIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) ValidateTaskIdGt(validateTaskIdGt string) ApiGetJobsRequest {
-	r.validateTaskIdGt = &validateTaskIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) ValidateTaskIdGte(validateTaskIdGte string) ApiGetJobsRequest {
-	r.validateTaskIdGte = &validateTaskIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetJobsRequest) ValidateTaskIdLt(validateTaskIdLt string) ApiGetJobsRequest {
-	r.validateTaskIdLt = &validateTaskIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetJobsRequest) ValidateTaskIdLte(validateTaskIdLte string) ApiGetJobsRequest {
-	r.validateTaskIdLte = &validateTaskIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) ValidateTaskIdIn(validateTaskIdIn string) ApiGetJobsRequest {
-	r.validateTaskIdIn = &validateTaskIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetJobsRequest) ValidateTaskIdNotin(validateTaskIdNotin string) ApiGetJobsRequest {
-	r.validateTaskIdNotin = &validateTaskIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) ValidateTaskIdLike(validateTaskIdLike string) ApiGetJobsRequest {
-	r.validateTaskIdLike = &validateTaskIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) ValidateTaskIdNotlike(validateTaskIdNotlike string) ApiGetJobsRequest {
-	r.validateTaskIdNotlike = &validateTaskIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) ValidateTaskIdIlike(validateTaskIdIlike string) ApiGetJobsRequest {
-	r.validateTaskIdIlike = &validateTaskIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetJobsRequest) ValidateTaskIdNotilike(validateTaskIdNotilike string) ApiGetJobsRequest {
-	r.validateTaskIdNotilike = &validateTaskIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ValidateTaskIdDesc(validateTaskIdDesc string) ApiGetJobsRequest {
-	r.validateTaskIdDesc = &validateTaskIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ValidateTaskIdAsc(validateTaskIdAsc string) ApiGetJobsRequest {
-	r.validateTaskIdAsc = &validateTaskIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ValidateTaskIdObjectDesc(validateTaskIdObjectDesc string) ApiGetJobsRequest {
-	r.validateTaskIdObjectDesc = &validateTaskIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ValidateTaskIdObjectAsc(validateTaskIdObjectAsc string) ApiGetJobsRequest {
-	r.validateTaskIdObjectAsc = &validateTaskIdObjectAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ReferencedByRuleRequiresJobJobIdObjectsDesc(referencedByRuleRequiresJobJobIdObjectsDesc string) ApiGetJobsRequest {
-	r.referencedByRuleRequiresJobJobIdObjectsDesc = &referencedByRuleRequiresJobJobIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ReferencedByRuleRequiresJobJobIdObjectsAsc(referencedByRuleRequiresJobJobIdObjectsAsc string) ApiGetJobsRequest {
-	r.referencedByRuleRequiresJobJobIdObjectsAsc = &referencedByRuleRequiresJobJobIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ReferencedByExecutionJobIdObjectsDesc(referencedByExecutionJobIdObjectsDesc string) ApiGetJobsRequest {
-	r.referencedByExecutionJobIdObjectsDesc = &referencedByExecutionJobIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetJobsRequest) ReferencedByExecutionJobIdObjectsAsc(referencedByExecutionJobIdObjectsAsc string) ApiGetJobsRequest {
-	r.referencedByExecutionJobIdObjectsAsc = &referencedByExecutionJobIdObjectsAsc
+func (r ApiGetJobsRequest) ReferencedByRuleJobTriggerJobIdObjectsAsc(referencedByRuleJobTriggerJobIdObjectsAsc string) ApiGetJobsRequest {
+	r.referencedByRuleJobTriggerJobIdObjectsAsc = &referencedByRuleJobTriggerJobIdObjectsAsc
 	return r
 }
 
@@ -1603,6 +966,15 @@ func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGeneri
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.ruleLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule__load", r.ruleLoad, "form", "")
+	}
+	if r.referencedByTaskLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_task__load", r.referencedByTaskLoad, "form", "")
+	}
+	if r.referencedByRuleLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule__load", r.referencedByRuleLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1814,347 +1186,65 @@ func (a *JobAPIService) GetJobsExecute(r ApiGetJobsRequest) (*ResponseWithGeneri
 	if r.nameAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
 	}
-	if r.jobExecutorClaimedUntilEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__eq", r.jobExecutorClaimedUntilEq, "form", "")
+	if r.ruleTriggerRuleIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__eq", r.ruleTriggerRuleIdEq, "form", "")
 	}
-	if r.jobExecutorClaimedUntilNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ne", r.jobExecutorClaimedUntilNe, "form", "")
+	if r.ruleTriggerRuleIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__ne", r.ruleTriggerRuleIdNe, "form", "")
 	}
-	if r.jobExecutorClaimedUntilGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gt", r.jobExecutorClaimedUntilGt, "form", "")
+	if r.ruleTriggerRuleIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__gt", r.ruleTriggerRuleIdGt, "form", "")
 	}
-	if r.jobExecutorClaimedUntilGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__gte", r.jobExecutorClaimedUntilGte, "form", "")
+	if r.ruleTriggerRuleIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__gte", r.ruleTriggerRuleIdGte, "form", "")
 	}
-	if r.jobExecutorClaimedUntilLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lt", r.jobExecutorClaimedUntilLt, "form", "")
+	if r.ruleTriggerRuleIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__lt", r.ruleTriggerRuleIdLt, "form", "")
 	}
-	if r.jobExecutorClaimedUntilLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__lte", r.jobExecutorClaimedUntilLte, "form", "")
+	if r.ruleTriggerRuleIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__lte", r.ruleTriggerRuleIdLte, "form", "")
 	}
-	if r.jobExecutorClaimedUntilIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__in", r.jobExecutorClaimedUntilIn, "form", "")
+	if r.ruleTriggerRuleIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__in", r.ruleTriggerRuleIdIn, "form", "")
 	}
-	if r.jobExecutorClaimedUntilNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notin", r.jobExecutorClaimedUntilNotin, "form", "")
+	if r.ruleTriggerRuleIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__notin", r.ruleTriggerRuleIdNotin, "form", "")
 	}
-	if r.jobExecutorClaimedUntilLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__like", r.jobExecutorClaimedUntilLike, "form", "")
+	if r.ruleTriggerRuleIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__like", r.ruleTriggerRuleIdLike, "form", "")
 	}
-	if r.jobExecutorClaimedUntilNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notlike", r.jobExecutorClaimedUntilNotlike, "form", "")
+	if r.ruleTriggerRuleIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__notlike", r.ruleTriggerRuleIdNotlike, "form", "")
 	}
-	if r.jobExecutorClaimedUntilIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__ilike", r.jobExecutorClaimedUntilIlike, "form", "")
+	if r.ruleTriggerRuleIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__ilike", r.ruleTriggerRuleIdIlike, "form", "")
 	}
-	if r.jobExecutorClaimedUntilNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__notilike", r.jobExecutorClaimedUntilNotilike, "form", "")
+	if r.ruleTriggerRuleIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__notilike", r.ruleTriggerRuleIdNotilike, "form", "")
 	}
-	if r.jobExecutorClaimedUntilDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__desc", r.jobExecutorClaimedUntilDesc, "form", "")
+	if r.ruleTriggerRuleIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__desc", r.ruleTriggerRuleIdDesc, "form", "")
 	}
-	if r.jobExecutorClaimedUntilAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_executor_claimed_until__asc", r.jobExecutorClaimedUntilAsc, "form", "")
+	if r.ruleTriggerRuleIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id__asc", r.ruleTriggerRuleIdAsc, "form", "")
 	}
-	if r.ruleIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__eq", r.ruleIdEq, "form", "")
+	if r.ruleTriggerRuleIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id_object__desc", r.ruleTriggerRuleIdObjectDesc, "form", "")
 	}
-	if r.ruleIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__ne", r.ruleIdNe, "form", "")
+	if r.ruleTriggerRuleIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_trigger_rule_id_object__asc", r.ruleTriggerRuleIdObjectAsc, "form", "")
 	}
-	if r.ruleIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__gt", r.ruleIdGt, "form", "")
+	if r.referencedByTaskJobIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_task_job_id_objects__desc", r.referencedByTaskJobIdObjectsDesc, "form", "")
 	}
-	if r.ruleIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__gte", r.ruleIdGte, "form", "")
+	if r.referencedByTaskJobIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_task_job_id_objects__asc", r.referencedByTaskJobIdObjectsAsc, "form", "")
 	}
-	if r.ruleIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__lt", r.ruleIdLt, "form", "")
+	if r.referencedByRuleJobTriggerJobIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_job_trigger_job_id_objects__desc", r.referencedByRuleJobTriggerJobIdObjectsDesc, "form", "")
 	}
-	if r.ruleIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__lte", r.ruleIdLte, "form", "")
-	}
-	if r.ruleIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__in", r.ruleIdIn, "form", "")
-	}
-	if r.ruleIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notin", r.ruleIdNotin, "form", "")
-	}
-	if r.ruleIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__like", r.ruleIdLike, "form", "")
-	}
-	if r.ruleIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notlike", r.ruleIdNotlike, "form", "")
-	}
-	if r.ruleIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__ilike", r.ruleIdIlike, "form", "")
-	}
-	if r.ruleIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notilike", r.ruleIdNotilike, "form", "")
-	}
-	if r.ruleIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__desc", r.ruleIdDesc, "form", "")
-	}
-	if r.ruleIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__asc", r.ruleIdAsc, "form", "")
-	}
-	if r.ruleIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id_object__desc", r.ruleIdObjectDesc, "form", "")
-	}
-	if r.ruleIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id_object__asc", r.ruleIdObjectAsc, "form", "")
-	}
-	if r.buildTaskIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__eq", r.buildTaskIdEq, "form", "")
-	}
-	if r.buildTaskIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__ne", r.buildTaskIdNe, "form", "")
-	}
-	if r.buildTaskIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__gt", r.buildTaskIdGt, "form", "")
-	}
-	if r.buildTaskIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__gte", r.buildTaskIdGte, "form", "")
-	}
-	if r.buildTaskIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__lt", r.buildTaskIdLt, "form", "")
-	}
-	if r.buildTaskIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__lte", r.buildTaskIdLte, "form", "")
-	}
-	if r.buildTaskIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__in", r.buildTaskIdIn, "form", "")
-	}
-	if r.buildTaskIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__notin", r.buildTaskIdNotin, "form", "")
-	}
-	if r.buildTaskIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__like", r.buildTaskIdLike, "form", "")
-	}
-	if r.buildTaskIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__notlike", r.buildTaskIdNotlike, "form", "")
-	}
-	if r.buildTaskIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__ilike", r.buildTaskIdIlike, "form", "")
-	}
-	if r.buildTaskIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__notilike", r.buildTaskIdNotilike, "form", "")
-	}
-	if r.buildTaskIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__desc", r.buildTaskIdDesc, "form", "")
-	}
-	if r.buildTaskIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id__asc", r.buildTaskIdAsc, "form", "")
-	}
-	if r.buildTaskIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id_object__desc", r.buildTaskIdObjectDesc, "form", "")
-	}
-	if r.buildTaskIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "build_task_id_object__asc", r.buildTaskIdObjectAsc, "form", "")
-	}
-	if r.testTaskIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__eq", r.testTaskIdEq, "form", "")
-	}
-	if r.testTaskIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__ne", r.testTaskIdNe, "form", "")
-	}
-	if r.testTaskIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__gt", r.testTaskIdGt, "form", "")
-	}
-	if r.testTaskIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__gte", r.testTaskIdGte, "form", "")
-	}
-	if r.testTaskIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__lt", r.testTaskIdLt, "form", "")
-	}
-	if r.testTaskIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__lte", r.testTaskIdLte, "form", "")
-	}
-	if r.testTaskIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__in", r.testTaskIdIn, "form", "")
-	}
-	if r.testTaskIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__notin", r.testTaskIdNotin, "form", "")
-	}
-	if r.testTaskIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__like", r.testTaskIdLike, "form", "")
-	}
-	if r.testTaskIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__notlike", r.testTaskIdNotlike, "form", "")
-	}
-	if r.testTaskIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__ilike", r.testTaskIdIlike, "form", "")
-	}
-	if r.testTaskIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__notilike", r.testTaskIdNotilike, "form", "")
-	}
-	if r.testTaskIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__desc", r.testTaskIdDesc, "form", "")
-	}
-	if r.testTaskIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id__asc", r.testTaskIdAsc, "form", "")
-	}
-	if r.testTaskIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id_object__desc", r.testTaskIdObjectDesc, "form", "")
-	}
-	if r.testTaskIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "test_task_id_object__asc", r.testTaskIdObjectAsc, "form", "")
-	}
-	if r.publishTaskIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__eq", r.publishTaskIdEq, "form", "")
-	}
-	if r.publishTaskIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__ne", r.publishTaskIdNe, "form", "")
-	}
-	if r.publishTaskIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__gt", r.publishTaskIdGt, "form", "")
-	}
-	if r.publishTaskIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__gte", r.publishTaskIdGte, "form", "")
-	}
-	if r.publishTaskIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__lt", r.publishTaskIdLt, "form", "")
-	}
-	if r.publishTaskIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__lte", r.publishTaskIdLte, "form", "")
-	}
-	if r.publishTaskIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__in", r.publishTaskIdIn, "form", "")
-	}
-	if r.publishTaskIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__notin", r.publishTaskIdNotin, "form", "")
-	}
-	if r.publishTaskIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__like", r.publishTaskIdLike, "form", "")
-	}
-	if r.publishTaskIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__notlike", r.publishTaskIdNotlike, "form", "")
-	}
-	if r.publishTaskIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__ilike", r.publishTaskIdIlike, "form", "")
-	}
-	if r.publishTaskIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__notilike", r.publishTaskIdNotilike, "form", "")
-	}
-	if r.publishTaskIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__desc", r.publishTaskIdDesc, "form", "")
-	}
-	if r.publishTaskIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id__asc", r.publishTaskIdAsc, "form", "")
-	}
-	if r.publishTaskIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id_object__desc", r.publishTaskIdObjectDesc, "form", "")
-	}
-	if r.publishTaskIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "publish_task_id_object__asc", r.publishTaskIdObjectAsc, "form", "")
-	}
-	if r.deployTaskIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__eq", r.deployTaskIdEq, "form", "")
-	}
-	if r.deployTaskIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__ne", r.deployTaskIdNe, "form", "")
-	}
-	if r.deployTaskIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__gt", r.deployTaskIdGt, "form", "")
-	}
-	if r.deployTaskIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__gte", r.deployTaskIdGte, "form", "")
-	}
-	if r.deployTaskIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__lt", r.deployTaskIdLt, "form", "")
-	}
-	if r.deployTaskIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__lte", r.deployTaskIdLte, "form", "")
-	}
-	if r.deployTaskIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__in", r.deployTaskIdIn, "form", "")
-	}
-	if r.deployTaskIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__notin", r.deployTaskIdNotin, "form", "")
-	}
-	if r.deployTaskIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__like", r.deployTaskIdLike, "form", "")
-	}
-	if r.deployTaskIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__notlike", r.deployTaskIdNotlike, "form", "")
-	}
-	if r.deployTaskIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__ilike", r.deployTaskIdIlike, "form", "")
-	}
-	if r.deployTaskIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__notilike", r.deployTaskIdNotilike, "form", "")
-	}
-	if r.deployTaskIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__desc", r.deployTaskIdDesc, "form", "")
-	}
-	if r.deployTaskIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id__asc", r.deployTaskIdAsc, "form", "")
-	}
-	if r.deployTaskIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id_object__desc", r.deployTaskIdObjectDesc, "form", "")
-	}
-	if r.deployTaskIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "deploy_task_id_object__asc", r.deployTaskIdObjectAsc, "form", "")
-	}
-	if r.validateTaskIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__eq", r.validateTaskIdEq, "form", "")
-	}
-	if r.validateTaskIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__ne", r.validateTaskIdNe, "form", "")
-	}
-	if r.validateTaskIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__gt", r.validateTaskIdGt, "form", "")
-	}
-	if r.validateTaskIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__gte", r.validateTaskIdGte, "form", "")
-	}
-	if r.validateTaskIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__lt", r.validateTaskIdLt, "form", "")
-	}
-	if r.validateTaskIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__lte", r.validateTaskIdLte, "form", "")
-	}
-	if r.validateTaskIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__in", r.validateTaskIdIn, "form", "")
-	}
-	if r.validateTaskIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__notin", r.validateTaskIdNotin, "form", "")
-	}
-	if r.validateTaskIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__like", r.validateTaskIdLike, "form", "")
-	}
-	if r.validateTaskIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__notlike", r.validateTaskIdNotlike, "form", "")
-	}
-	if r.validateTaskIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__ilike", r.validateTaskIdIlike, "form", "")
-	}
-	if r.validateTaskIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__notilike", r.validateTaskIdNotilike, "form", "")
-	}
-	if r.validateTaskIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__desc", r.validateTaskIdDesc, "form", "")
-	}
-	if r.validateTaskIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id__asc", r.validateTaskIdAsc, "form", "")
-	}
-	if r.validateTaskIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id_object__desc", r.validateTaskIdObjectDesc, "form", "")
-	}
-	if r.validateTaskIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate_task_id_object__asc", r.validateTaskIdObjectAsc, "form", "")
-	}
-	if r.referencedByRuleRequiresJobJobIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_job_id_objects__desc", r.referencedByRuleRequiresJobJobIdObjectsDesc, "form", "")
-	}
-	if r.referencedByRuleRequiresJobJobIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_requires_job_job_id_objects__asc", r.referencedByRuleRequiresJobJobIdObjectsAsc, "form", "")
-	}
-	if r.referencedByExecutionJobIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_job_id_objects__desc", r.referencedByExecutionJobIdObjectsDesc, "form", "")
-	}
-	if r.referencedByExecutionJobIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_job_id_objects__asc", r.referencedByExecutionJobIdObjectsAsc, "form", "")
+	if r.referencedByRuleJobTriggerJobIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_job_trigger_job_id_objects__asc", r.referencedByRuleJobTriggerJobIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2351,12 +1441,12 @@ func (a *JobAPIService) PatchJobExecute(r ApiPatchJobRequest) (*ResponseWithGene
 type ApiPostJobsRequest struct {
 	ctx context.Context
 	ApiService *JobAPIService
-	job *[]Job
+	rule *[]Rule
 	depth *int64
 }
 
-func (r ApiPostJobsRequest) Job(job []Job) ApiPostJobsRequest {
-	r.job = &job
+func (r ApiPostJobsRequest) Rule(rule []Rule) ApiPostJobsRequest {
+	r.rule = &rule
 	return r
 }
 
@@ -2403,8 +1493,8 @@ func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGene
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.job == nil {
-		return localVarReturnValue, nil, reportError("job is required and must be specified")
+	if r.rule == nil {
+		return localVarReturnValue, nil, reportError("rule is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -2428,7 +1518,7 @@ func (a *JobAPIService) PostJobsExecute(r ApiPostJobsRequest) (*ResponseWithGene
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.job
+	localVarPostBody = r.rule
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

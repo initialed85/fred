@@ -51,11 +51,13 @@ type APIClient struct {
 
 	ChangeAPI *ChangeAPIService
 
-	CustomAPI *CustomAPIService
-
 	ExecutionAPI *ExecutionAPIService
 
 	JobAPI *JobAPIService
+
+	LogAPI *LogAPIService
+
+	M2mRuleTriggerJobAPI *M2mRuleTriggerJobAPIService
 
 	OutputAPI *OutputAPIService
 
@@ -63,13 +65,7 @@ type APIClient struct {
 
 	RuleAPI *RuleAPIService
 
-	RuleRequiresJobAPI *RuleRequiresJobAPIService
-
 	TaskAPI *TaskAPIService
-
-	TriggerAPI *TriggerAPIService
-
-	TriggerHasExecutionAPI *TriggerHasExecutionAPIService
 }
 
 type service struct {
@@ -89,16 +85,14 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.ChangeAPI = (*ChangeAPIService)(&c.common)
-	c.CustomAPI = (*CustomAPIService)(&c.common)
 	c.ExecutionAPI = (*ExecutionAPIService)(&c.common)
 	c.JobAPI = (*JobAPIService)(&c.common)
+	c.LogAPI = (*LogAPIService)(&c.common)
+	c.M2mRuleTriggerJobAPI = (*M2mRuleTriggerJobAPIService)(&c.common)
 	c.OutputAPI = (*OutputAPIService)(&c.common)
 	c.RepositoryAPI = (*RepositoryAPIService)(&c.common)
 	c.RuleAPI = (*RuleAPIService)(&c.common)
-	c.RuleRequiresJobAPI = (*RuleRequiresJobAPIService)(&c.common)
 	c.TaskAPI = (*TaskAPIService)(&c.common)
-	c.TriggerAPI = (*TriggerAPIService)(&c.common)
-	c.TriggerHasExecutionAPI = (*TriggerHasExecutionAPIService)(&c.common)
 
 	return c
 }

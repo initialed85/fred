@@ -152,7 +152,7 @@ No authorization required
 
 ## GetTasks
 
-> ResponseWithGenericOfTask GetTasks(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).Execute()
+> ResponseWithGenericOfTask GetTasks(ctx).Limit(limit).Offset(offset).Depth(depth).JobLoad(jobLoad).ReferencedByOutputLoad(referencedByOutputLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).IndexEq(indexEq).IndexNe(indexNe).IndexGt(indexGt).IndexGte(indexGte).IndexLt(indexLt).IndexLte(indexLte).IndexIn(indexIn).IndexNotin(indexNotin).IndexDesc(indexDesc).IndexAsc(indexAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).ReferencedByExecutionTaskIdObjectsDesc(referencedByExecutionTaskIdObjectsDesc).ReferencedByExecutionTaskIdObjectsAsc(referencedByExecutionTaskIdObjectsAsc).Execute()
 
 
 
@@ -173,6 +173,9 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
+	jobLoad := "jobLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLoad := "referencedByOutputLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
+	referencedByExecutionLoad := "referencedByExecutionLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -243,6 +246,16 @@ func main() {
 	nameNotilike := "nameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	nameDesc := "nameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	nameAsc := "nameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	indexEq := int64(789) // int64 | SQL = comparison (optional)
+	indexNe := int64(789) // int64 | SQL != comparison (optional)
+	indexGt := int64(789) // int64 | SQL > comparison, may not work with all column types (optional)
+	indexGte := int64(789) // int64 | SQL >= comparison, may not work with all column types (optional)
+	indexLt := int64(789) // int64 | SQL < comparison, may not work with all column types (optional)
+	indexLte := int64(789) // int64 | SQL <= comparison, may not work with all column types (optional)
+	indexIn := int64(789) // int64 | SQL IN comparison, permits comma-separated values (optional)
+	indexNotin := int64(789) // int64 | SQL NOT IN comparison, permits comma-separated values (optional)
+	indexDesc := "indexDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	indexAsc := "indexAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	platformEq := "platformEq_example" // string | SQL = comparison (optional)
 	platformNe := "platformNe_example" // string | SQL != comparison (optional)
 	platformGt := "platformGt_example" // string | SQL > comparison, may not work with all column types (optional)
@@ -285,22 +298,30 @@ func main() {
 	scriptNotilike := "scriptNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	scriptDesc := "scriptDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	scriptAsc := "scriptAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobBuildTaskIdObjectsDesc := "referencedByJobBuildTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobBuildTaskIdObjectsAsc := "referencedByJobBuildTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobTestTaskIdObjectsDesc := "referencedByJobTestTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobTestTaskIdObjectsAsc := "referencedByJobTestTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobPublishTaskIdObjectsDesc := "referencedByJobPublishTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobPublishTaskIdObjectsAsc := "referencedByJobPublishTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobDeployTaskIdObjectsDesc := "referencedByJobDeployTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobDeployTaskIdObjectsAsc := "referencedByJobDeployTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobValidateTaskIdObjectsDesc := "referencedByJobValidateTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobValidateTaskIdObjectsAsc := "referencedByJobValidateTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	jobIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
+	jobIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
+	jobIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
+	jobIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
+	jobIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
+	jobIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
+	jobIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
+	jobIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	jobIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobIdDesc := "jobIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	jobIdAsc := "jobIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	jobIdObjectDesc := "jobIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	jobIdObjectAsc := "jobIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByOutputTaskIdObjectsDesc := "referencedByOutputTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByOutputTaskIdObjectsAsc := "referencedByOutputTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByExecutionTaskIdObjectsDesc := "referencedByExecutionTaskIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByExecutionTaskIdObjectsAsc := "referencedByExecutionTaskIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaskAPI.GetTasks(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc).ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc).ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc).ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc).ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc).ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc).ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc).ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc).ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc).ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).Execute()
+	resp, r, err := apiClient.TaskAPI.GetTasks(context.Background()).Limit(limit).Offset(offset).Depth(depth).JobLoad(jobLoad).ReferencedByOutputLoad(referencedByOutputLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).IndexEq(indexEq).IndexNe(indexNe).IndexGt(indexGt).IndexGte(indexGte).IndexLt(indexLt).IndexLte(indexLte).IndexIn(indexIn).IndexNotin(indexNotin).IndexDesc(indexDesc).IndexAsc(indexAsc).PlatformEq(platformEq).PlatformNe(platformNe).PlatformGt(platformGt).PlatformGte(platformGte).PlatformLt(platformLt).PlatformLte(platformLte).PlatformIn(platformIn).PlatformNotin(platformNotin).PlatformLike(platformLike).PlatformNotlike(platformNotlike).PlatformIlike(platformIlike).PlatformNotilike(platformNotilike).PlatformDesc(platformDesc).PlatformAsc(platformAsc).ImageEq(imageEq).ImageNe(imageNe).ImageGt(imageGt).ImageGte(imageGte).ImageLt(imageLt).ImageLte(imageLte).ImageIn(imageIn).ImageNotin(imageNotin).ImageLike(imageLike).ImageNotlike(imageNotlike).ImageIlike(imageIlike).ImageNotilike(imageNotilike).ImageDesc(imageDesc).ImageAsc(imageAsc).ScriptEq(scriptEq).ScriptNe(scriptNe).ScriptGt(scriptGt).ScriptGte(scriptGte).ScriptLt(scriptLt).ScriptLte(scriptLte).ScriptIn(scriptIn).ScriptNotin(scriptNotin).ScriptLike(scriptLike).ScriptNotlike(scriptNotlike).ScriptIlike(scriptIlike).ScriptNotilike(scriptNotilike).ScriptDesc(scriptDesc).ScriptAsc(scriptAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).ReferencedByOutputTaskIdObjectsDesc(referencedByOutputTaskIdObjectsDesc).ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc).ReferencedByExecutionTaskIdObjectsDesc(referencedByExecutionTaskIdObjectsDesc).ReferencedByExecutionTaskIdObjectsAsc(referencedByExecutionTaskIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.GetTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -324,6 +345,9 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
+ **jobLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
+ **referencedByExecutionLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -394,6 +418,16 @@ Name | Type | Description  | Notes
  **nameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **nameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **nameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **indexEq** | **int64** | SQL &#x3D; comparison | 
+ **indexNe** | **int64** | SQL !&#x3D; comparison | 
+ **indexGt** | **int64** | SQL &gt; comparison, may not work with all column types | 
+ **indexGte** | **int64** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **indexLt** | **int64** | SQL &lt; comparison, may not work with all column types | 
+ **indexLte** | **int64** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **indexIn** | **int64** | SQL IN comparison, permits comma-separated values | 
+ **indexNotin** | **int64** | SQL NOT IN comparison, permits comma-separated values | 
+ **indexDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **indexAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **platformEq** | **string** | SQL &#x3D; comparison | 
  **platformNe** | **string** | SQL !&#x3D; comparison | 
  **platformGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -436,18 +470,26 @@ Name | Type | Description  | Notes
  **scriptNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **scriptDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **scriptAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobBuildTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobBuildTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobTestTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobTestTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobPublishTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobPublishTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobDeployTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobDeployTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobValidateTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobValidateTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **jobIdEq** | **string** | SQL &#x3D; comparison | 
+ **jobIdNe** | **string** | SQL !&#x3D; comparison | 
+ **jobIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **jobIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **jobIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **jobIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **jobIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **jobIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **jobIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **jobIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **jobIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **jobIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **referencedByOutputTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByOutputTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByExecutionTaskIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByExecutionTaskIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 
@@ -541,7 +583,7 @@ No authorization required
 
 ## PostTasks
 
-> ResponseWithGenericOfTask PostTasks(ctx).Task(task).Depth(depth).Execute()
+> ResponseWithGenericOfTask PostTasks(ctx).Rule(rule).Depth(depth).Execute()
 
 
 
@@ -558,12 +600,12 @@ import (
 )
 
 func main() {
-	task := []openapiclient.Task{*openapiclient.NewTask()} // []Task | 
+	rule := []openapiclient.Rule{*openapiclient.NewRule()} // []Rule | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TaskAPI.PostTasks(context.Background()).Task(task).Depth(depth).Execute()
+	resp, r, err := apiClient.TaskAPI.PostTasks(context.Background()).Rule(rule).Depth(depth).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `TaskAPI.PostTasks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -584,7 +626,7 @@ Other parameters are passed through a pointer to a apiPostTasksRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **task** | [**[]Task**](Task.md) |  | 
+ **rule** | [**[]Rule**](Rule.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

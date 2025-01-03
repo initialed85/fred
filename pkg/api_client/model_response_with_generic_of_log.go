@@ -14,40 +14,40 @@ import (
 	"encoding/json"
 )
 
-// checks if the ResponseWithGenericOfTrigger type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResponseWithGenericOfTrigger{}
+// checks if the ResponseWithGenericOfLog type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResponseWithGenericOfLog{}
 
-// ResponseWithGenericOfTrigger struct for ResponseWithGenericOfTrigger
-type ResponseWithGenericOfTrigger struct {
+// ResponseWithGenericOfLog struct for ResponseWithGenericOfLog
+type ResponseWithGenericOfLog struct {
 	Count *int64 `json:"count,omitempty"`
 	Error []string `json:"error,omitempty"`
 	Limit *int64 `json:"limit,omitempty"`
-	Objects []Trigger `json:"objects,omitempty"`
+	Objects []Log `json:"objects,omitempty"`
 	Offset *int64 `json:"offset,omitempty"`
 	Status *int64 `json:"status,omitempty"`
 	Success *bool `json:"success,omitempty"`
 	TotalCount *int64 `json:"total_count,omitempty"`
 }
 
-// NewResponseWithGenericOfTrigger instantiates a new ResponseWithGenericOfTrigger object
+// NewResponseWithGenericOfLog instantiates a new ResponseWithGenericOfLog object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponseWithGenericOfTrigger() *ResponseWithGenericOfTrigger {
-	this := ResponseWithGenericOfTrigger{}
+func NewResponseWithGenericOfLog() *ResponseWithGenericOfLog {
+	this := ResponseWithGenericOfLog{}
 	return &this
 }
 
-// NewResponseWithGenericOfTriggerWithDefaults instantiates a new ResponseWithGenericOfTrigger object
+// NewResponseWithGenericOfLogWithDefaults instantiates a new ResponseWithGenericOfLog object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResponseWithGenericOfTriggerWithDefaults() *ResponseWithGenericOfTrigger {
-	this := ResponseWithGenericOfTrigger{}
+func NewResponseWithGenericOfLogWithDefaults() *ResponseWithGenericOfLog {
+	this := ResponseWithGenericOfLog{}
 	return &this
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetCount() int64 {
+func (o *ResponseWithGenericOfLog) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
 		var ret int64
 		return ret
@@ -57,7 +57,7 @@ func (o *ResponseWithGenericOfTrigger) GetCount() int64 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetCountOk() (*int64, bool) {
+func (o *ResponseWithGenericOfLog) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *ResponseWithGenericOfTrigger) GetCountOk() (*int64, bool) {
 }
 
 // HasCount returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasCount() bool {
+func (o *ResponseWithGenericOfLog) HasCount() bool {
 	if o != nil && !IsNil(o.Count) {
 		return true
 	}
@@ -74,12 +74,12 @@ func (o *ResponseWithGenericOfTrigger) HasCount() bool {
 }
 
 // SetCount gets a reference to the given int64 and assigns it to the Count field.
-func (o *ResponseWithGenericOfTrigger) SetCount(v int64) {
+func (o *ResponseWithGenericOfLog) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetError returns the Error field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfTrigger) GetError() []string {
+func (o *ResponseWithGenericOfLog) GetError() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -90,7 +90,7 @@ func (o *ResponseWithGenericOfTrigger) GetError() []string {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfTrigger) GetErrorOk() ([]string, bool) {
+func (o *ResponseWithGenericOfLog) GetErrorOk() ([]string, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
@@ -98,7 +98,7 @@ func (o *ResponseWithGenericOfTrigger) GetErrorOk() ([]string, bool) {
 }
 
 // HasError returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasError() bool {
+func (o *ResponseWithGenericOfLog) HasError() bool {
 	if o != nil && !IsNil(o.Error) {
 		return true
 	}
@@ -107,12 +107,12 @@ func (o *ResponseWithGenericOfTrigger) HasError() bool {
 }
 
 // SetError gets a reference to the given []string and assigns it to the Error field.
-func (o *ResponseWithGenericOfTrigger) SetError(v []string) {
+func (o *ResponseWithGenericOfLog) SetError(v []string) {
 	o.Error = v
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetLimit() int64 {
+func (o *ResponseWithGenericOfLog) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
 		var ret int64
 		return ret
@@ -122,7 +122,7 @@ func (o *ResponseWithGenericOfTrigger) GetLimit() int64 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetLimitOk() (*int64, bool) {
+func (o *ResponseWithGenericOfLog) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -130,7 +130,7 @@ func (o *ResponseWithGenericOfTrigger) GetLimitOk() (*int64, bool) {
 }
 
 // HasLimit returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasLimit() bool {
+func (o *ResponseWithGenericOfLog) HasLimit() bool {
 	if o != nil && !IsNil(o.Limit) {
 		return true
 	}
@@ -139,14 +139,14 @@ func (o *ResponseWithGenericOfTrigger) HasLimit() bool {
 }
 
 // SetLimit gets a reference to the given int64 and assigns it to the Limit field.
-func (o *ResponseWithGenericOfTrigger) SetLimit(v int64) {
+func (o *ResponseWithGenericOfLog) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetObjects returns the Objects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfTrigger) GetObjects() []Trigger {
+func (o *ResponseWithGenericOfLog) GetObjects() []Log {
 	if o == nil {
-		var ret []Trigger
+		var ret []Log
 		return ret
 	}
 	return o.Objects
@@ -155,7 +155,7 @@ func (o *ResponseWithGenericOfTrigger) GetObjects() []Trigger {
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfTrigger) GetObjectsOk() ([]Trigger, bool) {
+func (o *ResponseWithGenericOfLog) GetObjectsOk() ([]Log, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *ResponseWithGenericOfTrigger) GetObjectsOk() ([]Trigger, bool) {
 }
 
 // HasObjects returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasObjects() bool {
+func (o *ResponseWithGenericOfLog) HasObjects() bool {
 	if o != nil && !IsNil(o.Objects) {
 		return true
 	}
@@ -171,13 +171,13 @@ func (o *ResponseWithGenericOfTrigger) HasObjects() bool {
 	return false
 }
 
-// SetObjects gets a reference to the given []Trigger and assigns it to the Objects field.
-func (o *ResponseWithGenericOfTrigger) SetObjects(v []Trigger) {
+// SetObjects gets a reference to the given []Log and assigns it to the Objects field.
+func (o *ResponseWithGenericOfLog) SetObjects(v []Log) {
 	o.Objects = v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetOffset() int64 {
+func (o *ResponseWithGenericOfLog) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
 		var ret int64
 		return ret
@@ -187,7 +187,7 @@ func (o *ResponseWithGenericOfTrigger) GetOffset() int64 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetOffsetOk() (*int64, bool) {
+func (o *ResponseWithGenericOfLog) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *ResponseWithGenericOfTrigger) GetOffsetOk() (*int64, bool) {
 }
 
 // HasOffset returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasOffset() bool {
+func (o *ResponseWithGenericOfLog) HasOffset() bool {
 	if o != nil && !IsNil(o.Offset) {
 		return true
 	}
@@ -204,12 +204,12 @@ func (o *ResponseWithGenericOfTrigger) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int64 and assigns it to the Offset field.
-func (o *ResponseWithGenericOfTrigger) SetOffset(v int64) {
+func (o *ResponseWithGenericOfLog) SetOffset(v int64) {
 	o.Offset = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetStatus() int64 {
+func (o *ResponseWithGenericOfLog) GetStatus() int64 {
 	if o == nil || IsNil(o.Status) {
 		var ret int64
 		return ret
@@ -219,7 +219,7 @@ func (o *ResponseWithGenericOfTrigger) GetStatus() int64 {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetStatusOk() (*int64, bool) {
+func (o *ResponseWithGenericOfLog) GetStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -227,7 +227,7 @@ func (o *ResponseWithGenericOfTrigger) GetStatusOk() (*int64, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasStatus() bool {
+func (o *ResponseWithGenericOfLog) HasStatus() bool {
 	if o != nil && !IsNil(o.Status) {
 		return true
 	}
@@ -236,12 +236,12 @@ func (o *ResponseWithGenericOfTrigger) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given int64 and assigns it to the Status field.
-func (o *ResponseWithGenericOfTrigger) SetStatus(v int64) {
+func (o *ResponseWithGenericOfLog) SetStatus(v int64) {
 	o.Status = &v
 }
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetSuccess() bool {
+func (o *ResponseWithGenericOfLog) GetSuccess() bool {
 	if o == nil || IsNil(o.Success) {
 		var ret bool
 		return ret
@@ -251,7 +251,7 @@ func (o *ResponseWithGenericOfTrigger) GetSuccess() bool {
 
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetSuccessOk() (*bool, bool) {
+func (o *ResponseWithGenericOfLog) GetSuccessOk() (*bool, bool) {
 	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
@@ -259,7 +259,7 @@ func (o *ResponseWithGenericOfTrigger) GetSuccessOk() (*bool, bool) {
 }
 
 // HasSuccess returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasSuccess() bool {
+func (o *ResponseWithGenericOfLog) HasSuccess() bool {
 	if o != nil && !IsNil(o.Success) {
 		return true
 	}
@@ -268,12 +268,12 @@ func (o *ResponseWithGenericOfTrigger) HasSuccess() bool {
 }
 
 // SetSuccess gets a reference to the given bool and assigns it to the Success field.
-func (o *ResponseWithGenericOfTrigger) SetSuccess(v bool) {
+func (o *ResponseWithGenericOfLog) SetSuccess(v bool) {
 	o.Success = &v
 }
 
 // GetTotalCount returns the TotalCount field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfTrigger) GetTotalCount() int64 {
+func (o *ResponseWithGenericOfLog) GetTotalCount() int64 {
 	if o == nil || IsNil(o.TotalCount) {
 		var ret int64
 		return ret
@@ -283,7 +283,7 @@ func (o *ResponseWithGenericOfTrigger) GetTotalCount() int64 {
 
 // GetTotalCountOk returns a tuple with the TotalCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfTrigger) GetTotalCountOk() (*int64, bool) {
+func (o *ResponseWithGenericOfLog) GetTotalCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCount) {
 		return nil, false
 	}
@@ -291,7 +291,7 @@ func (o *ResponseWithGenericOfTrigger) GetTotalCountOk() (*int64, bool) {
 }
 
 // HasTotalCount returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfTrigger) HasTotalCount() bool {
+func (o *ResponseWithGenericOfLog) HasTotalCount() bool {
 	if o != nil && !IsNil(o.TotalCount) {
 		return true
 	}
@@ -300,11 +300,11 @@ func (o *ResponseWithGenericOfTrigger) HasTotalCount() bool {
 }
 
 // SetTotalCount gets a reference to the given int64 and assigns it to the TotalCount field.
-func (o *ResponseWithGenericOfTrigger) SetTotalCount(v int64) {
+func (o *ResponseWithGenericOfLog) SetTotalCount(v int64) {
 	o.TotalCount = &v
 }
 
-func (o ResponseWithGenericOfTrigger) MarshalJSON() ([]byte, error) {
+func (o ResponseWithGenericOfLog) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -312,7 +312,7 @@ func (o ResponseWithGenericOfTrigger) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ResponseWithGenericOfTrigger) ToMap() (map[string]interface{}, error) {
+func (o ResponseWithGenericOfLog) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
@@ -341,38 +341,38 @@ func (o ResponseWithGenericOfTrigger) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableResponseWithGenericOfTrigger struct {
-	value *ResponseWithGenericOfTrigger
+type NullableResponseWithGenericOfLog struct {
+	value *ResponseWithGenericOfLog
 	isSet bool
 }
 
-func (v NullableResponseWithGenericOfTrigger) Get() *ResponseWithGenericOfTrigger {
+func (v NullableResponseWithGenericOfLog) Get() *ResponseWithGenericOfLog {
 	return v.value
 }
 
-func (v *NullableResponseWithGenericOfTrigger) Set(val *ResponseWithGenericOfTrigger) {
+func (v *NullableResponseWithGenericOfLog) Set(val *ResponseWithGenericOfLog) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResponseWithGenericOfTrigger) IsSet() bool {
+func (v NullableResponseWithGenericOfLog) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResponseWithGenericOfTrigger) Unset() {
+func (v *NullableResponseWithGenericOfLog) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResponseWithGenericOfTrigger(val *ResponseWithGenericOfTrigger) *NullableResponseWithGenericOfTrigger {
-	return &NullableResponseWithGenericOfTrigger{value: val, isSet: true}
+func NewNullableResponseWithGenericOfLog(val *ResponseWithGenericOfLog) *NullableResponseWithGenericOfLog {
+	return &NullableResponseWithGenericOfLog{value: val, isSet: true}
 }
 
-func (v NullableResponseWithGenericOfTrigger) MarshalJSON() ([]byte, error) {
+func (v NullableResponseWithGenericOfLog) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResponseWithGenericOfTrigger) UnmarshalJSON(src []byte) error {
+func (v *NullableResponseWithGenericOfLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

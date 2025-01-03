@@ -30,10 +30,9 @@ type Change struct {
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Message *string `json:"message,omitempty"`
-	ReferencedByTriggerChangeIdObjects []Trigger `json:"referenced_by_trigger_change_id_objects,omitempty"`
 	RepositoryId *string `json:"repository_id,omitempty"`
 	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
-	TriggerProducedAt *time.Time `json:"trigger_produced_at,omitempty"`
+	TriggersProducedAt *time.Time `json:"triggers_produced_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
@@ -374,39 +373,6 @@ func (o *Change) SetMessage(v string) {
 	o.Message = &v
 }
 
-// GetReferencedByTriggerChangeIdObjects returns the ReferencedByTriggerChangeIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Change) GetReferencedByTriggerChangeIdObjects() []Trigger {
-	if o == nil {
-		var ret []Trigger
-		return ret
-	}
-	return o.ReferencedByTriggerChangeIdObjects
-}
-
-// GetReferencedByTriggerChangeIdObjectsOk returns a tuple with the ReferencedByTriggerChangeIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Change) GetReferencedByTriggerChangeIdObjectsOk() ([]Trigger, bool) {
-	if o == nil || IsNil(o.ReferencedByTriggerChangeIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByTriggerChangeIdObjects, true
-}
-
-// HasReferencedByTriggerChangeIdObjects returns a boolean if a field has been set.
-func (o *Change) HasReferencedByTriggerChangeIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByTriggerChangeIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByTriggerChangeIdObjects gets a reference to the given []Trigger and assigns it to the ReferencedByTriggerChangeIdObjects field.
-func (o *Change) SetReferencedByTriggerChangeIdObjects(v []Trigger) {
-	o.ReferencedByTriggerChangeIdObjects = v
-}
-
 // GetRepositoryId returns the RepositoryId field value if set, zero value otherwise.
 func (o *Change) GetRepositoryId() string {
 	if o == nil || IsNil(o.RepositoryId) {
@@ -471,36 +437,36 @@ func (o *Change) SetRepositoryIdObject(v Repository) {
 	o.RepositoryIdObject = &v
 }
 
-// GetTriggerProducedAt returns the TriggerProducedAt field value if set, zero value otherwise.
-func (o *Change) GetTriggerProducedAt() time.Time {
-	if o == nil || IsNil(o.TriggerProducedAt) {
+// GetTriggersProducedAt returns the TriggersProducedAt field value if set, zero value otherwise.
+func (o *Change) GetTriggersProducedAt() time.Time {
+	if o == nil || IsNil(o.TriggersProducedAt) {
 		var ret time.Time
 		return ret
 	}
-	return *o.TriggerProducedAt
+	return *o.TriggersProducedAt
 }
 
-// GetTriggerProducedAtOk returns a tuple with the TriggerProducedAt field value if set, nil otherwise
+// GetTriggersProducedAtOk returns a tuple with the TriggersProducedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Change) GetTriggerProducedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.TriggerProducedAt) {
+func (o *Change) GetTriggersProducedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TriggersProducedAt) {
 		return nil, false
 	}
-	return o.TriggerProducedAt, true
+	return o.TriggersProducedAt, true
 }
 
-// HasTriggerProducedAt returns a boolean if a field has been set.
-func (o *Change) HasTriggerProducedAt() bool {
-	if o != nil && !IsNil(o.TriggerProducedAt) {
+// HasTriggersProducedAt returns a boolean if a field has been set.
+func (o *Change) HasTriggersProducedAt() bool {
+	if o != nil && !IsNil(o.TriggersProducedAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetTriggerProducedAt gets a reference to the given time.Time and assigns it to the TriggerProducedAt field.
-func (o *Change) SetTriggerProducedAt(v time.Time) {
-	o.TriggerProducedAt = &v
+// SetTriggersProducedAt gets a reference to the given time.Time and assigns it to the TriggersProducedAt field.
+func (o *Change) SetTriggersProducedAt(v time.Time) {
+	o.TriggersProducedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -575,17 +541,14 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
 	}
-	if o.ReferencedByTriggerChangeIdObjects != nil {
-		toSerialize["referenced_by_trigger_change_id_objects"] = o.ReferencedByTriggerChangeIdObjects
-	}
 	if !IsNil(o.RepositoryId) {
 		toSerialize["repository_id"] = o.RepositoryId
 	}
 	if !IsNil(o.RepositoryIdObject) {
 		toSerialize["repository_id_object"] = o.RepositoryIdObject
 	}
-	if !IsNil(o.TriggerProducedAt) {
-		toSerialize["trigger_produced_at"] = o.TriggerProducedAt
+	if !IsNil(o.TriggersProducedAt) {
+		toSerialize["triggers_produced_at"] = o.TriggersProducedAt
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt

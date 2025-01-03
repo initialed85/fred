@@ -7,14 +7,12 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**LastSynced** | Pointer to **time.Time** |  | [optional] 
-**Password** | Pointer to **string** |  | [optional] 
+**LastSyncedAt** | Pointer to **time.Time** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
 **ReferencedByChangeRepositoryIdObjects** | Pointer to [**[]Change**](Change.md) |  | [optional] 
 **ReferencedByRuleRepositoryIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**SshKey** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
-**Username** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -110,55 +108,55 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetLastSynced
+### GetLastSyncedAt
 
-`func (o *Repository) GetLastSynced() time.Time`
+`func (o *Repository) GetLastSyncedAt() time.Time`
 
-GetLastSynced returns the LastSynced field if non-nil, zero value otherwise.
+GetLastSyncedAt returns the LastSyncedAt field if non-nil, zero value otherwise.
 
-### GetLastSyncedOk
+### GetLastSyncedAtOk
 
-`func (o *Repository) GetLastSyncedOk() (*time.Time, bool)`
+`func (o *Repository) GetLastSyncedAtOk() (*time.Time, bool)`
 
-GetLastSyncedOk returns a tuple with the LastSynced field if it's non-nil, zero value otherwise
+GetLastSyncedAtOk returns a tuple with the LastSyncedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastSynced
+### SetLastSyncedAt
 
-`func (o *Repository) SetLastSynced(v time.Time)`
+`func (o *Repository) SetLastSyncedAt(v time.Time)`
 
-SetLastSynced sets LastSynced field to given value.
+SetLastSyncedAt sets LastSyncedAt field to given value.
 
-### HasLastSynced
+### HasLastSyncedAt
 
-`func (o *Repository) HasLastSynced() bool`
+`func (o *Repository) HasLastSyncedAt() bool`
 
-HasLastSynced returns a boolean if a field has been set.
+HasLastSyncedAt returns a boolean if a field has been set.
 
-### GetPassword
+### GetName
 
-`func (o *Repository) GetPassword() string`
+`func (o *Repository) GetName() string`
 
-GetPassword returns the Password field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetPasswordOk
+### GetNameOk
 
-`func (o *Repository) GetPasswordOk() (*string, bool)`
+`func (o *Repository) GetNameOk() (*string, bool)`
 
-GetPasswordOk returns a tuple with the Password field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPassword
+### SetName
 
-`func (o *Repository) SetPassword(v string)`
+`func (o *Repository) SetName(v string)`
 
-SetPassword sets Password field to given value.
+SetName sets Name field to given value.
 
-### HasPassword
+### HasName
 
-`func (o *Repository) HasPassword() bool`
+`func (o *Repository) HasName() bool`
 
-HasPassword returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
 ### GetReferencedByChangeRepositoryIdObjects
 
@@ -230,31 +228,6 @@ HasReferencedByRuleRepositoryIdObjects returns a boolean if a field has been set
 `func (o *Repository) UnsetReferencedByRuleRepositoryIdObjects()`
 
 UnsetReferencedByRuleRepositoryIdObjects ensures that no value is present for ReferencedByRuleRepositoryIdObjects, not even an explicit nil
-### GetSshKey
-
-`func (o *Repository) GetSshKey() string`
-
-GetSshKey returns the SshKey field if non-nil, zero value otherwise.
-
-### GetSshKeyOk
-
-`func (o *Repository) GetSshKeyOk() (*string, bool)`
-
-GetSshKeyOk returns a tuple with the SshKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSshKey
-
-`func (o *Repository) SetSshKey(v string)`
-
-SetSshKey sets SshKey field to given value.
-
-### HasSshKey
-
-`func (o *Repository) HasSshKey() bool`
-
-HasSshKey returns a boolean if a field has been set.
-
 ### GetUpdatedAt
 
 `func (o *Repository) GetUpdatedAt() time.Time`
@@ -304,31 +277,6 @@ SetUrl sets Url field to given value.
 `func (o *Repository) HasUrl() bool`
 
 HasUrl returns a boolean if a field has been set.
-
-### GetUsername
-
-`func (o *Repository) GetUsername() string`
-
-GetUsername returns the Username field if non-nil, zero value otherwise.
-
-### GetUsernameOk
-
-`func (o *Repository) GetUsernameOk() (*string, bool)`
-
-GetUsernameOk returns a tuple with the Username field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUsername
-
-`func (o *Repository) SetUsername(v string)`
-
-SetUsername sets Username field to given value.
-
-### HasUsername
-
-`func (o *Repository) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

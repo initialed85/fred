@@ -61,16 +61,28 @@ Done / WIP at the top, TODOs are in priority order.
 - [DONE] Job executor (consume Triggers, run Tasks under an Execution)
   - [DONE] Fix Task failures not bubbling up to Execution failures
 - [DONE] Use volumes for Repository (and other asset) reuse between the Tasks of an Execution
+- [DONE] Get it deployed to Kubernetes
+  - [DONE] Get to the bottom of this (Kubernetes Docker-in-Docker):
+    - `Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error running hook #0: fork/exec /proc/251/exe: no such file or directory: unknown`
 - [WIP] Have some sort of lean UI
-- [TODO] Fix `api/outputs/{primaryKey}` somehow generated w/ `Execution` model (no idea- if one is wrong, they should all be wrong)
+- [WIP] SSH key authentication for Repositories
+  - [DONE] Pass through SSH creds from the host's root user
+- [TODO] Fix storage of odd bytes in logs (ref.: `ERROR: invalid byte sequence for encoding "UTF8"`); change to a
+  `bytea` column for logs
+- [TODO] Fix `api/outputs/{primaryKey}` somehow generated w/ `Execution` model (no idea- if one is wrong, they should
+  all be wrong)
 - [TODO] Fix perf issue relating to `depth` params + frontend (this might be Djangolang thing)
 - [TODO] Fix jobs stuck in "Running" when tasks are all "Errored"
+- [TODO] Fix anything to do with orphaned containers
+- [TODO] Fix anything to do with outputs or executions stuck in "Running" (some sort of cleanup for hard kills)
+- [TODO] Ensure job executor gracefully waits for Docker (for Kubernetes Docker-in-Docker)
 - [TODO] Add some timestamps to the various states etc
+- [TODO] Add timestamps to the log output
+- [TODO] Have a streaming WebSocket for the logout
 - [TODO] Make it clear when a job executor is pulling the CI image (show it in the logs or something)
 - [TODO] Make it clear which node a job executor is running on
-- [TODO] Carry any environment variables set during a Task execution between the Tasks of an Execution (don't override CI-set ones though)
-- [TODO] SSH key authentication for Repositories
-- [TODO] Get it deployed to Kubernetes
+- [TODO] Carry any environment variables set during a Task execution between the Tasks of an Execution (don't override
+  CI-set ones though)
 - [TODO] Support for tags as well as branches
 - [TODO] Username / password (or token) authentication for Repositories
 - [TODO] Support for Repository webhooks (at least GitHub for now)
@@ -97,12 +109,9 @@ DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./c
 # shell 6
 DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/trigger_producer
 
-# shell 7 (worker 1)
+# shell 7
 DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
 
-# shell 8 (worker 2)
-DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
-
-# shell 9
+# shell 8
 echo -e "$(curl 'http://localhost:7070/api/executions?created_at__desc=&limit=2&depth=2' | jq | sed 's/\\u001b/\\033/g')"
 ```

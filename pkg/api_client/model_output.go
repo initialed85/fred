@@ -20,17 +20,16 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
-	Buffer *string `json:"buffer,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	EndedAt *time.Time `json:"ended_at,omitempty"`
 	Error *string `json:"error,omitempty"`
 	ExitStatus *int64 `json:"exit_status,omitempty"`
 	Id *string `json:"id,omitempty"`
-	ReferencedByExecutionBuildOutputIdObjects []Execution `json:"referenced_by_execution_build_output_id_objects,omitempty"`
-	ReferencedByExecutionDeployOutputIdObjects []Execution `json:"referenced_by_execution_deploy_output_id_objects,omitempty"`
-	ReferencedByExecutionPublishOutputIdObjects []Execution `json:"referenced_by_execution_publish_output_id_objects,omitempty"`
-	ReferencedByExecutionTestOutputIdObjects []Execution `json:"referenced_by_execution_test_output_id_objects,omitempty"`
-	ReferencedByExecutionValidateOutputIdObjects []Execution `json:"referenced_by_execution_validate_output_id_objects,omitempty"`
+	Logid *string `json:"logid,omitempty"`
+	LogidObject *Log `json:"logid_object,omitempty"`
+	ReferencedByLogOutputIdObjects []Log `json:"referenced_by_log_output_id_objects,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
 	Status *string `json:"status,omitempty"`
 	TaskId *string `json:"task_id,omitempty"`
 	TaskIdObject *Task `json:"task_id_object,omitempty"`
@@ -52,38 +51,6 @@ func NewOutput() *Output {
 func NewOutputWithDefaults() *Output {
 	this := Output{}
 	return &this
-}
-
-// GetBuffer returns the Buffer field value if set, zero value otherwise.
-func (o *Output) GetBuffer() string {
-	if o == nil || IsNil(o.Buffer) {
-		var ret string
-		return ret
-	}
-	return *o.Buffer
-}
-
-// GetBufferOk returns a tuple with the Buffer field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Output) GetBufferOk() (*string, bool) {
-	if o == nil || IsNil(o.Buffer) {
-		return nil, false
-	}
-	return o.Buffer, true
-}
-
-// HasBuffer returns a boolean if a field has been set.
-func (o *Output) HasBuffer() bool {
-	if o != nil && !IsNil(o.Buffer) {
-		return true
-	}
-
-	return false
-}
-
-// SetBuffer gets a reference to the given string and assigns it to the Buffer field.
-func (o *Output) SetBuffer(v string) {
-	o.Buffer = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -148,6 +115,38 @@ func (o *Output) HasDeletedAt() bool {
 // SetDeletedAt gets a reference to the given time.Time and assigns it to the DeletedAt field.
 func (o *Output) SetDeletedAt(v time.Time) {
 	o.DeletedAt = &v
+}
+
+// GetEndedAt returns the EndedAt field value if set, zero value otherwise.
+func (o *Output) GetEndedAt() time.Time {
+	if o == nil || IsNil(o.EndedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EndedAt
+}
+
+// GetEndedAtOk returns a tuple with the EndedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetEndedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EndedAt) {
+		return nil, false
+	}
+	return o.EndedAt, true
+}
+
+// HasEndedAt returns a boolean if a field has been set.
+func (o *Output) HasEndedAt() bool {
+	if o != nil && !IsNil(o.EndedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndedAt gets a reference to the given time.Time and assigns it to the EndedAt field.
+func (o *Output) SetEndedAt(v time.Time) {
+	o.EndedAt = &v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -246,169 +245,133 @@ func (o *Output) SetId(v string) {
 	o.Id = &v
 }
 
-// GetReferencedByExecutionBuildOutputIdObjects returns the ReferencedByExecutionBuildOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Output) GetReferencedByExecutionBuildOutputIdObjects() []Execution {
-	if o == nil {
-		var ret []Execution
+// GetLogid returns the Logid field value if set, zero value otherwise.
+func (o *Output) GetLogid() string {
+	if o == nil || IsNil(o.Logid) {
+		var ret string
 		return ret
 	}
-	return o.ReferencedByExecutionBuildOutputIdObjects
+	return *o.Logid
 }
 
-// GetReferencedByExecutionBuildOutputIdObjectsOk returns a tuple with the ReferencedByExecutionBuildOutputIdObjects field value if set, nil otherwise
+// GetLogidOk returns a tuple with the Logid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Output) GetReferencedByExecutionBuildOutputIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionBuildOutputIdObjects) {
+func (o *Output) GetLogidOk() (*string, bool) {
+	if o == nil || IsNil(o.Logid) {
 		return nil, false
 	}
-	return o.ReferencedByExecutionBuildOutputIdObjects, true
+	return o.Logid, true
 }
 
-// HasReferencedByExecutionBuildOutputIdObjects returns a boolean if a field has been set.
-func (o *Output) HasReferencedByExecutionBuildOutputIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionBuildOutputIdObjects) {
+// HasLogid returns a boolean if a field has been set.
+func (o *Output) HasLogid() bool {
+	if o != nil && !IsNil(o.Logid) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByExecutionBuildOutputIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionBuildOutputIdObjects field.
-func (o *Output) SetReferencedByExecutionBuildOutputIdObjects(v []Execution) {
-	o.ReferencedByExecutionBuildOutputIdObjects = v
+// SetLogid gets a reference to the given string and assigns it to the Logid field.
+func (o *Output) SetLogid(v string) {
+	o.Logid = &v
 }
 
-// GetReferencedByExecutionDeployOutputIdObjects returns the ReferencedByExecutionDeployOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Output) GetReferencedByExecutionDeployOutputIdObjects() []Execution {
-	if o == nil {
-		var ret []Execution
+// GetLogidObject returns the LogidObject field value if set, zero value otherwise.
+func (o *Output) GetLogidObject() Log {
+	if o == nil || IsNil(o.LogidObject) {
+		var ret Log
 		return ret
 	}
-	return o.ReferencedByExecutionDeployOutputIdObjects
+	return *o.LogidObject
 }
 
-// GetReferencedByExecutionDeployOutputIdObjectsOk returns a tuple with the ReferencedByExecutionDeployOutputIdObjects field value if set, nil otherwise
+// GetLogidObjectOk returns a tuple with the LogidObject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Output) GetReferencedByExecutionDeployOutputIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionDeployOutputIdObjects) {
+func (o *Output) GetLogidObjectOk() (*Log, bool) {
+	if o == nil || IsNil(o.LogidObject) {
 		return nil, false
 	}
-	return o.ReferencedByExecutionDeployOutputIdObjects, true
+	return o.LogidObject, true
 }
 
-// HasReferencedByExecutionDeployOutputIdObjects returns a boolean if a field has been set.
-func (o *Output) HasReferencedByExecutionDeployOutputIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionDeployOutputIdObjects) {
+// HasLogidObject returns a boolean if a field has been set.
+func (o *Output) HasLogidObject() bool {
+	if o != nil && !IsNil(o.LogidObject) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByExecutionDeployOutputIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionDeployOutputIdObjects field.
-func (o *Output) SetReferencedByExecutionDeployOutputIdObjects(v []Execution) {
-	o.ReferencedByExecutionDeployOutputIdObjects = v
+// SetLogidObject gets a reference to the given Log and assigns it to the LogidObject field.
+func (o *Output) SetLogidObject(v Log) {
+	o.LogidObject = &v
 }
 
-// GetReferencedByExecutionPublishOutputIdObjects returns the ReferencedByExecutionPublishOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Output) GetReferencedByExecutionPublishOutputIdObjects() []Execution {
+// GetReferencedByLogOutputIdObjects returns the ReferencedByLogOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Output) GetReferencedByLogOutputIdObjects() []Log {
 	if o == nil {
-		var ret []Execution
+		var ret []Log
 		return ret
 	}
-	return o.ReferencedByExecutionPublishOutputIdObjects
+	return o.ReferencedByLogOutputIdObjects
 }
 
-// GetReferencedByExecutionPublishOutputIdObjectsOk returns a tuple with the ReferencedByExecutionPublishOutputIdObjects field value if set, nil otherwise
+// GetReferencedByLogOutputIdObjectsOk returns a tuple with the ReferencedByLogOutputIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Output) GetReferencedByExecutionPublishOutputIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionPublishOutputIdObjects) {
+func (o *Output) GetReferencedByLogOutputIdObjectsOk() ([]Log, bool) {
+	if o == nil || IsNil(o.ReferencedByLogOutputIdObjects) {
 		return nil, false
 	}
-	return o.ReferencedByExecutionPublishOutputIdObjects, true
+	return o.ReferencedByLogOutputIdObjects, true
 }
 
-// HasReferencedByExecutionPublishOutputIdObjects returns a boolean if a field has been set.
-func (o *Output) HasReferencedByExecutionPublishOutputIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionPublishOutputIdObjects) {
+// HasReferencedByLogOutputIdObjects returns a boolean if a field has been set.
+func (o *Output) HasReferencedByLogOutputIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByLogOutputIdObjects) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByExecutionPublishOutputIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionPublishOutputIdObjects field.
-func (o *Output) SetReferencedByExecutionPublishOutputIdObjects(v []Execution) {
-	o.ReferencedByExecutionPublishOutputIdObjects = v
+// SetReferencedByLogOutputIdObjects gets a reference to the given []Log and assigns it to the ReferencedByLogOutputIdObjects field.
+func (o *Output) SetReferencedByLogOutputIdObjects(v []Log) {
+	o.ReferencedByLogOutputIdObjects = v
 }
 
-// GetReferencedByExecutionTestOutputIdObjects returns the ReferencedByExecutionTestOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Output) GetReferencedByExecutionTestOutputIdObjects() []Execution {
-	if o == nil {
-		var ret []Execution
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *Output) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
 		return ret
 	}
-	return o.ReferencedByExecutionTestOutputIdObjects
+	return *o.StartedAt
 }
 
-// GetReferencedByExecutionTestOutputIdObjectsOk returns a tuple with the ReferencedByExecutionTestOutputIdObjects field value if set, nil otherwise
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Output) GetReferencedByExecutionTestOutputIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionTestOutputIdObjects) {
+func (o *Output) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
 		return nil, false
 	}
-	return o.ReferencedByExecutionTestOutputIdObjects, true
+	return o.StartedAt, true
 }
 
-// HasReferencedByExecutionTestOutputIdObjects returns a boolean if a field has been set.
-func (o *Output) HasReferencedByExecutionTestOutputIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionTestOutputIdObjects) {
+// HasStartedAt returns a boolean if a field has been set.
+func (o *Output) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByExecutionTestOutputIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionTestOutputIdObjects field.
-func (o *Output) SetReferencedByExecutionTestOutputIdObjects(v []Execution) {
-	o.ReferencedByExecutionTestOutputIdObjects = v
-}
-
-// GetReferencedByExecutionValidateOutputIdObjects returns the ReferencedByExecutionValidateOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Output) GetReferencedByExecutionValidateOutputIdObjects() []Execution {
-	if o == nil {
-		var ret []Execution
-		return ret
-	}
-	return o.ReferencedByExecutionValidateOutputIdObjects
-}
-
-// GetReferencedByExecutionValidateOutputIdObjectsOk returns a tuple with the ReferencedByExecutionValidateOutputIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Output) GetReferencedByExecutionValidateOutputIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionValidateOutputIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByExecutionValidateOutputIdObjects, true
-}
-
-// HasReferencedByExecutionValidateOutputIdObjects returns a boolean if a field has been set.
-func (o *Output) HasReferencedByExecutionValidateOutputIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionValidateOutputIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByExecutionValidateOutputIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionValidateOutputIdObjects field.
-func (o *Output) SetReferencedByExecutionValidateOutputIdObjects(v []Execution) {
-	o.ReferencedByExecutionValidateOutputIdObjects = v
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *Output) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -549,14 +512,14 @@ func (o Output) MarshalJSON() ([]byte, error) {
 
 func (o Output) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Buffer) {
-		toSerialize["buffer"] = o.Buffer
-	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if !IsNil(o.DeletedAt) {
 		toSerialize["deleted_at"] = o.DeletedAt
+	}
+	if !IsNil(o.EndedAt) {
+		toSerialize["ended_at"] = o.EndedAt
 	}
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
@@ -567,20 +530,17 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.ReferencedByExecutionBuildOutputIdObjects != nil {
-		toSerialize["referenced_by_execution_build_output_id_objects"] = o.ReferencedByExecutionBuildOutputIdObjects
+	if !IsNil(o.Logid) {
+		toSerialize["logid"] = o.Logid
 	}
-	if o.ReferencedByExecutionDeployOutputIdObjects != nil {
-		toSerialize["referenced_by_execution_deploy_output_id_objects"] = o.ReferencedByExecutionDeployOutputIdObjects
+	if !IsNil(o.LogidObject) {
+		toSerialize["logid_object"] = o.LogidObject
 	}
-	if o.ReferencedByExecutionPublishOutputIdObjects != nil {
-		toSerialize["referenced_by_execution_publish_output_id_objects"] = o.ReferencedByExecutionPublishOutputIdObjects
+	if o.ReferencedByLogOutputIdObjects != nil {
+		toSerialize["referenced_by_log_output_id_objects"] = o.ReferencedByLogOutputIdObjects
 	}
-	if o.ReferencedByExecutionTestOutputIdObjects != nil {
-		toSerialize["referenced_by_execution_test_output_id_objects"] = o.ReferencedByExecutionTestOutputIdObjects
-	}
-	if o.ReferencedByExecutionValidateOutputIdObjects != nil {
-		toSerialize["referenced_by_execution_validate_output_id_objects"] = o.ReferencedByExecutionValidateOutputIdObjects
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status

@@ -30,26 +30,17 @@ import (
 )
 
 type Execution struct {
-	ID                                                uuid.UUID              `json:"id"`
-	CreatedAt                                         time.Time              `json:"created_at"`
-	UpdatedAt                                         time.Time              `json:"updated_at"`
-	DeletedAt                                         *time.Time             `json:"deleted_at"`
-	Status                                            string                 `json:"status"`
-	TriggerID                                         uuid.UUID              `json:"trigger_id"`
-	TriggerIDObject                                   *Trigger               `json:"trigger_id_object"`
-	BuildOutputID                                     *uuid.UUID             `json:"build_output_id"`
-	BuildOutputIDObject                               *Output                `json:"build_output_id_object"`
-	TestOutputID                                      *uuid.UUID             `json:"test_output_id"`
-	TestOutputIDObject                                *Output                `json:"test_output_id_object"`
-	PublishOutputID                                   *uuid.UUID             `json:"publish_output_id"`
-	PublishOutputIDObject                             *Output                `json:"publish_output_id_object"`
-	DeployOutputID                                    *uuid.UUID             `json:"deploy_output_id"`
-	DeployOutputIDObject                              *Output                `json:"deploy_output_id_object"`
-	ValidateOutputID                                  *uuid.UUID             `json:"validate_output_id"`
-	ValidateOutputIDObject                            *Output                `json:"validate_output_id_object"`
-	JobID                                             uuid.UUID              `json:"job_id"`
-	JobIDObject                                       *Job                   `json:"job_id_object"`
-	ReferencedByTriggerHasExecutionExecutionIDObjects []*TriggerHasExecution `json:"referenced_by_trigger_has_execution_execution_id_objects"`
+	ID                        uuid.UUID          `json:"id"`
+	CreatedAt                 time.Time          `json:"created_at"`
+	UpdatedAt                 time.Time          `json:"updated_at"`
+	DeletedAt                 *time.Time         `json:"deleted_at"`
+	Status                    string             `json:"status"`
+	StartedAt                 *time.Time         `json:"started_at"`
+	EndedAt                   *time.Time         `json:"ended_at"`
+	TaskID                    uuid.UUID          `json:"task_id"`
+	TaskIDObject              *Task              `json:"task_id_object"`
+	M2mRuleTriggerJobID       uuid.UUID          `json:"m2m_rule_trigger_job_id"`
+	M2mRuleTriggerJobIDObject *M2mRuleTriggerJob `json:"m2m_rule_trigger_job_id_object"`
 }
 
 var ExecutionTable = "execution"
@@ -57,33 +48,27 @@ var ExecutionTable = "execution"
 var ExecutionTableNamespaceID int32 = 1337 + 2
 
 var (
-	ExecutionTableIDColumn               = "id"
-	ExecutionTableCreatedAtColumn        = "created_at"
-	ExecutionTableUpdatedAtColumn        = "updated_at"
-	ExecutionTableDeletedAtColumn        = "deleted_at"
-	ExecutionTableStatusColumn           = "status"
-	ExecutionTableTriggerIDColumn        = "trigger_id"
-	ExecutionTableBuildOutputIDColumn    = "build_output_id"
-	ExecutionTableTestOutputIDColumn     = "test_output_id"
-	ExecutionTablePublishOutputIDColumn  = "publish_output_id"
-	ExecutionTableDeployOutputIDColumn   = "deploy_output_id"
-	ExecutionTableValidateOutputIDColumn = "validate_output_id"
-	ExecutionTableJobIDColumn            = "job_id"
+	ExecutionTableIDColumn                  = "id"
+	ExecutionTableCreatedAtColumn           = "created_at"
+	ExecutionTableUpdatedAtColumn           = "updated_at"
+	ExecutionTableDeletedAtColumn           = "deleted_at"
+	ExecutionTableStatusColumn              = "status"
+	ExecutionTableStartedAtColumn           = "started_at"
+	ExecutionTableEndedAtColumn             = "ended_at"
+	ExecutionTableTaskIDColumn              = "task_id"
+	ExecutionTableM2mRuleTriggerJobIDColumn = "m2m_rule_trigger_job_id"
 )
 
 var (
-	ExecutionTableIDColumnWithTypeCast               = `"id" AS id`
-	ExecutionTableCreatedAtColumnWithTypeCast        = `"created_at" AS created_at`
-	ExecutionTableUpdatedAtColumnWithTypeCast        = `"updated_at" AS updated_at`
-	ExecutionTableDeletedAtColumnWithTypeCast        = `"deleted_at" AS deleted_at`
-	ExecutionTableStatusColumnWithTypeCast           = `"status" AS status`
-	ExecutionTableTriggerIDColumnWithTypeCast        = `"trigger_id" AS trigger_id`
-	ExecutionTableBuildOutputIDColumnWithTypeCast    = `"build_output_id" AS build_output_id`
-	ExecutionTableTestOutputIDColumnWithTypeCast     = `"test_output_id" AS test_output_id`
-	ExecutionTablePublishOutputIDColumnWithTypeCast  = `"publish_output_id" AS publish_output_id`
-	ExecutionTableDeployOutputIDColumnWithTypeCast   = `"deploy_output_id" AS deploy_output_id`
-	ExecutionTableValidateOutputIDColumnWithTypeCast = `"validate_output_id" AS validate_output_id`
-	ExecutionTableJobIDColumnWithTypeCast            = `"job_id" AS job_id`
+	ExecutionTableIDColumnWithTypeCast                  = `"id" AS id`
+	ExecutionTableCreatedAtColumnWithTypeCast           = `"created_at" AS created_at`
+	ExecutionTableUpdatedAtColumnWithTypeCast           = `"updated_at" AS updated_at`
+	ExecutionTableDeletedAtColumnWithTypeCast           = `"deleted_at" AS deleted_at`
+	ExecutionTableStatusColumnWithTypeCast              = `"status" AS status`
+	ExecutionTableStartedAtColumnWithTypeCast           = `"started_at" AS started_at`
+	ExecutionTableEndedAtColumnWithTypeCast             = `"ended_at" AS ended_at`
+	ExecutionTableTaskIDColumnWithTypeCast              = `"task_id" AS task_id`
+	ExecutionTableM2mRuleTriggerJobIDColumnWithTypeCast = `"m2m_rule_trigger_job_id" AS m2m_rule_trigger_job_id`
 )
 
 var ExecutionTableColumns = []string{
@@ -92,13 +77,10 @@ var ExecutionTableColumns = []string{
 	ExecutionTableUpdatedAtColumn,
 	ExecutionTableDeletedAtColumn,
 	ExecutionTableStatusColumn,
-	ExecutionTableTriggerIDColumn,
-	ExecutionTableBuildOutputIDColumn,
-	ExecutionTableTestOutputIDColumn,
-	ExecutionTablePublishOutputIDColumn,
-	ExecutionTableDeployOutputIDColumn,
-	ExecutionTableValidateOutputIDColumn,
-	ExecutionTableJobIDColumn,
+	ExecutionTableStartedAtColumn,
+	ExecutionTableEndedAtColumn,
+	ExecutionTableTaskIDColumn,
+	ExecutionTableM2mRuleTriggerJobIDColumn,
 }
 
 var ExecutionTableColumnsWithTypeCasts = []string{
@@ -107,13 +89,10 @@ var ExecutionTableColumnsWithTypeCasts = []string{
 	ExecutionTableUpdatedAtColumnWithTypeCast,
 	ExecutionTableDeletedAtColumnWithTypeCast,
 	ExecutionTableStatusColumnWithTypeCast,
-	ExecutionTableTriggerIDColumnWithTypeCast,
-	ExecutionTableBuildOutputIDColumnWithTypeCast,
-	ExecutionTableTestOutputIDColumnWithTypeCast,
-	ExecutionTablePublishOutputIDColumnWithTypeCast,
-	ExecutionTableDeployOutputIDColumnWithTypeCast,
-	ExecutionTableValidateOutputIDColumnWithTypeCast,
-	ExecutionTableJobIDColumnWithTypeCast,
+	ExecutionTableStartedAtColumnWithTypeCast,
+	ExecutionTableEndedAtColumnWithTypeCast,
+	ExecutionTableTaskIDColumnWithTypeCast,
+	ExecutionTableM2mRuleTriggerJobIDColumnWithTypeCast,
 }
 
 var ExecutionIntrospectedTable *introspect.Table
@@ -289,7 +268,45 @@ func (m *Execution) FromItem(item map[string]any) error {
 
 			m.Status = temp2
 
-		case "trigger_id":
+		case "started_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uustarted_at.UUID", temp1))
+				}
+			}
+
+			m.StartedAt = &temp2
+
+		case "ended_at":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuended_at.UUID", temp1))
+				}
+			}
+
+			m.EndedAt = &temp2
+
+		case "task_id":
 			if v == nil {
 				continue
 			}
@@ -302,13 +319,13 @@ func (m *Execution) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(uuid.UUID)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutrigger_id.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutask_id.UUID", temp1))
 				}
 			}
 
-			m.TriggerID = temp2
+			m.TaskID = temp2
 
-		case "build_output_id":
+		case "m2m_rule_trigger_job_id":
 			if v == nil {
 				continue
 			}
@@ -321,106 +338,11 @@ func (m *Execution) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(uuid.UUID)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubuild_output_id.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uum2m_rule_trigger_job_id.UUID", temp1))
 				}
 			}
 
-			m.BuildOutputID = &temp2
-
-		case "test_output_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutest_output_id.UUID", temp1))
-				}
-			}
-
-			m.TestOutputID = &temp2
-
-		case "publish_output_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uupublish_output_id.UUID", temp1))
-				}
-			}
-
-			m.PublishOutputID = &temp2
-
-		case "deploy_output_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uudeploy_output_id.UUID", temp1))
-				}
-			}
-
-			m.DeployOutputID = &temp2
-
-		case "validate_output_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuvalidate_output_id.UUID", temp1))
-				}
-			}
-
-			m.ValidateOutputID = &temp2
-
-		case "job_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_id.UUID", temp1))
-				}
-			}
-
-			m.JobID = temp2
+			m.M2mRuleTriggerJobID = temp2
 
 		}
 	}
@@ -456,21 +378,12 @@ func (m *Execution) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bo
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.Status = o.Status
-	m.TriggerID = o.TriggerID
-	m.TriggerIDObject = o.TriggerIDObject
-	m.BuildOutputID = o.BuildOutputID
-	m.BuildOutputIDObject = o.BuildOutputIDObject
-	m.TestOutputID = o.TestOutputID
-	m.TestOutputIDObject = o.TestOutputIDObject
-	m.PublishOutputID = o.PublishOutputID
-	m.PublishOutputIDObject = o.PublishOutputIDObject
-	m.DeployOutputID = o.DeployOutputID
-	m.DeployOutputIDObject = o.DeployOutputIDObject
-	m.ValidateOutputID = o.ValidateOutputID
-	m.ValidateOutputIDObject = o.ValidateOutputIDObject
-	m.JobID = o.JobID
-	m.JobIDObject = o.JobIDObject
-	m.ReferencedByTriggerHasExecutionExecutionIDObjects = o.ReferencedByTriggerHasExecutionExecutionIDObjects
+	m.StartedAt = o.StartedAt
+	m.EndedAt = o.EndedAt
+	m.TaskID = o.TaskID
+	m.TaskIDObject = o.TaskIDObject
+	m.M2mRuleTriggerJobID = o.M2mRuleTriggerJobID
+	m.M2mRuleTriggerJobIDObject = o.M2mRuleTriggerJobIDObject
 
 	return nil
 }
@@ -534,78 +447,45 @@ func (m *Execution) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, s
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TriggerID) || slices.Contains(forceSetValuesForFields, ExecutionTableTriggerIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableTriggerIDColumn) {
-		columns = append(columns, ExecutionTableTriggerIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.StartedAt) || slices.Contains(forceSetValuesForFields, ExecutionTableStartedAtColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableStartedAtColumn) {
+		columns = append(columns, ExecutionTableStartedAtColumn)
 
-		v, err := types.FormatUUID(m.TriggerID)
+		v, err := types.FormatTime(m.StartedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerID; %v", err)
+			return fmt.Errorf("failed to handle m.StartedAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.BuildOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableBuildOutputIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableBuildOutputIDColumn) {
-		columns = append(columns, ExecutionTableBuildOutputIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.EndedAt) || slices.Contains(forceSetValuesForFields, ExecutionTableEndedAtColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableEndedAtColumn) {
+		columns = append(columns, ExecutionTableEndedAtColumn)
 
-		v, err := types.FormatUUID(m.BuildOutputID)
+		v, err := types.FormatTime(m.EndedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.BuildOutputID; %v", err)
+			return fmt.Errorf("failed to handle m.EndedAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TestOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableTestOutputIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableTestOutputIDColumn) {
-		columns = append(columns, ExecutionTableTestOutputIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.TaskID) || slices.Contains(forceSetValuesForFields, ExecutionTableTaskIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableTaskIDColumn) {
+		columns = append(columns, ExecutionTableTaskIDColumn)
 
-		v, err := types.FormatUUID(m.TestOutputID)
+		v, err := types.FormatUUID(m.TaskID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TestOutputID; %v", err)
+			return fmt.Errorf("failed to handle m.TaskID; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.PublishOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTablePublishOutputIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTablePublishOutputIDColumn) {
-		columns = append(columns, ExecutionTablePublishOutputIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.M2mRuleTriggerJobID) || slices.Contains(forceSetValuesForFields, ExecutionTableM2mRuleTriggerJobIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableM2mRuleTriggerJobIDColumn) {
+		columns = append(columns, ExecutionTableM2mRuleTriggerJobIDColumn)
 
-		v, err := types.FormatUUID(m.PublishOutputID)
+		v, err := types.FormatUUID(m.M2mRuleTriggerJobID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.PublishOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.DeployOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableDeployOutputIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableDeployOutputIDColumn) {
-		columns = append(columns, ExecutionTableDeployOutputIDColumn)
-
-		v, err := types.FormatUUID(m.DeployOutputID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.DeployOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.ValidateOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableValidateOutputIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableValidateOutputIDColumn) {
-		columns = append(columns, ExecutionTableValidateOutputIDColumn)
-
-		v, err := types.FormatUUID(m.ValidateOutputID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.ValidateOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, ExecutionTableJobIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableJobIDColumn) {
-		columns = append(columns, ExecutionTableJobIDColumn)
-
-		v, err := types.FormatUUID(m.JobID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.JobID; %v", err)
+			return fmt.Errorf("failed to handle m.M2mRuleTriggerJobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -713,78 +593,45 @@ func (m *Execution) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, f
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TriggerID) || slices.Contains(forceSetValuesForFields, ExecutionTableTriggerIDColumn) {
-		columns = append(columns, ExecutionTableTriggerIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.StartedAt) || slices.Contains(forceSetValuesForFields, ExecutionTableStartedAtColumn) {
+		columns = append(columns, ExecutionTableStartedAtColumn)
 
-		v, err := types.FormatUUID(m.TriggerID)
+		v, err := types.FormatTime(m.StartedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerID; %v", err)
+			return fmt.Errorf("failed to handle m.StartedAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.BuildOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableBuildOutputIDColumn) {
-		columns = append(columns, ExecutionTableBuildOutputIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.EndedAt) || slices.Contains(forceSetValuesForFields, ExecutionTableEndedAtColumn) {
+		columns = append(columns, ExecutionTableEndedAtColumn)
 
-		v, err := types.FormatUUID(m.BuildOutputID)
+		v, err := types.FormatTime(m.EndedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.BuildOutputID; %v", err)
+			return fmt.Errorf("failed to handle m.EndedAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TestOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableTestOutputIDColumn) {
-		columns = append(columns, ExecutionTableTestOutputIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.TaskID) || slices.Contains(forceSetValuesForFields, ExecutionTableTaskIDColumn) {
+		columns = append(columns, ExecutionTableTaskIDColumn)
 
-		v, err := types.FormatUUID(m.TestOutputID)
+		v, err := types.FormatUUID(m.TaskID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TestOutputID; %v", err)
+			return fmt.Errorf("failed to handle m.TaskID; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.PublishOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTablePublishOutputIDColumn) {
-		columns = append(columns, ExecutionTablePublishOutputIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.M2mRuleTriggerJobID) || slices.Contains(forceSetValuesForFields, ExecutionTableM2mRuleTriggerJobIDColumn) {
+		columns = append(columns, ExecutionTableM2mRuleTriggerJobIDColumn)
 
-		v, err := types.FormatUUID(m.PublishOutputID)
+		v, err := types.FormatUUID(m.M2mRuleTriggerJobID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.PublishOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.DeployOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableDeployOutputIDColumn) {
-		columns = append(columns, ExecutionTableDeployOutputIDColumn)
-
-		v, err := types.FormatUUID(m.DeployOutputID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.DeployOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.ValidateOutputID) || slices.Contains(forceSetValuesForFields, ExecutionTableValidateOutputIDColumn) {
-		columns = append(columns, ExecutionTableValidateOutputIDColumn)
-
-		v, err := types.FormatUUID(m.ValidateOutputID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.ValidateOutputID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, ExecutionTableJobIDColumn) {
-		columns = append(columns, ExecutionTableJobIDColumn)
-
-		v, err := types.FormatUUID(m.JobID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.JobID; %v", err)
+			return fmt.Errorf("failed to handle m.M2mRuleTriggerJobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -907,8 +754,15 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", ExecutionTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, ExecutionTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", ExecutionTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectExecution early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Execution{}, 0, 0, 0, 0, nil
 	}
 
@@ -937,20 +791,21 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 			return nil, 0, 0, 0, 0, err
 		}
 
-		if !types.IsZeroUUID(object.TriggerID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TriggerTable, object.TriggerID), true)
-			if ok {
+		if !types.IsZeroUUID(object.TaskID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TaskTable, object.TaskID), true)
+			shouldLoad := query.ShouldLoad(ctx, TaskTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectTrigger for object.TriggerIDObject")
+					log.Printf("loading SelectExecutions->SelectTask for object.TaskIDObject{%s: %v}", TaskTablePrimaryKeyColumn, object.TaskID)
 				}
 
-				object.TriggerIDObject, _, _, _, _, err = SelectTrigger(
+				object.TaskIDObject, _, _, _, _, err = SelectTask(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", TriggerTablePrimaryKeyColumn),
-					object.TriggerID,
+					fmt.Sprintf("%v = $1", TaskTablePrimaryKeyColumn),
+					object.TaskID,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
@@ -959,25 +814,26 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectTrigger for object.TriggerIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectExecutions->SelectTask for object.TaskIDObject in %s", time.Since(thisBefore))
 				}
 			}
 		}
 
-		if !types.IsZeroUUID(object.BuildOutputID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, object.BuildOutputID), true)
-			if ok {
+		if !types.IsZeroUUID(object.M2mRuleTriggerJobID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", M2mRuleTriggerJobTable, object.M2mRuleTriggerJobID), true)
+			shouldLoad := query.ShouldLoad(ctx, M2mRuleTriggerJobTable)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectOutput for object.BuildOutputIDObject")
+					log.Printf("loading SelectExecutions->SelectM2mRuleTriggerJob for object.M2mRuleTriggerJobIDObject{%s: %v}", M2mRuleTriggerJobTablePrimaryKeyColumn, object.M2mRuleTriggerJobID)
 				}
 
-				object.BuildOutputIDObject, _, _, _, _, err = SelectOutput(
+				object.M2mRuleTriggerJobIDObject, _, _, _, _, err = SelectM2mRuleTriggerJob(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", OutputTablePrimaryKeyColumn),
-					object.BuildOutputID,
+					fmt.Sprintf("%v = $1", M2mRuleTriggerJobTablePrimaryKeyColumn),
+					object.M2mRuleTriggerJobID,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
@@ -986,180 +842,9 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectOutput for object.BuildOutputIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectExecutions->SelectM2mRuleTriggerJob for object.M2mRuleTriggerJobIDObject in %s", time.Since(thisBefore))
 				}
 			}
-		}
-
-		if !types.IsZeroUUID(object.TestOutputID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, object.TestOutputID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectOutput for object.TestOutputIDObject")
-				}
-
-				object.TestOutputIDObject, _, _, _, _, err = SelectOutput(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", OutputTablePrimaryKeyColumn),
-					object.TestOutputID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectOutput for object.TestOutputIDObject in %s", time.Since(thisBefore))
-				}
-			}
-		}
-
-		if !types.IsZeroUUID(object.PublishOutputID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, object.PublishOutputID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectOutput for object.PublishOutputIDObject")
-				}
-
-				object.PublishOutputIDObject, _, _, _, _, err = SelectOutput(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", OutputTablePrimaryKeyColumn),
-					object.PublishOutputID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectOutput for object.PublishOutputIDObject in %s", time.Since(thisBefore))
-				}
-			}
-		}
-
-		if !types.IsZeroUUID(object.DeployOutputID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, object.DeployOutputID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectOutput for object.DeployOutputIDObject")
-				}
-
-				object.DeployOutputIDObject, _, _, _, _, err = SelectOutput(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", OutputTablePrimaryKeyColumn),
-					object.DeployOutputID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectOutput for object.DeployOutputIDObject in %s", time.Since(thisBefore))
-				}
-			}
-		}
-
-		if !types.IsZeroUUID(object.ValidateOutputID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", OutputTable, object.ValidateOutputID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectOutput for object.ValidateOutputIDObject")
-				}
-
-				object.ValidateOutputIDObject, _, _, _, _, err = SelectOutput(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", OutputTablePrimaryKeyColumn),
-					object.ValidateOutputID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectOutput for object.ValidateOutputIDObject in %s", time.Since(thisBefore))
-				}
-			}
-		}
-
-		if !types.IsZeroUUID(object.JobID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", JobTable, object.JobID), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectJob for object.JobIDObject")
-				}
-
-				object.JobIDObject, _, _, _, _, err = SelectJob(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", JobTablePrimaryKeyColumn),
-					object.JobID,
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectJob for object.JobIDObject in %s", time.Since(thisBefore))
-				}
-			}
-		}
-
-		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
-			if ok {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionExecutionIDObjects")
-				}
-
-				object.ReferencedByTriggerHasExecutionExecutionIDObjects, _, _, _, _, err = SelectTriggerHasExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", TriggerHasExecutionTableExecutionIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectTriggerHasExecutions for object.ReferencedByTriggerHasExecutionExecutionIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
 		}
 
 		objects = append(objects, object)
@@ -1208,10 +893,6 @@ func SelectExecution(ctx context.Context, tx pgx.Tx, where string, values ...any
 func handleGetExecutions(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Execution, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1610,6 +1291,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				return response, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1720,6 +1402,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				return response, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1793,6 +1476,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				}, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1846,6 +1530,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				}, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1908,6 +1593,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				}, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1943,6 +1629,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 				return server.EmptyResponse{}, nil
 			},
 			Execution{},
+			ExecutionIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

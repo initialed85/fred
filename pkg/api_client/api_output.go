@@ -249,6 +249,9 @@ type ApiGetOutputsRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	taskLoad *string
+	logLoad *string
+	referencedByLogLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -319,6 +322,34 @@ type ApiGetOutputsRequest struct {
 	statusNotilike *string
 	statusDesc *string
 	statusAsc *string
+	startedAtEq *time.Time
+	startedAtNe *time.Time
+	startedAtGt *time.Time
+	startedAtGte *time.Time
+	startedAtLt *time.Time
+	startedAtLte *time.Time
+	startedAtIn *time.Time
+	startedAtNotin *time.Time
+	startedAtLike *time.Time
+	startedAtNotlike *time.Time
+	startedAtIlike *time.Time
+	startedAtNotilike *time.Time
+	startedAtDesc *string
+	startedAtAsc *string
+	endedAtEq *time.Time
+	endedAtNe *time.Time
+	endedAtGt *time.Time
+	endedAtGte *time.Time
+	endedAtLt *time.Time
+	endedAtLte *time.Time
+	endedAtIn *time.Time
+	endedAtNotin *time.Time
+	endedAtLike *time.Time
+	endedAtNotlike *time.Time
+	endedAtIlike *time.Time
+	endedAtNotilike *time.Time
+	endedAtDesc *string
+	endedAtAsc *string
 	exitStatusEq *int64
 	exitStatusNe *int64
 	exitStatusGt *int64
@@ -329,20 +360,6 @@ type ApiGetOutputsRequest struct {
 	exitStatusNotin *int64
 	exitStatusDesc *string
 	exitStatusAsc *string
-	bufferEq *string
-	bufferNe *string
-	bufferGt *string
-	bufferGte *string
-	bufferLt *string
-	bufferLte *string
-	bufferIn *string
-	bufferNotin *string
-	bufferLike *string
-	bufferNotlike *string
-	bufferIlike *string
-	bufferNotilike *string
-	bufferDesc *string
-	bufferAsc *string
 	errorEq *string
 	errorNe *string
 	errorGt *string
@@ -373,16 +390,24 @@ type ApiGetOutputsRequest struct {
 	taskIdAsc *string
 	taskIdObjectDesc *string
 	taskIdObjectAsc *string
-	referencedByExecutionBuildOutputIdObjectsDesc *string
-	referencedByExecutionBuildOutputIdObjectsAsc *string
-	referencedByExecutionTestOutputIdObjectsDesc *string
-	referencedByExecutionTestOutputIdObjectsAsc *string
-	referencedByExecutionPublishOutputIdObjectsDesc *string
-	referencedByExecutionPublishOutputIdObjectsAsc *string
-	referencedByExecutionDeployOutputIdObjectsDesc *string
-	referencedByExecutionDeployOutputIdObjectsAsc *string
-	referencedByExecutionValidateOutputIdObjectsDesc *string
-	referencedByExecutionValidateOutputIdObjectsAsc *string
+	logidEq *string
+	logidNe *string
+	logidGt *string
+	logidGte *string
+	logidLt *string
+	logidLte *string
+	logidIn *string
+	logidNotin *string
+	logidLike *string
+	logidNotlike *string
+	logidIlike *string
+	logidNotilike *string
+	logidDesc *string
+	logidAsc *string
+	logidObjectDesc *string
+	logidObjectAsc *string
+	referencedByLogOutputIdObjectsDesc *string
+	referencedByLogOutputIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -400,6 +425,24 @@ func (r ApiGetOutputsRequest) Offset(offset int32) ApiGetOutputsRequest {
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetOutputsRequest) Depth(depth int32) ApiGetOutputsRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) TaskLoad(taskLoad string) ApiGetOutputsRequest {
+	r.taskLoad = &taskLoad
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) LogLoad(logLoad string) ApiGetOutputsRequest {
+	r.logLoad = &logLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ReferencedByLogLoad(referencedByLogLoad string) ApiGetOutputsRequest {
+	r.referencedByLogLoad = &referencedByLogLoad
 	return r
 }
 
@@ -824,6 +867,174 @@ func (r ApiGetOutputsRequest) StatusAsc(statusAsc string) ApiGetOutputsRequest {
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) StartedAtEq(startedAtEq time.Time) ApiGetOutputsRequest {
+	r.startedAtEq = &startedAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) StartedAtNe(startedAtNe time.Time) ApiGetOutputsRequest {
+	r.startedAtNe = &startedAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StartedAtGt(startedAtGt time.Time) ApiGetOutputsRequest {
+	r.startedAtGt = &startedAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StartedAtGte(startedAtGte time.Time) ApiGetOutputsRequest {
+	r.startedAtGte = &startedAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StartedAtLt(startedAtLt time.Time) ApiGetOutputsRequest {
+	r.startedAtLt = &startedAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) StartedAtLte(startedAtLte time.Time) ApiGetOutputsRequest {
+	r.startedAtLte = &startedAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) StartedAtIn(startedAtIn time.Time) ApiGetOutputsRequest {
+	r.startedAtIn = &startedAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) StartedAtNotin(startedAtNotin time.Time) ApiGetOutputsRequest {
+	r.startedAtNotin = &startedAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StartedAtLike(startedAtLike time.Time) ApiGetOutputsRequest {
+	r.startedAtLike = &startedAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StartedAtNotlike(startedAtNotlike time.Time) ApiGetOutputsRequest {
+	r.startedAtNotlike = &startedAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StartedAtIlike(startedAtIlike time.Time) ApiGetOutputsRequest {
+	r.startedAtIlike = &startedAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) StartedAtNotilike(startedAtNotilike time.Time) ApiGetOutputsRequest {
+	r.startedAtNotilike = &startedAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) StartedAtDesc(startedAtDesc string) ApiGetOutputsRequest {
+	r.startedAtDesc = &startedAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) StartedAtAsc(startedAtAsc string) ApiGetOutputsRequest {
+	r.startedAtAsc = &startedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) EndedAtEq(endedAtEq time.Time) ApiGetOutputsRequest {
+	r.endedAtEq = &endedAtEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) EndedAtNe(endedAtNe time.Time) ApiGetOutputsRequest {
+	r.endedAtNe = &endedAtNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) EndedAtGt(endedAtGt time.Time) ApiGetOutputsRequest {
+	r.endedAtGt = &endedAtGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) EndedAtGte(endedAtGte time.Time) ApiGetOutputsRequest {
+	r.endedAtGte = &endedAtGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) EndedAtLt(endedAtLt time.Time) ApiGetOutputsRequest {
+	r.endedAtLt = &endedAtLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) EndedAtLte(endedAtLte time.Time) ApiGetOutputsRequest {
+	r.endedAtLte = &endedAtLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) EndedAtIn(endedAtIn time.Time) ApiGetOutputsRequest {
+	r.endedAtIn = &endedAtIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) EndedAtNotin(endedAtNotin time.Time) ApiGetOutputsRequest {
+	r.endedAtNotin = &endedAtNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) EndedAtLike(endedAtLike time.Time) ApiGetOutputsRequest {
+	r.endedAtLike = &endedAtLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) EndedAtNotlike(endedAtNotlike time.Time) ApiGetOutputsRequest {
+	r.endedAtNotlike = &endedAtNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) EndedAtIlike(endedAtIlike time.Time) ApiGetOutputsRequest {
+	r.endedAtIlike = &endedAtIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) EndedAtNotilike(endedAtNotilike time.Time) ApiGetOutputsRequest {
+	r.endedAtNotilike = &endedAtNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) EndedAtDesc(endedAtDesc string) ApiGetOutputsRequest {
+	r.endedAtDesc = &endedAtDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) EndedAtAsc(endedAtAsc string) ApiGetOutputsRequest {
+	r.endedAtAsc = &endedAtAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetOutputsRequest) ExitStatusEq(exitStatusEq int64) ApiGetOutputsRequest {
 	r.exitStatusEq = &exitStatusEq
 	return r
@@ -880,90 +1091,6 @@ func (r ApiGetOutputsRequest) ExitStatusDesc(exitStatusDesc string) ApiGetOutput
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) ExitStatusAsc(exitStatusAsc string) ApiGetOutputsRequest {
 	r.exitStatusAsc = &exitStatusAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetOutputsRequest) BufferEq(bufferEq string) ApiGetOutputsRequest {
-	r.bufferEq = &bufferEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetOutputsRequest) BufferNe(bufferNe string) ApiGetOutputsRequest {
-	r.bufferNe = &bufferNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) BufferGt(bufferGt string) ApiGetOutputsRequest {
-	r.bufferGt = &bufferGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) BufferGte(bufferGte string) ApiGetOutputsRequest {
-	r.bufferGte = &bufferGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) BufferLt(bufferLt string) ApiGetOutputsRequest {
-	r.bufferLt = &bufferLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) BufferLte(bufferLte string) ApiGetOutputsRequest {
-	r.bufferLte = &bufferLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetOutputsRequest) BufferIn(bufferIn string) ApiGetOutputsRequest {
-	r.bufferIn = &bufferIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetOutputsRequest) BufferNotin(bufferNotin string) ApiGetOutputsRequest {
-	r.bufferNotin = &bufferNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) BufferLike(bufferLike string) ApiGetOutputsRequest {
-	r.bufferLike = &bufferLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) BufferNotlike(bufferNotlike string) ApiGetOutputsRequest {
-	r.bufferNotlike = &bufferNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) BufferIlike(bufferIlike string) ApiGetOutputsRequest {
-	r.bufferIlike = &bufferIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) BufferNotilike(bufferNotilike string) ApiGetOutputsRequest {
-	r.bufferNotilike = &bufferNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) BufferDesc(bufferDesc string) ApiGetOutputsRequest {
-	r.bufferDesc = &bufferDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) BufferAsc(bufferAsc string) ApiGetOutputsRequest {
-	r.bufferAsc = &bufferAsc
 	return r
 }
 
@@ -1147,63 +1274,111 @@ func (r ApiGetOutputsRequest) TaskIdObjectAsc(taskIdObjectAsc string) ApiGetOutp
 	return r
 }
 
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) LogidEq(logidEq string) ApiGetOutputsRequest {
+	r.logidEq = &logidEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) LogidNe(logidNe string) ApiGetOutputsRequest {
+	r.logidNe = &logidNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) LogidGt(logidGt string) ApiGetOutputsRequest {
+	r.logidGt = &logidGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) LogidGte(logidGte string) ApiGetOutputsRequest {
+	r.logidGte = &logidGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) LogidLt(logidLt string) ApiGetOutputsRequest {
+	r.logidLt = &logidLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) LogidLte(logidLte string) ApiGetOutputsRequest {
+	r.logidLte = &logidLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) LogidIn(logidIn string) ApiGetOutputsRequest {
+	r.logidIn = &logidIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) LogidNotin(logidNotin string) ApiGetOutputsRequest {
+	r.logidNotin = &logidNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) LogidLike(logidLike string) ApiGetOutputsRequest {
+	r.logidLike = &logidLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) LogidNotlike(logidNotlike string) ApiGetOutputsRequest {
+	r.logidNotlike = &logidNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) LogidIlike(logidIlike string) ApiGetOutputsRequest {
+	r.logidIlike = &logidIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) LogidNotilike(logidNotilike string) ApiGetOutputsRequest {
+	r.logidNotilike = &logidNotilike
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionBuildOutputIdObjectsDesc(referencedByExecutionBuildOutputIdObjectsDesc string) ApiGetOutputsRequest {
-	r.referencedByExecutionBuildOutputIdObjectsDesc = &referencedByExecutionBuildOutputIdObjectsDesc
+func (r ApiGetOutputsRequest) LogidDesc(logidDesc string) ApiGetOutputsRequest {
+	r.logidDesc = &logidDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionBuildOutputIdObjectsAsc(referencedByExecutionBuildOutputIdObjectsAsc string) ApiGetOutputsRequest {
-	r.referencedByExecutionBuildOutputIdObjectsAsc = &referencedByExecutionBuildOutputIdObjectsAsc
+func (r ApiGetOutputsRequest) LogidAsc(logidAsc string) ApiGetOutputsRequest {
+	r.logidAsc = &logidAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionTestOutputIdObjectsDesc(referencedByExecutionTestOutputIdObjectsDesc string) ApiGetOutputsRequest {
-	r.referencedByExecutionTestOutputIdObjectsDesc = &referencedByExecutionTestOutputIdObjectsDesc
+func (r ApiGetOutputsRequest) LogidObjectDesc(logidObjectDesc string) ApiGetOutputsRequest {
+	r.logidObjectDesc = &logidObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionTestOutputIdObjectsAsc(referencedByExecutionTestOutputIdObjectsAsc string) ApiGetOutputsRequest {
-	r.referencedByExecutionTestOutputIdObjectsAsc = &referencedByExecutionTestOutputIdObjectsAsc
+func (r ApiGetOutputsRequest) LogidObjectAsc(logidObjectAsc string) ApiGetOutputsRequest {
+	r.logidObjectAsc = &logidObjectAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionPublishOutputIdObjectsDesc(referencedByExecutionPublishOutputIdObjectsDesc string) ApiGetOutputsRequest {
-	r.referencedByExecutionPublishOutputIdObjectsDesc = &referencedByExecutionPublishOutputIdObjectsDesc
+func (r ApiGetOutputsRequest) ReferencedByLogOutputIdObjectsDesc(referencedByLogOutputIdObjectsDesc string) ApiGetOutputsRequest {
+	r.referencedByLogOutputIdObjectsDesc = &referencedByLogOutputIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionPublishOutputIdObjectsAsc(referencedByExecutionPublishOutputIdObjectsAsc string) ApiGetOutputsRequest {
-	r.referencedByExecutionPublishOutputIdObjectsAsc = &referencedByExecutionPublishOutputIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionDeployOutputIdObjectsDesc(referencedByExecutionDeployOutputIdObjectsDesc string) ApiGetOutputsRequest {
-	r.referencedByExecutionDeployOutputIdObjectsDesc = &referencedByExecutionDeployOutputIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionDeployOutputIdObjectsAsc(referencedByExecutionDeployOutputIdObjectsAsc string) ApiGetOutputsRequest {
-	r.referencedByExecutionDeployOutputIdObjectsAsc = &referencedByExecutionDeployOutputIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionValidateOutputIdObjectsDesc(referencedByExecutionValidateOutputIdObjectsDesc string) ApiGetOutputsRequest {
-	r.referencedByExecutionValidateOutputIdObjectsDesc = &referencedByExecutionValidateOutputIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) ReferencedByExecutionValidateOutputIdObjectsAsc(referencedByExecutionValidateOutputIdObjectsAsc string) ApiGetOutputsRequest {
-	r.referencedByExecutionValidateOutputIdObjectsAsc = &referencedByExecutionValidateOutputIdObjectsAsc
+func (r ApiGetOutputsRequest) ReferencedByLogOutputIdObjectsAsc(referencedByLogOutputIdObjectsAsc string) ApiGetOutputsRequest {
+	r.referencedByLogOutputIdObjectsAsc = &referencedByLogOutputIdObjectsAsc
 	return r
 }
 
@@ -1253,6 +1428,15 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.taskLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "task__load", r.taskLoad, "form", "")
+	}
+	if r.logLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log__load", r.logLoad, "form", "")
+	}
+	if r.referencedByLogLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log__load", r.referencedByLogLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1464,6 +1648,90 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.statusAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status__asc", r.statusAsc, "form", "")
 	}
+	if r.startedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__eq", r.startedAtEq, "form", "")
+	}
+	if r.startedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__ne", r.startedAtNe, "form", "")
+	}
+	if r.startedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__gt", r.startedAtGt, "form", "")
+	}
+	if r.startedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__gte", r.startedAtGte, "form", "")
+	}
+	if r.startedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__lt", r.startedAtLt, "form", "")
+	}
+	if r.startedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__lte", r.startedAtLte, "form", "")
+	}
+	if r.startedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__in", r.startedAtIn, "form", "")
+	}
+	if r.startedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__notin", r.startedAtNotin, "form", "")
+	}
+	if r.startedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__like", r.startedAtLike, "form", "")
+	}
+	if r.startedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__notlike", r.startedAtNotlike, "form", "")
+	}
+	if r.startedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__ilike", r.startedAtIlike, "form", "")
+	}
+	if r.startedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__notilike", r.startedAtNotilike, "form", "")
+	}
+	if r.startedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__desc", r.startedAtDesc, "form", "")
+	}
+	if r.startedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__asc", r.startedAtAsc, "form", "")
+	}
+	if r.endedAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__eq", r.endedAtEq, "form", "")
+	}
+	if r.endedAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__ne", r.endedAtNe, "form", "")
+	}
+	if r.endedAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__gt", r.endedAtGt, "form", "")
+	}
+	if r.endedAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__gte", r.endedAtGte, "form", "")
+	}
+	if r.endedAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__lt", r.endedAtLt, "form", "")
+	}
+	if r.endedAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__lte", r.endedAtLte, "form", "")
+	}
+	if r.endedAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__in", r.endedAtIn, "form", "")
+	}
+	if r.endedAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__notin", r.endedAtNotin, "form", "")
+	}
+	if r.endedAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__like", r.endedAtLike, "form", "")
+	}
+	if r.endedAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__notlike", r.endedAtNotlike, "form", "")
+	}
+	if r.endedAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__ilike", r.endedAtIlike, "form", "")
+	}
+	if r.endedAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__notilike", r.endedAtNotilike, "form", "")
+	}
+	if r.endedAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__desc", r.endedAtDesc, "form", "")
+	}
+	if r.endedAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__asc", r.endedAtAsc, "form", "")
+	}
 	if r.exitStatusEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__eq", r.exitStatusEq, "form", "")
 	}
@@ -1493,48 +1761,6 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.exitStatusAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__asc", r.exitStatusAsc, "form", "")
-	}
-	if r.bufferEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__eq", r.bufferEq, "form", "")
-	}
-	if r.bufferNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ne", r.bufferNe, "form", "")
-	}
-	if r.bufferGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gt", r.bufferGt, "form", "")
-	}
-	if r.bufferGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gte", r.bufferGte, "form", "")
-	}
-	if r.bufferLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lt", r.bufferLt, "form", "")
-	}
-	if r.bufferLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lte", r.bufferLte, "form", "")
-	}
-	if r.bufferIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__in", r.bufferIn, "form", "")
-	}
-	if r.bufferNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notin", r.bufferNotin, "form", "")
-	}
-	if r.bufferLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__like", r.bufferLike, "form", "")
-	}
-	if r.bufferNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notlike", r.bufferNotlike, "form", "")
-	}
-	if r.bufferIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ilike", r.bufferIlike, "form", "")
-	}
-	if r.bufferNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notilike", r.bufferNotilike, "form", "")
-	}
-	if r.bufferDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__desc", r.bufferDesc, "form", "")
-	}
-	if r.bufferAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__asc", r.bufferAsc, "form", "")
 	}
 	if r.errorEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "error__eq", r.errorEq, "form", "")
@@ -1626,35 +1852,59 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.taskIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id_object__asc", r.taskIdObjectAsc, "form", "")
 	}
-	if r.referencedByExecutionBuildOutputIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_build_output_id_objects__desc", r.referencedByExecutionBuildOutputIdObjectsDesc, "form", "")
+	if r.logidEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__eq", r.logidEq, "form", "")
 	}
-	if r.referencedByExecutionBuildOutputIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_build_output_id_objects__asc", r.referencedByExecutionBuildOutputIdObjectsAsc, "form", "")
+	if r.logidNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__ne", r.logidNe, "form", "")
 	}
-	if r.referencedByExecutionTestOutputIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_test_output_id_objects__desc", r.referencedByExecutionTestOutputIdObjectsDesc, "form", "")
+	if r.logidGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__gt", r.logidGt, "form", "")
 	}
-	if r.referencedByExecutionTestOutputIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_test_output_id_objects__asc", r.referencedByExecutionTestOutputIdObjectsAsc, "form", "")
+	if r.logidGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__gte", r.logidGte, "form", "")
 	}
-	if r.referencedByExecutionPublishOutputIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_publish_output_id_objects__desc", r.referencedByExecutionPublishOutputIdObjectsDesc, "form", "")
+	if r.logidLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__lt", r.logidLt, "form", "")
 	}
-	if r.referencedByExecutionPublishOutputIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_publish_output_id_objects__asc", r.referencedByExecutionPublishOutputIdObjectsAsc, "form", "")
+	if r.logidLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__lte", r.logidLte, "form", "")
 	}
-	if r.referencedByExecutionDeployOutputIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_deploy_output_id_objects__desc", r.referencedByExecutionDeployOutputIdObjectsDesc, "form", "")
+	if r.logidIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__in", r.logidIn, "form", "")
 	}
-	if r.referencedByExecutionDeployOutputIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_deploy_output_id_objects__asc", r.referencedByExecutionDeployOutputIdObjectsAsc, "form", "")
+	if r.logidNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notin", r.logidNotin, "form", "")
 	}
-	if r.referencedByExecutionValidateOutputIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_validate_output_id_objects__desc", r.referencedByExecutionValidateOutputIdObjectsDesc, "form", "")
+	if r.logidLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__like", r.logidLike, "form", "")
 	}
-	if r.referencedByExecutionValidateOutputIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_validate_output_id_objects__asc", r.referencedByExecutionValidateOutputIdObjectsAsc, "form", "")
+	if r.logidNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notlike", r.logidNotlike, "form", "")
+	}
+	if r.logidIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__ilike", r.logidIlike, "form", "")
+	}
+	if r.logidNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notilike", r.logidNotilike, "form", "")
+	}
+	if r.logidDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__desc", r.logidDesc, "form", "")
+	}
+	if r.logidAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__asc", r.logidAsc, "form", "")
+	}
+	if r.logidObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid_object__desc", r.logidObjectDesc, "form", "")
+	}
+	if r.logidObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "logid_object__asc", r.logidObjectAsc, "form", "")
+	}
+	if r.referencedByLogOutputIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log_output_id_objects__desc", r.referencedByLogOutputIdObjectsDesc, "form", "")
+	}
+	if r.referencedByLogOutputIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log_output_id_objects__asc", r.referencedByLogOutputIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1851,12 +2101,12 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 type ApiPostOutputsRequest struct {
 	ctx context.Context
 	ApiService *OutputAPIService
-	execution *[]Execution
+	output *[]Output
 	depth *int64
 }
 
-func (r ApiPostOutputsRequest) Execution(execution []Execution) ApiPostOutputsRequest {
-	r.execution = &execution
+func (r ApiPostOutputsRequest) Output(output []Output) ApiPostOutputsRequest {
+	r.output = &output
 	return r
 }
 
@@ -1903,8 +2153,8 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.execution == nil {
-		return localVarReturnValue, nil, reportError("execution is required and must be specified")
+	if r.output == nil {
+		return localVarReturnValue, nil, reportError("output is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1928,7 +2178,7 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.execution
+	localVarPostBody = r.output
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

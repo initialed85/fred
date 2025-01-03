@@ -12,6 +12,8 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/transport"
+	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"github.com/initialed85/djangolang/pkg/helpers"
 	"github.com/initialed85/djangolang/pkg/query"
 	"github.com/initialed85/fred/internal"
@@ -45,12 +47,12 @@ func Run() error {
 				tx,
 				fmt.Sprintf(
 					"now() - %s > interval '%f'",
-					api.RepositoryTableLastSyncedColumn,
+					api.RepositoryTableLastSyncedAtColumn,
 					syncInterval.Seconds(),
 				),
 				helpers.Ptr(fmt.Sprintf(
 					"%s DESC",
-					api.RepositoryTableLastSyncedColumn,
+					api.RepositoryTableLastSyncedAtColumn,
 				)),
 				nil,
 				nil,
@@ -83,6 +85,15 @@ func Run() error {
 				var gitRepository *git.Repository
 
 				if !exists {
+					var auth transport.AuthMethod
+
+					if strings.HasPrefix(repository.URL, "ssh://") {
+						auth, err = ssh.DefaultAuthBuilder("git")
+						if err != nil {
+							return err
+						}
+					}
+
 					log.Printf("%s doesn't exist, cloning...", repository.URL)
 					gitRepository, err = git.PlainCloneContext(
 						ctx,
@@ -93,6 +104,7 @@ func Run() error {
 							RecurseSubmodules: git.DefaultSubmoduleRecursionDepth, // TODO: should probably be configurable
 							SingleBranch:      false,
 							Depth:             1,
+							Auth:              auth,
 						},
 					)
 					if err != nil {
@@ -251,7 +263,9 @@ func Run() error {
 					log.Printf("produced %s", internal.GetChangeSummary(change))
 				}
 
-				repository.LastSynced = time.Now().UTC()
+				repository.LastSyncedAt = time.Now().UTC()
+				repository.Name = &repositoryName
+
 				err = repository.Update(ctx, tx, false)
 				if err != nil {
 					return err

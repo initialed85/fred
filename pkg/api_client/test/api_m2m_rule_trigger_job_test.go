@@ -1,7 +1,7 @@
 /*
 Djangolang
 
-Testing RuleRequiresJobAPIService
+Testing M2mRuleTriggerJobAPIService
 
 */
 
@@ -17,31 +17,31 @@ import (
 	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
-func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
+func Test_api_client_M2mRuleTriggerJobAPIService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test RuleRequiresJobAPIService DeleteRuleRequiresJob", func(t *testing.T) {
+	t.Run("Test M2mRuleTriggerJobAPIService DeleteM2mRuleTriggerJob", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		httpRes, err := apiClient.RuleRequiresJobAPI.DeleteRuleRequiresJob(context.Background(), primaryKey).Execute()
+		httpRes, err := apiClient.M2mRuleTriggerJobAPI.DeleteM2mRuleTriggerJob(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test RuleRequiresJobAPIService GetRuleRequiresJob", func(t *testing.T) {
+	t.Run("Test M2mRuleTriggerJobAPIService GetM2mRuleTriggerJob", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		resp, httpRes, err := apiClient.RuleRequiresJobAPI.GetRuleRequiresJob(context.Background(), primaryKey).Execute()
+		resp, httpRes, err := apiClient.M2mRuleTriggerJobAPI.GetM2mRuleTriggerJob(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -49,11 +49,11 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RuleRequiresJobAPIService GetRuleRequiresJobs", func(t *testing.T) {
+	t.Run("Test M2mRuleTriggerJobAPIService GetM2mRuleTriggerJobs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.RuleRequiresJobAPI.GetRuleRequiresJobs(context.Background()).Execute()
+		resp, httpRes, err := apiClient.M2mRuleTriggerJobAPI.GetM2mRuleTriggerJobs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -61,13 +61,13 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RuleRequiresJobAPIService PatchRuleRequiresJob", func(t *testing.T) {
+	t.Run("Test M2mRuleTriggerJobAPIService PatchM2mRuleTriggerJob", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var primaryKey string
 
-		resp, httpRes, err := apiClient.RuleRequiresJobAPI.PatchRuleRequiresJob(context.Background(), primaryKey).Execute()
+		resp, httpRes, err := apiClient.M2mRuleTriggerJobAPI.PatchM2mRuleTriggerJob(context.Background(), primaryKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,11 +75,11 @@ func Test_api_client_RuleRequiresJobAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test RuleRequiresJobAPIService PostRuleRequiresJobs", func(t *testing.T) {
+	t.Run("Test M2mRuleTriggerJobAPIService PostM2mRuleTriggerJobs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.RuleRequiresJobAPI.PostRuleRequiresJobs(context.Background()).Execute()
+		resp, httpRes, err := apiClient.M2mRuleTriggerJobAPI.PostM2mRuleTriggerJobs(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

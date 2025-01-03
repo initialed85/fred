@@ -21,35 +21,35 @@ import (
 )
 
 
-// RuleRequiresJobAPIService RuleRequiresJobAPI service
-type RuleRequiresJobAPIService service
+// LogAPIService LogAPI service
+type LogAPIService service
 
-type ApiDeleteRuleRequiresJobRequest struct {
+type ApiDeleteLogRequest struct {
 	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
+	ApiService *LogAPIService
 	primaryKey string
 	depth *int64
 }
 
 // Query parameter depth
-func (r ApiDeleteRuleRequiresJobRequest) Depth(depth int64) ApiDeleteRuleRequiresJobRequest {
+func (r ApiDeleteLogRequest) Depth(depth int64) ApiDeleteLogRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiDeleteRuleRequiresJobRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteRuleRequiresJobExecute(r)
+func (r ApiDeleteLogRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteLogExecute(r)
 }
 
 /*
-DeleteRuleRequiresJob Method for DeleteRuleRequiresJob
+DeleteLog Method for DeleteLog
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiDeleteRuleRequiresJobRequest
+ @return ApiDeleteLogRequest
 */
-func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJob(ctx context.Context, primaryKey string) ApiDeleteRuleRequiresJobRequest {
-	return ApiDeleteRuleRequiresJobRequest{
+func (a *LogAPIService) DeleteLog(ctx context.Context, primaryKey string) ApiDeleteLogRequest {
+	return ApiDeleteLogRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -57,19 +57,19 @@ func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJob(ctx context.Context, p
 }
 
 // Execute executes the request
-func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJobExecute(r ApiDeleteRuleRequiresJobRequest) (*http.Response, error) {
+func (a *LogAPIService) DeleteLogExecute(r ApiDeleteLogRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.DeleteRuleRequiresJob")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.DeleteLog")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/rule-requires-jobs/{primaryKey}"
+	localVarPath := localBasePath + "/api/logs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -124,32 +124,32 @@ func (a *RuleRequiresJobAPIService) DeleteRuleRequiresJobExecute(r ApiDeleteRule
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetRuleRequiresJobRequest struct {
+type ApiGetLogRequest struct {
 	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
+	ApiService *LogAPIService
 	primaryKey string
 	depth *int64
 }
 
 // Query parameter depth
-func (r ApiGetRuleRequiresJobRequest) Depth(depth int64) ApiGetRuleRequiresJobRequest {
+func (r ApiGetLogRequest) Depth(depth int64) ApiGetLogRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiGetRuleRequiresJobRequest) Execute() (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
-	return r.ApiService.GetRuleRequiresJobExecute(r)
+func (r ApiGetLogRequest) Execute() (*ResponseWithGenericOfLog, *http.Response, error) {
+	return r.ApiService.GetLogExecute(r)
 }
 
 /*
-GetRuleRequiresJob Method for GetRuleRequiresJob
+GetLog Method for GetLog
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiGetRuleRequiresJobRequest
+ @return ApiGetLogRequest
 */
-func (a *RuleRequiresJobAPIService) GetRuleRequiresJob(ctx context.Context, primaryKey string) ApiGetRuleRequiresJobRequest {
-	return ApiGetRuleRequiresJobRequest{
+func (a *LogAPIService) GetLog(ctx context.Context, primaryKey string) ApiGetLogRequest {
+	return ApiGetLogRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -157,21 +157,21 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJob(ctx context.Context, prim
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
-func (a *RuleRequiresJobAPIService) GetRuleRequiresJobExecute(r ApiGetRuleRequiresJobRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
+//  @return ResponseWithGenericOfLog
+func (a *LogAPIService) GetLogExecute(r ApiGetLogRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.GetRuleRequiresJob")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.GetLog")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/rule-requires-jobs/{primaryKey}"
+	localVarPath := localBasePath + "/api/logs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -243,12 +243,14 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobExecute(r ApiGetRuleRequir
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetRuleRequiresJobsRequest struct {
+type ApiGetLogsRequest struct {
 	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
+	ApiService *LogAPIService
 	limit *int32
 	offset *int32
 	depth *int32
+	outputLoad *string
+	referencedByOutputLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -305,619 +307,631 @@ type ApiGetRuleRequiresJobsRequest struct {
 	deletedAtNotilike *time.Time
 	deletedAtDesc *string
 	deletedAtAsc *string
-	ruleIdEq *string
-	ruleIdNe *string
-	ruleIdGt *string
-	ruleIdGte *string
-	ruleIdLt *string
-	ruleIdLte *string
-	ruleIdIn *string
-	ruleIdNotin *string
-	ruleIdLike *string
-	ruleIdNotlike *string
-	ruleIdIlike *string
-	ruleIdNotilike *string
-	ruleIdDesc *string
-	ruleIdAsc *string
-	ruleIdObjectDesc *string
-	ruleIdObjectAsc *string
-	jobIdEq *string
-	jobIdNe *string
-	jobIdGt *string
-	jobIdGte *string
-	jobIdLt *string
-	jobIdLte *string
-	jobIdIn *string
-	jobIdNotin *string
-	jobIdLike *string
-	jobIdNotlike *string
-	jobIdIlike *string
-	jobIdNotilike *string
-	jobIdDesc *string
-	jobIdAsc *string
-	jobIdObjectDesc *string
-	jobIdObjectAsc *string
+	bufferEq *string
+	bufferNe *string
+	bufferGt *string
+	bufferGte *string
+	bufferLt *string
+	bufferLte *string
+	bufferIn *string
+	bufferNotin *string
+	bufferLike *string
+	bufferNotlike *string
+	bufferIlike *string
+	bufferNotilike *string
+	bufferDesc *string
+	bufferAsc *string
+	outputIdEq *string
+	outputIdNe *string
+	outputIdGt *string
+	outputIdGte *string
+	outputIdLt *string
+	outputIdLte *string
+	outputIdIn *string
+	outputIdNotin *string
+	outputIdLike *string
+	outputIdNotlike *string
+	outputIdIlike *string
+	outputIdNotilike *string
+	outputIdDesc *string
+	outputIdAsc *string
+	outputIdObjectDesc *string
+	outputIdObjectAsc *string
+	referencedByOutputLogidObjectsDesc *string
+	referencedByOutputLogidObjectsAsc *string
 }
 
 // SQL LIMIT operator
-func (r ApiGetRuleRequiresJobsRequest) Limit(limit int32) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) Limit(limit int32) ApiGetLogsRequest {
 	r.limit = &limit
 	return r
 }
 
 // SQL OFFSET operator
-func (r ApiGetRuleRequiresJobsRequest) Offset(offset int32) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) Offset(offset int32) ApiGetLogsRequest {
 	r.offset = &offset
 	return r
 }
 
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
-func (r ApiGetRuleRequiresJobsRequest) Depth(depth int32) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) Depth(depth int32) ApiGetLogsRequest {
 	r.depth = &depth
 	return r
 }
 
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetLogsRequest) OutputLoad(outputLoad string) ApiGetLogsRequest {
+	r.outputLoad = &outputLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetLogsRequest) ReferencedByOutputLoad(referencedByOutputLoad string) ApiGetLogsRequest {
+	r.referencedByOutputLoad = &referencedByOutputLoad
+	return r
+}
+
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) IdEq(idEq string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdEq(idEq string) ApiGetLogsRequest {
 	r.idEq = &idEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) IdNe(idNe string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdNe(idNe string) ApiGetLogsRequest {
 	r.idNe = &idNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) IdGt(idGt string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdGt(idGt string) ApiGetLogsRequest {
 	r.idGt = &idGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) IdGte(idGte string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdGte(idGte string) ApiGetLogsRequest {
 	r.idGte = &idGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) IdLt(idLt string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdLt(idLt string) ApiGetLogsRequest {
 	r.idLt = &idLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) IdLte(idLte string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdLte(idLte string) ApiGetLogsRequest {
 	r.idLte = &idLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) IdIn(idIn string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdIn(idIn string) ApiGetLogsRequest {
 	r.idIn = &idIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) IdNotin(idNotin string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdNotin(idNotin string) ApiGetLogsRequest {
 	r.idNotin = &idNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) IdLike(idLike string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdLike(idLike string) ApiGetLogsRequest {
 	r.idLike = &idLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) IdNotlike(idNotlike string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdNotlike(idNotlike string) ApiGetLogsRequest {
 	r.idNotlike = &idNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) IdIlike(idIlike string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdIlike(idIlike string) ApiGetLogsRequest {
 	r.idIlike = &idIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) IdNotilike(idNotilike string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdNotilike(idNotilike string) ApiGetLogsRequest {
 	r.idNotilike = &idNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) IdDesc(idDesc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdDesc(idDesc string) ApiGetLogsRequest {
 	r.idDesc = &idDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) IdAsc(idAsc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) IdAsc(idAsc string) ApiGetLogsRequest {
 	r.idAsc = &idAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtEq(createdAtEq time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtEq(createdAtEq time.Time) ApiGetLogsRequest {
 	r.createdAtEq = &createdAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtNe(createdAtNe time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtNe(createdAtNe time.Time) ApiGetLogsRequest {
 	r.createdAtNe = &createdAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtGt(createdAtGt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtGt(createdAtGt time.Time) ApiGetLogsRequest {
 	r.createdAtGt = &createdAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtGte(createdAtGte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtGte(createdAtGte time.Time) ApiGetLogsRequest {
 	r.createdAtGte = &createdAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtLt(createdAtLt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtLt(createdAtLt time.Time) ApiGetLogsRequest {
 	r.createdAtLt = &createdAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtLte(createdAtLte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtLte(createdAtLte time.Time) ApiGetLogsRequest {
 	r.createdAtLte = &createdAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtIn(createdAtIn time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtIn(createdAtIn time.Time) ApiGetLogsRequest {
 	r.createdAtIn = &createdAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetLogsRequest {
 	r.createdAtNotin = &createdAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtLike(createdAtLike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtLike(createdAtLike time.Time) ApiGetLogsRequest {
 	r.createdAtLike = &createdAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtNotlike(createdAtNotlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtNotlike(createdAtNotlike time.Time) ApiGetLogsRequest {
 	r.createdAtNotlike = &createdAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtIlike(createdAtIlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtIlike(createdAtIlike time.Time) ApiGetLogsRequest {
 	r.createdAtIlike = &createdAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtNotilike(createdAtNotilike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtNotilike(createdAtNotilike time.Time) ApiGetLogsRequest {
 	r.createdAtNotilike = &createdAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtDesc(createdAtDesc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtDesc(createdAtDesc string) ApiGetLogsRequest {
 	r.createdAtDesc = &createdAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) CreatedAtAsc(createdAtAsc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) CreatedAtAsc(createdAtAsc string) ApiGetLogsRequest {
 	r.createdAtAsc = &createdAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtEq(updatedAtEq time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtEq(updatedAtEq time.Time) ApiGetLogsRequest {
 	r.updatedAtEq = &updatedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtNe(updatedAtNe time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtNe(updatedAtNe time.Time) ApiGetLogsRequest {
 	r.updatedAtNe = &updatedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtGt(updatedAtGt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtGt(updatedAtGt time.Time) ApiGetLogsRequest {
 	r.updatedAtGt = &updatedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtGte(updatedAtGte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtGte(updatedAtGte time.Time) ApiGetLogsRequest {
 	r.updatedAtGte = &updatedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtLt(updatedAtLt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtLt(updatedAtLt time.Time) ApiGetLogsRequest {
 	r.updatedAtLt = &updatedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtLte(updatedAtLte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtLte(updatedAtLte time.Time) ApiGetLogsRequest {
 	r.updatedAtLte = &updatedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetLogsRequest {
 	r.updatedAtIn = &updatedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetLogsRequest {
 	r.updatedAtNotin = &updatedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtLike(updatedAtLike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtLike(updatedAtLike time.Time) ApiGetLogsRequest {
 	r.updatedAtLike = &updatedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtNotlike(updatedAtNotlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtNotlike(updatedAtNotlike time.Time) ApiGetLogsRequest {
 	r.updatedAtNotlike = &updatedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtIlike(updatedAtIlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtIlike(updatedAtIlike time.Time) ApiGetLogsRequest {
 	r.updatedAtIlike = &updatedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtNotilike(updatedAtNotilike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtNotilike(updatedAtNotilike time.Time) ApiGetLogsRequest {
 	r.updatedAtNotilike = &updatedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtDesc(updatedAtDesc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtDesc(updatedAtDesc string) ApiGetLogsRequest {
 	r.updatedAtDesc = &updatedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) UpdatedAtAsc(updatedAtAsc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) UpdatedAtAsc(updatedAtAsc string) ApiGetLogsRequest {
 	r.updatedAtAsc = &updatedAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtEq(deletedAtEq time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtEq(deletedAtEq time.Time) ApiGetLogsRequest {
 	r.deletedAtEq = &deletedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtNe(deletedAtNe time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtNe(deletedAtNe time.Time) ApiGetLogsRequest {
 	r.deletedAtNe = &deletedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtGt(deletedAtGt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtGt(deletedAtGt time.Time) ApiGetLogsRequest {
 	r.deletedAtGt = &deletedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtGte(deletedAtGte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtGte(deletedAtGte time.Time) ApiGetLogsRequest {
 	r.deletedAtGte = &deletedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtLt(deletedAtLt time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtLt(deletedAtLt time.Time) ApiGetLogsRequest {
 	r.deletedAtLt = &deletedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtLte(deletedAtLte time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtLte(deletedAtLte time.Time) ApiGetLogsRequest {
 	r.deletedAtLte = &deletedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtIn(deletedAtIn time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtIn(deletedAtIn time.Time) ApiGetLogsRequest {
 	r.deletedAtIn = &deletedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetLogsRequest {
 	r.deletedAtNotin = &deletedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetLogsRequest {
 	r.deletedAtLike = &deletedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtNotlike(deletedAtNotlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtNotlike(deletedAtNotlike time.Time) ApiGetLogsRequest {
 	r.deletedAtNotlike = &deletedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtIlike(deletedAtIlike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtIlike(deletedAtIlike time.Time) ApiGetLogsRequest {
 	r.deletedAtIlike = &deletedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtNotilike(deletedAtNotilike time.Time) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtNotilike(deletedAtNotilike time.Time) ApiGetLogsRequest {
 	r.deletedAtNotilike = &deletedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetLogsRequest {
 	r.deletedAtDesc = &deletedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetRuleRequiresJobsRequest {
+func (r ApiGetLogsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetLogsRequest {
 	r.deletedAtAsc = &deletedAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) RuleIdEq(ruleIdEq string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdEq = &ruleIdEq
+func (r ApiGetLogsRequest) BufferEq(bufferEq string) ApiGetLogsRequest {
+	r.bufferEq = &bufferEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) RuleIdNe(ruleIdNe string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdNe = &ruleIdNe
+func (r ApiGetLogsRequest) BufferNe(bufferNe string) ApiGetLogsRequest {
+	r.bufferNe = &bufferNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) RuleIdGt(ruleIdGt string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdGt = &ruleIdGt
+func (r ApiGetLogsRequest) BufferGt(bufferGt string) ApiGetLogsRequest {
+	r.bufferGt = &bufferGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) RuleIdGte(ruleIdGte string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdGte = &ruleIdGte
+func (r ApiGetLogsRequest) BufferGte(bufferGte string) ApiGetLogsRequest {
+	r.bufferGte = &bufferGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) RuleIdLt(ruleIdLt string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdLt = &ruleIdLt
+func (r ApiGetLogsRequest) BufferLt(bufferLt string) ApiGetLogsRequest {
+	r.bufferLt = &bufferLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) RuleIdLte(ruleIdLte string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdLte = &ruleIdLte
+func (r ApiGetLogsRequest) BufferLte(bufferLte string) ApiGetLogsRequest {
+	r.bufferLte = &bufferLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) RuleIdIn(ruleIdIn string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdIn = &ruleIdIn
+func (r ApiGetLogsRequest) BufferIn(bufferIn string) ApiGetLogsRequest {
+	r.bufferIn = &bufferIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) RuleIdNotin(ruleIdNotin string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdNotin = &ruleIdNotin
+func (r ApiGetLogsRequest) BufferNotin(bufferNotin string) ApiGetLogsRequest {
+	r.bufferNotin = &bufferNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) RuleIdLike(ruleIdLike string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdLike = &ruleIdLike
+func (r ApiGetLogsRequest) BufferLike(bufferLike string) ApiGetLogsRequest {
+	r.bufferLike = &bufferLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) RuleIdNotlike(ruleIdNotlike string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdNotlike = &ruleIdNotlike
+func (r ApiGetLogsRequest) BufferNotlike(bufferNotlike string) ApiGetLogsRequest {
+	r.bufferNotlike = &bufferNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) RuleIdIlike(ruleIdIlike string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdIlike = &ruleIdIlike
+func (r ApiGetLogsRequest) BufferIlike(bufferIlike string) ApiGetLogsRequest {
+	r.bufferIlike = &bufferIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) RuleIdNotilike(ruleIdNotilike string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdNotilike = &ruleIdNotilike
+func (r ApiGetLogsRequest) BufferNotilike(bufferNotilike string) ApiGetLogsRequest {
+	r.bufferNotilike = &bufferNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) RuleIdDesc(ruleIdDesc string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdDesc = &ruleIdDesc
+func (r ApiGetLogsRequest) BufferDesc(bufferDesc string) ApiGetLogsRequest {
+	r.bufferDesc = &bufferDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) RuleIdAsc(ruleIdAsc string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdAsc = &ruleIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) RuleIdObjectDesc(ruleIdObjectDesc string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdObjectDesc = &ruleIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) RuleIdObjectAsc(ruleIdObjectAsc string) ApiGetRuleRequiresJobsRequest {
-	r.ruleIdObjectAsc = &ruleIdObjectAsc
+func (r ApiGetLogsRequest) BufferAsc(bufferAsc string) ApiGetLogsRequest {
+	r.bufferAsc = &bufferAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) JobIdEq(jobIdEq string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdEq = &jobIdEq
+func (r ApiGetLogsRequest) OutputIdEq(outputIdEq string) ApiGetLogsRequest {
+	r.outputIdEq = &outputIdEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRuleRequiresJobsRequest) JobIdNe(jobIdNe string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdNe = &jobIdNe
+func (r ApiGetLogsRequest) OutputIdNe(outputIdNe string) ApiGetLogsRequest {
+	r.outputIdNe = &outputIdNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) JobIdGt(jobIdGt string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdGt = &jobIdGt
+func (r ApiGetLogsRequest) OutputIdGt(outputIdGt string) ApiGetLogsRequest {
+	r.outputIdGt = &outputIdGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) JobIdGte(jobIdGte string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdGte = &jobIdGte
+func (r ApiGetLogsRequest) OutputIdGte(outputIdGte string) ApiGetLogsRequest {
+	r.outputIdGte = &outputIdGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) JobIdLt(jobIdLt string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdLt = &jobIdLt
+func (r ApiGetLogsRequest) OutputIdLt(outputIdLt string) ApiGetLogsRequest {
+	r.outputIdLt = &outputIdLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRuleRequiresJobsRequest) JobIdLte(jobIdLte string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdLte = &jobIdLte
+func (r ApiGetLogsRequest) OutputIdLte(outputIdLte string) ApiGetLogsRequest {
+	r.outputIdLte = &outputIdLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) JobIdIn(jobIdIn string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdIn = &jobIdIn
+func (r ApiGetLogsRequest) OutputIdIn(outputIdIn string) ApiGetLogsRequest {
+	r.outputIdIn = &outputIdIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRuleRequiresJobsRequest) JobIdNotin(jobIdNotin string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdNotin = &jobIdNotin
+func (r ApiGetLogsRequest) OutputIdNotin(outputIdNotin string) ApiGetLogsRequest {
+	r.outputIdNotin = &outputIdNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) JobIdLike(jobIdLike string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdLike = &jobIdLike
+func (r ApiGetLogsRequest) OutputIdLike(outputIdLike string) ApiGetLogsRequest {
+	r.outputIdLike = &outputIdLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) JobIdNotlike(jobIdNotlike string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdNotlike = &jobIdNotlike
+func (r ApiGetLogsRequest) OutputIdNotlike(outputIdNotlike string) ApiGetLogsRequest {
+	r.outputIdNotlike = &outputIdNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) JobIdIlike(jobIdIlike string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdIlike = &jobIdIlike
+func (r ApiGetLogsRequest) OutputIdIlike(outputIdIlike string) ApiGetLogsRequest {
+	r.outputIdIlike = &outputIdIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRuleRequiresJobsRequest) JobIdNotilike(jobIdNotilike string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdNotilike = &jobIdNotilike
+func (r ApiGetLogsRequest) OutputIdNotilike(outputIdNotilike string) ApiGetLogsRequest {
+	r.outputIdNotilike = &outputIdNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) JobIdDesc(jobIdDesc string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdDesc = &jobIdDesc
+func (r ApiGetLogsRequest) OutputIdDesc(outputIdDesc string) ApiGetLogsRequest {
+	r.outputIdDesc = &outputIdDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) JobIdAsc(jobIdAsc string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdAsc = &jobIdAsc
+func (r ApiGetLogsRequest) OutputIdAsc(outputIdAsc string) ApiGetLogsRequest {
+	r.outputIdAsc = &outputIdAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) JobIdObjectDesc(jobIdObjectDesc string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdObjectDesc = &jobIdObjectDesc
+func (r ApiGetLogsRequest) OutputIdObjectDesc(outputIdObjectDesc string) ApiGetLogsRequest {
+	r.outputIdObjectDesc = &outputIdObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRuleRequiresJobsRequest) JobIdObjectAsc(jobIdObjectAsc string) ApiGetRuleRequiresJobsRequest {
-	r.jobIdObjectAsc = &jobIdObjectAsc
+func (r ApiGetLogsRequest) OutputIdObjectAsc(outputIdObjectAsc string) ApiGetLogsRequest {
+	r.outputIdObjectAsc = &outputIdObjectAsc
 	return r
 }
 
-func (r ApiGetRuleRequiresJobsRequest) Execute() (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
-	return r.ApiService.GetRuleRequiresJobsExecute(r)
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetLogsRequest) ReferencedByOutputLogidObjectsDesc(referencedByOutputLogidObjectsDesc string) ApiGetLogsRequest {
+	r.referencedByOutputLogidObjectsDesc = &referencedByOutputLogidObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetLogsRequest) ReferencedByOutputLogidObjectsAsc(referencedByOutputLogidObjectsAsc string) ApiGetLogsRequest {
+	r.referencedByOutputLogidObjectsAsc = &referencedByOutputLogidObjectsAsc
+	return r
+}
+
+func (r ApiGetLogsRequest) Execute() (*ResponseWithGenericOfLog, *http.Response, error) {
+	return r.ApiService.GetLogsExecute(r)
 }
 
 /*
-GetRuleRequiresJobs Method for GetRuleRequiresJobs
+GetLogs Method for GetLogs
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRuleRequiresJobsRequest
+ @return ApiGetLogsRequest
 */
-func (a *RuleRequiresJobAPIService) GetRuleRequiresJobs(ctx context.Context) ApiGetRuleRequiresJobsRequest {
-	return ApiGetRuleRequiresJobsRequest{
+func (a *LogAPIService) GetLogs(ctx context.Context) ApiGetLogsRequest {
+	return ApiGetLogsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
-func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequiresJobsRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
+//  @return ResponseWithGenericOfLog
+func (a *LogAPIService) GetLogsExecute(r ApiGetLogsRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.GetRuleRequiresJobs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.GetLogs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/rule-requires-jobs"
+	localVarPath := localBasePath + "/api/logs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -931,6 +945,12 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequi
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.outputLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output__load", r.outputLoad, "form", "")
+	}
+	if r.referencedByOutputLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output__load", r.referencedByOutputLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1100,101 +1120,101 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequi
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
-	if r.ruleIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__eq", r.ruleIdEq, "form", "")
+	if r.bufferEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__eq", r.bufferEq, "form", "")
 	}
-	if r.ruleIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__ne", r.ruleIdNe, "form", "")
+	if r.bufferNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ne", r.bufferNe, "form", "")
 	}
-	if r.ruleIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__gt", r.ruleIdGt, "form", "")
+	if r.bufferGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gt", r.bufferGt, "form", "")
 	}
-	if r.ruleIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__gte", r.ruleIdGte, "form", "")
+	if r.bufferGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__gte", r.bufferGte, "form", "")
 	}
-	if r.ruleIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__lt", r.ruleIdLt, "form", "")
+	if r.bufferLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lt", r.bufferLt, "form", "")
 	}
-	if r.ruleIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__lte", r.ruleIdLte, "form", "")
+	if r.bufferLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__lte", r.bufferLte, "form", "")
 	}
-	if r.ruleIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__in", r.ruleIdIn, "form", "")
+	if r.bufferIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__in", r.bufferIn, "form", "")
 	}
-	if r.ruleIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notin", r.ruleIdNotin, "form", "")
+	if r.bufferNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notin", r.bufferNotin, "form", "")
 	}
-	if r.ruleIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__like", r.ruleIdLike, "form", "")
+	if r.bufferLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__like", r.bufferLike, "form", "")
 	}
-	if r.ruleIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notlike", r.ruleIdNotlike, "form", "")
+	if r.bufferNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notlike", r.bufferNotlike, "form", "")
 	}
-	if r.ruleIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__ilike", r.ruleIdIlike, "form", "")
+	if r.bufferIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__ilike", r.bufferIlike, "form", "")
 	}
-	if r.ruleIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__notilike", r.ruleIdNotilike, "form", "")
+	if r.bufferNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__notilike", r.bufferNotilike, "form", "")
 	}
-	if r.ruleIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__desc", r.ruleIdDesc, "form", "")
+	if r.bufferDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__desc", r.bufferDesc, "form", "")
 	}
-	if r.ruleIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id__asc", r.ruleIdAsc, "form", "")
+	if r.bufferAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buffer__asc", r.bufferAsc, "form", "")
 	}
-	if r.ruleIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id_object__desc", r.ruleIdObjectDesc, "form", "")
+	if r.outputIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__eq", r.outputIdEq, "form", "")
 	}
-	if r.ruleIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "rule_id_object__asc", r.ruleIdObjectAsc, "form", "")
+	if r.outputIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__ne", r.outputIdNe, "form", "")
 	}
-	if r.jobIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__eq", r.jobIdEq, "form", "")
+	if r.outputIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__gt", r.outputIdGt, "form", "")
 	}
-	if r.jobIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__ne", r.jobIdNe, "form", "")
+	if r.outputIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__gte", r.outputIdGte, "form", "")
 	}
-	if r.jobIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__gt", r.jobIdGt, "form", "")
+	if r.outputIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__lt", r.outputIdLt, "form", "")
 	}
-	if r.jobIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__gte", r.jobIdGte, "form", "")
+	if r.outputIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__lte", r.outputIdLte, "form", "")
 	}
-	if r.jobIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__lt", r.jobIdLt, "form", "")
+	if r.outputIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__in", r.outputIdIn, "form", "")
 	}
-	if r.jobIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__lte", r.jobIdLte, "form", "")
+	if r.outputIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__notin", r.outputIdNotin, "form", "")
 	}
-	if r.jobIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__in", r.jobIdIn, "form", "")
+	if r.outputIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__like", r.outputIdLike, "form", "")
 	}
-	if r.jobIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notin", r.jobIdNotin, "form", "")
+	if r.outputIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__notlike", r.outputIdNotlike, "form", "")
 	}
-	if r.jobIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__like", r.jobIdLike, "form", "")
+	if r.outputIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__ilike", r.outputIdIlike, "form", "")
 	}
-	if r.jobIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notlike", r.jobIdNotlike, "form", "")
+	if r.outputIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__notilike", r.outputIdNotilike, "form", "")
 	}
-	if r.jobIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__ilike", r.jobIdIlike, "form", "")
+	if r.outputIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__desc", r.outputIdDesc, "form", "")
 	}
-	if r.jobIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notilike", r.jobIdNotilike, "form", "")
+	if r.outputIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id__asc", r.outputIdAsc, "form", "")
 	}
-	if r.jobIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__desc", r.jobIdDesc, "form", "")
+	if r.outputIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id_object__desc", r.outputIdObjectDesc, "form", "")
 	}
-	if r.jobIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__asc", r.jobIdAsc, "form", "")
+	if r.outputIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "output_id_object__asc", r.outputIdObjectAsc, "form", "")
 	}
-	if r.jobIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__desc", r.jobIdObjectDesc, "form", "")
+	if r.referencedByOutputLogidObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_logid_objects__desc", r.referencedByOutputLogidObjectsDesc, "form", "")
 	}
-	if r.jobIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__asc", r.jobIdObjectAsc, "form", "")
+	if r.referencedByOutputLogidObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_logid_objects__asc", r.referencedByOutputLogidObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1258,38 +1278,38 @@ func (a *RuleRequiresJobAPIService) GetRuleRequiresJobsExecute(r ApiGetRuleRequi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchRuleRequiresJobRequest struct {
+type ApiPatchLogRequest struct {
 	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
+	ApiService *LogAPIService
 	primaryKey string
-	ruleRequiresJob *RuleRequiresJob
+	log *Log
 	depth *int64
 }
 
-func (r ApiPatchRuleRequiresJobRequest) RuleRequiresJob(ruleRequiresJob RuleRequiresJob) ApiPatchRuleRequiresJobRequest {
-	r.ruleRequiresJob = &ruleRequiresJob
+func (r ApiPatchLogRequest) Log(log Log) ApiPatchLogRequest {
+	r.log = &log
 	return r
 }
 
 // Query parameter depth
-func (r ApiPatchRuleRequiresJobRequest) Depth(depth int64) ApiPatchRuleRequiresJobRequest {
+func (r ApiPatchLogRequest) Depth(depth int64) ApiPatchLogRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPatchRuleRequiresJobRequest) Execute() (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
-	return r.ApiService.PatchRuleRequiresJobExecute(r)
+func (r ApiPatchLogRequest) Execute() (*ResponseWithGenericOfLog, *http.Response, error) {
+	return r.ApiService.PatchLogExecute(r)
 }
 
 /*
-PatchRuleRequiresJob Method for PatchRuleRequiresJob
+PatchLog Method for PatchLog
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiPatchRuleRequiresJobRequest
+ @return ApiPatchLogRequest
 */
-func (a *RuleRequiresJobAPIService) PatchRuleRequiresJob(ctx context.Context, primaryKey string) ApiPatchRuleRequiresJobRequest {
-	return ApiPatchRuleRequiresJobRequest{
+func (a *LogAPIService) PatchLog(ctx context.Context, primaryKey string) ApiPatchLogRequest {
+	return ApiPatchLogRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -1297,28 +1317,28 @@ func (a *RuleRequiresJobAPIService) PatchRuleRequiresJob(ctx context.Context, pr
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
-func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRequiresJobRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
+//  @return ResponseWithGenericOfLog
+func (a *LogAPIService) PatchLogExecute(r ApiPatchLogRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.PatchRuleRequiresJob")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.PatchLog")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/rule-requires-jobs/{primaryKey}"
+	localVarPath := localBasePath + "/api/logs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.ruleRequiresJob == nil {
-		return localVarReturnValue, nil, reportError("ruleRequiresJob is required and must be specified")
+	if r.log == nil {
+		return localVarReturnValue, nil, reportError("log is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1342,7 +1362,7 @@ func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.ruleRequiresJob
+	localVarPostBody = r.log
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1388,63 +1408,63 @@ func (a *RuleRequiresJobAPIService) PatchRuleRequiresJobExecute(r ApiPatchRuleRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostRuleRequiresJobsRequest struct {
+type ApiPostLogsRequest struct {
 	ctx context.Context
-	ApiService *RuleRequiresJobAPIService
-	ruleRequiresJob *[]RuleRequiresJob
+	ApiService *LogAPIService
+	log *[]Log
 	depth *int64
 }
 
-func (r ApiPostRuleRequiresJobsRequest) RuleRequiresJob(ruleRequiresJob []RuleRequiresJob) ApiPostRuleRequiresJobsRequest {
-	r.ruleRequiresJob = &ruleRequiresJob
+func (r ApiPostLogsRequest) Log(log []Log) ApiPostLogsRequest {
+	r.log = &log
 	return r
 }
 
 // Query parameter depth
-func (r ApiPostRuleRequiresJobsRequest) Depth(depth int64) ApiPostRuleRequiresJobsRequest {
+func (r ApiPostLogsRequest) Depth(depth int64) ApiPostLogsRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPostRuleRequiresJobsRequest) Execute() (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
-	return r.ApiService.PostRuleRequiresJobsExecute(r)
+func (r ApiPostLogsRequest) Execute() (*ResponseWithGenericOfLog, *http.Response, error) {
+	return r.ApiService.PostLogsExecute(r)
 }
 
 /*
-PostRuleRequiresJobs Method for PostRuleRequiresJobs
+PostLogs Method for PostLogs
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostRuleRequiresJobsRequest
+ @return ApiPostLogsRequest
 */
-func (a *RuleRequiresJobAPIService) PostRuleRequiresJobs(ctx context.Context) ApiPostRuleRequiresJobsRequest {
-	return ApiPostRuleRequiresJobsRequest{
+func (a *LogAPIService) PostLogs(ctx context.Context) ApiPostLogsRequest {
+	return ApiPostLogsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfRuleRequiresJob
-func (a *RuleRequiresJobAPIService) PostRuleRequiresJobsExecute(r ApiPostRuleRequiresJobsRequest) (*ResponseWithGenericOfRuleRequiresJob, *http.Response, error) {
+//  @return ResponseWithGenericOfLog
+func (a *LogAPIService) PostLogsExecute(r ApiPostLogsRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfRuleRequiresJob
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RuleRequiresJobAPIService.PostRuleRequiresJobs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.PostLogs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/rule-requires-jobs"
+	localVarPath := localBasePath + "/api/logs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.ruleRequiresJob == nil {
-		return localVarReturnValue, nil, reportError("ruleRequiresJob is required and must be specified")
+	if r.log == nil {
+		return localVarReturnValue, nil, reportError("log is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1468,7 +1488,7 @@ func (a *RuleRequiresJobAPIService) PostRuleRequiresJobsExecute(r ApiPostRuleReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.ruleRequiresJob
+	localVarPostBody = r.log
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

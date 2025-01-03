@@ -15,7 +15,7 @@ FROM ubuntu:22.04
 ENV TZ Australia/Perth
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y tzdata curl ca-certificates
+RUN apt-get update && apt-get install -y tzdata curl ca-certificates openssh-client
 
 RUN dpkg-reconfigure -f noninteractive tzdata
 

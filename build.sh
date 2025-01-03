@@ -65,7 +65,7 @@ kill -15 ${pid} || true >/dev/null 2>&1
 # generate the client for use by the frontend
 echo -e "\ngenerating typescript client..."
 cd frontend
-if [[ "${SKIP_UPDATE_FRONTEND}" != "1" ]]; then
+if [[ "${FORCE_UPDATE_FRONTEND}" == "1" ]]; then
     npm ci
 fi
 npm run openapi-typescript

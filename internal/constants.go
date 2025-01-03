@@ -4,7 +4,7 @@ const (
 	TriggerTableJobExecutorClaimedUntilAdvisoryLockID = 1
 	TriggerProducerAdvisoryLockID                     = 2
 	JobExecutorAdvisoryLockID                         = 3
-	ExecutionOrTaskStatusCreated                      = "created"
+	ExecutionOrTaskStatusPending                      = "pending"
 	ExecutionOrTaskStatusRunning                      = "running"
 	ExecutionOrTaskStatusSucceeded                    = "succeeded"
 	ExecutionOrTaskStatusFailing                      = "failing"

@@ -249,6 +249,9 @@ type ApiGetTasksRequest struct {
 	limit *int32
 	offset *int32
 	depth *int32
+	jobLoad *string
+	referencedByOutputLoad *string
+	referencedByExecutionLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -319,6 +322,16 @@ type ApiGetTasksRequest struct {
 	nameNotilike *string
 	nameDesc *string
 	nameAsc *string
+	indexEq *int64
+	indexNe *int64
+	indexGt *int64
+	indexGte *int64
+	indexLt *int64
+	indexLte *int64
+	indexIn *int64
+	indexNotin *int64
+	indexDesc *string
+	indexAsc *string
 	platformEq *string
 	platformNe *string
 	platformGt *string
@@ -361,18 +374,26 @@ type ApiGetTasksRequest struct {
 	scriptNotilike *string
 	scriptDesc *string
 	scriptAsc *string
-	referencedByJobBuildTaskIdObjectsDesc *string
-	referencedByJobBuildTaskIdObjectsAsc *string
-	referencedByJobTestTaskIdObjectsDesc *string
-	referencedByJobTestTaskIdObjectsAsc *string
-	referencedByJobPublishTaskIdObjectsDesc *string
-	referencedByJobPublishTaskIdObjectsAsc *string
-	referencedByJobDeployTaskIdObjectsDesc *string
-	referencedByJobDeployTaskIdObjectsAsc *string
-	referencedByJobValidateTaskIdObjectsDesc *string
-	referencedByJobValidateTaskIdObjectsAsc *string
+	jobIdEq *string
+	jobIdNe *string
+	jobIdGt *string
+	jobIdGte *string
+	jobIdLt *string
+	jobIdLte *string
+	jobIdIn *string
+	jobIdNotin *string
+	jobIdLike *string
+	jobIdNotlike *string
+	jobIdIlike *string
+	jobIdNotilike *string
+	jobIdDesc *string
+	jobIdAsc *string
+	jobIdObjectDesc *string
+	jobIdObjectAsc *string
 	referencedByOutputTaskIdObjectsDesc *string
 	referencedByOutputTaskIdObjectsAsc *string
+	referencedByExecutionTaskIdObjectsDesc *string
+	referencedByExecutionTaskIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -390,6 +411,24 @@ func (r ApiGetTasksRequest) Offset(offset int32) ApiGetTasksRequest {
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
 func (r ApiGetTasksRequest) Depth(depth int32) ApiGetTasksRequest {
 	r.depth = &depth
+	return r
+}
+
+// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) JobLoad(jobLoad string) ApiGetTasksRequest {
+	r.jobLoad = &jobLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByOutputLoad(referencedByOutputLoad string) ApiGetTasksRequest {
+	r.referencedByOutputLoad = &referencedByOutputLoad
+	return r
+}
+
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByExecutionLoad(referencedByExecutionLoad string) ApiGetTasksRequest {
+	r.referencedByExecutionLoad = &referencedByExecutionLoad
 	return r
 }
 
@@ -814,6 +853,66 @@ func (r ApiGetTasksRequest) NameAsc(nameAsc string) ApiGetTasksRequest {
 }
 
 // SQL &#x3D; comparison
+func (r ApiGetTasksRequest) IndexEq(indexEq int64) ApiGetTasksRequest {
+	r.indexEq = &indexEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) IndexNe(indexNe int64) ApiGetTasksRequest {
+	r.indexNe = &indexNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) IndexGt(indexGt int64) ApiGetTasksRequest {
+	r.indexGt = &indexGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) IndexGte(indexGte int64) ApiGetTasksRequest {
+	r.indexGte = &indexGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) IndexLt(indexLt int64) ApiGetTasksRequest {
+	r.indexLt = &indexLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) IndexLte(indexLte int64) ApiGetTasksRequest {
+	r.indexLte = &indexLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) IndexIn(indexIn int64) ApiGetTasksRequest {
+	r.indexIn = &indexIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) IndexNotin(indexNotin int64) ApiGetTasksRequest {
+	r.indexNotin = &indexNotin
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) IndexDesc(indexDesc string) ApiGetTasksRequest {
+	r.indexDesc = &indexDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) IndexAsc(indexAsc string) ApiGetTasksRequest {
+	r.indexAsc = &indexAsc
+	return r
+}
+
+// SQL &#x3D; comparison
 func (r ApiGetTasksRequest) PlatformEq(platformEq string) ApiGetTasksRequest {
 	r.platformEq = &platformEq
 	return r
@@ -1065,63 +1164,99 @@ func (r ApiGetTasksRequest) ScriptAsc(scriptAsc string) ApiGetTasksRequest {
 	return r
 }
 
+// SQL &#x3D; comparison
+func (r ApiGetTasksRequest) JobIdEq(jobIdEq string) ApiGetTasksRequest {
+	r.jobIdEq = &jobIdEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetTasksRequest) JobIdNe(jobIdNe string) ApiGetTasksRequest {
+	r.jobIdNe = &jobIdNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) JobIdGt(jobIdGt string) ApiGetTasksRequest {
+	r.jobIdGt = &jobIdGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) JobIdGte(jobIdGte string) ApiGetTasksRequest {
+	r.jobIdGte = &jobIdGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetTasksRequest) JobIdLt(jobIdLt string) ApiGetTasksRequest {
+	r.jobIdLt = &jobIdLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetTasksRequest) JobIdLte(jobIdLte string) ApiGetTasksRequest {
+	r.jobIdLte = &jobIdLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) JobIdIn(jobIdIn string) ApiGetTasksRequest {
+	r.jobIdIn = &jobIdIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetTasksRequest) JobIdNotin(jobIdNotin string) ApiGetTasksRequest {
+	r.jobIdNotin = &jobIdNotin
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) JobIdLike(jobIdLike string) ApiGetTasksRequest {
+	r.jobIdLike = &jobIdLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) JobIdNotlike(jobIdNotlike string) ApiGetTasksRequest {
+	r.jobIdNotlike = &jobIdNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) JobIdIlike(jobIdIlike string) ApiGetTasksRequest {
+	r.jobIdIlike = &jobIdIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetTasksRequest) JobIdNotilike(jobIdNotilike string) ApiGetTasksRequest {
+	r.jobIdNotilike = &jobIdNotilike
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobBuildTaskIdObjectsDesc(referencedByJobBuildTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByJobBuildTaskIdObjectsDesc = &referencedByJobBuildTaskIdObjectsDesc
+func (r ApiGetTasksRequest) JobIdDesc(jobIdDesc string) ApiGetTasksRequest {
+	r.jobIdDesc = &jobIdDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobBuildTaskIdObjectsAsc(referencedByJobBuildTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByJobBuildTaskIdObjectsAsc = &referencedByJobBuildTaskIdObjectsAsc
+func (r ApiGetTasksRequest) JobIdAsc(jobIdAsc string) ApiGetTasksRequest {
+	r.jobIdAsc = &jobIdAsc
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobTestTaskIdObjectsDesc(referencedByJobTestTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByJobTestTaskIdObjectsDesc = &referencedByJobTestTaskIdObjectsDesc
+func (r ApiGetTasksRequest) JobIdObjectDesc(jobIdObjectDesc string) ApiGetTasksRequest {
+	r.jobIdObjectDesc = &jobIdObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobTestTaskIdObjectsAsc(referencedByJobTestTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByJobTestTaskIdObjectsAsc = &referencedByJobTestTaskIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobPublishTaskIdObjectsDesc(referencedByJobPublishTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByJobPublishTaskIdObjectsDesc = &referencedByJobPublishTaskIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobPublishTaskIdObjectsAsc(referencedByJobPublishTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByJobPublishTaskIdObjectsAsc = &referencedByJobPublishTaskIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobDeployTaskIdObjectsDesc(referencedByJobDeployTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByJobDeployTaskIdObjectsDesc = &referencedByJobDeployTaskIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobDeployTaskIdObjectsAsc(referencedByJobDeployTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByJobDeployTaskIdObjectsAsc = &referencedByJobDeployTaskIdObjectsAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobValidateTaskIdObjectsDesc(referencedByJobValidateTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByJobValidateTaskIdObjectsDesc = &referencedByJobValidateTaskIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByJobValidateTaskIdObjectsAsc(referencedByJobValidateTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByJobValidateTaskIdObjectsAsc = &referencedByJobValidateTaskIdObjectsAsc
+func (r ApiGetTasksRequest) JobIdObjectAsc(jobIdObjectAsc string) ApiGetTasksRequest {
+	r.jobIdObjectAsc = &jobIdObjectAsc
 	return r
 }
 
@@ -1134,6 +1269,18 @@ func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsDesc(referencedByOutp
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsAsc(referencedByOutputTaskIdObjectsAsc string) ApiGetTasksRequest {
 	r.referencedByOutputTaskIdObjectsAsc = &referencedByOutputTaskIdObjectsAsc
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByExecutionTaskIdObjectsDesc(referencedByExecutionTaskIdObjectsDesc string) ApiGetTasksRequest {
+	r.referencedByExecutionTaskIdObjectsDesc = &referencedByExecutionTaskIdObjectsDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetTasksRequest) ReferencedByExecutionTaskIdObjectsAsc(referencedByExecutionTaskIdObjectsAsc string) ApiGetTasksRequest {
+	r.referencedByExecutionTaskIdObjectsAsc = &referencedByExecutionTaskIdObjectsAsc
 	return r
 }
 
@@ -1183,6 +1330,15 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.jobLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job__load", r.jobLoad, "form", "")
+	}
+	if r.referencedByOutputLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output__load", r.referencedByOutputLoad, "form", "")
+	}
+	if r.referencedByExecutionLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution__load", r.referencedByExecutionLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1394,6 +1550,36 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.nameAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
 	}
+	if r.indexEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__eq", r.indexEq, "form", "")
+	}
+	if r.indexNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__ne", r.indexNe, "form", "")
+	}
+	if r.indexGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__gt", r.indexGt, "form", "")
+	}
+	if r.indexGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__gte", r.indexGte, "form", "")
+	}
+	if r.indexLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__lt", r.indexLt, "form", "")
+	}
+	if r.indexLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__lte", r.indexLte, "form", "")
+	}
+	if r.indexIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__in", r.indexIn, "form", "")
+	}
+	if r.indexNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__notin", r.indexNotin, "form", "")
+	}
+	if r.indexDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__desc", r.indexDesc, "form", "")
+	}
+	if r.indexAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__asc", r.indexAsc, "form", "")
+	}
 	if r.platformEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__eq", r.platformEq, "form", "")
 	}
@@ -1520,41 +1706,65 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.scriptAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "script__asc", r.scriptAsc, "form", "")
 	}
-	if r.referencedByJobBuildTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_build_task_id_objects__desc", r.referencedByJobBuildTaskIdObjectsDesc, "form", "")
+	if r.jobIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__eq", r.jobIdEq, "form", "")
 	}
-	if r.referencedByJobBuildTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_build_task_id_objects__asc", r.referencedByJobBuildTaskIdObjectsAsc, "form", "")
+	if r.jobIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__ne", r.jobIdNe, "form", "")
 	}
-	if r.referencedByJobTestTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_test_task_id_objects__desc", r.referencedByJobTestTaskIdObjectsDesc, "form", "")
+	if r.jobIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__gt", r.jobIdGt, "form", "")
 	}
-	if r.referencedByJobTestTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_test_task_id_objects__asc", r.referencedByJobTestTaskIdObjectsAsc, "form", "")
+	if r.jobIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__gte", r.jobIdGte, "form", "")
 	}
-	if r.referencedByJobPublishTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_publish_task_id_objects__desc", r.referencedByJobPublishTaskIdObjectsDesc, "form", "")
+	if r.jobIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__lt", r.jobIdLt, "form", "")
 	}
-	if r.referencedByJobPublishTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_publish_task_id_objects__asc", r.referencedByJobPublishTaskIdObjectsAsc, "form", "")
+	if r.jobIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__lte", r.jobIdLte, "form", "")
 	}
-	if r.referencedByJobDeployTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_deploy_task_id_objects__desc", r.referencedByJobDeployTaskIdObjectsDesc, "form", "")
+	if r.jobIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__in", r.jobIdIn, "form", "")
 	}
-	if r.referencedByJobDeployTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_deploy_task_id_objects__asc", r.referencedByJobDeployTaskIdObjectsAsc, "form", "")
+	if r.jobIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notin", r.jobIdNotin, "form", "")
 	}
-	if r.referencedByJobValidateTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_validate_task_id_objects__desc", r.referencedByJobValidateTaskIdObjectsDesc, "form", "")
+	if r.jobIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__like", r.jobIdLike, "form", "")
 	}
-	if r.referencedByJobValidateTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_validate_task_id_objects__asc", r.referencedByJobValidateTaskIdObjectsAsc, "form", "")
+	if r.jobIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notlike", r.jobIdNotlike, "form", "")
+	}
+	if r.jobIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__ilike", r.jobIdIlike, "form", "")
+	}
+	if r.jobIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notilike", r.jobIdNotilike, "form", "")
+	}
+	if r.jobIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__desc", r.jobIdDesc, "form", "")
+	}
+	if r.jobIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__asc", r.jobIdAsc, "form", "")
+	}
+	if r.jobIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__desc", r.jobIdObjectDesc, "form", "")
+	}
+	if r.jobIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__asc", r.jobIdObjectAsc, "form", "")
 	}
 	if r.referencedByOutputTaskIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__desc", r.referencedByOutputTaskIdObjectsDesc, "form", "")
 	}
 	if r.referencedByOutputTaskIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__asc", r.referencedByOutputTaskIdObjectsAsc, "form", "")
+	}
+	if r.referencedByExecutionTaskIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_task_id_objects__desc", r.referencedByExecutionTaskIdObjectsDesc, "form", "")
+	}
+	if r.referencedByExecutionTaskIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_task_id_objects__asc", r.referencedByExecutionTaskIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1751,12 +1961,12 @@ func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithG
 type ApiPostTasksRequest struct {
 	ctx context.Context
 	ApiService *TaskAPIService
-	task *[]Task
+	rule *[]Rule
 	depth *int64
 }
 
-func (r ApiPostTasksRequest) Task(task []Task) ApiPostTasksRequest {
-	r.task = &task
+func (r ApiPostTasksRequest) Rule(rule []Rule) ApiPostTasksRequest {
+	r.rule = &rule
 	return r
 }
 
@@ -1803,8 +2013,8 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.task == nil {
-		return localVarReturnValue, nil, reportError("task is required and must be specified")
+	if r.rule == nil {
+		return localVarReturnValue, nil, reportError("rule is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1828,7 +2038,7 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.task
+	localVarPostBody = r.rule
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

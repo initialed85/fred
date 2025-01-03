@@ -14,40 +14,40 @@ import (
 	"encoding/json"
 )
 
-// checks if the ResponseWithGenericOfRuleRequiresJob type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResponseWithGenericOfRuleRequiresJob{}
+// checks if the ResponseWithGenericOfM2mRuleTriggerJob type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResponseWithGenericOfM2mRuleTriggerJob{}
 
-// ResponseWithGenericOfRuleRequiresJob struct for ResponseWithGenericOfRuleRequiresJob
-type ResponseWithGenericOfRuleRequiresJob struct {
+// ResponseWithGenericOfM2mRuleTriggerJob struct for ResponseWithGenericOfM2mRuleTriggerJob
+type ResponseWithGenericOfM2mRuleTriggerJob struct {
 	Count *int64 `json:"count,omitempty"`
 	Error []string `json:"error,omitempty"`
 	Limit *int64 `json:"limit,omitempty"`
-	Objects []RuleRequiresJob `json:"objects,omitempty"`
+	Objects []M2MRuleTriggerJob `json:"objects,omitempty"`
 	Offset *int64 `json:"offset,omitempty"`
 	Status *int64 `json:"status,omitempty"`
 	Success *bool `json:"success,omitempty"`
 	TotalCount *int64 `json:"total_count,omitempty"`
 }
 
-// NewResponseWithGenericOfRuleRequiresJob instantiates a new ResponseWithGenericOfRuleRequiresJob object
+// NewResponseWithGenericOfM2mRuleTriggerJob instantiates a new ResponseWithGenericOfM2mRuleTriggerJob object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResponseWithGenericOfRuleRequiresJob() *ResponseWithGenericOfRuleRequiresJob {
-	this := ResponseWithGenericOfRuleRequiresJob{}
+func NewResponseWithGenericOfM2mRuleTriggerJob() *ResponseWithGenericOfM2mRuleTriggerJob {
+	this := ResponseWithGenericOfM2mRuleTriggerJob{}
 	return &this
 }
 
-// NewResponseWithGenericOfRuleRequiresJobWithDefaults instantiates a new ResponseWithGenericOfRuleRequiresJob object
+// NewResponseWithGenericOfM2mRuleTriggerJobWithDefaults instantiates a new ResponseWithGenericOfM2mRuleTriggerJob object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewResponseWithGenericOfRuleRequiresJobWithDefaults() *ResponseWithGenericOfRuleRequiresJob {
-	this := ResponseWithGenericOfRuleRequiresJob{}
+func NewResponseWithGenericOfM2mRuleTriggerJobWithDefaults() *ResponseWithGenericOfM2mRuleTriggerJob {
+	this := ResponseWithGenericOfM2mRuleTriggerJob{}
 	return &this
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetCount() int64 {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetCount() int64 {
 	if o == nil || IsNil(o.Count) {
 		var ret int64
 		return ret
@@ -57,7 +57,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetCount() int64 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetCountOk() (*int64, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetCountOk() (*int64, bool) {
 }
 
 // HasCount returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasCount() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasCount() bool {
 	if o != nil && !IsNil(o.Count) {
 		return true
 	}
@@ -74,12 +74,12 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasCount() bool {
 }
 
 // SetCount gets a reference to the given int64 and assigns it to the Count field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetCount(v int64) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetCount(v int64) {
 	o.Count = &v
 }
 
 // GetError returns the Error field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfRuleRequiresJob) GetError() []string {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetError() []string {
 	if o == nil {
 		var ret []string
 		return ret
@@ -90,7 +90,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetError() []string {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfRuleRequiresJob) GetErrorOk() ([]string, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetErrorOk() ([]string, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
@@ -98,7 +98,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetErrorOk() ([]string, bool) {
 }
 
 // HasError returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasError() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasError() bool {
 	if o != nil && !IsNil(o.Error) {
 		return true
 	}
@@ -107,12 +107,12 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasError() bool {
 }
 
 // SetError gets a reference to the given []string and assigns it to the Error field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetError(v []string) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetError(v []string) {
 	o.Error = v
 }
 
 // GetLimit returns the Limit field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetLimit() int64 {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetLimit() int64 {
 	if o == nil || IsNil(o.Limit) {
 		var ret int64
 		return ret
@@ -122,7 +122,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetLimit() int64 {
 
 // GetLimitOk returns a tuple with the Limit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetLimitOk() (*int64, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetLimitOk() (*int64, bool) {
 	if o == nil || IsNil(o.Limit) {
 		return nil, false
 	}
@@ -130,7 +130,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetLimitOk() (*int64, bool) {
 }
 
 // HasLimit returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasLimit() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasLimit() bool {
 	if o != nil && !IsNil(o.Limit) {
 		return true
 	}
@@ -139,14 +139,14 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasLimit() bool {
 }
 
 // SetLimit gets a reference to the given int64 and assigns it to the Limit field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetLimit(v int64) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetLimit(v int64) {
 	o.Limit = &v
 }
 
 // GetObjects returns the Objects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ResponseWithGenericOfRuleRequiresJob) GetObjects() []RuleRequiresJob {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetObjects() []M2MRuleTriggerJob {
 	if o == nil {
-		var ret []RuleRequiresJob
+		var ret []M2MRuleTriggerJob
 		return ret
 	}
 	return o.Objects
@@ -155,7 +155,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetObjects() []RuleRequiresJob {
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ResponseWithGenericOfRuleRequiresJob) GetObjectsOk() ([]RuleRequiresJob, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetObjectsOk() ([]M2MRuleTriggerJob, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
 	}
@@ -163,7 +163,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetObjectsOk() ([]RuleRequiresJob
 }
 
 // HasObjects returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasObjects() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasObjects() bool {
 	if o != nil && !IsNil(o.Objects) {
 		return true
 	}
@@ -171,13 +171,13 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasObjects() bool {
 	return false
 }
 
-// SetObjects gets a reference to the given []RuleRequiresJob and assigns it to the Objects field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetObjects(v []RuleRequiresJob) {
+// SetObjects gets a reference to the given []M2MRuleTriggerJob and assigns it to the Objects field.
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetObjects(v []M2MRuleTriggerJob) {
 	o.Objects = v
 }
 
 // GetOffset returns the Offset field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetOffset() int64 {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetOffset() int64 {
 	if o == nil || IsNil(o.Offset) {
 		var ret int64
 		return ret
@@ -187,7 +187,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetOffset() int64 {
 
 // GetOffsetOk returns a tuple with the Offset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetOffsetOk() (*int64, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetOffsetOk() (*int64, bool) {
 	if o == nil || IsNil(o.Offset) {
 		return nil, false
 	}
@@ -195,7 +195,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetOffsetOk() (*int64, bool) {
 }
 
 // HasOffset returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasOffset() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasOffset() bool {
 	if o != nil && !IsNil(o.Offset) {
 		return true
 	}
@@ -204,12 +204,12 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasOffset() bool {
 }
 
 // SetOffset gets a reference to the given int64 and assigns it to the Offset field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetOffset(v int64) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetOffset(v int64) {
 	o.Offset = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetStatus() int64 {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetStatus() int64 {
 	if o == nil || IsNil(o.Status) {
 		var ret int64
 		return ret
@@ -219,7 +219,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetStatus() int64 {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetStatusOk() (*int64, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetStatusOk() (*int64, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -227,7 +227,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetStatusOk() (*int64, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasStatus() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasStatus() bool {
 	if o != nil && !IsNil(o.Status) {
 		return true
 	}
@@ -236,12 +236,12 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasStatus() bool {
 }
 
 // SetStatus gets a reference to the given int64 and assigns it to the Status field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetStatus(v int64) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetStatus(v int64) {
 	o.Status = &v
 }
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetSuccess() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetSuccess() bool {
 	if o == nil || IsNil(o.Success) {
 		var ret bool
 		return ret
@@ -251,7 +251,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetSuccess() bool {
 
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetSuccessOk() (*bool, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetSuccessOk() (*bool, bool) {
 	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
@@ -259,7 +259,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetSuccessOk() (*bool, bool) {
 }
 
 // HasSuccess returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasSuccess() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasSuccess() bool {
 	if o != nil && !IsNil(o.Success) {
 		return true
 	}
@@ -268,12 +268,12 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasSuccess() bool {
 }
 
 // SetSuccess gets a reference to the given bool and assigns it to the Success field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetSuccess(v bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetSuccess(v bool) {
 	o.Success = &v
 }
 
 // GetTotalCount returns the TotalCount field value if set, zero value otherwise.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetTotalCount() int64 {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetTotalCount() int64 {
 	if o == nil || IsNil(o.TotalCount) {
 		var ret int64
 		return ret
@@ -283,7 +283,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetTotalCount() int64 {
 
 // GetTotalCountOk returns a tuple with the TotalCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) GetTotalCountOk() (*int64, bool) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) GetTotalCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalCount) {
 		return nil, false
 	}
@@ -291,7 +291,7 @@ func (o *ResponseWithGenericOfRuleRequiresJob) GetTotalCountOk() (*int64, bool) 
 }
 
 // HasTotalCount returns a boolean if a field has been set.
-func (o *ResponseWithGenericOfRuleRequiresJob) HasTotalCount() bool {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) HasTotalCount() bool {
 	if o != nil && !IsNil(o.TotalCount) {
 		return true
 	}
@@ -300,11 +300,11 @@ func (o *ResponseWithGenericOfRuleRequiresJob) HasTotalCount() bool {
 }
 
 // SetTotalCount gets a reference to the given int64 and assigns it to the TotalCount field.
-func (o *ResponseWithGenericOfRuleRequiresJob) SetTotalCount(v int64) {
+func (o *ResponseWithGenericOfM2mRuleTriggerJob) SetTotalCount(v int64) {
 	o.TotalCount = &v
 }
 
-func (o ResponseWithGenericOfRuleRequiresJob) MarshalJSON() ([]byte, error) {
+func (o ResponseWithGenericOfM2mRuleTriggerJob) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -312,7 +312,7 @@ func (o ResponseWithGenericOfRuleRequiresJob) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ResponseWithGenericOfRuleRequiresJob) ToMap() (map[string]interface{}, error) {
+func (o ResponseWithGenericOfM2mRuleTriggerJob) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
@@ -341,38 +341,38 @@ func (o ResponseWithGenericOfRuleRequiresJob) ToMap() (map[string]interface{}, e
 	return toSerialize, nil
 }
 
-type NullableResponseWithGenericOfRuleRequiresJob struct {
-	value *ResponseWithGenericOfRuleRequiresJob
+type NullableResponseWithGenericOfM2mRuleTriggerJob struct {
+	value *ResponseWithGenericOfM2mRuleTriggerJob
 	isSet bool
 }
 
-func (v NullableResponseWithGenericOfRuleRequiresJob) Get() *ResponseWithGenericOfRuleRequiresJob {
+func (v NullableResponseWithGenericOfM2mRuleTriggerJob) Get() *ResponseWithGenericOfM2mRuleTriggerJob {
 	return v.value
 }
 
-func (v *NullableResponseWithGenericOfRuleRequiresJob) Set(val *ResponseWithGenericOfRuleRequiresJob) {
+func (v *NullableResponseWithGenericOfM2mRuleTriggerJob) Set(val *ResponseWithGenericOfM2mRuleTriggerJob) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableResponseWithGenericOfRuleRequiresJob) IsSet() bool {
+func (v NullableResponseWithGenericOfM2mRuleTriggerJob) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableResponseWithGenericOfRuleRequiresJob) Unset() {
+func (v *NullableResponseWithGenericOfM2mRuleTriggerJob) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableResponseWithGenericOfRuleRequiresJob(val *ResponseWithGenericOfRuleRequiresJob) *NullableResponseWithGenericOfRuleRequiresJob {
-	return &NullableResponseWithGenericOfRuleRequiresJob{value: val, isSet: true}
+func NewNullableResponseWithGenericOfM2mRuleTriggerJob(val *ResponseWithGenericOfM2mRuleTriggerJob) *NullableResponseWithGenericOfM2mRuleTriggerJob {
+	return &NullableResponseWithGenericOfM2mRuleTriggerJob{value: val, isSet: true}
 }
 
-func (v NullableResponseWithGenericOfRuleRequiresJob) MarshalJSON() ([]byte, error) {
+func (v NullableResponseWithGenericOfM2mRuleTriggerJob) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableResponseWithGenericOfRuleRequiresJob) UnmarshalJSON(src []byte) error {
+func (v *NullableResponseWithGenericOfM2mRuleTriggerJob) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

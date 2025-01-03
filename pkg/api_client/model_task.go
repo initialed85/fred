@@ -24,14 +24,13 @@ type Task struct {
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Image *string `json:"image,omitempty"`
+	Index *int64 `json:"index,omitempty"`
+	JobId *string `json:"job_id,omitempty"`
+	JobIdObject *Job `json:"job_id_object,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Platform *string `json:"platform,omitempty"`
-	ReferencedByJobBuildTaskIdObjects []Job `json:"referenced_by_job_build_task_id_objects,omitempty"`
-	ReferencedByJobDeployTaskIdObjects []Job `json:"referenced_by_job_deploy_task_id_objects,omitempty"`
-	ReferencedByJobPublishTaskIdObjects []Job `json:"referenced_by_job_publish_task_id_objects,omitempty"`
-	ReferencedByJobTestTaskIdObjects []Job `json:"referenced_by_job_test_task_id_objects,omitempty"`
-	ReferencedByJobValidateTaskIdObjects []Job `json:"referenced_by_job_validate_task_id_objects,omitempty"`
-	ReferencedByOutputTaskIdObjects []Execution `json:"referenced_by_output_task_id_objects,omitempty"`
+	ReferencedByExecutionTaskIdObjects []Execution `json:"referenced_by_execution_task_id_objects,omitempty"`
+	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
 	Script *string `json:"script,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
@@ -181,6 +180,102 @@ func (o *Task) SetImage(v string) {
 	o.Image = &v
 }
 
+// GetIndex returns the Index field value if set, zero value otherwise.
+func (o *Task) GetIndex() int64 {
+	if o == nil || IsNil(o.Index) {
+		var ret int64
+		return ret
+	}
+	return *o.Index
+}
+
+// GetIndexOk returns a tuple with the Index field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetIndexOk() (*int64, bool) {
+	if o == nil || IsNil(o.Index) {
+		return nil, false
+	}
+	return o.Index, true
+}
+
+// HasIndex returns a boolean if a field has been set.
+func (o *Task) HasIndex() bool {
+	if o != nil && !IsNil(o.Index) {
+		return true
+	}
+
+	return false
+}
+
+// SetIndex gets a reference to the given int64 and assigns it to the Index field.
+func (o *Task) SetIndex(v int64) {
+	o.Index = &v
+}
+
+// GetJobId returns the JobId field value if set, zero value otherwise.
+func (o *Task) GetJobId() string {
+	if o == nil || IsNil(o.JobId) {
+		var ret string
+		return ret
+	}
+	return *o.JobId
+}
+
+// GetJobIdOk returns a tuple with the JobId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetJobIdOk() (*string, bool) {
+	if o == nil || IsNil(o.JobId) {
+		return nil, false
+	}
+	return o.JobId, true
+}
+
+// HasJobId returns a boolean if a field has been set.
+func (o *Task) HasJobId() bool {
+	if o != nil && !IsNil(o.JobId) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobId gets a reference to the given string and assigns it to the JobId field.
+func (o *Task) SetJobId(v string) {
+	o.JobId = &v
+}
+
+// GetJobIdObject returns the JobIdObject field value if set, zero value otherwise.
+func (o *Task) GetJobIdObject() Job {
+	if o == nil || IsNil(o.JobIdObject) {
+		var ret Job
+		return ret
+	}
+	return *o.JobIdObject
+}
+
+// GetJobIdObjectOk returns a tuple with the JobIdObject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Task) GetJobIdObjectOk() (*Job, bool) {
+	if o == nil || IsNil(o.JobIdObject) {
+		return nil, false
+	}
+	return o.JobIdObject, true
+}
+
+// HasJobIdObject returns a boolean if a field has been set.
+func (o *Task) HasJobIdObject() bool {
+	if o != nil && !IsNil(o.JobIdObject) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobIdObject gets a reference to the given Job and assigns it to the JobIdObject field.
+func (o *Task) SetJobIdObject(v Job) {
+	o.JobIdObject = &v
+}
+
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Task) GetName() string {
 	if o == nil || IsNil(o.Name) {
@@ -245,175 +340,43 @@ func (o *Task) SetPlatform(v string) {
 	o.Platform = &v
 }
 
-// GetReferencedByJobBuildTaskIdObjects returns the ReferencedByJobBuildTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobBuildTaskIdObjects() []Job {
+// GetReferencedByExecutionTaskIdObjects returns the ReferencedByExecutionTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Task) GetReferencedByExecutionTaskIdObjects() []Execution {
 	if o == nil {
-		var ret []Job
+		var ret []Execution
 		return ret
 	}
-	return o.ReferencedByJobBuildTaskIdObjects
+	return o.ReferencedByExecutionTaskIdObjects
 }
 
-// GetReferencedByJobBuildTaskIdObjectsOk returns a tuple with the ReferencedByJobBuildTaskIdObjects field value if set, nil otherwise
+// GetReferencedByExecutionTaskIdObjectsOk returns a tuple with the ReferencedByExecutionTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobBuildTaskIdObjectsOk() ([]Job, bool) {
-	if o == nil || IsNil(o.ReferencedByJobBuildTaskIdObjects) {
+func (o *Task) GetReferencedByExecutionTaskIdObjectsOk() ([]Execution, bool) {
+	if o == nil || IsNil(o.ReferencedByExecutionTaskIdObjects) {
 		return nil, false
 	}
-	return o.ReferencedByJobBuildTaskIdObjects, true
+	return o.ReferencedByExecutionTaskIdObjects, true
 }
 
-// HasReferencedByJobBuildTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByJobBuildTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobBuildTaskIdObjects) {
+// HasReferencedByExecutionTaskIdObjects returns a boolean if a field has been set.
+func (o *Task) HasReferencedByExecutionTaskIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByExecutionTaskIdObjects) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByJobBuildTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobBuildTaskIdObjects field.
-func (o *Task) SetReferencedByJobBuildTaskIdObjects(v []Job) {
-	o.ReferencedByJobBuildTaskIdObjects = v
-}
-
-// GetReferencedByJobDeployTaskIdObjects returns the ReferencedByJobDeployTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobDeployTaskIdObjects() []Job {
-	if o == nil {
-		var ret []Job
-		return ret
-	}
-	return o.ReferencedByJobDeployTaskIdObjects
-}
-
-// GetReferencedByJobDeployTaskIdObjectsOk returns a tuple with the ReferencedByJobDeployTaskIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobDeployTaskIdObjectsOk() ([]Job, bool) {
-	if o == nil || IsNil(o.ReferencedByJobDeployTaskIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByJobDeployTaskIdObjects, true
-}
-
-// HasReferencedByJobDeployTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByJobDeployTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobDeployTaskIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByJobDeployTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobDeployTaskIdObjects field.
-func (o *Task) SetReferencedByJobDeployTaskIdObjects(v []Job) {
-	o.ReferencedByJobDeployTaskIdObjects = v
-}
-
-// GetReferencedByJobPublishTaskIdObjects returns the ReferencedByJobPublishTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobPublishTaskIdObjects() []Job {
-	if o == nil {
-		var ret []Job
-		return ret
-	}
-	return o.ReferencedByJobPublishTaskIdObjects
-}
-
-// GetReferencedByJobPublishTaskIdObjectsOk returns a tuple with the ReferencedByJobPublishTaskIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobPublishTaskIdObjectsOk() ([]Job, bool) {
-	if o == nil || IsNil(o.ReferencedByJobPublishTaskIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByJobPublishTaskIdObjects, true
-}
-
-// HasReferencedByJobPublishTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByJobPublishTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobPublishTaskIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByJobPublishTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobPublishTaskIdObjects field.
-func (o *Task) SetReferencedByJobPublishTaskIdObjects(v []Job) {
-	o.ReferencedByJobPublishTaskIdObjects = v
-}
-
-// GetReferencedByJobTestTaskIdObjects returns the ReferencedByJobTestTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobTestTaskIdObjects() []Job {
-	if o == nil {
-		var ret []Job
-		return ret
-	}
-	return o.ReferencedByJobTestTaskIdObjects
-}
-
-// GetReferencedByJobTestTaskIdObjectsOk returns a tuple with the ReferencedByJobTestTaskIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobTestTaskIdObjectsOk() ([]Job, bool) {
-	if o == nil || IsNil(o.ReferencedByJobTestTaskIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByJobTestTaskIdObjects, true
-}
-
-// HasReferencedByJobTestTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByJobTestTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobTestTaskIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByJobTestTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobTestTaskIdObjects field.
-func (o *Task) SetReferencedByJobTestTaskIdObjects(v []Job) {
-	o.ReferencedByJobTestTaskIdObjects = v
-}
-
-// GetReferencedByJobValidateTaskIdObjects returns the ReferencedByJobValidateTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByJobValidateTaskIdObjects() []Job {
-	if o == nil {
-		var ret []Job
-		return ret
-	}
-	return o.ReferencedByJobValidateTaskIdObjects
-}
-
-// GetReferencedByJobValidateTaskIdObjectsOk returns a tuple with the ReferencedByJobValidateTaskIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByJobValidateTaskIdObjectsOk() ([]Job, bool) {
-	if o == nil || IsNil(o.ReferencedByJobValidateTaskIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByJobValidateTaskIdObjects, true
-}
-
-// HasReferencedByJobValidateTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByJobValidateTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobValidateTaskIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByJobValidateTaskIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobValidateTaskIdObjects field.
-func (o *Task) SetReferencedByJobValidateTaskIdObjects(v []Job) {
-	o.ReferencedByJobValidateTaskIdObjects = v
+// SetReferencedByExecutionTaskIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionTaskIdObjects field.
+func (o *Task) SetReferencedByExecutionTaskIdObjects(v []Execution) {
+	o.ReferencedByExecutionTaskIdObjects = v
 }
 
 // GetReferencedByOutputTaskIdObjects returns the ReferencedByOutputTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByOutputTaskIdObjects() []Execution {
+func (o *Task) GetReferencedByOutputTaskIdObjects() []Output {
 	if o == nil {
-		var ret []Execution
+		var ret []Output
 		return ret
 	}
 	return o.ReferencedByOutputTaskIdObjects
@@ -422,7 +385,7 @@ func (o *Task) GetReferencedByOutputTaskIdObjects() []Execution {
 // GetReferencedByOutputTaskIdObjectsOk returns a tuple with the ReferencedByOutputTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByOutputTaskIdObjectsOk() ([]Execution, bool) {
+func (o *Task) GetReferencedByOutputTaskIdObjectsOk() ([]Output, bool) {
 	if o == nil || IsNil(o.ReferencedByOutputTaskIdObjects) {
 		return nil, false
 	}
@@ -438,8 +401,8 @@ func (o *Task) HasReferencedByOutputTaskIdObjects() bool {
 	return false
 }
 
-// SetReferencedByOutputTaskIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByOutputTaskIdObjects field.
-func (o *Task) SetReferencedByOutputTaskIdObjects(v []Execution) {
+// SetReferencedByOutputTaskIdObjects gets a reference to the given []Output and assigns it to the ReferencedByOutputTaskIdObjects field.
+func (o *Task) SetReferencedByOutputTaskIdObjects(v []Output) {
 	o.ReferencedByOutputTaskIdObjects = v
 }
 
@@ -529,26 +492,23 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Image) {
 		toSerialize["image"] = o.Image
 	}
+	if !IsNil(o.Index) {
+		toSerialize["index"] = o.Index
+	}
+	if !IsNil(o.JobId) {
+		toSerialize["job_id"] = o.JobId
+	}
+	if !IsNil(o.JobIdObject) {
+		toSerialize["job_id_object"] = o.JobIdObject
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.ReferencedByJobBuildTaskIdObjects != nil {
-		toSerialize["referenced_by_job_build_task_id_objects"] = o.ReferencedByJobBuildTaskIdObjects
-	}
-	if o.ReferencedByJobDeployTaskIdObjects != nil {
-		toSerialize["referenced_by_job_deploy_task_id_objects"] = o.ReferencedByJobDeployTaskIdObjects
-	}
-	if o.ReferencedByJobPublishTaskIdObjects != nil {
-		toSerialize["referenced_by_job_publish_task_id_objects"] = o.ReferencedByJobPublishTaskIdObjects
-	}
-	if o.ReferencedByJobTestTaskIdObjects != nil {
-		toSerialize["referenced_by_job_test_task_id_objects"] = o.ReferencedByJobTestTaskIdObjects
-	}
-	if o.ReferencedByJobValidateTaskIdObjects != nil {
-		toSerialize["referenced_by_job_validate_task_id_objects"] = o.ReferencedByJobValidateTaskIdObjects
+	if o.ReferencedByExecutionTaskIdObjects != nil {
+		toSerialize["referenced_by_execution_task_id_objects"] = o.ReferencedByExecutionTaskIdObjects
 	}
 	if o.ReferencedByOutputTaskIdObjects != nil {
 		toSerialize["referenced_by_output_task_id_objects"] = o.ReferencedByOutputTaskIdObjects

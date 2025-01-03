@@ -23,14 +23,12 @@ type Repository struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 	Id *string `json:"id,omitempty"`
-	LastSynced *time.Time `json:"last_synced,omitempty"`
-	Password *string `json:"password,omitempty"`
+	LastSyncedAt *time.Time `json:"last_synced_at,omitempty"`
+	Name *string `json:"name,omitempty"`
 	ReferencedByChangeRepositoryIdObjects []Change `json:"referenced_by_change_repository_id_objects,omitempty"`
 	ReferencedByRuleRepositoryIdObjects []Rule `json:"referenced_by_rule_repository_id_objects,omitempty"`
-	SshKey *string `json:"ssh_key,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	Url *string `json:"url,omitempty"`
-	Username *string `json:"username,omitempty"`
 }
 
 // NewRepository instantiates a new Repository object
@@ -146,68 +144,68 @@ func (o *Repository) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLastSynced returns the LastSynced field value if set, zero value otherwise.
-func (o *Repository) GetLastSynced() time.Time {
-	if o == nil || IsNil(o.LastSynced) {
+// GetLastSyncedAt returns the LastSyncedAt field value if set, zero value otherwise.
+func (o *Repository) GetLastSyncedAt() time.Time {
+	if o == nil || IsNil(o.LastSyncedAt) {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastSynced
+	return *o.LastSyncedAt
 }
 
-// GetLastSyncedOk returns a tuple with the LastSynced field value if set, nil otherwise
+// GetLastSyncedAtOk returns a tuple with the LastSyncedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Repository) GetLastSyncedOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.LastSynced) {
+func (o *Repository) GetLastSyncedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncedAt) {
 		return nil, false
 	}
-	return o.LastSynced, true
+	return o.LastSyncedAt, true
 }
 
-// HasLastSynced returns a boolean if a field has been set.
-func (o *Repository) HasLastSynced() bool {
-	if o != nil && !IsNil(o.LastSynced) {
+// HasLastSyncedAt returns a boolean if a field has been set.
+func (o *Repository) HasLastSyncedAt() bool {
+	if o != nil && !IsNil(o.LastSyncedAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastSynced gets a reference to the given time.Time and assigns it to the LastSynced field.
-func (o *Repository) SetLastSynced(v time.Time) {
-	o.LastSynced = &v
+// SetLastSyncedAt gets a reference to the given time.Time and assigns it to the LastSyncedAt field.
+func (o *Repository) SetLastSyncedAt(v time.Time) {
+	o.LastSyncedAt = &v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
-func (o *Repository) GetPassword() string {
-	if o == nil || IsNil(o.Password) {
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Repository) GetName() string {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-	return *o.Password
+	return *o.Name
 }
 
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Repository) GetPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.Password) {
+func (o *Repository) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return o.Password, true
+	return o.Name, true
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *Repository) HasPassword() bool {
-	if o != nil && !IsNil(o.Password) {
+// HasName returns a boolean if a field has been set.
+func (o *Repository) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// SetPassword gets a reference to the given string and assigns it to the Password field.
-func (o *Repository) SetPassword(v string) {
-	o.Password = &v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Repository) SetName(v string) {
+	o.Name = &v
 }
 
 // GetReferencedByChangeRepositoryIdObjects returns the ReferencedByChangeRepositoryIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -276,38 +274,6 @@ func (o *Repository) SetReferencedByRuleRepositoryIdObjects(v []Rule) {
 	o.ReferencedByRuleRepositoryIdObjects = v
 }
 
-// GetSshKey returns the SshKey field value if set, zero value otherwise.
-func (o *Repository) GetSshKey() string {
-	if o == nil || IsNil(o.SshKey) {
-		var ret string
-		return ret
-	}
-	return *o.SshKey
-}
-
-// GetSshKeyOk returns a tuple with the SshKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Repository) GetSshKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.SshKey) {
-		return nil, false
-	}
-	return o.SshKey, true
-}
-
-// HasSshKey returns a boolean if a field has been set.
-func (o *Repository) HasSshKey() bool {
-	if o != nil && !IsNil(o.SshKey) {
-		return true
-	}
-
-	return false
-}
-
-// SetSshKey gets a reference to the given string and assigns it to the SshKey field.
-func (o *Repository) SetSshKey(v string) {
-	o.SshKey = &v
-}
-
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *Repository) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -372,38 +338,6 @@ func (o *Repository) SetUrl(v string) {
 	o.Url = &v
 }
 
-// GetUsername returns the Username field value if set, zero value otherwise.
-func (o *Repository) GetUsername() string {
-	if o == nil || IsNil(o.Username) {
-		var ret string
-		return ret
-	}
-	return *o.Username
-}
-
-// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Repository) GetUsernameOk() (*string, bool) {
-	if o == nil || IsNil(o.Username) {
-		return nil, false
-	}
-	return o.Username, true
-}
-
-// HasUsername returns a boolean if a field has been set.
-func (o *Repository) HasUsername() bool {
-	if o != nil && !IsNil(o.Username) {
-		return true
-	}
-
-	return false
-}
-
-// SetUsername gets a reference to the given string and assigns it to the Username field.
-func (o *Repository) SetUsername(v string) {
-	o.Username = &v
-}
-
 func (o Repository) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -423,11 +357,11 @@ func (o Repository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.LastSynced) {
-		toSerialize["last_synced"] = o.LastSynced
+	if !IsNil(o.LastSyncedAt) {
+		toSerialize["last_synced_at"] = o.LastSyncedAt
 	}
-	if !IsNil(o.Password) {
-		toSerialize["password"] = o.Password
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
 	}
 	if o.ReferencedByChangeRepositoryIdObjects != nil {
 		toSerialize["referenced_by_change_repository_id_objects"] = o.ReferencedByChangeRepositoryIdObjects
@@ -435,17 +369,11 @@ func (o Repository) ToMap() (map[string]interface{}, error) {
 	if o.ReferencedByRuleRepositoryIdObjects != nil {
 		toSerialize["referenced_by_rule_repository_id_objects"] = o.ReferencedByRuleRepositoryIdObjects
 	}
-	if !IsNil(o.SshKey) {
-		toSerialize["ssh_key"] = o.SshKey
-	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
-	}
-	if !IsNil(o.Username) {
-		toSerialize["username"] = o.Username
 	}
 	return toSerialize, nil
 }

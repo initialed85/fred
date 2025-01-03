@@ -21,35 +21,35 @@ import (
 )
 
 
-// TriggerHasExecutionAPIService TriggerHasExecutionAPI service
-type TriggerHasExecutionAPIService service
+// M2mRuleTriggerJobAPIService M2mRuleTriggerJobAPI service
+type M2mRuleTriggerJobAPIService service
 
-type ApiDeleteTriggerHasExecutionRequest struct {
+type ApiDeleteM2mRuleTriggerJobRequest struct {
 	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
+	ApiService *M2mRuleTriggerJobAPIService
 	primaryKey string
 	depth *int64
 }
 
 // Query parameter depth
-func (r ApiDeleteTriggerHasExecutionRequest) Depth(depth int64) ApiDeleteTriggerHasExecutionRequest {
+func (r ApiDeleteM2mRuleTriggerJobRequest) Depth(depth int64) ApiDeleteM2mRuleTriggerJobRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiDeleteTriggerHasExecutionRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteTriggerHasExecutionExecute(r)
+func (r ApiDeleteM2mRuleTriggerJobRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteM2mRuleTriggerJobExecute(r)
 }
 
 /*
-DeleteTriggerHasExecution Method for DeleteTriggerHasExecution
+DeleteM2mRuleTriggerJob Method for DeleteM2mRuleTriggerJob
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiDeleteTriggerHasExecutionRequest
+ @return ApiDeleteM2mRuleTriggerJobRequest
 */
-func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecution(ctx context.Context, primaryKey string) ApiDeleteTriggerHasExecutionRequest {
-	return ApiDeleteTriggerHasExecutionRequest{
+func (a *M2mRuleTriggerJobAPIService) DeleteM2mRuleTriggerJob(ctx context.Context, primaryKey string) ApiDeleteM2mRuleTriggerJobRequest {
+	return ApiDeleteM2mRuleTriggerJobRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -57,19 +57,19 @@ func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecution(ctx context.Co
 }
 
 // Execute executes the request
-func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecutionExecute(r ApiDeleteTriggerHasExecutionRequest) (*http.Response, error) {
+func (a *M2mRuleTriggerJobAPIService) DeleteM2mRuleTriggerJobExecute(r ApiDeleteM2mRuleTriggerJobRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.DeleteTriggerHasExecution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "M2mRuleTriggerJobAPIService.DeleteM2mRuleTriggerJob")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/trigger-has-executions/{primaryKey}"
+	localVarPath := localBasePath + "/api/m-2m-rule-trigger-jobs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -124,32 +124,32 @@ func (a *TriggerHasExecutionAPIService) DeleteTriggerHasExecutionExecute(r ApiDe
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetTriggerHasExecutionRequest struct {
+type ApiGetM2mRuleTriggerJobRequest struct {
 	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
+	ApiService *M2mRuleTriggerJobAPIService
 	primaryKey string
 	depth *int64
 }
 
 // Query parameter depth
-func (r ApiGetTriggerHasExecutionRequest) Depth(depth int64) ApiGetTriggerHasExecutionRequest {
+func (r ApiGetM2mRuleTriggerJobRequest) Depth(depth int64) ApiGetM2mRuleTriggerJobRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiGetTriggerHasExecutionRequest) Execute() (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
-	return r.ApiService.GetTriggerHasExecutionExecute(r)
+func (r ApiGetM2mRuleTriggerJobRequest) Execute() (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
+	return r.ApiService.GetM2mRuleTriggerJobExecute(r)
 }
 
 /*
-GetTriggerHasExecution Method for GetTriggerHasExecution
+GetM2mRuleTriggerJob Method for GetM2mRuleTriggerJob
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiGetTriggerHasExecutionRequest
+ @return ApiGetM2mRuleTriggerJobRequest
 */
-func (a *TriggerHasExecutionAPIService) GetTriggerHasExecution(ctx context.Context, primaryKey string) ApiGetTriggerHasExecutionRequest {
-	return ApiGetTriggerHasExecutionRequest{
+func (a *M2mRuleTriggerJobAPIService) GetM2mRuleTriggerJob(ctx context.Context, primaryKey string) ApiGetM2mRuleTriggerJobRequest {
+	return ApiGetM2mRuleTriggerJobRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -157,21 +157,21 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecution(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
-func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionExecute(r ApiGetTriggerHasExecutionRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
+//  @return ResponseWithGenericOfM2mRuleTriggerJob
+func (a *M2mRuleTriggerJobAPIService) GetM2mRuleTriggerJobExecute(r ApiGetM2mRuleTriggerJobRequest) (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarReturnValue  *ResponseWithGenericOfM2mRuleTriggerJob
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.GetTriggerHasExecution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "M2mRuleTriggerJobAPIService.GetM2mRuleTriggerJob")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/trigger-has-executions/{primaryKey}"
+	localVarPath := localBasePath + "/api/m-2m-rule-trigger-jobs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -243,12 +243,13 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionExecute(r ApiGetTr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetTriggerHasExecutionsRequest struct {
+type ApiGetM2mRuleTriggerJobsRequest struct {
 	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
+	ApiService *M2mRuleTriggerJobAPIService
 	limit *int32
 	offset *int32
 	depth *int32
+	referencedByExecutionLoad *string
 	idEq *string
 	idNe *string
 	idGt *string
@@ -305,619 +306,415 @@ type ApiGetTriggerHasExecutionsRequest struct {
 	deletedAtNotilike *time.Time
 	deletedAtDesc *string
 	deletedAtAsc *string
-	triggerIdEq *string
-	triggerIdNe *string
-	triggerIdGt *string
-	triggerIdGte *string
-	triggerIdLt *string
-	triggerIdLte *string
-	triggerIdIn *string
-	triggerIdNotin *string
-	triggerIdLike *string
-	triggerIdNotlike *string
-	triggerIdIlike *string
-	triggerIdNotilike *string
-	triggerIdDesc *string
-	triggerIdAsc *string
-	triggerIdObjectDesc *string
-	triggerIdObjectAsc *string
-	executionIdEq *string
-	executionIdNe *string
-	executionIdGt *string
-	executionIdGte *string
-	executionIdLt *string
-	executionIdLte *string
-	executionIdIn *string
-	executionIdNotin *string
-	executionIdLike *string
-	executionIdNotlike *string
-	executionIdIlike *string
-	executionIdNotilike *string
-	executionIdDesc *string
-	executionIdAsc *string
-	executionIdObjectDesc *string
-	executionIdObjectAsc *string
+	referencedByExecutionM2mRuleTriggerJobIdObjectsDesc *string
+	referencedByExecutionM2mRuleTriggerJobIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
-func (r ApiGetTriggerHasExecutionsRequest) Limit(limit int32) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) Limit(limit int32) ApiGetM2mRuleTriggerJobsRequest {
 	r.limit = &limit
 	return r
 }
 
 // SQL OFFSET operator
-func (r ApiGetTriggerHasExecutionsRequest) Offset(offset int32) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) Offset(offset int32) ApiGetM2mRuleTriggerJobsRequest {
 	r.offset = &offset
 	return r
 }
 
 // Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc)
-func (r ApiGetTriggerHasExecutionsRequest) Depth(depth int32) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) Depth(depth int32) ApiGetM2mRuleTriggerJobsRequest {
 	r.depth = &depth
 	return r
 }
 
+// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+func (r ApiGetM2mRuleTriggerJobsRequest) ReferencedByExecutionLoad(referencedByExecutionLoad string) ApiGetM2mRuleTriggerJobsRequest {
+	r.referencedByExecutionLoad = &referencedByExecutionLoad
+	return r
+}
+
 // SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) IdEq(idEq string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdEq(idEq string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idEq = &idEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) IdNe(idNe string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdNe(idNe string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idNe = &idNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) IdGt(idGt string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdGt(idGt string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idGt = &idGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) IdGte(idGte string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdGte(idGte string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idGte = &idGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) IdLt(idLt string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdLt(idLt string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idLt = &idLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) IdLte(idLte string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdLte(idLte string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idLte = &idLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) IdIn(idIn string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdIn(idIn string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idIn = &idIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) IdNotin(idNotin string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdNotin(idNotin string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idNotin = &idNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) IdLike(idLike string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdLike(idLike string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idLike = &idLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) IdNotlike(idNotlike string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdNotlike(idNotlike string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idNotlike = &idNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) IdIlike(idIlike string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdIlike(idIlike string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idIlike = &idIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) IdNotilike(idNotilike string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdNotilike(idNotilike string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idNotilike = &idNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) IdDesc(idDesc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdDesc(idDesc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idDesc = &idDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) IdAsc(idAsc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) IdAsc(idAsc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.idAsc = &idAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtEq(createdAtEq time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtEq(createdAtEq time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtEq = &createdAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtNe(createdAtNe time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtNe(createdAtNe time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtNe = &createdAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtGt(createdAtGt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtGt(createdAtGt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtGt = &createdAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtGte(createdAtGte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtGte(createdAtGte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtGte = &createdAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtLt(createdAtLt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtLt(createdAtLt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtLt = &createdAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtLte(createdAtLte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtLte(createdAtLte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtLte = &createdAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtIn(createdAtIn time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtIn(createdAtIn time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtIn = &createdAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtNotin = &createdAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtLike(createdAtLike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtLike(createdAtLike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtLike = &createdAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtNotlike(createdAtNotlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtNotlike(createdAtNotlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtNotlike = &createdAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtIlike(createdAtIlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtIlike(createdAtIlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtIlike = &createdAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtNotilike(createdAtNotilike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtNotilike(createdAtNotilike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtNotilike = &createdAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtDesc(createdAtDesc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtDesc(createdAtDesc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtDesc = &createdAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) CreatedAtAsc(createdAtAsc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) CreatedAtAsc(createdAtAsc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.createdAtAsc = &createdAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtEq(updatedAtEq time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtEq(updatedAtEq time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtEq = &updatedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtNe(updatedAtNe time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtNe(updatedAtNe time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtNe = &updatedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtGt(updatedAtGt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtGt(updatedAtGt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtGt = &updatedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtGte(updatedAtGte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtGte(updatedAtGte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtGte = &updatedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtLt(updatedAtLt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtLt(updatedAtLt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtLt = &updatedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtLte(updatedAtLte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtLte(updatedAtLte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtLte = &updatedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtIn = &updatedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtNotin = &updatedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtLike(updatedAtLike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtLike(updatedAtLike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtLike = &updatedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtNotlike(updatedAtNotlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtNotlike(updatedAtNotlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtNotlike = &updatedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtIlike(updatedAtIlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtIlike(updatedAtIlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtIlike = &updatedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtNotilike(updatedAtNotilike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtNotilike(updatedAtNotilike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtNotilike = &updatedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtDesc(updatedAtDesc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtDesc(updatedAtDesc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtDesc = &updatedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) UpdatedAtAsc(updatedAtAsc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) UpdatedAtAsc(updatedAtAsc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.updatedAtAsc = &updatedAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtEq(deletedAtEq time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtEq(deletedAtEq time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtEq = &deletedAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtNe(deletedAtNe time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtNe(deletedAtNe time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtNe = &deletedAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtGt(deletedAtGt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtGt(deletedAtGt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtGt = &deletedAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtGte(deletedAtGte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtGte(deletedAtGte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtGte = &deletedAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtLt(deletedAtLt time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtLt(deletedAtLt time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtLt = &deletedAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtLte(deletedAtLte time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtLte(deletedAtLte time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtLte = &deletedAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtIn(deletedAtIn time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtIn(deletedAtIn time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtIn = &deletedAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtNotin = &deletedAtNotin
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtLike = &deletedAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtNotlike(deletedAtNotlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtNotlike(deletedAtNotlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtNotlike = &deletedAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtIlike(deletedAtIlike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtIlike(deletedAtIlike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtIlike = &deletedAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtNotilike(deletedAtNotilike time.Time) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtNotilike(deletedAtNotilike time.Time) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtNotilike = &deletedAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtDesc(deletedAtDesc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtDesc = &deletedAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetTriggerHasExecutionsRequest {
+func (r ApiGetM2mRuleTriggerJobsRequest) DeletedAtAsc(deletedAtAsc string) ApiGetM2mRuleTriggerJobsRequest {
 	r.deletedAtAsc = &deletedAtAsc
 	return r
 }
 
-// SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdEq(triggerIdEq string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdEq = &triggerIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdNe(triggerIdNe string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdNe = &triggerIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdGt(triggerIdGt string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdGt = &triggerIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdGte(triggerIdGte string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdGte = &triggerIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdLt(triggerIdLt string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdLt = &triggerIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdLte(triggerIdLte string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdLte = &triggerIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdIn(triggerIdIn string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdIn = &triggerIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdNotin(triggerIdNotin string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdNotin = &triggerIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdLike(triggerIdLike string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdLike = &triggerIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdNotlike(triggerIdNotlike string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdNotlike = &triggerIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdIlike(triggerIdIlike string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdIlike = &triggerIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdNotilike(triggerIdNotilike string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdNotilike = &triggerIdNotilike
-	return r
-}
-
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdDesc(triggerIdDesc string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdDesc = &triggerIdDesc
+func (r ApiGetM2mRuleTriggerJobsRequest) ReferencedByExecutionM2mRuleTriggerJobIdObjectsDesc(referencedByExecutionM2mRuleTriggerJobIdObjectsDesc string) ApiGetM2mRuleTriggerJobsRequest {
+	r.referencedByExecutionM2mRuleTriggerJobIdObjectsDesc = &referencedByExecutionM2mRuleTriggerJobIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdAsc(triggerIdAsc string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdAsc = &triggerIdAsc
+func (r ApiGetM2mRuleTriggerJobsRequest) ReferencedByExecutionM2mRuleTriggerJobIdObjectsAsc(referencedByExecutionM2mRuleTriggerJobIdObjectsAsc string) ApiGetM2mRuleTriggerJobsRequest {
+	r.referencedByExecutionM2mRuleTriggerJobIdObjectsAsc = &referencedByExecutionM2mRuleTriggerJobIdObjectsAsc
 	return r
 }
 
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdObjectDesc(triggerIdObjectDesc string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdObjectDesc = &triggerIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) TriggerIdObjectAsc(triggerIdObjectAsc string) ApiGetTriggerHasExecutionsRequest {
-	r.triggerIdObjectAsc = &triggerIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdEq(executionIdEq string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdEq = &executionIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdNe(executionIdNe string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdNe = &executionIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdGt(executionIdGt string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdGt = &executionIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdGte(executionIdGte string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdGte = &executionIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdLt(executionIdLt string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdLt = &executionIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdLte(executionIdLte string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdLte = &executionIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdIn(executionIdIn string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdIn = &executionIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdNotin(executionIdNotin string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdNotin = &executionIdNotin
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdLike(executionIdLike string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdLike = &executionIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdNotlike(executionIdNotlike string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdNotlike = &executionIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdIlike(executionIdIlike string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdIlike = &executionIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdNotilike(executionIdNotilike string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdNotilike = &executionIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdDesc(executionIdDesc string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdDesc = &executionIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdAsc(executionIdAsc string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdAsc = &executionIdAsc
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdObjectDesc(executionIdObjectDesc string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdObjectDesc = &executionIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTriggerHasExecutionsRequest) ExecutionIdObjectAsc(executionIdObjectAsc string) ApiGetTriggerHasExecutionsRequest {
-	r.executionIdObjectAsc = &executionIdObjectAsc
-	return r
-}
-
-func (r ApiGetTriggerHasExecutionsRequest) Execute() (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
-	return r.ApiService.GetTriggerHasExecutionsExecute(r)
+func (r ApiGetM2mRuleTriggerJobsRequest) Execute() (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
+	return r.ApiService.GetM2mRuleTriggerJobsExecute(r)
 }
 
 /*
-GetTriggerHasExecutions Method for GetTriggerHasExecutions
+GetM2mRuleTriggerJobs Method for GetM2mRuleTriggerJobs
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTriggerHasExecutionsRequest
+ @return ApiGetM2mRuleTriggerJobsRequest
 */
-func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutions(ctx context.Context) ApiGetTriggerHasExecutionsRequest {
-	return ApiGetTriggerHasExecutionsRequest{
+func (a *M2mRuleTriggerJobAPIService) GetM2mRuleTriggerJobs(ctx context.Context) ApiGetM2mRuleTriggerJobsRequest {
+	return ApiGetM2mRuleTriggerJobsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
-func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetTriggerHasExecutionsRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
+//  @return ResponseWithGenericOfM2mRuleTriggerJob
+func (a *M2mRuleTriggerJobAPIService) GetM2mRuleTriggerJobsExecute(r ApiGetM2mRuleTriggerJobsRequest) (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarReturnValue  *ResponseWithGenericOfM2mRuleTriggerJob
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.GetTriggerHasExecutions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "M2mRuleTriggerJobAPIService.GetM2mRuleTriggerJobs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/trigger-has-executions"
+	localVarPath := localBasePath + "/api/m-2m-rule-trigger-jobs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -931,6 +728,9 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetT
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.referencedByExecutionLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution__load", r.referencedByExecutionLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1100,101 +900,11 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetT
 	if r.deletedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__asc", r.deletedAtAsc, "form", "")
 	}
-	if r.triggerIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__eq", r.triggerIdEq, "form", "")
+	if r.referencedByExecutionM2mRuleTriggerJobIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_m2m_rule_trigger_job_id_objects__desc", r.referencedByExecutionM2mRuleTriggerJobIdObjectsDesc, "form", "")
 	}
-	if r.triggerIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__ne", r.triggerIdNe, "form", "")
-	}
-	if r.triggerIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__gt", r.triggerIdGt, "form", "")
-	}
-	if r.triggerIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__gte", r.triggerIdGte, "form", "")
-	}
-	if r.triggerIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__lt", r.triggerIdLt, "form", "")
-	}
-	if r.triggerIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__lte", r.triggerIdLte, "form", "")
-	}
-	if r.triggerIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__in", r.triggerIdIn, "form", "")
-	}
-	if r.triggerIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notin", r.triggerIdNotin, "form", "")
-	}
-	if r.triggerIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__like", r.triggerIdLike, "form", "")
-	}
-	if r.triggerIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notlike", r.triggerIdNotlike, "form", "")
-	}
-	if r.triggerIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__ilike", r.triggerIdIlike, "form", "")
-	}
-	if r.triggerIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notilike", r.triggerIdNotilike, "form", "")
-	}
-	if r.triggerIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__desc", r.triggerIdDesc, "form", "")
-	}
-	if r.triggerIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__asc", r.triggerIdAsc, "form", "")
-	}
-	if r.triggerIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__desc", r.triggerIdObjectDesc, "form", "")
-	}
-	if r.triggerIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__asc", r.triggerIdObjectAsc, "form", "")
-	}
-	if r.executionIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__eq", r.executionIdEq, "form", "")
-	}
-	if r.executionIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__ne", r.executionIdNe, "form", "")
-	}
-	if r.executionIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__gt", r.executionIdGt, "form", "")
-	}
-	if r.executionIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__gte", r.executionIdGte, "form", "")
-	}
-	if r.executionIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__lt", r.executionIdLt, "form", "")
-	}
-	if r.executionIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__lte", r.executionIdLte, "form", "")
-	}
-	if r.executionIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__in", r.executionIdIn, "form", "")
-	}
-	if r.executionIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notin", r.executionIdNotin, "form", "")
-	}
-	if r.executionIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__like", r.executionIdLike, "form", "")
-	}
-	if r.executionIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notlike", r.executionIdNotlike, "form", "")
-	}
-	if r.executionIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__ilike", r.executionIdIlike, "form", "")
-	}
-	if r.executionIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notilike", r.executionIdNotilike, "form", "")
-	}
-	if r.executionIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__desc", r.executionIdDesc, "form", "")
-	}
-	if r.executionIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__asc", r.executionIdAsc, "form", "")
-	}
-	if r.executionIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__desc", r.executionIdObjectDesc, "form", "")
-	}
-	if r.executionIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__asc", r.executionIdObjectAsc, "form", "")
+	if r.referencedByExecutionM2mRuleTriggerJobIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_m2m_rule_trigger_job_id_objects__asc", r.referencedByExecutionM2mRuleTriggerJobIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1258,38 +968,38 @@ func (a *TriggerHasExecutionAPIService) GetTriggerHasExecutionsExecute(r ApiGetT
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchTriggerHasExecutionRequest struct {
+type ApiPatchM2mRuleTriggerJobRequest struct {
 	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
+	ApiService *M2mRuleTriggerJobAPIService
 	primaryKey string
-	triggerHasExecution *TriggerHasExecution
+	m2MRuleTriggerJob *M2MRuleTriggerJob
 	depth *int64
 }
 
-func (r ApiPatchTriggerHasExecutionRequest) TriggerHasExecution(triggerHasExecution TriggerHasExecution) ApiPatchTriggerHasExecutionRequest {
-	r.triggerHasExecution = &triggerHasExecution
+func (r ApiPatchM2mRuleTriggerJobRequest) M2MRuleTriggerJob(m2MRuleTriggerJob M2MRuleTriggerJob) ApiPatchM2mRuleTriggerJobRequest {
+	r.m2MRuleTriggerJob = &m2MRuleTriggerJob
 	return r
 }
 
 // Query parameter depth
-func (r ApiPatchTriggerHasExecutionRequest) Depth(depth int64) ApiPatchTriggerHasExecutionRequest {
+func (r ApiPatchM2mRuleTriggerJobRequest) Depth(depth int64) ApiPatchM2mRuleTriggerJobRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPatchTriggerHasExecutionRequest) Execute() (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
-	return r.ApiService.PatchTriggerHasExecutionExecute(r)
+func (r ApiPatchM2mRuleTriggerJobRequest) Execute() (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
+	return r.ApiService.PatchM2mRuleTriggerJobExecute(r)
 }
 
 /*
-PatchTriggerHasExecution Method for PatchTriggerHasExecution
+PatchM2mRuleTriggerJob Method for PatchM2mRuleTriggerJob
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param primaryKey Path parameter primaryKey
- @return ApiPatchTriggerHasExecutionRequest
+ @return ApiPatchM2mRuleTriggerJobRequest
 */
-func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecution(ctx context.Context, primaryKey string) ApiPatchTriggerHasExecutionRequest {
-	return ApiPatchTriggerHasExecutionRequest{
+func (a *M2mRuleTriggerJobAPIService) PatchM2mRuleTriggerJob(ctx context.Context, primaryKey string) ApiPatchM2mRuleTriggerJobRequest {
+	return ApiPatchM2mRuleTriggerJobRequest{
 		ApiService: a,
 		ctx: ctx,
 		primaryKey: primaryKey,
@@ -1297,28 +1007,28 @@ func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecution(ctx context.Con
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
-func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPatchTriggerHasExecutionRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
+//  @return ResponseWithGenericOfM2mRuleTriggerJob
+func (a *M2mRuleTriggerJobAPIService) PatchM2mRuleTriggerJobExecute(r ApiPatchM2mRuleTriggerJobRequest) (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarReturnValue  *ResponseWithGenericOfM2mRuleTriggerJob
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.PatchTriggerHasExecution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "M2mRuleTriggerJobAPIService.PatchM2mRuleTriggerJob")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/trigger-has-executions/{primaryKey}"
+	localVarPath := localBasePath + "/api/m-2m-rule-trigger-jobs/{primaryKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.triggerHasExecution == nil {
-		return localVarReturnValue, nil, reportError("triggerHasExecution is required and must be specified")
+	if r.m2MRuleTriggerJob == nil {
+		return localVarReturnValue, nil, reportError("m2MRuleTriggerJob is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1342,7 +1052,7 @@ func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.triggerHasExecution
+	localVarPostBody = r.m2MRuleTriggerJob
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1388,63 +1098,63 @@ func (a *TriggerHasExecutionAPIService) PatchTriggerHasExecutionExecute(r ApiPat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostTriggerHasExecutionsRequest struct {
+type ApiPostM2mRuleTriggerJobsRequest struct {
 	ctx context.Context
-	ApiService *TriggerHasExecutionAPIService
-	triggerHasExecution *[]TriggerHasExecution
+	ApiService *M2mRuleTriggerJobAPIService
+	m2MRuleTriggerJob *[]M2MRuleTriggerJob
 	depth *int64
 }
 
-func (r ApiPostTriggerHasExecutionsRequest) TriggerHasExecution(triggerHasExecution []TriggerHasExecution) ApiPostTriggerHasExecutionsRequest {
-	r.triggerHasExecution = &triggerHasExecution
+func (r ApiPostM2mRuleTriggerJobsRequest) M2MRuleTriggerJob(m2MRuleTriggerJob []M2MRuleTriggerJob) ApiPostM2mRuleTriggerJobsRequest {
+	r.m2MRuleTriggerJob = &m2MRuleTriggerJob
 	return r
 }
 
 // Query parameter depth
-func (r ApiPostTriggerHasExecutionsRequest) Depth(depth int64) ApiPostTriggerHasExecutionsRequest {
+func (r ApiPostM2mRuleTriggerJobsRequest) Depth(depth int64) ApiPostM2mRuleTriggerJobsRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPostTriggerHasExecutionsRequest) Execute() (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
-	return r.ApiService.PostTriggerHasExecutionsExecute(r)
+func (r ApiPostM2mRuleTriggerJobsRequest) Execute() (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
+	return r.ApiService.PostM2mRuleTriggerJobsExecute(r)
 }
 
 /*
-PostTriggerHasExecutions Method for PostTriggerHasExecutions
+PostM2mRuleTriggerJobs Method for PostM2mRuleTriggerJobs
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostTriggerHasExecutionsRequest
+ @return ApiPostM2mRuleTriggerJobsRequest
 */
-func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutions(ctx context.Context) ApiPostTriggerHasExecutionsRequest {
-	return ApiPostTriggerHasExecutionsRequest{
+func (a *M2mRuleTriggerJobAPIService) PostM2mRuleTriggerJobs(ctx context.Context) ApiPostM2mRuleTriggerJobsRequest {
+	return ApiPostM2mRuleTriggerJobsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTriggerHasExecution
-func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutionsExecute(r ApiPostTriggerHasExecutionsRequest) (*ResponseWithGenericOfTriggerHasExecution, *http.Response, error) {
+//  @return ResponseWithGenericOfM2mRuleTriggerJob
+func (a *M2mRuleTriggerJobAPIService) PostM2mRuleTriggerJobsExecute(r ApiPostM2mRuleTriggerJobsRequest) (*ResponseWithGenericOfM2mRuleTriggerJob, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTriggerHasExecution
+		localVarReturnValue  *ResponseWithGenericOfM2mRuleTriggerJob
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TriggerHasExecutionAPIService.PostTriggerHasExecutions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "M2mRuleTriggerJobAPIService.PostM2mRuleTriggerJobs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/trigger-has-executions"
+	localVarPath := localBasePath + "/api/m-2m-rule-trigger-jobs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.triggerHasExecution == nil {
-		return localVarReturnValue, nil, reportError("triggerHasExecution is required and must be specified")
+	if r.m2MRuleTriggerJob == nil {
+		return localVarReturnValue, nil, reportError("m2MRuleTriggerJob is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -1468,7 +1178,7 @@ func (a *TriggerHasExecutionAPIService) PostTriggerHasExecutionsExecute(r ApiPos
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.triggerHasExecution
+	localVarPostBody = r.m2MRuleTriggerJob
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

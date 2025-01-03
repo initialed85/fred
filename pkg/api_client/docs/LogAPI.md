@@ -1,20 +1,20 @@
-# \RuleRequiresJobAPI
+# \LogAPI
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteRuleRequiresJob**](RuleRequiresJobAPI.md#DeleteRuleRequiresJob) | **Delete** /api/rule-requires-jobs/{primaryKey} | 
-[**GetRuleRequiresJob**](RuleRequiresJobAPI.md#GetRuleRequiresJob) | **Get** /api/rule-requires-jobs/{primaryKey} | 
-[**GetRuleRequiresJobs**](RuleRequiresJobAPI.md#GetRuleRequiresJobs) | **Get** /api/rule-requires-jobs | 
-[**PatchRuleRequiresJob**](RuleRequiresJobAPI.md#PatchRuleRequiresJob) | **Patch** /api/rule-requires-jobs/{primaryKey} | 
-[**PostRuleRequiresJobs**](RuleRequiresJobAPI.md#PostRuleRequiresJobs) | **Post** /api/rule-requires-jobs | 
+[**DeleteLog**](LogAPI.md#DeleteLog) | **Delete** /api/logs/{primaryKey} | 
+[**GetLog**](LogAPI.md#GetLog) | **Get** /api/logs/{primaryKey} | 
+[**GetLogs**](LogAPI.md#GetLogs) | **Get** /api/logs | 
+[**PatchLog**](LogAPI.md#PatchLog) | **Patch** /api/logs/{primaryKey} | 
+[**PostLogs**](LogAPI.md#PostLogs) | **Post** /api/logs | 
 
 
 
-## DeleteRuleRequiresJob
+## DeleteLog
 
-> DeleteRuleRequiresJob(ctx, primaryKey).Depth(depth).Execute()
+> DeleteLog(ctx, primaryKey).Depth(depth).Execute()
 
 
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.RuleRequiresJobAPI.DeleteRuleRequiresJob(context.Background(), primaryKey).Depth(depth).Execute()
+	r, err := apiClient.LogAPI.DeleteLog(context.Background(), primaryKey).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RuleRequiresJobAPI.DeleteRuleRequiresJob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.DeleteLog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteRuleRequiresJobRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteLogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetRuleRequiresJob
+## GetLog
 
-> ResponseWithGenericOfRuleRequiresJob GetRuleRequiresJob(ctx, primaryKey).Depth(depth).Execute()
+> ResponseWithGenericOfLog GetLog(ctx, primaryKey).Depth(depth).Execute()
 
 
 
@@ -104,13 +104,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RuleRequiresJobAPI.GetRuleRequiresJob(context.Background(), primaryKey).Depth(depth).Execute()
+	resp, r, err := apiClient.LogAPI.GetLog(context.Background(), primaryKey).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RuleRequiresJobAPI.GetRuleRequiresJob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.GetLog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRuleRequiresJob`: ResponseWithGenericOfRuleRequiresJob
-	fmt.Fprintf(os.Stdout, "Response from `RuleRequiresJobAPI.GetRuleRequiresJob`: %v\n", resp)
+	// response from `GetLog`: ResponseWithGenericOfLog
+	fmt.Fprintf(os.Stdout, "Response from `LogAPI.GetLog`: %v\n", resp)
 }
 ```
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetRuleRequiresJobRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponseWithGenericOfRuleRequiresJob**](ResponseWithGenericOfRuleRequiresJob.md)
+[**ResponseWithGenericOfLog**](ResponseWithGenericOfLog.md)
 
 ### Authorization
 
@@ -150,9 +150,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetRuleRequiresJobs
+## GetLogs
 
-> ResponseWithGenericOfRuleRequiresJob GetRuleRequiresJobs(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).RuleIdEq(ruleIdEq).RuleIdNe(ruleIdNe).RuleIdGt(ruleIdGt).RuleIdGte(ruleIdGte).RuleIdLt(ruleIdLt).RuleIdLte(ruleIdLte).RuleIdIn(ruleIdIn).RuleIdNotin(ruleIdNotin).RuleIdLike(ruleIdLike).RuleIdNotlike(ruleIdNotlike).RuleIdIlike(ruleIdIlike).RuleIdNotilike(ruleIdNotilike).RuleIdDesc(ruleIdDesc).RuleIdAsc(ruleIdAsc).RuleIdObjectDesc(ruleIdObjectDesc).RuleIdObjectAsc(ruleIdObjectAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).Execute()
+> ResponseWithGenericOfLog GetLogs(ctx).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogidObjectsDesc(referencedByOutputLogidObjectsDesc).ReferencedByOutputLogidObjectsAsc(referencedByOutputLogidObjectsAsc).Execute()
 
 
 
@@ -173,6 +173,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
+	outputLoad := "outputLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLoad := "referencedByOutputLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -229,48 +231,48 @@ func main() {
 	deletedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtDesc := "deletedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	deletedAtAsc := "deletedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	ruleIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	ruleIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	ruleIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	ruleIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	ruleIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	ruleIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	ruleIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	ruleIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	ruleIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	ruleIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	ruleIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	ruleIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	ruleIdDesc := "ruleIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	ruleIdAsc := "ruleIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	ruleIdObjectDesc := "ruleIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	ruleIdObjectAsc := "ruleIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	jobIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	jobIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	jobIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	jobIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	jobIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	jobIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	jobIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	jobIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobIdDesc := "jobIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdAsc := "jobIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdObjectDesc := "jobIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobIdObjectAsc := "jobIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	bufferEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
+	bufferNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
+	bufferGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
+	bufferGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
+	bufferLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
+	bufferLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
+	bufferIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
+	bufferNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	bufferLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	bufferDesc := "bufferDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	bufferAsc := "bufferAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	outputIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
+	outputIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
+	outputIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
+	outputIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
+	outputIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
+	outputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
+	outputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
+	outputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	outputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	outputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	outputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	outputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	outputIdDesc := "outputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	outputIdAsc := "outputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	outputIdObjectDesc := "outputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	outputIdObjectAsc := "outputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLogidObjectsDesc := "referencedByOutputLogidObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLogidObjectsAsc := "referencedByOutputLogidObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RuleRequiresJobAPI.GetRuleRequiresJobs(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).RuleIdEq(ruleIdEq).RuleIdNe(ruleIdNe).RuleIdGt(ruleIdGt).RuleIdGte(ruleIdGte).RuleIdLt(ruleIdLt).RuleIdLte(ruleIdLte).RuleIdIn(ruleIdIn).RuleIdNotin(ruleIdNotin).RuleIdLike(ruleIdLike).RuleIdNotlike(ruleIdNotlike).RuleIdIlike(ruleIdIlike).RuleIdNotilike(ruleIdNotilike).RuleIdDesc(ruleIdDesc).RuleIdAsc(ruleIdAsc).RuleIdObjectDesc(ruleIdObjectDesc).RuleIdObjectAsc(ruleIdObjectAsc).JobIdEq(jobIdEq).JobIdNe(jobIdNe).JobIdGt(jobIdGt).JobIdGte(jobIdGte).JobIdLt(jobIdLt).JobIdLte(jobIdLte).JobIdIn(jobIdIn).JobIdNotin(jobIdNotin).JobIdLike(jobIdLike).JobIdNotlike(jobIdNotlike).JobIdIlike(jobIdIlike).JobIdNotilike(jobIdNotilike).JobIdDesc(jobIdDesc).JobIdAsc(jobIdAsc).JobIdObjectDesc(jobIdObjectDesc).JobIdObjectAsc(jobIdObjectAsc).Execute()
+	resp, r, err := apiClient.LogAPI.GetLogs(context.Background()).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogidObjectsDesc(referencedByOutputLogidObjectsDesc).ReferencedByOutputLogidObjectsAsc(referencedByOutputLogidObjectsAsc).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RuleRequiresJobAPI.GetRuleRequiresJobs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.GetLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetRuleRequiresJobs`: ResponseWithGenericOfRuleRequiresJob
-	fmt.Fprintf(os.Stdout, "Response from `RuleRequiresJobAPI.GetRuleRequiresJobs`: %v\n", resp)
+	// response from `GetLogs`: ResponseWithGenericOfLog
+	fmt.Fprintf(os.Stdout, "Response from `LogAPI.GetLogs`: %v\n", resp)
 }
 ```
 
@@ -280,7 +282,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetRuleRequiresJobsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -288,6 +290,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
+ **outputLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -344,42 +348,42 @@ Name | Type | Description  | Notes
  **deletedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **deletedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **ruleIdEq** | **string** | SQL &#x3D; comparison | 
- **ruleIdNe** | **string** | SQL !&#x3D; comparison | 
- **ruleIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **ruleIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **ruleIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **ruleIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **ruleIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **ruleIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **ruleIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **ruleIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **ruleIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **ruleIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **ruleIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **ruleIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **ruleIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **ruleIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobIdEq** | **string** | SQL &#x3D; comparison | 
- **jobIdNe** | **string** | SQL !&#x3D; comparison | 
- **jobIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **jobIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **jobIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **jobIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **jobIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **jobIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **jobIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **bufferEq** | **string** | SQL &#x3D; comparison | 
+ **bufferNe** | **string** | SQL !&#x3D; comparison | 
+ **bufferGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **bufferGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **bufferLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **bufferLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **bufferIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **bufferNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **bufferLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **bufferDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **bufferAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **outputIdEq** | **string** | SQL &#x3D; comparison | 
+ **outputIdNe** | **string** | SQL !&#x3D; comparison | 
+ **outputIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **outputIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **outputIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **outputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **outputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **outputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **outputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **outputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **outputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **outputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **outputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **outputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **outputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **outputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLogidObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLogidObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 
-[**ResponseWithGenericOfRuleRequiresJob**](ResponseWithGenericOfRuleRequiresJob.md)
+[**ResponseWithGenericOfLog**](ResponseWithGenericOfLog.md)
 
 ### Authorization
 
@@ -395,9 +399,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PatchRuleRequiresJob
+## PatchLog
 
-> ResponseWithGenericOfRuleRequiresJob PatchRuleRequiresJob(ctx, primaryKey).RuleRequiresJob(ruleRequiresJob).Depth(depth).Execute()
+> ResponseWithGenericOfLog PatchLog(ctx, primaryKey).Log(log).Depth(depth).Execute()
 
 
 
@@ -415,18 +419,18 @@ import (
 
 func main() {
 	primaryKey := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Path parameter primaryKey
-	ruleRequiresJob := *openapiclient.NewRuleRequiresJob() // RuleRequiresJob | 
+	log := *openapiclient.NewLog() // Log | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RuleRequiresJobAPI.PatchRuleRequiresJob(context.Background(), primaryKey).RuleRequiresJob(ruleRequiresJob).Depth(depth).Execute()
+	resp, r, err := apiClient.LogAPI.PatchLog(context.Background(), primaryKey).Log(log).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RuleRequiresJobAPI.PatchRuleRequiresJob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.PatchLog``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchRuleRequiresJob`: ResponseWithGenericOfRuleRequiresJob
-	fmt.Fprintf(os.Stdout, "Response from `RuleRequiresJobAPI.PatchRuleRequiresJob`: %v\n", resp)
+	// response from `PatchLog`: ResponseWithGenericOfLog
+	fmt.Fprintf(os.Stdout, "Response from `LogAPI.PatchLog`: %v\n", resp)
 }
 ```
 
@@ -440,18 +444,18 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchRuleRequiresJobRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchLogRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **ruleRequiresJob** | [**RuleRequiresJob**](RuleRequiresJob.md) |  | 
+ **log** | [**Log**](Log.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type
 
-[**ResponseWithGenericOfRuleRequiresJob**](ResponseWithGenericOfRuleRequiresJob.md)
+[**ResponseWithGenericOfLog**](ResponseWithGenericOfLog.md)
 
 ### Authorization
 
@@ -467,9 +471,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PostRuleRequiresJobs
+## PostLogs
 
-> ResponseWithGenericOfRuleRequiresJob PostRuleRequiresJobs(ctx).RuleRequiresJob(ruleRequiresJob).Depth(depth).Execute()
+> ResponseWithGenericOfLog PostLogs(ctx).Log(log).Depth(depth).Execute()
 
 
 
@@ -486,18 +490,18 @@ import (
 )
 
 func main() {
-	ruleRequiresJob := []openapiclient.RuleRequiresJob{*openapiclient.NewRuleRequiresJob()} // []RuleRequiresJob | 
+	log := []openapiclient.Log{*openapiclient.NewLog()} // []Log | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RuleRequiresJobAPI.PostRuleRequiresJobs(context.Background()).RuleRequiresJob(ruleRequiresJob).Depth(depth).Execute()
+	resp, r, err := apiClient.LogAPI.PostLogs(context.Background()).Log(log).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `RuleRequiresJobAPI.PostRuleRequiresJobs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.PostLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostRuleRequiresJobs`: ResponseWithGenericOfRuleRequiresJob
-	fmt.Fprintf(os.Stdout, "Response from `RuleRequiresJobAPI.PostRuleRequiresJobs`: %v\n", resp)
+	// response from `PostLogs`: ResponseWithGenericOfLog
+	fmt.Fprintf(os.Stdout, "Response from `LogAPI.PostLogs`: %v\n", resp)
 }
 ```
 
@@ -507,17 +511,17 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostRuleRequiresJobsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostLogsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ruleRequiresJob** | [**[]RuleRequiresJob**](RuleRequiresJob.md) |  | 
+ **log** | [**[]Log**](Log.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type
 
-[**ResponseWithGenericOfRuleRequiresJob**](ResponseWithGenericOfRuleRequiresJob.md)
+[**ResponseWithGenericOfLog**](ResponseWithGenericOfLog.md)
 
 ### Authorization
 

@@ -34,41 +34,35 @@ type Repository struct {
 	CreatedAt                             time.Time  `json:"created_at"`
 	UpdatedAt                             time.Time  `json:"updated_at"`
 	DeletedAt                             *time.Time `json:"deleted_at"`
-	LastSynced                            time.Time  `json:"last_synced"`
 	URL                                   string     `json:"url"`
-	Username                              *string    `json:"username"`
-	Password                              *string    `json:"password"`
-	SSHKey                                *string    `json:"ssh_key"`
+	Name                                  *string    `json:"name"`
+	LastSyncedAt                          time.Time  `json:"last_synced_at"`
 	ReferencedByChangeRepositoryIDObjects []*Change  `json:"referenced_by_change_repository_id_objects"`
 	ReferencedByRuleRepositoryIDObjects   []*Rule    `json:"referenced_by_rule_repository_id_objects"`
 }
 
 var RepositoryTable = "repository"
 
-var RepositoryTableNamespaceID int32 = 1337 + 5
+var RepositoryTableNamespaceID int32 = 1337 + 7
 
 var (
-	RepositoryTableIDColumn         = "id"
-	RepositoryTableCreatedAtColumn  = "created_at"
-	RepositoryTableUpdatedAtColumn  = "updated_at"
-	RepositoryTableDeletedAtColumn  = "deleted_at"
-	RepositoryTableLastSyncedColumn = "last_synced"
-	RepositoryTableURLColumn        = "url"
-	RepositoryTableUsernameColumn   = "username"
-	RepositoryTablePasswordColumn   = "password"
-	RepositoryTableSSHKeyColumn     = "ssh_key"
+	RepositoryTableIDColumn           = "id"
+	RepositoryTableCreatedAtColumn    = "created_at"
+	RepositoryTableUpdatedAtColumn    = "updated_at"
+	RepositoryTableDeletedAtColumn    = "deleted_at"
+	RepositoryTableURLColumn          = "url"
+	RepositoryTableNameColumn         = "name"
+	RepositoryTableLastSyncedAtColumn = "last_synced_at"
 )
 
 var (
-	RepositoryTableIDColumnWithTypeCast         = `"id" AS id`
-	RepositoryTableCreatedAtColumnWithTypeCast  = `"created_at" AS created_at`
-	RepositoryTableUpdatedAtColumnWithTypeCast  = `"updated_at" AS updated_at`
-	RepositoryTableDeletedAtColumnWithTypeCast  = `"deleted_at" AS deleted_at`
-	RepositoryTableLastSyncedColumnWithTypeCast = `"last_synced" AS last_synced`
-	RepositoryTableURLColumnWithTypeCast        = `"url" AS url`
-	RepositoryTableUsernameColumnWithTypeCast   = `"username" AS username`
-	RepositoryTablePasswordColumnWithTypeCast   = `"password" AS password`
-	RepositoryTableSSHKeyColumnWithTypeCast     = `"ssh_key" AS ssh_key`
+	RepositoryTableIDColumnWithTypeCast           = `"id" AS id`
+	RepositoryTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
+	RepositoryTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
+	RepositoryTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
+	RepositoryTableURLColumnWithTypeCast          = `"url" AS url`
+	RepositoryTableNameColumnWithTypeCast         = `"name" AS name`
+	RepositoryTableLastSyncedAtColumnWithTypeCast = `"last_synced_at" AS last_synced_at`
 )
 
 var RepositoryTableColumns = []string{
@@ -76,11 +70,9 @@ var RepositoryTableColumns = []string{
 	RepositoryTableCreatedAtColumn,
 	RepositoryTableUpdatedAtColumn,
 	RepositoryTableDeletedAtColumn,
-	RepositoryTableLastSyncedColumn,
 	RepositoryTableURLColumn,
-	RepositoryTableUsernameColumn,
-	RepositoryTablePasswordColumn,
-	RepositoryTableSSHKeyColumn,
+	RepositoryTableNameColumn,
+	RepositoryTableLastSyncedAtColumn,
 }
 
 var RepositoryTableColumnsWithTypeCasts = []string{
@@ -88,11 +80,9 @@ var RepositoryTableColumnsWithTypeCasts = []string{
 	RepositoryTableCreatedAtColumnWithTypeCast,
 	RepositoryTableUpdatedAtColumnWithTypeCast,
 	RepositoryTableDeletedAtColumnWithTypeCast,
-	RepositoryTableLastSyncedColumnWithTypeCast,
 	RepositoryTableURLColumnWithTypeCast,
-	RepositoryTableUsernameColumnWithTypeCast,
-	RepositoryTablePasswordColumnWithTypeCast,
-	RepositoryTableSSHKeyColumnWithTypeCast,
+	RepositoryTableNameColumnWithTypeCast,
+	RepositoryTableLastSyncedAtColumnWithTypeCast,
 }
 
 var RepositoryIntrospectedTable *introspect.Table
@@ -249,25 +239,6 @@ func (m *Repository) FromItem(item map[string]any) error {
 
 			m.DeletedAt = &temp2
 
-		case "last_synced":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseTime(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(time.Time)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uulast_synced.UUID", temp1))
-				}
-			}
-
-			m.LastSynced = temp2
-
 		case "url":
 			if v == nil {
 				continue
@@ -287,7 +258,7 @@ func (m *Repository) FromItem(item map[string]any) error {
 
 			m.URL = temp2
 
-		case "username":
+		case "name":
 			if v == nil {
 				continue
 			}
@@ -300,49 +271,30 @@ func (m *Repository) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(string)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuusername.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuname.UUID", temp1))
 				}
 			}
 
-			m.Username = &temp2
+			m.Name = &temp2
 
-		case "password":
+		case "last_synced_at":
 			if v == nil {
 				continue
 			}
 
-			temp1, err := types.ParseString(v)
+			temp1, err := types.ParseTime(v)
 			if err != nil {
 				return wrapError(k, v, err)
 			}
 
-			temp2, ok := temp1.(string)
+			temp2, ok := temp1.(time.Time)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uupassword.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uulast_synced_at.UUID", temp1))
 				}
 			}
 
-			m.Password = &temp2
-
-		case "ssh_key":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseString(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(string)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uussh_key.UUID", temp1))
-				}
-			}
-
-			m.SSHKey = &temp2
+			m.LastSyncedAt = temp2
 
 		}
 	}
@@ -377,11 +329,9 @@ func (m *Repository) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...b
 	m.CreatedAt = o.CreatedAt
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
-	m.LastSynced = o.LastSynced
 	m.URL = o.URL
-	m.Username = o.Username
-	m.Password = o.Password
-	m.SSHKey = o.SSHKey
+	m.Name = o.Name
+	m.LastSyncedAt = o.LastSyncedAt
 	m.ReferencedByChangeRepositoryIDObjects = o.ReferencedByChangeRepositoryIDObjects
 	m.ReferencedByRuleRepositoryIDObjects = o.ReferencedByRuleRepositoryIDObjects
 
@@ -436,17 +386,6 @@ func (m *Repository) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.LastSynced) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableLastSyncedColumn) {
-		columns = append(columns, RepositoryTableLastSyncedColumn)
-
-		v, err := types.FormatTime(m.LastSynced)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.LastSynced; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	if setZeroValues || !types.IsZeroString(m.URL) || slices.Contains(forceSetValuesForFields, RepositoryTableURLColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableURLColumn) {
 		columns = append(columns, RepositoryTableURLColumn)
 
@@ -458,34 +397,23 @@ func (m *Repository) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.Username) || slices.Contains(forceSetValuesForFields, RepositoryTableUsernameColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableUsernameColumn) {
-		columns = append(columns, RepositoryTableUsernameColumn)
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, RepositoryTableNameColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableNameColumn) {
+		columns = append(columns, RepositoryTableNameColumn)
 
-		v, err := types.FormatString(m.Username)
+		v, err := types.FormatString(m.Name)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Username; %v", err)
+			return fmt.Errorf("failed to handle m.Name; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.Password) || slices.Contains(forceSetValuesForFields, RepositoryTablePasswordColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTablePasswordColumn) {
-		columns = append(columns, RepositoryTablePasswordColumn)
+	if setZeroValues || !types.IsZeroTime(m.LastSyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedAtColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableLastSyncedAtColumn) {
+		columns = append(columns, RepositoryTableLastSyncedAtColumn)
 
-		v, err := types.FormatString(m.Password)
+		v, err := types.FormatTime(m.LastSyncedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Password; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroString(m.SSHKey) || slices.Contains(forceSetValuesForFields, RepositoryTableSSHKeyColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableSSHKeyColumn) {
-		columns = append(columns, RepositoryTableSSHKeyColumn)
-
-		v, err := types.FormatString(m.SSHKey)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.SSHKey; %v", err)
+			return fmt.Errorf("failed to handle m.LastSyncedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -582,17 +510,6 @@ func (m *Repository) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.LastSynced) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedColumn) {
-		columns = append(columns, RepositoryTableLastSyncedColumn)
-
-		v, err := types.FormatTime(m.LastSynced)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.LastSynced; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	if setZeroValues || !types.IsZeroString(m.URL) || slices.Contains(forceSetValuesForFields, RepositoryTableURLColumn) {
 		columns = append(columns, RepositoryTableURLColumn)
 
@@ -604,34 +521,23 @@ func (m *Repository) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.Username) || slices.Contains(forceSetValuesForFields, RepositoryTableUsernameColumn) {
-		columns = append(columns, RepositoryTableUsernameColumn)
+	if setZeroValues || !types.IsZeroString(m.Name) || slices.Contains(forceSetValuesForFields, RepositoryTableNameColumn) {
+		columns = append(columns, RepositoryTableNameColumn)
 
-		v, err := types.FormatString(m.Username)
+		v, err := types.FormatString(m.Name)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Username; %v", err)
+			return fmt.Errorf("failed to handle m.Name; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.Password) || slices.Contains(forceSetValuesForFields, RepositoryTablePasswordColumn) {
-		columns = append(columns, RepositoryTablePasswordColumn)
+	if setZeroValues || !types.IsZeroTime(m.LastSyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedAtColumn) {
+		columns = append(columns, RepositoryTableLastSyncedAtColumn)
 
-		v, err := types.FormatString(m.Password)
+		v, err := types.FormatTime(m.LastSyncedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Password; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
-	if setZeroValues || !types.IsZeroString(m.SSHKey) || slices.Contains(forceSetValuesForFields, RepositoryTableSSHKeyColumn) {
-		columns = append(columns, RepositoryTableSSHKeyColumn)
-
-		v, err := types.FormatString(m.SSHKey)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.SSHKey; %v", err)
+			return fmt.Errorf("failed to handle m.LastSyncedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -754,8 +660,15 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 
 	possiblePathValue := query.GetCurrentPathValue(ctx)
 	isLoadQuery := possiblePathValue != nil && len(possiblePathValue.VisitedTableNames) > 0
-	ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RepositoryTable, nil), !isLoadQuery)
-	if !ok {
+
+	shouldLoad := query.ShouldLoad(ctx, RepositoryTable) || query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", RepositoryTable))
+
+	var ok bool
+	ctx, ok = query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RepositoryTable, nil), !isLoadQuery)
+	if !ok && !shouldLoad {
+		if config.Debug() {
+			log.Printf("skipping SelectRepository early (query.ShouldLoad(): %v, query.HandleQueryPathGraphCycles(): %v)", shouldLoad, ok)
+		}
 		return []*Repository{}, 0, 0, 0, 0, nil
 	}
 
@@ -785,8 +698,9 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 		}
 
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RepositoryTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ChangeTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ChangeTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
@@ -821,8 +735,9 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 		}
 
 		err = func() error {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RepositoryTable, object.GetPrimaryKeyValue()), true)
-			if ok {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", RuleTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
@@ -902,10 +817,6 @@ func SelectRepository(ctx context.Context, tx pgx.Tx, where string, values ...an
 func handleGetRepositories(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Repository, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
-		if config.Debug() {
-			log.Printf("")
-		}
-
 		return nil, 0, 0, 0, 0, err
 	}
 
@@ -1304,6 +1215,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				return response, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1414,6 +1326,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				return response, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1487,6 +1400,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				}, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1540,6 +1454,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				}, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1602,6 +1517,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				}, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)
@@ -1637,6 +1553,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 				return server.EmptyResponse{}, nil
 			},
 			Repository{},
+			RepositoryIntrospectedTable,
 		)
 		if err != nil {
 			panic(err)

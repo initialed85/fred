@@ -1,20 +1,20 @@
-# \TriggerHasExecutionAPI
+# \M2mRuleTriggerJobAPI
 
 All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTriggerHasExecution**](TriggerHasExecutionAPI.md#DeleteTriggerHasExecution) | **Delete** /api/trigger-has-executions/{primaryKey} | 
-[**GetTriggerHasExecution**](TriggerHasExecutionAPI.md#GetTriggerHasExecution) | **Get** /api/trigger-has-executions/{primaryKey} | 
-[**GetTriggerHasExecutions**](TriggerHasExecutionAPI.md#GetTriggerHasExecutions) | **Get** /api/trigger-has-executions | 
-[**PatchTriggerHasExecution**](TriggerHasExecutionAPI.md#PatchTriggerHasExecution) | **Patch** /api/trigger-has-executions/{primaryKey} | 
-[**PostTriggerHasExecutions**](TriggerHasExecutionAPI.md#PostTriggerHasExecutions) | **Post** /api/trigger-has-executions | 
+[**DeleteM2mRuleTriggerJob**](M2mRuleTriggerJobAPI.md#DeleteM2mRuleTriggerJob) | **Delete** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+[**GetM2mRuleTriggerJob**](M2mRuleTriggerJobAPI.md#GetM2mRuleTriggerJob) | **Get** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+[**GetM2mRuleTriggerJobs**](M2mRuleTriggerJobAPI.md#GetM2mRuleTriggerJobs) | **Get** /api/m-2m-rule-trigger-jobs | 
+[**PatchM2mRuleTriggerJob**](M2mRuleTriggerJobAPI.md#PatchM2mRuleTriggerJob) | **Patch** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
+[**PostM2mRuleTriggerJobs**](M2mRuleTriggerJobAPI.md#PostM2mRuleTriggerJobs) | **Post** /api/m-2m-rule-trigger-jobs | 
 
 
 
-## DeleteTriggerHasExecution
+## DeleteM2mRuleTriggerJob
 
-> DeleteTriggerHasExecution(ctx, primaryKey).Depth(depth).Execute()
+> DeleteM2mRuleTriggerJob(ctx, primaryKey).Depth(depth).Execute()
 
 
 
@@ -36,9 +36,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.TriggerHasExecutionAPI.DeleteTriggerHasExecution(context.Background(), primaryKey).Depth(depth).Execute()
+	r, err := apiClient.M2mRuleTriggerJobAPI.DeleteM2mRuleTriggerJob(context.Background(), primaryKey).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TriggerHasExecutionAPI.DeleteTriggerHasExecution``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `M2mRuleTriggerJobAPI.DeleteM2mRuleTriggerJob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteTriggerHasExecutionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteM2mRuleTriggerJobRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -80,9 +80,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetTriggerHasExecution
+## GetM2mRuleTriggerJob
 
-> ResponseWithGenericOfTriggerHasExecution GetTriggerHasExecution(ctx, primaryKey).Depth(depth).Execute()
+> ResponseWithGenericOfM2mRuleTriggerJob GetM2mRuleTriggerJob(ctx, primaryKey).Depth(depth).Execute()
 
 
 
@@ -104,13 +104,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggerHasExecutionAPI.GetTriggerHasExecution(context.Background(), primaryKey).Depth(depth).Execute()
+	resp, r, err := apiClient.M2mRuleTriggerJobAPI.GetM2mRuleTriggerJob(context.Background(), primaryKey).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TriggerHasExecutionAPI.GetTriggerHasExecution``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `M2mRuleTriggerJobAPI.GetM2mRuleTriggerJob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTriggerHasExecution`: ResponseWithGenericOfTriggerHasExecution
-	fmt.Fprintf(os.Stdout, "Response from `TriggerHasExecutionAPI.GetTriggerHasExecution`: %v\n", resp)
+	// response from `GetM2mRuleTriggerJob`: ResponseWithGenericOfM2mRuleTriggerJob
+	fmt.Fprintf(os.Stdout, "Response from `M2mRuleTriggerJobAPI.GetM2mRuleTriggerJob`: %v\n", resp)
 }
 ```
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetTriggerHasExecutionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetM2mRuleTriggerJobRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponseWithGenericOfTriggerHasExecution**](ResponseWithGenericOfTriggerHasExecution.md)
+[**ResponseWithGenericOfM2mRuleTriggerJob**](ResponseWithGenericOfM2mRuleTriggerJob.md)
 
 ### Authorization
 
@@ -150,9 +150,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetTriggerHasExecutions
+## GetM2mRuleTriggerJobs
 
-> ResponseWithGenericOfTriggerHasExecution GetTriggerHasExecutions(ctx).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).TriggerIdEq(triggerIdEq).TriggerIdNe(triggerIdNe).TriggerIdGt(triggerIdGt).TriggerIdGte(triggerIdGte).TriggerIdLt(triggerIdLt).TriggerIdLte(triggerIdLte).TriggerIdIn(triggerIdIn).TriggerIdNotin(triggerIdNotin).TriggerIdLike(triggerIdLike).TriggerIdNotlike(triggerIdNotlike).TriggerIdIlike(triggerIdIlike).TriggerIdNotilike(triggerIdNotilike).TriggerIdDesc(triggerIdDesc).TriggerIdAsc(triggerIdAsc).TriggerIdObjectDesc(triggerIdObjectDesc).TriggerIdObjectAsc(triggerIdObjectAsc).ExecutionIdEq(executionIdEq).ExecutionIdNe(executionIdNe).ExecutionIdGt(executionIdGt).ExecutionIdGte(executionIdGte).ExecutionIdLt(executionIdLt).ExecutionIdLte(executionIdLte).ExecutionIdIn(executionIdIn).ExecutionIdNotin(executionIdNotin).ExecutionIdLike(executionIdLike).ExecutionIdNotlike(executionIdNotlike).ExecutionIdIlike(executionIdIlike).ExecutionIdNotilike(executionIdNotilike).ExecutionIdDesc(executionIdDesc).ExecutionIdAsc(executionIdAsc).ExecutionIdObjectDesc(executionIdObjectDesc).ExecutionIdObjectAsc(executionIdObjectAsc).Execute()
+> ResponseWithGenericOfM2mRuleTriggerJob GetM2mRuleTriggerJobs(ctx).Limit(limit).Offset(offset).Depth(depth).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).ReferencedByExecutionM2mRuleTriggerJobIdObjectsDesc(referencedByExecutionM2mRuleTriggerJobIdObjectsDesc).ReferencedByExecutionM2mRuleTriggerJobIdObjectsAsc(referencedByExecutionM2mRuleTriggerJobIdObjectsAsc).Execute()
 
 
 
@@ -173,6 +173,7 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
+	referencedByExecutionLoad := "referencedByExecutionLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -229,48 +230,18 @@ func main() {
 	deletedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtDesc := "deletedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	deletedAtAsc := "deletedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	triggerIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	triggerIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	triggerIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	triggerIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	triggerIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	triggerIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	triggerIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	triggerIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerIdDesc := "triggerIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdAsc := "triggerIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdObjectDesc := "triggerIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerIdObjectAsc := "triggerIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	executionIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	executionIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	executionIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	executionIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	executionIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	executionIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	executionIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	executionIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	executionIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	executionIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	executionIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	executionIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	executionIdDesc := "executionIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	executionIdAsc := "executionIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	executionIdObjectDesc := "executionIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	executionIdObjectAsc := "executionIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByExecutionM2mRuleTriggerJobIdObjectsDesc := "referencedByExecutionM2mRuleTriggerJobIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByExecutionM2mRuleTriggerJobIdObjectsAsc := "referencedByExecutionM2mRuleTriggerJobIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggerHasExecutionAPI.GetTriggerHasExecutions(context.Background()).Limit(limit).Offset(offset).Depth(depth).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).TriggerIdEq(triggerIdEq).TriggerIdNe(triggerIdNe).TriggerIdGt(triggerIdGt).TriggerIdGte(triggerIdGte).TriggerIdLt(triggerIdLt).TriggerIdLte(triggerIdLte).TriggerIdIn(triggerIdIn).TriggerIdNotin(triggerIdNotin).TriggerIdLike(triggerIdLike).TriggerIdNotlike(triggerIdNotlike).TriggerIdIlike(triggerIdIlike).TriggerIdNotilike(triggerIdNotilike).TriggerIdDesc(triggerIdDesc).TriggerIdAsc(triggerIdAsc).TriggerIdObjectDesc(triggerIdObjectDesc).TriggerIdObjectAsc(triggerIdObjectAsc).ExecutionIdEq(executionIdEq).ExecutionIdNe(executionIdNe).ExecutionIdGt(executionIdGt).ExecutionIdGte(executionIdGte).ExecutionIdLt(executionIdLt).ExecutionIdLte(executionIdLte).ExecutionIdIn(executionIdIn).ExecutionIdNotin(executionIdNotin).ExecutionIdLike(executionIdLike).ExecutionIdNotlike(executionIdNotlike).ExecutionIdIlike(executionIdIlike).ExecutionIdNotilike(executionIdNotilike).ExecutionIdDesc(executionIdDesc).ExecutionIdAsc(executionIdAsc).ExecutionIdObjectDesc(executionIdObjectDesc).ExecutionIdObjectAsc(executionIdObjectAsc).Execute()
+	resp, r, err := apiClient.M2mRuleTriggerJobAPI.GetM2mRuleTriggerJobs(context.Background()).Limit(limit).Offset(offset).Depth(depth).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).ReferencedByExecutionM2mRuleTriggerJobIdObjectsDesc(referencedByExecutionM2mRuleTriggerJobIdObjectsDesc).ReferencedByExecutionM2mRuleTriggerJobIdObjectsAsc(referencedByExecutionM2mRuleTriggerJobIdObjectsAsc).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TriggerHasExecutionAPI.GetTriggerHasExecutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `M2mRuleTriggerJobAPI.GetM2mRuleTriggerJobs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetTriggerHasExecutions`: ResponseWithGenericOfTriggerHasExecution
-	fmt.Fprintf(os.Stdout, "Response from `TriggerHasExecutionAPI.GetTriggerHasExecutions`: %v\n", resp)
+	// response from `GetM2mRuleTriggerJobs`: ResponseWithGenericOfM2mRuleTriggerJob
+	fmt.Fprintf(os.Stdout, "Response from `M2mRuleTriggerJobAPI.GetM2mRuleTriggerJobs`: %v\n", resp)
 }
 ```
 
@@ -280,7 +251,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetTriggerHasExecutionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetM2mRuleTriggerJobsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -288,6 +259,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
+ **referencedByExecutionLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -344,42 +316,12 @@ Name | Type | Description  | Notes
  **deletedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **deletedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdEq** | **string** | SQL &#x3D; comparison | 
- **triggerIdNe** | **string** | SQL !&#x3D; comparison | 
- **triggerIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **triggerIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **triggerIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **triggerIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **triggerIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **triggerIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **triggerIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggerIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **executionIdEq** | **string** | SQL &#x3D; comparison | 
- **executionIdNe** | **string** | SQL !&#x3D; comparison | 
- **executionIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **executionIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **executionIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **executionIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **executionIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **executionIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **executionIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **executionIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **executionIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **executionIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **executionIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **executionIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **executionIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **executionIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByExecutionM2mRuleTriggerJobIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByExecutionM2mRuleTriggerJobIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 
-[**ResponseWithGenericOfTriggerHasExecution**](ResponseWithGenericOfTriggerHasExecution.md)
+[**ResponseWithGenericOfM2mRuleTriggerJob**](ResponseWithGenericOfM2mRuleTriggerJob.md)
 
 ### Authorization
 
@@ -395,9 +337,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PatchTriggerHasExecution
+## PatchM2mRuleTriggerJob
 
-> ResponseWithGenericOfTriggerHasExecution PatchTriggerHasExecution(ctx, primaryKey).TriggerHasExecution(triggerHasExecution).Depth(depth).Execute()
+> ResponseWithGenericOfM2mRuleTriggerJob PatchM2mRuleTriggerJob(ctx, primaryKey).M2MRuleTriggerJob(m2MRuleTriggerJob).Depth(depth).Execute()
 
 
 
@@ -415,18 +357,18 @@ import (
 
 func main() {
 	primaryKey := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Path parameter primaryKey
-	triggerHasExecution := *openapiclient.NewTriggerHasExecution() // TriggerHasExecution | 
+	m2MRuleTriggerJob := *openapiclient.NewM2MRuleTriggerJob() // M2MRuleTriggerJob | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggerHasExecutionAPI.PatchTriggerHasExecution(context.Background(), primaryKey).TriggerHasExecution(triggerHasExecution).Depth(depth).Execute()
+	resp, r, err := apiClient.M2mRuleTriggerJobAPI.PatchM2mRuleTriggerJob(context.Background(), primaryKey).M2MRuleTriggerJob(m2MRuleTriggerJob).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TriggerHasExecutionAPI.PatchTriggerHasExecution``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `M2mRuleTriggerJobAPI.PatchM2mRuleTriggerJob``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PatchTriggerHasExecution`: ResponseWithGenericOfTriggerHasExecution
-	fmt.Fprintf(os.Stdout, "Response from `TriggerHasExecutionAPI.PatchTriggerHasExecution`: %v\n", resp)
+	// response from `PatchM2mRuleTriggerJob`: ResponseWithGenericOfM2mRuleTriggerJob
+	fmt.Fprintf(os.Stdout, "Response from `M2mRuleTriggerJobAPI.PatchM2mRuleTriggerJob`: %v\n", resp)
 }
 ```
 
@@ -440,18 +382,18 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPatchTriggerHasExecutionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPatchM2mRuleTriggerJobRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **triggerHasExecution** | [**TriggerHasExecution**](TriggerHasExecution.md) |  | 
+ **m2MRuleTriggerJob** | [**M2MRuleTriggerJob**](M2MRuleTriggerJob.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type
 
-[**ResponseWithGenericOfTriggerHasExecution**](ResponseWithGenericOfTriggerHasExecution.md)
+[**ResponseWithGenericOfM2mRuleTriggerJob**](ResponseWithGenericOfM2mRuleTriggerJob.md)
 
 ### Authorization
 
@@ -467,9 +409,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PostTriggerHasExecutions
+## PostM2mRuleTriggerJobs
 
-> ResponseWithGenericOfTriggerHasExecution PostTriggerHasExecutions(ctx).TriggerHasExecution(triggerHasExecution).Depth(depth).Execute()
+> ResponseWithGenericOfM2mRuleTriggerJob PostM2mRuleTriggerJobs(ctx).M2MRuleTriggerJob(m2MRuleTriggerJob).Depth(depth).Execute()
 
 
 
@@ -486,18 +428,18 @@ import (
 )
 
 func main() {
-	triggerHasExecution := []openapiclient.TriggerHasExecution{*openapiclient.NewTriggerHasExecution()} // []TriggerHasExecution | 
+	m2MRuleTriggerJob := []openapiclient.M2MRuleTriggerJob{*openapiclient.NewM2MRuleTriggerJob()} // []M2MRuleTriggerJob | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.TriggerHasExecutionAPI.PostTriggerHasExecutions(context.Background()).TriggerHasExecution(triggerHasExecution).Depth(depth).Execute()
+	resp, r, err := apiClient.M2mRuleTriggerJobAPI.PostM2mRuleTriggerJobs(context.Background()).M2MRuleTriggerJob(m2MRuleTriggerJob).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `TriggerHasExecutionAPI.PostTriggerHasExecutions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `M2mRuleTriggerJobAPI.PostM2mRuleTriggerJobs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostTriggerHasExecutions`: ResponseWithGenericOfTriggerHasExecution
-	fmt.Fprintf(os.Stdout, "Response from `TriggerHasExecutionAPI.PostTriggerHasExecutions`: %v\n", resp)
+	// response from `PostM2mRuleTriggerJobs`: ResponseWithGenericOfM2mRuleTriggerJob
+	fmt.Fprintf(os.Stdout, "Response from `M2mRuleTriggerJobAPI.PostM2mRuleTriggerJobs`: %v\n", resp)
 }
 ```
 
@@ -507,17 +449,17 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostTriggerHasExecutionsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostM2mRuleTriggerJobsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **triggerHasExecution** | [**[]TriggerHasExecution**](TriggerHasExecution.md) |  | 
+ **m2MRuleTriggerJob** | [**[]M2MRuleTriggerJob**](M2MRuleTriggerJob.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type
 
-[**ResponseWithGenericOfTriggerHasExecution**](ResponseWithGenericOfTriggerHasExecution.md)
+[**ResponseWithGenericOfM2mRuleTriggerJob**](ResponseWithGenericOfM2mRuleTriggerJob.md)
 
 ### Authorization
 

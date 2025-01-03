@@ -4,17 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Buffer** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
+**EndedAt** | Pointer to **time.Time** |  | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
 **ExitStatus** | Pointer to **int64** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**ReferencedByExecutionBuildOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
-**ReferencedByExecutionDeployOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
-**ReferencedByExecutionPublishOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
-**ReferencedByExecutionTestOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
-**ReferencedByExecutionValidateOutputIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
+**Logid** | Pointer to **string** |  | [optional] 
+**LogidObject** | Pointer to [**Log**](Log.md) |  | [optional] 
+**ReferencedByLogOutputIdObjects** | Pointer to [**[]Log**](Log.md) |  | [optional] 
+**StartedAt** | Pointer to **time.Time** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **TaskId** | Pointer to **string** |  | [optional] 
 **TaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
@@ -38,31 +37,6 @@ will change when the set of required properties is changed
 NewOutputWithDefaults instantiates a new Output object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetBuffer
-
-`func (o *Output) GetBuffer() string`
-
-GetBuffer returns the Buffer field if non-nil, zero value otherwise.
-
-### GetBufferOk
-
-`func (o *Output) GetBufferOk() (*string, bool)`
-
-GetBufferOk returns a tuple with the Buffer field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBuffer
-
-`func (o *Output) SetBuffer(v string)`
-
-SetBuffer sets Buffer field to given value.
-
-### HasBuffer
-
-`func (o *Output) HasBuffer() bool`
-
-HasBuffer returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -113,6 +87,31 @@ SetDeletedAt sets DeletedAt field to given value.
 `func (o *Output) HasDeletedAt() bool`
 
 HasDeletedAt returns a boolean if a field has been set.
+
+### GetEndedAt
+
+`func (o *Output) GetEndedAt() time.Time`
+
+GetEndedAt returns the EndedAt field if non-nil, zero value otherwise.
+
+### GetEndedAtOk
+
+`func (o *Output) GetEndedAtOk() (*time.Time, bool)`
+
+GetEndedAtOk returns a tuple with the EndedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEndedAt
+
+`func (o *Output) SetEndedAt(v time.Time)`
+
+SetEndedAt sets EndedAt field to given value.
+
+### HasEndedAt
+
+`func (o *Output) HasEndedAt() bool`
+
+HasEndedAt returns a boolean if a field has been set.
 
 ### GetError
 
@@ -189,181 +188,116 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetReferencedByExecutionBuildOutputIdObjects
+### GetLogid
 
-`func (o *Output) GetReferencedByExecutionBuildOutputIdObjects() []Execution`
+`func (o *Output) GetLogid() string`
 
-GetReferencedByExecutionBuildOutputIdObjects returns the ReferencedByExecutionBuildOutputIdObjects field if non-nil, zero value otherwise.
+GetLogid returns the Logid field if non-nil, zero value otherwise.
 
-### GetReferencedByExecutionBuildOutputIdObjectsOk
+### GetLogidOk
 
-`func (o *Output) GetReferencedByExecutionBuildOutputIdObjectsOk() (*[]Execution, bool)`
+`func (o *Output) GetLogidOk() (*string, bool)`
 
-GetReferencedByExecutionBuildOutputIdObjectsOk returns a tuple with the ReferencedByExecutionBuildOutputIdObjects field if it's non-nil, zero value otherwise
+GetLogidOk returns a tuple with the Logid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByExecutionBuildOutputIdObjects
+### SetLogid
 
-`func (o *Output) SetReferencedByExecutionBuildOutputIdObjects(v []Execution)`
+`func (o *Output) SetLogid(v string)`
 
-SetReferencedByExecutionBuildOutputIdObjects sets ReferencedByExecutionBuildOutputIdObjects field to given value.
+SetLogid sets Logid field to given value.
 
-### HasReferencedByExecutionBuildOutputIdObjects
+### HasLogid
 
-`func (o *Output) HasReferencedByExecutionBuildOutputIdObjects() bool`
+`func (o *Output) HasLogid() bool`
 
-HasReferencedByExecutionBuildOutputIdObjects returns a boolean if a field has been set.
+HasLogid returns a boolean if a field has been set.
 
-### SetReferencedByExecutionBuildOutputIdObjectsNil
+### GetLogidObject
 
-`func (o *Output) SetReferencedByExecutionBuildOutputIdObjectsNil(b bool)`
+`func (o *Output) GetLogidObject() Log`
 
- SetReferencedByExecutionBuildOutputIdObjectsNil sets the value for ReferencedByExecutionBuildOutputIdObjects to be an explicit nil
+GetLogidObject returns the LogidObject field if non-nil, zero value otherwise.
 
-### UnsetReferencedByExecutionBuildOutputIdObjects
-`func (o *Output) UnsetReferencedByExecutionBuildOutputIdObjects()`
+### GetLogidObjectOk
 
-UnsetReferencedByExecutionBuildOutputIdObjects ensures that no value is present for ReferencedByExecutionBuildOutputIdObjects, not even an explicit nil
-### GetReferencedByExecutionDeployOutputIdObjects
+`func (o *Output) GetLogidObjectOk() (*Log, bool)`
 
-`func (o *Output) GetReferencedByExecutionDeployOutputIdObjects() []Execution`
-
-GetReferencedByExecutionDeployOutputIdObjects returns the ReferencedByExecutionDeployOutputIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByExecutionDeployOutputIdObjectsOk
-
-`func (o *Output) GetReferencedByExecutionDeployOutputIdObjectsOk() (*[]Execution, bool)`
-
-GetReferencedByExecutionDeployOutputIdObjectsOk returns a tuple with the ReferencedByExecutionDeployOutputIdObjects field if it's non-nil, zero value otherwise
+GetLogidObjectOk returns a tuple with the LogidObject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByExecutionDeployOutputIdObjects
+### SetLogidObject
 
-`func (o *Output) SetReferencedByExecutionDeployOutputIdObjects(v []Execution)`
+`func (o *Output) SetLogidObject(v Log)`
 
-SetReferencedByExecutionDeployOutputIdObjects sets ReferencedByExecutionDeployOutputIdObjects field to given value.
+SetLogidObject sets LogidObject field to given value.
 
-### HasReferencedByExecutionDeployOutputIdObjects
+### HasLogidObject
 
-`func (o *Output) HasReferencedByExecutionDeployOutputIdObjects() bool`
+`func (o *Output) HasLogidObject() bool`
 
-HasReferencedByExecutionDeployOutputIdObjects returns a boolean if a field has been set.
+HasLogidObject returns a boolean if a field has been set.
 
-### SetReferencedByExecutionDeployOutputIdObjectsNil
+### GetReferencedByLogOutputIdObjects
 
-`func (o *Output) SetReferencedByExecutionDeployOutputIdObjectsNil(b bool)`
+`func (o *Output) GetReferencedByLogOutputIdObjects() []Log`
 
- SetReferencedByExecutionDeployOutputIdObjectsNil sets the value for ReferencedByExecutionDeployOutputIdObjects to be an explicit nil
+GetReferencedByLogOutputIdObjects returns the ReferencedByLogOutputIdObjects field if non-nil, zero value otherwise.
 
-### UnsetReferencedByExecutionDeployOutputIdObjects
-`func (o *Output) UnsetReferencedByExecutionDeployOutputIdObjects()`
+### GetReferencedByLogOutputIdObjectsOk
 
-UnsetReferencedByExecutionDeployOutputIdObjects ensures that no value is present for ReferencedByExecutionDeployOutputIdObjects, not even an explicit nil
-### GetReferencedByExecutionPublishOutputIdObjects
+`func (o *Output) GetReferencedByLogOutputIdObjectsOk() (*[]Log, bool)`
 
-`func (o *Output) GetReferencedByExecutionPublishOutputIdObjects() []Execution`
-
-GetReferencedByExecutionPublishOutputIdObjects returns the ReferencedByExecutionPublishOutputIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByExecutionPublishOutputIdObjectsOk
-
-`func (o *Output) GetReferencedByExecutionPublishOutputIdObjectsOk() (*[]Execution, bool)`
-
-GetReferencedByExecutionPublishOutputIdObjectsOk returns a tuple with the ReferencedByExecutionPublishOutputIdObjects field if it's non-nil, zero value otherwise
+GetReferencedByLogOutputIdObjectsOk returns a tuple with the ReferencedByLogOutputIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByExecutionPublishOutputIdObjects
+### SetReferencedByLogOutputIdObjects
 
-`func (o *Output) SetReferencedByExecutionPublishOutputIdObjects(v []Execution)`
+`func (o *Output) SetReferencedByLogOutputIdObjects(v []Log)`
 
-SetReferencedByExecutionPublishOutputIdObjects sets ReferencedByExecutionPublishOutputIdObjects field to given value.
+SetReferencedByLogOutputIdObjects sets ReferencedByLogOutputIdObjects field to given value.
 
-### HasReferencedByExecutionPublishOutputIdObjects
+### HasReferencedByLogOutputIdObjects
 
-`func (o *Output) HasReferencedByExecutionPublishOutputIdObjects() bool`
+`func (o *Output) HasReferencedByLogOutputIdObjects() bool`
 
-HasReferencedByExecutionPublishOutputIdObjects returns a boolean if a field has been set.
+HasReferencedByLogOutputIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByExecutionPublishOutputIdObjectsNil
+### SetReferencedByLogOutputIdObjectsNil
 
-`func (o *Output) SetReferencedByExecutionPublishOutputIdObjectsNil(b bool)`
+`func (o *Output) SetReferencedByLogOutputIdObjectsNil(b bool)`
 
- SetReferencedByExecutionPublishOutputIdObjectsNil sets the value for ReferencedByExecutionPublishOutputIdObjects to be an explicit nil
+ SetReferencedByLogOutputIdObjectsNil sets the value for ReferencedByLogOutputIdObjects to be an explicit nil
 
-### UnsetReferencedByExecutionPublishOutputIdObjects
-`func (o *Output) UnsetReferencedByExecutionPublishOutputIdObjects()`
+### UnsetReferencedByLogOutputIdObjects
+`func (o *Output) UnsetReferencedByLogOutputIdObjects()`
 
-UnsetReferencedByExecutionPublishOutputIdObjects ensures that no value is present for ReferencedByExecutionPublishOutputIdObjects, not even an explicit nil
-### GetReferencedByExecutionTestOutputIdObjects
+UnsetReferencedByLogOutputIdObjects ensures that no value is present for ReferencedByLogOutputIdObjects, not even an explicit nil
+### GetStartedAt
 
-`func (o *Output) GetReferencedByExecutionTestOutputIdObjects() []Execution`
+`func (o *Output) GetStartedAt() time.Time`
 
-GetReferencedByExecutionTestOutputIdObjects returns the ReferencedByExecutionTestOutputIdObjects field if non-nil, zero value otherwise.
+GetStartedAt returns the StartedAt field if non-nil, zero value otherwise.
 
-### GetReferencedByExecutionTestOutputIdObjectsOk
+### GetStartedAtOk
 
-`func (o *Output) GetReferencedByExecutionTestOutputIdObjectsOk() (*[]Execution, bool)`
+`func (o *Output) GetStartedAtOk() (*time.Time, bool)`
 
-GetReferencedByExecutionTestOutputIdObjectsOk returns a tuple with the ReferencedByExecutionTestOutputIdObjects field if it's non-nil, zero value otherwise
+GetStartedAtOk returns a tuple with the StartedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByExecutionTestOutputIdObjects
+### SetStartedAt
 
-`func (o *Output) SetReferencedByExecutionTestOutputIdObjects(v []Execution)`
+`func (o *Output) SetStartedAt(v time.Time)`
 
-SetReferencedByExecutionTestOutputIdObjects sets ReferencedByExecutionTestOutputIdObjects field to given value.
+SetStartedAt sets StartedAt field to given value.
 
-### HasReferencedByExecutionTestOutputIdObjects
+### HasStartedAt
 
-`func (o *Output) HasReferencedByExecutionTestOutputIdObjects() bool`
+`func (o *Output) HasStartedAt() bool`
 
-HasReferencedByExecutionTestOutputIdObjects returns a boolean if a field has been set.
+HasStartedAt returns a boolean if a field has been set.
 
-### SetReferencedByExecutionTestOutputIdObjectsNil
-
-`func (o *Output) SetReferencedByExecutionTestOutputIdObjectsNil(b bool)`
-
- SetReferencedByExecutionTestOutputIdObjectsNil sets the value for ReferencedByExecutionTestOutputIdObjects to be an explicit nil
-
-### UnsetReferencedByExecutionTestOutputIdObjects
-`func (o *Output) UnsetReferencedByExecutionTestOutputIdObjects()`
-
-UnsetReferencedByExecutionTestOutputIdObjects ensures that no value is present for ReferencedByExecutionTestOutputIdObjects, not even an explicit nil
-### GetReferencedByExecutionValidateOutputIdObjects
-
-`func (o *Output) GetReferencedByExecutionValidateOutputIdObjects() []Execution`
-
-GetReferencedByExecutionValidateOutputIdObjects returns the ReferencedByExecutionValidateOutputIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByExecutionValidateOutputIdObjectsOk
-
-`func (o *Output) GetReferencedByExecutionValidateOutputIdObjectsOk() (*[]Execution, bool)`
-
-GetReferencedByExecutionValidateOutputIdObjectsOk returns a tuple with the ReferencedByExecutionValidateOutputIdObjects field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReferencedByExecutionValidateOutputIdObjects
-
-`func (o *Output) SetReferencedByExecutionValidateOutputIdObjects(v []Execution)`
-
-SetReferencedByExecutionValidateOutputIdObjects sets ReferencedByExecutionValidateOutputIdObjects field to given value.
-
-### HasReferencedByExecutionValidateOutputIdObjects
-
-`func (o *Output) HasReferencedByExecutionValidateOutputIdObjects() bool`
-
-HasReferencedByExecutionValidateOutputIdObjects returns a boolean if a field has been set.
-
-### SetReferencedByExecutionValidateOutputIdObjectsNil
-
-`func (o *Output) SetReferencedByExecutionValidateOutputIdObjectsNil(b bool)`
-
- SetReferencedByExecutionValidateOutputIdObjectsNil sets the value for ReferencedByExecutionValidateOutputIdObjects to be an explicit nil
-
-### UnsetReferencedByExecutionValidateOutputIdObjects
-`func (o *Output) UnsetReferencedByExecutionValidateOutputIdObjects()`
-
-UnsetReferencedByExecutionValidateOutputIdObjects ensures that no value is present for ReferencedByExecutionValidateOutputIdObjects, not even an explicit nil
 ### GetStatus
 
 `func (o *Output) GetStatus() string`

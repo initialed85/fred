@@ -1,12 +1,14 @@
 package job_executor
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
@@ -60,7 +62,7 @@ func ClaimTriggerForJobExecutor(ctx context.Context, tx pgx.Tx, claimDuration ti
 		fmt.Sprintf(
 			"%s < now() AND %s IS null",
 			api.TriggerTableJobExecutorClaimedUntilColumn,
-			api.TriggerTableJobExecutionStartedAtColumn,
+			api.TriggerTableHandledAtColumn,
 		),
 		helpers.Ptr(fmt.Sprintf(
 			"%v ASC",
@@ -169,6 +171,42 @@ func Run() error {
 		return err
 	}
 
+	apiClient, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithCancel((context.Background()))
+	defer cancel()
+
+	for {
+		err = func() error {
+			pingCtx, pingCancel := context.WithTimeout(ctx, time.Second*1)
+			defer pingCancel()
+
+			pingResponse, err := apiClient.Ping(pingCtx)
+			if err != nil {
+				return err
+			}
+			_ = pingResponse
+
+			return nil
+		}()
+		if err != nil {
+			log.Printf("warning: Docker daemon not available / not ready: %s; retrying...", err.Error())
+			time.Sleep(time.Second * 1)
+			continue
+		}
+
+		break
+	}
+
+	apiClient.NegotiateAPIVersion(ctx)
+
+	defer func() {
+		_ = apiClient.Close()
+	}()
+
 	return internal.Run(
 		log,
 		func(ctx context.Context, db *pgxpool.Pool) error {
@@ -212,9 +250,51 @@ func Run() error {
 
 			log.Printf("claimed %s", internal.GetJobSummary(job))
 
+			var execution *api.Execution
+			outputs := make([]*api.Output, 0)
+
+			defer func() {
+				if execution != nil && execution.Status != internal.ExecutionOrTaskStatusRunning {
+					return
+				}
+
+				ctx, cancel := context.WithCancel(context.Background())
+				defer cancel()
+
+				tx, err := db.Begin(ctx)
+				if err != nil {
+					return
+				}
+
+				defer func() {
+					_ = tx.Rollback(ctx)
+				}()
+
+				execution.Status = internal.ExecutionOrTaskStatusErrored
+				execution.EndedAt = helpers.Ptr(time.Now().UTC())
+				err = execution.Update(ctx, tx, false)
+				if err != nil {
+					return
+				}
+
+				for _, output := range outputs {
+					output.Status = internal.ExecutionOrTaskStatusErrored
+					output.EndedAt = helpers.Ptr(time.Now().UTC())
+					err = output.Update(ctx, tx, false)
+					if err != nil {
+						return
+					}
+				}
+
+				err = tx.Commit(ctx)
+				if err != nil {
+					return
+				}
+			}()
+
 			now := time.Now().UTC()
 			trigger.JobExecutorClaimedUntil = now
-			trigger.JobExecutionStartedAt = &now
+			trigger.HandledAt = &now
 
 			ctx = query.WithMaxDepth(ctx, helpers.Ptr(3))
 
@@ -303,90 +383,11 @@ func Run() error {
 				}
 			}()
 
-			doTask := func(task *api.Task, execution *api.Execution) error {
+			doTask := func(output *api.Output, execution *api.Execution) error {
+				task := output.TaskIDObject
+
 				ctx, cancel := context.WithCancel(ctx)
 				defer cancel()
-
-				phase := ""
-
-				if job.BuildTaskIDObject != nil && task.ID == job.BuildTaskIDObject.ID {
-					phase = "build"
-				} else if job.TestTaskIDObject != nil && task.ID == job.TestTaskIDObject.ID {
-					phase = "test"
-				} else if job.PublishTaskIDObject != nil && task.ID == job.PublishTaskIDObject.ID {
-					phase = "publish"
-				} else if job.DeployTaskIDObject != nil && task.ID == job.DeployTaskIDObject.ID {
-					phase = "deploy"
-				} else if job.ValidateTaskIDObject != nil && task.ID == job.ValidateTaskIDObject.ID {
-					phase = "validate"
-				} else {
-					return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
-				}
-
-				volumeName := fmt.Sprintf("fred-%s-%s", trigger.ChangeIDObject.CommitHash, formatUUID(execution.ID))
-				containerName := fmt.Sprintf("%s-%s", volumeName, phase)
-
-				output := &api.Output{
-					TaskID: task.ID,
-					Status: internal.ExecutionOrTaskStatusRunning,
-				}
-
-				if execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring {
-					output.Status = internal.ExecutionOrTaskStatusSkipped
-				}
-
-				var exitStatus *int
-
-				logBuffer := make([]byte, 0)
-
-				err = func() error {
-					tx, err := db.Begin(ctx)
-					if err != nil {
-						return err
-					}
-
-					defer func() {
-						_ = tx.Rollback(ctx)
-					}()
-
-					err = output.Insert(ctx, tx, false, false)
-					if err != nil {
-						return err
-					}
-
-					if job.BuildTaskIDObject != nil && task.ID == job.BuildTaskIDObject.ID {
-						execution.BuildOutputID = &output.ID
-					} else if job.TestTaskIDObject != nil && task.ID == job.TestTaskIDObject.ID {
-						execution.TestOutputID = &output.ID
-					} else if job.PublishTaskIDObject != nil && task.ID == job.PublishTaskIDObject.ID {
-						execution.PublishOutputID = &output.ID
-					} else if job.DeployTaskIDObject != nil && task.ID == job.DeployTaskIDObject.ID {
-						execution.DeployOutputID = &output.ID
-					} else if job.ValidateTaskIDObject != nil && task.ID == job.ValidateTaskIDObject.ID {
-						execution.ValidateOutputID = &output.ID
-					} else {
-						return fmt.Errorf("assertion failed: could not work out if %#+v was for build / test / publish / deploy / validate", task)
-					}
-
-					if !(execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring) {
-						execution.Status = internal.ExecutionOrTaskStatusRunning
-
-						err = execution.Update(ctx, tx, false)
-						if err != nil {
-							return err
-						}
-					}
-
-					err = tx.Commit(ctx)
-					if err != nil {
-						return err
-					}
-
-					return nil
-				}()
-				if err != nil {
-					return err
-				}
 
 				defer func() {
 					if output.Status == internal.ExecutionOrTaskStatusErrored || output.Status == internal.ExecutionOrTaskStatusFailed {
@@ -415,9 +416,45 @@ func Run() error {
 				}()
 
 				if execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring {
+					output.Status = internal.ExecutionOrTaskStatusSkipped
+					return nil
+				}
+
+				tx, err := db.Begin(ctx)
+				if err != nil {
+					return err
+				}
+
+				defer func() {
+					_ = tx.Rollback(ctx)
+				}()
+
+				output.Status = internal.ExecutionOrTaskStatusRunning
+
+				output.LogIDObject = &api.Log{
+					OutputID: output.ID,
+				}
+
+				err = output.LogIDObject.Insert(ctx, tx, false, false)
+				if err != nil {
+					return err
+				}
+
+				err = tx.Commit(ctx)
+				if err != nil {
+					return err
+				}
+
+				volumeName := fmt.Sprintf("fred-%s-%s", trigger.ChangeIDObject.CommitHash, formatUUID(execution.ID))
+				containerName := fmt.Sprintf("%s-%s", volumeName, task.Name)
+
+				if execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring {
 					log.Printf("%s skipped (due to failing / erroring parent execution)", containerName)
 					return nil
 				}
+
+				var exitStatus *int
+				logBuffer := make([]byte, 0)
 
 				updateOutput := func(givenErr error) error {
 					tx, err := db.Begin(ctx)
@@ -430,7 +467,7 @@ func Run() error {
 					}()
 
 					if logBuffer != nil {
-						output.Buffer = string(logBuffer)
+						output.LogIDObject.Buffer = logBuffer
 					}
 
 					if givenErr != nil {
@@ -464,18 +501,6 @@ func Run() error {
 					return nil
 				}
 
-				apiClient, err := client.NewClientWithOpts(client.FromEnv)
-				if err != nil {
-					_ = updateOutput(err)
-					return err
-				}
-
-				apiClient.NegotiateAPIVersion(ctx)
-
-				defer func() {
-					_ = apiClient.Close()
-				}()
-
 				tempDir := filepath.Join(tempPath, volumeName)
 				err = os.MkdirAll(tempDir, 0o777)
 				if err != nil {
@@ -499,7 +524,7 @@ func Run() error {
 				platformArch := platformParts[1]
 
 				builtinEnvVars := []string{
-					fmt.Sprintf("FRED_REPOSITORY_ID=%s", trigger.ChangeIDObject.RepositoryID.String()),
+					fmt.Sprintf("FRED_REPOSITORY_ID=%s", trigger.RepositoryID.String()),
 					fmt.Sprintf("FRED_CHANGE_ID=%s", trigger.ChangeID.String()),
 					fmt.Sprintf("FRED_RULE_ID=%s", trigger.RuleID.String()),
 					fmt.Sprintf("FRED_JOB_ID=%s", job.ID.String()),
@@ -513,7 +538,6 @@ func Run() error {
 					fmt.Sprintf("FRED_TRIGGER_ID=%s", trigger.ID.String()),
 					fmt.Sprintf("FRED_EXECUTION_ID=%s", execution.ID.String()),
 					fmt.Sprintf("FRED_OUTPUT_ID=%s", output.ID.String()),
-					fmt.Sprintf("FRED_PHASE_NAME=%s", phase),
 					fmt.Sprintf("FRED_REPOSITORY_URL=%s", repositoryUrl),
 					fmt.Sprintf("FRED_REPOSITORY_BRANCH_NAME=%s", repositoryBranchName),
 					fmt.Sprintf("FRED_REPOSITORY_FOLDER_NAME=%s", repositoryFolderName),
@@ -522,33 +546,44 @@ func Run() error {
 					"COMPOSE_DOCKER_CLI_BUILD=1",
 					"DOCKER_BUILDKIT=1",
 					fmt.Sprintf("COMPOSE_PROJECT_NAME=%s", containerName),
+					// "GIT_TERMINAL_PROMPT=1",
+					// "GIT_TRACE=1",
+					// "GIT_CURL_VERBOSE=1",
+					"GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o BatchMode=yes",
+					fmt.Sprintf("DOCKER_HOST=%s", os.Getenv("DOCKER_HOST")),
 				}
 
-				builtinEnvVarsFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-builtin-env-vars.txt", phase))
+				logAndUpdateOutput := func(msg string, extra ...any) {
+					log.Printf(msg, extra...)
+					logBuffer = append(logBuffer, []byte(fmt.Sprintf(msg+"\n", extra...))...)
+					_ = updateOutput(nil)
+				}
+
+				builtinEnvVarsFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-builtin-env-vars.txt", task.Name))
 				err = os.WriteFile(builtinEnvVarsFilePath, []byte(strings.Join(builtinEnvVars, "\n")+"\n"), 0o777)
 				if err != nil {
 					_ = updateOutput(err)
 					return err
 				}
-				log.Printf("prepared %s", builtinEnvVarsFilePath)
+				logAndUpdateOutput("prepared %s", builtinEnvVarsFilePath)
 
-				dockerEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-docker-entrypoint.sh", phase))
+				dockerEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-docker-entrypoint.sh", task.Name))
 				err = os.WriteFile(dockerEntrypointOutsideFilePath, []byte(dockerEntrypointScript), 0o777)
 				if err != nil {
 					_ = updateOutput(err)
 					return err
 				}
-				log.Printf("prepared %s", dockerEntrypointOutsideFilePath)
+				logAndUpdateOutput("prepared %s", dockerEntrypointOutsideFilePath)
 
-				taskEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-task-entrypoint.sh", phase))
+				taskEntrypointOutsideFilePath := filepath.Join(tempDir, fmt.Sprintf("%s-task-entrypoint.sh", task.Name))
 				err = os.WriteFile(taskEntrypointOutsideFilePath, []byte(task.Script), 0o777)
 				if err != nil {
 					_ = updateOutput(err)
 					return err
 				}
-				log.Printf("prepared %s", taskEntrypointOutsideFilePath)
+				logAndUpdateOutput("prepared %s", taskEntrypointOutsideFilePath)
 
-				log.Printf("pulling %s", task.Image)
+				logAndUpdateOutput("pulling %s", task.Image)
 
 				imagePullReader, err := apiClient.ImagePull(
 					ctx,
@@ -566,15 +601,29 @@ func Run() error {
 					_ = imagePullReader.Close()
 				}()
 
-				_ = jsonmessage.DisplayJSONMessagesToStream(imagePullReader, streams.NewOut(os.Stdout), nil)
+				logBufferWriter := bytes.NewBuffer(logBuffer)
+
+				_ = jsonmessage.DisplayJSONMessagesToStream(
+					imagePullReader,
+					streams.NewOut(logBufferWriter),
+					func(j jsonmessage.JSONMessage) {
+						_ = updateOutput(nil)
+					},
+				)
 				defer func() {
 					_, _ = io.ReadAll(imagePullReader)
 				}()
 
-				log.Printf("creating %s", containerName)
+				logAndUpdateOutput("creating %s", containerName)
 
 				envVars := make([]string, 0)
 				envVars = append(envVars, builtinEnvVars...)
+
+				// TODO
+				dockerSockPath := "/var/run/docker.sock"
+				if os.Getenv("DOCKER_HOST") != "" && strings.Contains(os.Getenv("DOCKER_HOST"), "/var/run/docker/docker.sock") {
+					dockerSockPath = "/var/run/docker/docker.sock"
+				}
 
 				containerCreateResponse, err := apiClient.ContainerCreate(
 					ctx,
@@ -582,12 +631,15 @@ func Run() error {
 						Image:        task.Image,
 						Env:          envVars,
 						WorkingDir:   tempDir,
-						Entrypoint:   []string{fmt.Sprintf("/%s/%s-docker-entrypoint.sh", tempDir, phase)},
+						Entrypoint:   []string{fmt.Sprintf("/%s/%s-docker-entrypoint.sh", tempDir, task.Name)},
 						Cmd:          []string{},
 						StopTimeout:  helpers.Ptr(1),
-						Tty:          true,
-						AttachStdout: true,
-						AttachStderr: true,
+						Tty:          false,
+						OpenStdin:    false,
+						AttachStdin:  false,
+						AttachStdout: false,
+						AttachStderr: false,
+						User:         "root",
 					},
 					&container.HostConfig{
 						RestartPolicy: container.RestartPolicy{
@@ -600,8 +652,8 @@ func Run() error {
 						Mounts: []mount.Mount{
 							{
 								Type:   "bind",
-								Source: "/var/run",
-								Target: "/var/run",
+								Source: dockerSockPath,
+								Target: dockerSockPath,
 							},
 							{
 								Type:   "bind",
@@ -610,8 +662,32 @@ func Run() error {
 							},
 							{
 								Type:   "bind",
+								Source: "/root/.ssh",
+								Target: "/root/.ssh",
+								BindOptions: &mount.BindOptions{
+									CreateMountpoint: true,
+								},
+							},
+							{
+								Type:   "bind",
 								Source: tempDir,
 								Target: tempDir,
+							},
+							{
+								Type:   "bind",
+								Source: "/root/.cache",
+								Target: "/root/.cache",
+								BindOptions: &mount.BindOptions{
+									CreateMountpoint: true,
+								},
+							},
+							{
+								Type:   "bind",
+								Source: "/root/.npm",
+								Target: "/root/.npm",
+								BindOptions: &mount.BindOptions{
+									CreateMountpoint: true,
+								},
 							},
 						},
 					},
@@ -637,7 +713,7 @@ func Run() error {
 						},
 					)
 					if err != nil {
-						log.Printf("warning: ContainerStop: %s", err.Error())
+						logAndUpdateOutput("warning: ContainerStop: %s", err.Error())
 					}
 
 					for {
@@ -678,7 +754,7 @@ func Run() error {
 						},
 					)
 					if err != nil {
-						log.Printf("warning: ContainerStop: %s", err.Error())
+						logAndUpdateOutput("warning: ContainerStop: %s", err.Error())
 					}
 
 				}()
@@ -738,11 +814,12 @@ func Run() error {
 				lastWrite := time.Now().Add(-time.Millisecond * 100)
 
 				b := make([]byte, 0)
+				n := 0
 
 				for {
 					p := make([]byte, 65536)
 
-					n, err := containerLogsReader.Read(p)
+					n, err = containerLogsReader.Read(p)
 					if err != nil {
 						if errors.Is(err, io.EOF) {
 							break
@@ -764,27 +841,37 @@ func Run() error {
 						}
 
 						lastWrite = time.Now()
-
 						log.Printf("%d: %#+v", n, string(b))
-
 						b = make([]byte, 0)
 					}
 				}
+
+				err = updateOutput(nil)
+				if err != nil {
+					return err
+				}
+
+				log.Printf("%d: %#+v", n, string(b))
 
 				err = updateOutput(err)
 				if err != nil {
 					return err
 				}
 
-				log.Printf("%s done", containerName)
+				logAndUpdateOutput("%s done", containerName)
 
 				return nil
 			}
 
-			execution := &api.Execution{
-				TriggerID: trigger.ID,
-				JobID:     job.ID,
-				Status:    internal.ExecutionOrTaskStatusCreated,
+			execution = &api.Execution{
+				JobName:      job.Name,
+				Status:       internal.ExecutionOrTaskStatusRunning,
+				StartedAt:    helpers.Ptr(time.Now().UTC()),
+				RepositoryID: trigger.RepositoryID,
+				ChangeID:     trigger.ChangeID,
+				RuleID:       trigger.RuleID,
+				TriggerID:    trigger.ID,
+				JobID:        job.ID,
 			}
 
 			err = func() error {
@@ -812,36 +899,73 @@ func Run() error {
 
 			log.Printf("execution %s started", execution.ID)
 
-			if job.BuildTaskIDObject != nil {
-				err = doTask(job.BuildTaskIDObject, execution)
+			slices.SortFunc(job.ReferencedByTaskJobIDObjects, func(a *api.Task, b *api.Task) int {
+				if a.Index < b.Index {
+					return -1
+				} else if a.Index > b.Index {
+					return 1
+				} else {
+					return 0
+				}
+			})
+
+			for _, task := range job.ReferencedByTaskJobIDObjects {
+				friendlyTaskName := strings.ReplaceAll(strings.ReplaceAll(strings.ToLower(task.Name), " ", "-"), "_", "-")
+
+				output := &api.Output{
+					TaskIndex:    task.Index,
+					TaskName:     friendlyTaskName,
+					RepositoryID: execution.RepositoryID,
+					ChangeID:     execution.ChangeID,
+					RuleID:       execution.RuleID,
+					TriggerID:    execution.TriggerID,
+					JobID:        execution.JobID,
+					ExecutionID:  execution.ID,
+					TaskID:       task.ID,
+					Status:       internal.ExecutionOrTaskStatusPending,
+					TaskIDObject: task, // note: we've put this here
+				}
+
+				err = func() error {
+					tx, err := db.Begin(ctx)
+					if err != nil {
+						return err
+					}
+
+					defer func() {
+						_ = tx.Rollback(ctx)
+					}()
+
+					err = output.Insert(ctx, tx, false, false)
+					if err != nil {
+						return err
+					}
+
+					outputs = append(outputs, output)
+
+					if !(execution.Status == internal.ExecutionOrTaskStatusFailing || execution.Status == internal.ExecutionOrTaskStatusErroring) {
+						execution.Status = internal.ExecutionOrTaskStatusRunning
+
+						err = execution.Update(ctx, tx, false)
+						if err != nil {
+							return err
+						}
+					}
+
+					err = tx.Commit(ctx)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				}()
 				if err != nil {
 					return err
 				}
 			}
 
-			if job.TestTaskIDObject != nil {
-				err = doTask(job.TestTaskIDObject, execution)
-				if err != nil {
-					return err
-				}
-			}
-
-			if job.PublishTaskIDObject != nil {
-				err = doTask(job.PublishTaskIDObject, execution)
-				if err != nil {
-					return err
-				}
-			}
-
-			if job.DeployTaskIDObject != nil {
-				err = doTask(job.DeployTaskIDObject, execution)
-				if err != nil {
-					return err
-				}
-			}
-
-			if job.ValidateTaskIDObject != nil {
-				err = doTask(job.ValidateTaskIDObject, execution)
+			for _, output := range outputs {
+				err = doTask(output, execution)
 				if err != nil {
 					return err
 				}
@@ -860,6 +984,8 @@ func Run() error {
 				if execution.Status == internal.ExecutionOrTaskStatusRunning {
 					execution.Status = internal.ExecutionOrTaskStatusSucceeded
 				}
+
+				execution.EndedAt = helpers.Ptr(time.Now().UTC())
 
 				err = execution.Update(ctx, tx, false)
 				if err != nil {
