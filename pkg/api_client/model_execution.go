@@ -20,17 +20,21 @@ var _ MappedNullable = &Execution{}
 
 // Execution struct for Execution
 type Execution struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	EndedAt *time.Time `json:"ended_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	M2mRuleTriggerJobId *string `json:"m2m_rule_trigger_job_id,omitempty"`
-	M2mRuleTriggerJobIdObject *M2MRuleTriggerJob `json:"m2m_rule_trigger_job_id_object,omitempty"`
-	StartedAt *time.Time `json:"started_at,omitempty"`
-	Status *string `json:"status,omitempty"`
-	TaskId *string `json:"task_id,omitempty"`
-	TaskIdObject *Task `json:"task_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	ChangeId                             *string    `json:"change_id,omitempty"`
+	ChangeIdObject                       *Change    `json:"change_id_object,omitempty"`
+	CreatedAt                            *time.Time `json:"created_at,omitempty"`
+	DeletedAt                            *time.Time `json:"deleted_at,omitempty"`
+	EndedAt                              *time.Time `json:"ended_at,omitempty"`
+	Id                                   *string    `json:"id,omitempty"`
+	JobExecutorClaimedUntil              *time.Time `json:"job_executor_claimed_until,omitempty"`
+	JobId                                *string    `json:"job_id,omitempty"`
+	JobIdObject                          *Job       `json:"job_id_object,omitempty"`
+	ReferencedByOutputExecutionIdObjects []Output   `json:"referenced_by_output_execution_id_objects,omitempty"`
+	StartedAt                            *time.Time `json:"started_at,omitempty"`
+	Status                               *string    `json:"status,omitempty"`
+	TriggerId                            *string    `json:"trigger_id,omitempty"`
+	TriggerIdObject                      *Trigger   `json:"trigger_id_object,omitempty"`
+	UpdatedAt                            *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewExecution instantiates a new Execution object
@@ -48,6 +52,70 @@ func NewExecution() *Execution {
 func NewExecutionWithDefaults() *Execution {
 	this := Execution{}
 	return &this
+}
+
+// GetChangeId returns the ChangeId field value if set, zero value otherwise.
+func (o *Execution) GetChangeId() string {
+	if o == nil || IsNil(o.ChangeId) {
+		var ret string
+		return ret
+	}
+	return *o.ChangeId
+}
+
+// GetChangeIdOk returns a tuple with the ChangeId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Execution) GetChangeIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ChangeId) {
+		return nil, false
+	}
+	return o.ChangeId, true
+}
+
+// HasChangeId returns a boolean if a field has been set.
+func (o *Execution) HasChangeId() bool {
+	if o != nil && !IsNil(o.ChangeId) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeId gets a reference to the given string and assigns it to the ChangeId field.
+func (o *Execution) SetChangeId(v string) {
+	o.ChangeId = &v
+}
+
+// GetChangeIdObject returns the ChangeIdObject field value if set, zero value otherwise.
+func (o *Execution) GetChangeIdObject() Change {
+	if o == nil || IsNil(o.ChangeIdObject) {
+		var ret Change
+		return ret
+	}
+	return *o.ChangeIdObject
+}
+
+// GetChangeIdObjectOk returns a tuple with the ChangeIdObject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Execution) GetChangeIdObjectOk() (*Change, bool) {
+	if o == nil || IsNil(o.ChangeIdObject) {
+		return nil, false
+	}
+	return o.ChangeIdObject, true
+}
+
+// HasChangeIdObject returns a boolean if a field has been set.
+func (o *Execution) HasChangeIdObject() bool {
+	if o != nil && !IsNil(o.ChangeIdObject) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeIdObject gets a reference to the given Change and assigns it to the ChangeIdObject field.
+func (o *Execution) SetChangeIdObject(v Change) {
+	o.ChangeIdObject = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -178,68 +246,132 @@ func (o *Execution) SetId(v string) {
 	o.Id = &v
 }
 
-// GetM2mRuleTriggerJobId returns the M2mRuleTriggerJobId field value if set, zero value otherwise.
-func (o *Execution) GetM2mRuleTriggerJobId() string {
-	if o == nil || IsNil(o.M2mRuleTriggerJobId) {
+// GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field value if set, zero value otherwise.
+func (o *Execution) GetJobExecutorClaimedUntil() time.Time {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		var ret time.Time
+		return ret
+	}
+	return *o.JobExecutorClaimedUntil
+}
+
+// GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Execution) GetJobExecutorClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.JobExecutorClaimedUntil) {
+		return nil, false
+	}
+	return o.JobExecutorClaimedUntil, true
+}
+
+// HasJobExecutorClaimedUntil returns a boolean if a field has been set.
+func (o *Execution) HasJobExecutorClaimedUntil() bool {
+	if o != nil && !IsNil(o.JobExecutorClaimedUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobExecutorClaimedUntil gets a reference to the given time.Time and assigns it to the JobExecutorClaimedUntil field.
+func (o *Execution) SetJobExecutorClaimedUntil(v time.Time) {
+	o.JobExecutorClaimedUntil = &v
+}
+
+// GetJobId returns the JobId field value if set, zero value otherwise.
+func (o *Execution) GetJobId() string {
+	if o == nil || IsNil(o.JobId) {
 		var ret string
 		return ret
 	}
-	return *o.M2mRuleTriggerJobId
+	return *o.JobId
 }
 
-// GetM2mRuleTriggerJobIdOk returns a tuple with the M2mRuleTriggerJobId field value if set, nil otherwise
+// GetJobIdOk returns a tuple with the JobId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetM2mRuleTriggerJobIdOk() (*string, bool) {
-	if o == nil || IsNil(o.M2mRuleTriggerJobId) {
+func (o *Execution) GetJobIdOk() (*string, bool) {
+	if o == nil || IsNil(o.JobId) {
 		return nil, false
 	}
-	return o.M2mRuleTriggerJobId, true
+	return o.JobId, true
 }
 
-// HasM2mRuleTriggerJobId returns a boolean if a field has been set.
-func (o *Execution) HasM2mRuleTriggerJobId() bool {
-	if o != nil && !IsNil(o.M2mRuleTriggerJobId) {
+// HasJobId returns a boolean if a field has been set.
+func (o *Execution) HasJobId() bool {
+	if o != nil && !IsNil(o.JobId) {
 		return true
 	}
 
 	return false
 }
 
-// SetM2mRuleTriggerJobId gets a reference to the given string and assigns it to the M2mRuleTriggerJobId field.
-func (o *Execution) SetM2mRuleTriggerJobId(v string) {
-	o.M2mRuleTriggerJobId = &v
+// SetJobId gets a reference to the given string and assigns it to the JobId field.
+func (o *Execution) SetJobId(v string) {
+	o.JobId = &v
 }
 
-// GetM2mRuleTriggerJobIdObject returns the M2mRuleTriggerJobIdObject field value if set, zero value otherwise.
-func (o *Execution) GetM2mRuleTriggerJobIdObject() M2MRuleTriggerJob {
-	if o == nil || IsNil(o.M2mRuleTriggerJobIdObject) {
-		var ret M2MRuleTriggerJob
+// GetJobIdObject returns the JobIdObject field value if set, zero value otherwise.
+func (o *Execution) GetJobIdObject() Job {
+	if o == nil || IsNil(o.JobIdObject) {
+		var ret Job
 		return ret
 	}
-	return *o.M2mRuleTriggerJobIdObject
+	return *o.JobIdObject
 }
 
-// GetM2mRuleTriggerJobIdObjectOk returns a tuple with the M2mRuleTriggerJobIdObject field value if set, nil otherwise
+// GetJobIdObjectOk returns a tuple with the JobIdObject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetM2mRuleTriggerJobIdObjectOk() (*M2MRuleTriggerJob, bool) {
-	if o == nil || IsNil(o.M2mRuleTriggerJobIdObject) {
+func (o *Execution) GetJobIdObjectOk() (*Job, bool) {
+	if o == nil || IsNil(o.JobIdObject) {
 		return nil, false
 	}
-	return o.M2mRuleTriggerJobIdObject, true
+	return o.JobIdObject, true
 }
 
-// HasM2mRuleTriggerJobIdObject returns a boolean if a field has been set.
-func (o *Execution) HasM2mRuleTriggerJobIdObject() bool {
-	if o != nil && !IsNil(o.M2mRuleTriggerJobIdObject) {
+// HasJobIdObject returns a boolean if a field has been set.
+func (o *Execution) HasJobIdObject() bool {
+	if o != nil && !IsNil(o.JobIdObject) {
 		return true
 	}
 
 	return false
 }
 
-// SetM2mRuleTriggerJobIdObject gets a reference to the given M2MRuleTriggerJob and assigns it to the M2mRuleTriggerJobIdObject field.
-func (o *Execution) SetM2mRuleTriggerJobIdObject(v M2MRuleTriggerJob) {
-	o.M2mRuleTriggerJobIdObject = &v
+// SetJobIdObject gets a reference to the given Job and assigns it to the JobIdObject field.
+func (o *Execution) SetJobIdObject(v Job) {
+	o.JobIdObject = &v
+}
+
+// GetReferencedByOutputExecutionIdObjects returns the ReferencedByOutputExecutionIdObjects field value if set, zero value otherwise.
+func (o *Execution) GetReferencedByOutputExecutionIdObjects() []Output {
+	if o == nil || IsNil(o.ReferencedByOutputExecutionIdObjects) {
+		var ret []Output
+		return ret
+	}
+	return o.ReferencedByOutputExecutionIdObjects
+}
+
+// GetReferencedByOutputExecutionIdObjectsOk returns a tuple with the ReferencedByOutputExecutionIdObjects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Execution) GetReferencedByOutputExecutionIdObjectsOk() ([]Output, bool) {
+	if o == nil || IsNil(o.ReferencedByOutputExecutionIdObjects) {
+		return nil, false
+	}
+	return o.ReferencedByOutputExecutionIdObjects, true
+}
+
+// HasReferencedByOutputExecutionIdObjects returns a boolean if a field has been set.
+func (o *Execution) HasReferencedByOutputExecutionIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByOutputExecutionIdObjects) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferencedByOutputExecutionIdObjects gets a reference to the given []Output and assigns it to the ReferencedByOutputExecutionIdObjects field.
+func (o *Execution) SetReferencedByOutputExecutionIdObjects(v []Output) {
+	o.ReferencedByOutputExecutionIdObjects = v
 }
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise.
@@ -306,68 +438,68 @@ func (o *Execution) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetTaskId returns the TaskId field value if set, zero value otherwise.
-func (o *Execution) GetTaskId() string {
-	if o == nil || IsNil(o.TaskId) {
+// GetTriggerId returns the TriggerId field value if set, zero value otherwise.
+func (o *Execution) GetTriggerId() string {
+	if o == nil || IsNil(o.TriggerId) {
 		var ret string
 		return ret
 	}
-	return *o.TaskId
+	return *o.TriggerId
 }
 
-// GetTaskIdOk returns a tuple with the TaskId field value if set, nil otherwise
+// GetTriggerIdOk returns a tuple with the TriggerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetTaskIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TaskId) {
+func (o *Execution) GetTriggerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TriggerId) {
 		return nil, false
 	}
-	return o.TaskId, true
+	return o.TriggerId, true
 }
 
-// HasTaskId returns a boolean if a field has been set.
-func (o *Execution) HasTaskId() bool {
-	if o != nil && !IsNil(o.TaskId) {
+// HasTriggerId returns a boolean if a field has been set.
+func (o *Execution) HasTriggerId() bool {
+	if o != nil && !IsNil(o.TriggerId) {
 		return true
 	}
 
 	return false
 }
 
-// SetTaskId gets a reference to the given string and assigns it to the TaskId field.
-func (o *Execution) SetTaskId(v string) {
-	o.TaskId = &v
+// SetTriggerId gets a reference to the given string and assigns it to the TriggerId field.
+func (o *Execution) SetTriggerId(v string) {
+	o.TriggerId = &v
 }
 
-// GetTaskIdObject returns the TaskIdObject field value if set, zero value otherwise.
-func (o *Execution) GetTaskIdObject() Task {
-	if o == nil || IsNil(o.TaskIdObject) {
-		var ret Task
+// GetTriggerIdObject returns the TriggerIdObject field value if set, zero value otherwise.
+func (o *Execution) GetTriggerIdObject() Trigger {
+	if o == nil || IsNil(o.TriggerIdObject) {
+		var ret Trigger
 		return ret
 	}
-	return *o.TaskIdObject
+	return *o.TriggerIdObject
 }
 
-// GetTaskIdObjectOk returns a tuple with the TaskIdObject field value if set, nil otherwise
+// GetTriggerIdObjectOk returns a tuple with the TriggerIdObject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Execution) GetTaskIdObjectOk() (*Task, bool) {
-	if o == nil || IsNil(o.TaskIdObject) {
+func (o *Execution) GetTriggerIdObjectOk() (*Trigger, bool) {
+	if o == nil || IsNil(o.TriggerIdObject) {
 		return nil, false
 	}
-	return o.TaskIdObject, true
+	return o.TriggerIdObject, true
 }
 
-// HasTaskIdObject returns a boolean if a field has been set.
-func (o *Execution) HasTaskIdObject() bool {
-	if o != nil && !IsNil(o.TaskIdObject) {
+// HasTriggerIdObject returns a boolean if a field has been set.
+func (o *Execution) HasTriggerIdObject() bool {
+	if o != nil && !IsNil(o.TriggerIdObject) {
 		return true
 	}
 
 	return false
 }
 
-// SetTaskIdObject gets a reference to the given Task and assigns it to the TaskIdObject field.
-func (o *Execution) SetTaskIdObject(v Task) {
-	o.TaskIdObject = &v
+// SetTriggerIdObject gets a reference to the given Trigger and assigns it to the TriggerIdObject field.
+func (o *Execution) SetTriggerIdObject(v Trigger) {
+	o.TriggerIdObject = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -403,7 +535,7 @@ func (o *Execution) SetUpdatedAt(v time.Time) {
 }
 
 func (o Execution) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -412,6 +544,12 @@ func (o Execution) MarshalJSON() ([]byte, error) {
 
 func (o Execution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ChangeId) {
+		toSerialize["change_id"] = o.ChangeId
+	}
+	if !IsNil(o.ChangeIdObject) {
+		toSerialize["change_id_object"] = o.ChangeIdObject
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -424,11 +562,17 @@ func (o Execution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.M2mRuleTriggerJobId) {
-		toSerialize["m2m_rule_trigger_job_id"] = o.M2mRuleTriggerJobId
+	if !IsNil(o.JobExecutorClaimedUntil) {
+		toSerialize["job_executor_claimed_until"] = o.JobExecutorClaimedUntil
 	}
-	if !IsNil(o.M2mRuleTriggerJobIdObject) {
-		toSerialize["m2m_rule_trigger_job_id_object"] = o.M2mRuleTriggerJobIdObject
+	if !IsNil(o.JobId) {
+		toSerialize["job_id"] = o.JobId
+	}
+	if !IsNil(o.JobIdObject) {
+		toSerialize["job_id_object"] = o.JobIdObject
+	}
+	if !IsNil(o.ReferencedByOutputExecutionIdObjects) {
+		toSerialize["referenced_by_output_execution_id_objects"] = o.ReferencedByOutputExecutionIdObjects
 	}
 	if !IsNil(o.StartedAt) {
 		toSerialize["started_at"] = o.StartedAt
@@ -436,11 +580,11 @@ func (o Execution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.TaskId) {
-		toSerialize["task_id"] = o.TaskId
+	if !IsNil(o.TriggerId) {
+		toSerialize["trigger_id"] = o.TriggerId
 	}
-	if !IsNil(o.TaskIdObject) {
-		toSerialize["task_id_object"] = o.TaskIdObject
+	if !IsNil(o.TriggerIdObject) {
+		toSerialize["trigger_id_object"] = o.TriggerIdObject
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -483,5 +627,3 @@ func (v *NullableExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

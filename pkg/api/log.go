@@ -37,10 +37,12 @@ type Log struct {
 	Buffer                         []byte     `json:"buffer"`
 	OutputID                       uuid.UUID  `json:"output_id"`
 	OutputIDObject                 *Output    `json:"output_id_object"`
-	ReferencedByOutputLogidObjects []*Output  `json:"referenced_by_output_logid_objects"`
+	ReferencedByOutputLogIDObjects []*Output  `json:"referenced_by_output_log_id_objects"`
 }
 
 var LogTable = "log"
+
+var LogTableWithSchema = fmt.Sprintf("%s.%s", schema, LogTable)
 
 var LogTableNamespaceID int32 = 1337 + 4
 
@@ -308,7 +310,7 @@ func (m *Log) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) er
 	m.Buffer = o.Buffer
 	m.OutputID = o.OutputID
 	m.OutputIDObject = o.OutputIDObject
-	m.ReferencedByOutputLogidObjects = o.ReferencedByOutputLogidObjects
+	m.ReferencedByOutputLogIDObjects = o.ReferencedByOutputLogIDObjects
 
 	return nil
 }
@@ -391,7 +393,7 @@ func (m *Log) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 	item, err := query.Insert(
 		ctx,
 		tx,
-		LogTable,
+		LogTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -511,7 +513,7 @@ func (m *Log) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSe
 	_, err = query.Update(
 		ctx,
 		tx,
-		LogTable,
+		LogTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", LogTableIDColumn),
 		LogTableColumns,
@@ -559,7 +561,7 @@ func (m *Log) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error 
 	err = query.Delete(
 		ctx,
 		tx,
-		LogTable,
+		LogTableWithSchema,
 		fmt.Sprintf("%v = $$??", LogTableIDColumn),
 		values...,
 	)
@@ -573,11 +575,11 @@ func (m *Log) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error 
 }
 
 func (m *Log) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, LogTable, timeouts...)
+	return query.LockTable(ctx, tx, LogTableWithSchema, timeouts...)
 }
 
 func (m *Log) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, LogTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, LogTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Log) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -629,7 +631,7 @@ func SelectLogs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 		ctx,
 		tx,
 		LogTableColumnsWithTypeCasts,
-		LogTable,
+		LogTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -685,13 +687,13 @@ func SelectLogs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectLogs->SelectOutputs for object.ReferencedByOutputLogidObjects")
+					log.Printf("loading SelectLogs->SelectOutputs for object.ReferencedByOutputLogIDObjects")
 				}
 
-				object.ReferencedByOutputLogidObjects, _, _, _, _, err = SelectOutputs(
+				object.ReferencedByOutputLogIDObjects, _, _, _, _, err = SelectOutputs(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", OutputTableLogidColumn),
+					fmt.Sprintf("%v = $1", OutputTableLogIDColumn),
 					nil,
 					nil,
 					nil,
@@ -704,7 +706,7 @@ func SelectLogs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectLogs->SelectOutputs for object.ReferencedByOutputLogidObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectLogs->SelectOutputs for object.ReferencedByOutputLogIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -804,7 +806,7 @@ func handleGetLog(arguments *server.SelectOneArguments, db *pgxpool.Pool, primar
 	return []*Log{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostLogs(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Log, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Log, int64, int64, int64, int64, error) {
+func handlePostLog(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Log, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Log, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1043,12 +1045,7 @@ func handleDeleteLog(arguments *server.LoadArguments, db *pgxpool.Pool, waitForC
 	return nil
 }
 
-func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
-
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+func MutateRouterForLog(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1164,7 +1161,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1275,7 +1272,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1323,7 +1320,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 					return server.Response[Log]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostLogs(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostLog(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Log]{}, err
 				}
@@ -1349,7 +1346,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1403,7 +1400,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1466,7 +1463,7 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1502,10 +1499,8 @@ func GetLogRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewLogFromItem(item map[string]any) (any, error) {
@@ -1525,6 +1520,6 @@ func init() {
 		Log{},
 		NewLogFromItem,
 		"/logs",
-		GetLogRouter,
+		MutateRouterForLog,
 	)
 }

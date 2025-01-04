@@ -30,24 +30,25 @@ import (
 )
 
 type Task struct {
-	ID                                 uuid.UUID    `json:"id"`
-	CreatedAt                          time.Time    `json:"created_at"`
-	UpdatedAt                          time.Time    `json:"updated_at"`
-	DeletedAt                          *time.Time   `json:"deleted_at"`
-	Name                               string       `json:"name"`
-	Index                              int64        `json:"index"`
-	Platform                           string       `json:"platform"`
-	Image                              string       `json:"image"`
-	Script                             string       `json:"script"`
-	JobID                              uuid.UUID    `json:"job_id"`
-	JobIDObject                        *Job         `json:"job_id_object"`
-	ReferencedByOutputTaskIDObjects    []*Output    `json:"referenced_by_output_task_id_objects"`
-	ReferencedByExecutionTaskIDObjects []*Execution `json:"referenced_by_execution_task_id_objects"`
+	ID                              uuid.UUID  `json:"id"`
+	CreatedAt                       time.Time  `json:"created_at"`
+	UpdatedAt                       time.Time  `json:"updated_at"`
+	DeletedAt                       *time.Time `json:"deleted_at"`
+	Name                            string     `json:"name"`
+	Index                           int64      `json:"index"`
+	Platform                        string     `json:"platform"`
+	Image                           string     `json:"image"`
+	Script                          string     `json:"script"`
+	JobID                           uuid.UUID  `json:"job_id"`
+	JobIDObject                     *Job       `json:"job_id_object"`
+	ReferencedByOutputTaskIDObjects []*Output  `json:"referenced_by_output_task_id_objects"`
 }
 
 var TaskTable = "task"
 
-var TaskTableNamespaceID int32 = 1337 + 10
+var TaskTableWithSchema = fmt.Sprintf("%s.%s", schema, TaskTable)
+
+var TaskTableNamespaceID int32 = 1337 + 9
 
 var (
 	TaskTableIDColumn        = "id"
@@ -410,7 +411,6 @@ func (m *Task) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) e
 	m.JobID = o.JobID
 	m.JobIDObject = o.JobIDObject
 	m.ReferencedByOutputTaskIDObjects = o.ReferencedByOutputTaskIDObjects
-	m.ReferencedByExecutionTaskIDObjects = o.ReferencedByExecutionTaskIDObjects
 
 	return nil
 }
@@ -537,7 +537,7 @@ func (m *Task) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZer
 	item, err := query.Insert(
 		ctx,
 		tx,
-		TaskTable,
+		TaskTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -701,7 +701,7 @@ func (m *Task) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceS
 	_, err = query.Update(
 		ctx,
 		tx,
-		TaskTable,
+		TaskTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", TaskTableIDColumn),
 		TaskTableColumns,
@@ -749,7 +749,7 @@ func (m *Task) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error
 	err = query.Delete(
 		ctx,
 		tx,
-		TaskTable,
+		TaskTableWithSchema,
 		fmt.Sprintf("%v = $$??", TaskTableIDColumn),
 		values...,
 	)
@@ -763,11 +763,11 @@ func (m *Task) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error
 }
 
 func (m *Task) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, TaskTable, timeouts...)
+	return query.LockTable(ctx, tx, TaskTableWithSchema, timeouts...)
 }
 
 func (m *Task) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, TaskTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, TaskTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Task) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -819,7 +819,7 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 		ctx,
 		tx,
 		TaskTableColumnsWithTypeCasts,
-		TaskTable,
+		TaskTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -895,43 +895,6 @@ func SelectTasks(ctx context.Context, tx pgx.Tx, where string, orderBy *string, 
 
 				if config.Debug() {
 					log.Printf("loaded SelectTasks->SelectOutputs for object.ReferencedByOutputTaskIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
-		err = func() error {
-			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
-			if ok || shouldLoad {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectTasks->SelectExecutions for object.ReferencedByExecutionTaskIDObjects")
-				}
-
-				object.ReferencedByExecutionTaskIDObjects, _, _, _, _, err = SelectExecutions(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", ExecutionTableTaskIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectTasks->SelectExecutions for object.ReferencedByExecutionTaskIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -1031,7 +994,7 @@ func handleGetTask(arguments *server.SelectOneArguments, db *pgxpool.Pool, prima
 	return []*Task{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostTasks(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Task, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Task, int64, int64, int64, int64, error) {
+func handlePostTask(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Task, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Task, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1270,12 +1233,7 @@ func handleDeleteTask(arguments *server.LoadArguments, db *pgxpool.Pool, waitFor
 	return nil
 }
 
-func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
-
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+func MutateRouterForTask(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1391,7 +1349,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1502,7 +1460,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1550,7 +1508,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 					return server.Response[Task]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostTasks(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostTask(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Task]{}, err
 				}
@@ -1576,7 +1534,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1630,7 +1588,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1693,7 +1651,7 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1729,10 +1687,8 @@ func GetTaskRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []se
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewTaskFromItem(item map[string]any) (any, error) {
@@ -1752,6 +1708,6 @@ func init() {
 		Task{},
 		NewTaskFromItem,
 		"/tasks",
-		GetTaskRouter,
+		MutateRouterForTask,
 	)
 }

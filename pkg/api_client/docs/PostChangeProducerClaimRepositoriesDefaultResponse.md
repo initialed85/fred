@@ -1,4 +1,4 @@
-# GetChangesDefaultResponse
+# PostChangeProducerClaimRepositoriesDefaultResponse
 
 ## Properties
 
@@ -10,79 +10,79 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewGetChangesDefaultResponse
+### NewPostChangeProducerClaimRepositoriesDefaultResponse
 
-`func NewGetChangesDefaultResponse(error_ []string, status int32, success bool, ) *GetChangesDefaultResponse`
+`func NewPostChangeProducerClaimRepositoriesDefaultResponse(error_ []string, status int32, success bool, ) *PostChangeProducerClaimRepositoriesDefaultResponse`
 
-NewGetChangesDefaultResponse instantiates a new GetChangesDefaultResponse object
+NewPostChangeProducerClaimRepositoriesDefaultResponse instantiates a new PostChangeProducerClaimRepositoriesDefaultResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewGetChangesDefaultResponseWithDefaults
+### NewPostChangeProducerClaimRepositoriesDefaultResponseWithDefaults
 
-`func NewGetChangesDefaultResponseWithDefaults() *GetChangesDefaultResponse`
+`func NewPostChangeProducerClaimRepositoriesDefaultResponseWithDefaults() *PostChangeProducerClaimRepositoriesDefaultResponse`
 
-NewGetChangesDefaultResponseWithDefaults instantiates a new GetChangesDefaultResponse object
+NewPostChangeProducerClaimRepositoriesDefaultResponseWithDefaults instantiates a new PostChangeProducerClaimRepositoriesDefaultResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetError
 
-`func (o *GetChangesDefaultResponse) GetError() []string`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetError() []string`
 
 GetError returns the Error field if non-nil, zero value otherwise.
 
 ### GetErrorOk
 
-`func (o *GetChangesDefaultResponse) GetErrorOk() (*[]string, bool)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetErrorOk() (*[]string, bool)`
 
 GetErrorOk returns a tuple with the Error field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetError
 
-`func (o *GetChangesDefaultResponse) SetError(v []string)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) SetError(v []string)`
 
 SetError sets Error field to given value.
 
 
 ### GetStatus
 
-`func (o *GetChangesDefaultResponse) GetStatus() int32`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetStatus() int32`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *GetChangesDefaultResponse) GetStatusOk() (*int32, bool)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetStatusOk() (*int32, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *GetChangesDefaultResponse) SetStatus(v int32)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) SetStatus(v int32)`
 
 SetStatus sets Status field to given value.
 
 
 ### GetSuccess
 
-`func (o *GetChangesDefaultResponse) GetSuccess() bool`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetSuccess() bool`
 
 GetSuccess returns the Success field if non-nil, zero value otherwise.
 
 ### GetSuccessOk
 
-`func (o *GetChangesDefaultResponse) GetSuccessOk() (*bool, bool)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) GetSuccessOk() (*bool, bool)`
 
 GetSuccessOk returns a tuple with the Success field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccess
 
-`func (o *GetChangesDefaultResponse) SetSuccess(v bool)`
+`func (o *PostChangeProducerClaimRepositoriesDefaultResponse) SetSuccess(v bool)`
 
 SetSuccess sets Success field to given value.
 

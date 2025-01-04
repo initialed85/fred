@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // TaskAPIService TaskAPI service
 type TaskAPIService service
 
 type ApiDeleteTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteTaskRequest) Execute() (*http.Response, error) {
 /*
 DeleteTask Method for DeleteTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteTaskRequest
 */
 func (a *TaskAPIService) DeleteTask(ctx context.Context, primaryKey string) ApiDeleteTaskRequest {
 	return ApiDeleteTaskRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *TaskAPIService) DeleteTask(ctx context.Context, primaryKey string) ApiD
 // Execute executes the request
 func (a *TaskAPIService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.DeleteTask")
@@ -125,10 +124,10 @@ func (a *TaskAPIService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Respon
 }
 
 type ApiGetTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetTaskRequest) Execute() (*ResponseWithGenericOfTask, *http.Response
 /*
 GetTask Method for GetTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetTaskRequest
 */
 func (a *TaskAPIService) GetTask(ctx context.Context, primaryKey string) ApiGetTaskRequest {
 	return ApiGetTaskRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTask
+//
+//	@return ResponseWithGenericOfTask
 func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTask
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTask")
@@ -220,14 +220,14 @@ func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGener
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,156 +244,177 @@ func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGener
 }
 
 type ApiGetTasksRequest struct {
-	ctx context.Context
-	ApiService *TaskAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	jobLoad *string
-	referencedByOutputLoad *string
-	referencedByExecutionLoad *string
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	nameEq *string
-	nameNe *string
-	nameGt *string
-	nameGte *string
-	nameLt *string
-	nameLte *string
-	nameIn *string
-	nameNotin *string
-	nameLike *string
-	nameNotlike *string
-	nameIlike *string
-	nameNotilike *string
-	nameDesc *string
-	nameAsc *string
-	indexEq *int64
-	indexNe *int64
-	indexGt *int64
-	indexGte *int64
-	indexLt *int64
-	indexLte *int64
-	indexIn *int64
-	indexNotin *int64
-	indexDesc *string
-	indexAsc *string
-	platformEq *string
-	platformNe *string
-	platformGt *string
-	platformGte *string
-	platformLt *string
-	platformLte *string
-	platformIn *string
-	platformNotin *string
-	platformLike *string
-	platformNotlike *string
-	platformIlike *string
-	platformNotilike *string
-	platformDesc *string
-	platformAsc *string
-	imageEq *string
-	imageNe *string
-	imageGt *string
-	imageGte *string
-	imageLt *string
-	imageLte *string
-	imageIn *string
-	imageNotin *string
-	imageLike *string
-	imageNotlike *string
-	imageIlike *string
-	imageNotilike *string
-	imageDesc *string
-	imageAsc *string
-	scriptEq *string
-	scriptNe *string
-	scriptGt *string
-	scriptGte *string
-	scriptLt *string
-	scriptLte *string
-	scriptIn *string
-	scriptNotin *string
-	scriptLike *string
-	scriptNotlike *string
-	scriptIlike *string
-	scriptNotilike *string
-	scriptDesc *string
-	scriptAsc *string
-	jobIdEq *string
-	jobIdNe *string
-	jobIdGt *string
-	jobIdGte *string
-	jobIdLt *string
-	jobIdLte *string
-	jobIdIn *string
-	jobIdNotin *string
-	jobIdLike *string
-	jobIdNotlike *string
-	jobIdIlike *string
-	jobIdNotilike *string
-	jobIdDesc *string
-	jobIdAsc *string
-	jobIdObjectDesc *string
-	jobIdObjectAsc *string
-	referencedByOutputTaskIdObjectsDesc *string
-	referencedByOutputTaskIdObjectsAsc *string
-	referencedByExecutionTaskIdObjectsDesc *string
-	referencedByExecutionTaskIdObjectsAsc *string
+	ctx                                        context.Context
+	ApiService                                 *TaskAPIService
+	limit                                      *int32
+	offset                                     *int32
+	depth                                      *int32
+	jobLoad                                    *string
+	referencedByOutputLoad                     *string
+	idEq                                       *string
+	idNe                                       *string
+	idGt                                       *string
+	idGte                                      *string
+	idLt                                       *string
+	idLte                                      *string
+	idIn                                       *string
+	idNotin                                    *string
+	idContains                                 *string
+	idNotcontains                              *string
+	idLike                                     *string
+	idNotlike                                  *string
+	idIlike                                    *string
+	idNotilike                                 *string
+	idDesc                                     *string
+	idAsc                                      *string
+	createdAtEq                                *time.Time
+	createdAtNe                                *time.Time
+	createdAtGt                                *time.Time
+	createdAtGte                               *time.Time
+	createdAtLt                                *time.Time
+	createdAtLte                               *time.Time
+	createdAtIn                                *time.Time
+	createdAtNotin                             *time.Time
+	createdAtContains                          *time.Time
+	createdAtNotcontains                       *time.Time
+	createdAtLike                              *time.Time
+	createdAtNotlike                           *time.Time
+	createdAtIlike                             *time.Time
+	createdAtNotilike                          *time.Time
+	createdAtDesc                              *string
+	createdAtAsc                               *string
+	updatedAtEq                                *time.Time
+	updatedAtNe                                *time.Time
+	updatedAtGt                                *time.Time
+	updatedAtGte                               *time.Time
+	updatedAtLt                                *time.Time
+	updatedAtLte                               *time.Time
+	updatedAtIn                                *time.Time
+	updatedAtNotin                             *time.Time
+	updatedAtContains                          *time.Time
+	updatedAtNotcontains                       *time.Time
+	updatedAtLike                              *time.Time
+	updatedAtNotlike                           *time.Time
+	updatedAtIlike                             *time.Time
+	updatedAtNotilike                          *time.Time
+	updatedAtDesc                              *string
+	updatedAtAsc                               *string
+	deletedAtEq                                *time.Time
+	deletedAtNe                                *time.Time
+	deletedAtGt                                *time.Time
+	deletedAtGte                               *time.Time
+	deletedAtLt                                *time.Time
+	deletedAtLte                               *time.Time
+	deletedAtIn                                *time.Time
+	deletedAtNotin                             *time.Time
+	deletedAtContains                          *time.Time
+	deletedAtNotcontains                       *time.Time
+	deletedAtLike                              *time.Time
+	deletedAtNotlike                           *time.Time
+	deletedAtIlike                             *time.Time
+	deletedAtNotilike                          *time.Time
+	deletedAtDesc                              *string
+	deletedAtAsc                               *string
+	nameEq                                     *string
+	nameNe                                     *string
+	nameGt                                     *string
+	nameGte                                    *string
+	nameLt                                     *string
+	nameLte                                    *string
+	nameIn                                     *string
+	nameNotin                                  *string
+	nameContains                               *string
+	nameNotcontains                            *string
+	nameLike                                   *string
+	nameNotlike                                *string
+	nameIlike                                  *string
+	nameNotilike                               *string
+	nameDesc                                   *string
+	nameAsc                                    *string
+	indexEq                                    *int64
+	indexNe                                    *int64
+	indexGt                                    *int64
+	indexGte                                   *int64
+	indexLt                                    *int64
+	indexLte                                   *int64
+	indexIn                                    *int64
+	indexNotin                                 *int64
+	indexContains                              *int64
+	indexNotcontains                           *int64
+	indexDesc                                  *string
+	indexAsc                                   *string
+	platformEq                                 *string
+	platformNe                                 *string
+	platformGt                                 *string
+	platformGte                                *string
+	platformLt                                 *string
+	platformLte                                *string
+	platformIn                                 *string
+	platformNotin                              *string
+	platformContains                           *string
+	platformNotcontains                        *string
+	platformLike                               *string
+	platformNotlike                            *string
+	platformIlike                              *string
+	platformNotilike                           *string
+	platformDesc                               *string
+	platformAsc                                *string
+	imageEq                                    *string
+	imageNe                                    *string
+	imageGt                                    *string
+	imageGte                                   *string
+	imageLt                                    *string
+	imageLte                                   *string
+	imageIn                                    *string
+	imageNotin                                 *string
+	imageContains                              *string
+	imageNotcontains                           *string
+	imageLike                                  *string
+	imageNotlike                               *string
+	imageIlike                                 *string
+	imageNotilike                              *string
+	imageDesc                                  *string
+	imageAsc                                   *string
+	scriptEq                                   *string
+	scriptNe                                   *string
+	scriptGt                                   *string
+	scriptGte                                  *string
+	scriptLt                                   *string
+	scriptLte                                  *string
+	scriptIn                                   *string
+	scriptNotin                                *string
+	scriptContains                             *string
+	scriptNotcontains                          *string
+	scriptLike                                 *string
+	scriptNotlike                              *string
+	scriptIlike                                *string
+	scriptNotilike                             *string
+	scriptDesc                                 *string
+	scriptAsc                                  *string
+	jobIdEq                                    *string
+	jobIdNe                                    *string
+	jobIdGt                                    *string
+	jobIdGte                                   *string
+	jobIdLt                                    *string
+	jobIdLte                                   *string
+	jobIdIn                                    *string
+	jobIdNotin                                 *string
+	jobIdContains                              *string
+	jobIdNotcontains                           *string
+	jobIdLike                                  *string
+	jobIdNotlike                               *string
+	jobIdIlike                                 *string
+	jobIdNotilike                              *string
+	jobIdDesc                                  *string
+	jobIdAsc                                   *string
+	jobIdObjectContains                        *interface{}
+	jobIdObjectNotcontains                     *interface{}
+	jobIdObjectDesc                            *string
+	jobIdObjectAsc                             *string
+	referencedByOutputTaskIdObjectsContains    *interface{}
+	referencedByOutputTaskIdObjectsNotcontains *interface{}
+	referencedByOutputTaskIdObjectsDesc        *string
+	referencedByOutputTaskIdObjectsAsc         *string
 }
 
 // SQL LIMIT operator
@@ -414,21 +435,15 @@ func (r ApiGetTasksRequest) Depth(depth int32) ApiGetTasksRequest {
 	return r
 }
 
-// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+// load the given directly related object, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) JobLoad(jobLoad string) ApiGetTasksRequest {
 	r.jobLoad = &jobLoad
 	return r
 }
 
-// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+// load the given indirectly related objects, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) ReferencedByOutputLoad(referencedByOutputLoad string) ApiGetTasksRequest {
 	r.referencedByOutputLoad = &referencedByOutputLoad
-	return r
-}
-
-// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByExecutionLoad(referencedByExecutionLoad string) ApiGetTasksRequest {
-	r.referencedByExecutionLoad = &referencedByExecutionLoad
 	return r
 }
 
@@ -477,6 +492,18 @@ func (r ApiGetTasksRequest) IdIn(idIn string) ApiGetTasksRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetTasksRequest) IdNotin(idNotin string) ApiGetTasksRequest {
 	r.idNotin = &idNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) IdContains(idContains string) ApiGetTasksRequest {
+	r.idContains = &idContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) IdNotcontains(idNotcontains string) ApiGetTasksRequest {
+	r.idNotcontains = &idNotcontains
 	return r
 }
 
@@ -564,6 +591,18 @@ func (r ApiGetTasksRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetTasks
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) CreatedAtContains(createdAtContains time.Time) ApiGetTasksRequest {
+	r.createdAtContains = &createdAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) CreatedAtNotcontains(createdAtNotcontains time.Time) ApiGetTasksRequest {
+	r.createdAtNotcontains = &createdAtNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetTasksRequest) CreatedAtLike(createdAtLike time.Time) ApiGetTasksRequest {
 	r.createdAtLike = &createdAtLike
@@ -645,6 +684,18 @@ func (r ApiGetTasksRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetTasksReques
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetTasksRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetTasksRequest {
 	r.updatedAtNotin = &updatedAtNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) UpdatedAtContains(updatedAtContains time.Time) ApiGetTasksRequest {
+	r.updatedAtContains = &updatedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) UpdatedAtNotcontains(updatedAtNotcontains time.Time) ApiGetTasksRequest {
+	r.updatedAtNotcontains = &updatedAtNotcontains
 	return r
 }
 
@@ -732,6 +783,18 @@ func (r ApiGetTasksRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetTasks
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) DeletedAtContains(deletedAtContains time.Time) ApiGetTasksRequest {
+	r.deletedAtContains = &deletedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) DeletedAtNotcontains(deletedAtNotcontains time.Time) ApiGetTasksRequest {
+	r.deletedAtNotcontains = &deletedAtNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetTasksRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetTasksRequest {
 	r.deletedAtLike = &deletedAtLike
@@ -813,6 +876,18 @@ func (r ApiGetTasksRequest) NameIn(nameIn string) ApiGetTasksRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetTasksRequest) NameNotin(nameNotin string) ApiGetTasksRequest {
 	r.nameNotin = &nameNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) NameContains(nameContains string) ApiGetTasksRequest {
+	r.nameContains = &nameContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) NameNotcontains(nameNotcontains string) ApiGetTasksRequest {
+	r.nameNotcontains = &nameNotcontains
 	return r
 }
 
@@ -900,6 +975,18 @@ func (r ApiGetTasksRequest) IndexNotin(indexNotin int64) ApiGetTasksRequest {
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) IndexContains(indexContains int64) ApiGetTasksRequest {
+	r.indexContains = &indexContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) IndexNotcontains(indexNotcontains int64) ApiGetTasksRequest {
+	r.indexNotcontains = &indexNotcontains
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) IndexDesc(indexDesc string) ApiGetTasksRequest {
 	r.indexDesc = &indexDesc
@@ -957,6 +1044,18 @@ func (r ApiGetTasksRequest) PlatformIn(platformIn string) ApiGetTasksRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetTasksRequest) PlatformNotin(platformNotin string) ApiGetTasksRequest {
 	r.platformNotin = &platformNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) PlatformContains(platformContains string) ApiGetTasksRequest {
+	r.platformContains = &platformContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) PlatformNotcontains(platformNotcontains string) ApiGetTasksRequest {
+	r.platformNotcontains = &platformNotcontains
 	return r
 }
 
@@ -1044,6 +1143,18 @@ func (r ApiGetTasksRequest) ImageNotin(imageNotin string) ApiGetTasksRequest {
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) ImageContains(imageContains string) ApiGetTasksRequest {
+	r.imageContains = &imageContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) ImageNotcontains(imageNotcontains string) ApiGetTasksRequest {
+	r.imageNotcontains = &imageNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetTasksRequest) ImageLike(imageLike string) ApiGetTasksRequest {
 	r.imageLike = &imageLike
@@ -1125,6 +1236,18 @@ func (r ApiGetTasksRequest) ScriptIn(scriptIn string) ApiGetTasksRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetTasksRequest) ScriptNotin(scriptNotin string) ApiGetTasksRequest {
 	r.scriptNotin = &scriptNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) ScriptContains(scriptContains string) ApiGetTasksRequest {
+	r.scriptContains = &scriptContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) ScriptNotcontains(scriptNotcontains string) ApiGetTasksRequest {
+	r.scriptNotcontains = &scriptNotcontains
 	return r
 }
 
@@ -1212,6 +1335,18 @@ func (r ApiGetTasksRequest) JobIdNotin(jobIdNotin string) ApiGetTasksRequest {
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) JobIdContains(jobIdContains string) ApiGetTasksRequest {
+	r.jobIdContains = &jobIdContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) JobIdNotcontains(jobIdNotcontains string) ApiGetTasksRequest {
+	r.jobIdNotcontains = &jobIdNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetTasksRequest) JobIdLike(jobIdLike string) ApiGetTasksRequest {
 	r.jobIdLike = &jobIdLike
@@ -1248,6 +1383,18 @@ func (r ApiGetTasksRequest) JobIdAsc(jobIdAsc string) ApiGetTasksRequest {
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) JobIdObjectContains(jobIdObjectContains interface{}) ApiGetTasksRequest {
+	r.jobIdObjectContains = &jobIdObjectContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) JobIdObjectNotcontains(jobIdObjectNotcontains interface{}) ApiGetTasksRequest {
+	r.jobIdObjectNotcontains = &jobIdObjectNotcontains
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) JobIdObjectDesc(jobIdObjectDesc string) ApiGetTasksRequest {
 	r.jobIdObjectDesc = &jobIdObjectDesc
@@ -1257,6 +1404,18 @@ func (r ApiGetTasksRequest) JobIdObjectDesc(jobIdObjectDesc string) ApiGetTasksR
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetTasksRequest) JobIdObjectAsc(jobIdObjectAsc string) ApiGetTasksRequest {
 	r.jobIdObjectAsc = &jobIdObjectAsc
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsContains(referencedByOutputTaskIdObjectsContains interface{}) ApiGetTasksRequest {
+	r.referencedByOutputTaskIdObjectsContains = &referencedByOutputTaskIdObjectsContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsNotcontains(referencedByOutputTaskIdObjectsNotcontains interface{}) ApiGetTasksRequest {
+	r.referencedByOutputTaskIdObjectsNotcontains = &referencedByOutputTaskIdObjectsNotcontains
 	return r
 }
 
@@ -1272,18 +1431,6 @@ func (r ApiGetTasksRequest) ReferencedByOutputTaskIdObjectsAsc(referencedByOutpu
 	return r
 }
 
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByExecutionTaskIdObjectsDesc(referencedByExecutionTaskIdObjectsDesc string) ApiGetTasksRequest {
-	r.referencedByExecutionTaskIdObjectsDesc = &referencedByExecutionTaskIdObjectsDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetTasksRequest) ReferencedByExecutionTaskIdObjectsAsc(referencedByExecutionTaskIdObjectsAsc string) ApiGetTasksRequest {
-	r.referencedByExecutionTaskIdObjectsAsc = &referencedByExecutionTaskIdObjectsAsc
-	return r
-}
-
 func (r ApiGetTasksRequest) Execute() (*ResponseWithGenericOfTask, *http.Response, error) {
 	return r.ApiService.GetTasksExecute(r)
 }
@@ -1291,24 +1438,25 @@ func (r ApiGetTasksRequest) Execute() (*ResponseWithGenericOfTask, *http.Respons
 /*
 GetTasks Method for GetTasks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTasksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTasksRequest
 */
 func (a *TaskAPIService) GetTasks(ctx context.Context) ApiGetTasksRequest {
 	return ApiGetTasksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTask
+//
+//	@return ResponseWithGenericOfTask
 func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTask
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTasks")
@@ -1337,9 +1485,6 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.referencedByOutputLoad != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output__load", r.referencedByOutputLoad, "form", "")
 	}
-	if r.referencedByExecutionLoad != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution__load", r.referencedByExecutionLoad, "form", "")
-	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
 	}
@@ -1363,6 +1508,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.idNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__notin", r.idNotin, "form", "")
+	}
+	if r.idContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id__contains", r.idContains, "form", "")
+	}
+	if r.idNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id__notcontains", r.idNotcontains, "form", "")
 	}
 	if r.idLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__like", r.idLike, "form", "")
@@ -1406,6 +1557,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.createdAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__notin", r.createdAtNotin, "form", "")
 	}
+	if r.createdAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__contains", r.createdAtContains, "form", "")
+	}
+	if r.createdAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__notcontains", r.createdAtNotcontains, "form", "")
+	}
 	if r.createdAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__like", r.createdAtLike, "form", "")
 	}
@@ -1447,6 +1604,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.updatedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__notin", r.updatedAtNotin, "form", "")
+	}
+	if r.updatedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__contains", r.updatedAtContains, "form", "")
+	}
+	if r.updatedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__notcontains", r.updatedAtNotcontains, "form", "")
 	}
 	if r.updatedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__like", r.updatedAtLike, "form", "")
@@ -1490,6 +1653,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.deletedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__notin", r.deletedAtNotin, "form", "")
 	}
+	if r.deletedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__contains", r.deletedAtContains, "form", "")
+	}
+	if r.deletedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__notcontains", r.deletedAtNotcontains, "form", "")
+	}
 	if r.deletedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__like", r.deletedAtLike, "form", "")
 	}
@@ -1531,6 +1700,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.nameNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notin", r.nameNotin, "form", "")
+	}
+	if r.nameContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__contains", r.nameContains, "form", "")
+	}
+	if r.nameNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name__notcontains", r.nameNotcontains, "form", "")
 	}
 	if r.nameLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name__like", r.nameLike, "form", "")
@@ -1574,6 +1749,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.indexNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "index__notin", r.indexNotin, "form", "")
 	}
+	if r.indexContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__contains", r.indexContains, "form", "")
+	}
+	if r.indexNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "index__notcontains", r.indexNotcontains, "form", "")
+	}
 	if r.indexDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "index__desc", r.indexDesc, "form", "")
 	}
@@ -1603,6 +1784,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.platformNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__notin", r.platformNotin, "form", "")
+	}
+	if r.platformContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__contains", r.platformContains, "form", "")
+	}
+	if r.platformNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__notcontains", r.platformNotcontains, "form", "")
 	}
 	if r.platformLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "platform__like", r.platformLike, "form", "")
@@ -1646,6 +1833,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.imageNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "image__notin", r.imageNotin, "form", "")
 	}
+	if r.imageContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__contains", r.imageContains, "form", "")
+	}
+	if r.imageNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image__notcontains", r.imageNotcontains, "form", "")
+	}
 	if r.imageLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "image__like", r.imageLike, "form", "")
 	}
@@ -1687,6 +1880,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	}
 	if r.scriptNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "script__notin", r.scriptNotin, "form", "")
+	}
+	if r.scriptContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__contains", r.scriptContains, "form", "")
+	}
+	if r.scriptNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "script__notcontains", r.scriptNotcontains, "form", "")
 	}
 	if r.scriptLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "script__like", r.scriptLike, "form", "")
@@ -1730,6 +1929,12 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.jobIdNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notin", r.jobIdNotin, "form", "")
 	}
+	if r.jobIdContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__contains", r.jobIdContains, "form", "")
+	}
+	if r.jobIdNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__notcontains", r.jobIdNotcontains, "form", "")
+	}
 	if r.jobIdLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__like", r.jobIdLike, "form", "")
 	}
@@ -1748,23 +1953,29 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 	if r.jobIdAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__asc", r.jobIdAsc, "form", "")
 	}
+	if r.jobIdObjectContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__contains", r.jobIdObjectContains, "form", "")
+	}
+	if r.jobIdObjectNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__notcontains", r.jobIdObjectNotcontains, "form", "")
+	}
 	if r.jobIdObjectDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__desc", r.jobIdObjectDesc, "form", "")
 	}
 	if r.jobIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id_object__asc", r.jobIdObjectAsc, "form", "")
 	}
+	if r.referencedByOutputTaskIdObjectsContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__contains", r.referencedByOutputTaskIdObjectsContains, "form", "")
+	}
+	if r.referencedByOutputTaskIdObjectsNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__notcontains", r.referencedByOutputTaskIdObjectsNotcontains, "form", "")
+	}
 	if r.referencedByOutputTaskIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__desc", r.referencedByOutputTaskIdObjectsDesc, "form", "")
 	}
 	if r.referencedByOutputTaskIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_output_task_id_objects__asc", r.referencedByOutputTaskIdObjectsAsc, "form", "")
-	}
-	if r.referencedByExecutionTaskIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_task_id_objects__desc", r.referencedByExecutionTaskIdObjectsDesc, "form", "")
-	}
-	if r.referencedByExecutionTaskIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_execution_task_id_objects__asc", r.referencedByExecutionTaskIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1805,14 +2016,14 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1829,11 +2040,11 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 }
 
 type ApiPatchTaskRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	task *Task
-	depth *int64
+	task       *Task
+	depth      *int64
 }
 
 func (r ApiPatchTaskRequest) Task(task Task) ApiPatchTaskRequest {
@@ -1854,26 +2065,27 @@ func (r ApiPatchTaskRequest) Execute() (*ResponseWithGenericOfTask, *http.Respon
 /*
 PatchTask Method for PatchTask
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchTaskRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchTaskRequest
 */
 func (a *TaskAPIService) PatchTask(ctx context.Context, primaryKey string) ApiPatchTaskRequest {
 	return ApiPatchTaskRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTask
+//
+//	@return ResponseWithGenericOfTask
 func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTask
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.PatchTask")
@@ -1935,14 +2147,14 @@ func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1959,14 +2171,14 @@ func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithG
 }
 
 type ApiPostTasksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TaskAPIService
-	rule *[]Rule
-	depth *int64
+	task       *[]Task
+	depth      *int64
 }
 
-func (r ApiPostTasksRequest) Rule(rule []Rule) ApiPostTasksRequest {
-	r.rule = &rule
+func (r ApiPostTasksRequest) Task(task []Task) ApiPostTasksRequest {
+	r.task = &task
 	return r
 }
 
@@ -1983,24 +2195,25 @@ func (r ApiPostTasksRequest) Execute() (*ResponseWithGenericOfTask, *http.Respon
 /*
 PostTasks Method for PostTasks
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostTasksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostTasksRequest
 */
 func (a *TaskAPIService) PostTasks(ctx context.Context) ApiPostTasksRequest {
 	return ApiPostTasksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfTask
+//
+//	@return ResponseWithGenericOfTask
 func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfTask
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.PostTasks")
@@ -2013,8 +2226,8 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.rule == nil {
-		return localVarReturnValue, nil, reportError("rule is required and must be specified")
+	if r.task == nil {
+		return localVarReturnValue, nil, reportError("task is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -2038,7 +2251,7 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.rule
+	localVarPostBody = r.task
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2061,14 +2274,14 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

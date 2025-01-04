@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"net/http"
 	"net/netip"
 	"slices"
@@ -30,56 +31,62 @@ import (
 )
 
 type Change struct {
-	ID                 uuid.UUID   `json:"id"`
-	CreatedAt          time.Time   `json:"created_at"`
-	UpdatedAt          time.Time   `json:"updated_at"`
-	DeletedAt          *time.Time  `json:"deleted_at"`
-	CommitHash         string      `json:"commit_hash"`
-	BranchName         string      `json:"branch_name"`
-	Message            string      `json:"message"`
-	AuthoredBy         string      `json:"authored_by"`
-	AuthoredAt         time.Time   `json:"authored_at"`
-	CommittedBy        string      `json:"committed_by"`
-	CommittedAt        time.Time   `json:"committed_at"`
-	TriggersProducedAt *time.Time  `json:"triggers_produced_at"`
-	RepositoryID       uuid.UUID   `json:"repository_id"`
-	RepositoryIDObject *Repository `json:"repository_id_object"`
+	ID                                   uuid.UUID    `json:"id"`
+	CreatedAt                            time.Time    `json:"created_at"`
+	UpdatedAt                            time.Time    `json:"updated_at"`
+	DeletedAt                            *time.Time   `json:"deleted_at"`
+	CommitHash                           string       `json:"commit_hash"`
+	BranchName                           string       `json:"branch_name"`
+	Message                              string       `json:"message"`
+	AuthoredBy                           string       `json:"authored_by"`
+	AuthoredAt                           time.Time    `json:"authored_at"`
+	CommittedBy                          string       `json:"committed_by"`
+	CommittedAt                          time.Time    `json:"committed_at"`
+	TriggersProducedAt                   *time.Time   `json:"triggers_produced_at"`
+	TriggerProducerClaimedUntil          time.Time    `json:"trigger_producer_claimed_until"`
+	RepositoryID                         uuid.UUID    `json:"repository_id"`
+	RepositoryIDObject                   *Repository  `json:"repository_id_object"`
+	ReferencedByExecutionChangeIDObjects []*Execution `json:"referenced_by_execution_change_id_objects"`
 }
 
 var ChangeTable = "change"
 
+var ChangeTableWithSchema = fmt.Sprintf("%s.%s", schema, ChangeTable)
+
 var ChangeTableNamespaceID int32 = 1337 + 1
 
 var (
-	ChangeTableIDColumn                 = "id"
-	ChangeTableCreatedAtColumn          = "created_at"
-	ChangeTableUpdatedAtColumn          = "updated_at"
-	ChangeTableDeletedAtColumn          = "deleted_at"
-	ChangeTableCommitHashColumn         = "commit_hash"
-	ChangeTableBranchNameColumn         = "branch_name"
-	ChangeTableMessageColumn            = "message"
-	ChangeTableAuthoredByColumn         = "authored_by"
-	ChangeTableAuthoredAtColumn         = "authored_at"
-	ChangeTableCommittedByColumn        = "committed_by"
-	ChangeTableCommittedAtColumn        = "committed_at"
-	ChangeTableTriggersProducedAtColumn = "triggers_produced_at"
-	ChangeTableRepositoryIDColumn       = "repository_id"
+	ChangeTableIDColumn                          = "id"
+	ChangeTableCreatedAtColumn                   = "created_at"
+	ChangeTableUpdatedAtColumn                   = "updated_at"
+	ChangeTableDeletedAtColumn                   = "deleted_at"
+	ChangeTableCommitHashColumn                  = "commit_hash"
+	ChangeTableBranchNameColumn                  = "branch_name"
+	ChangeTableMessageColumn                     = "message"
+	ChangeTableAuthoredByColumn                  = "authored_by"
+	ChangeTableAuthoredAtColumn                  = "authored_at"
+	ChangeTableCommittedByColumn                 = "committed_by"
+	ChangeTableCommittedAtColumn                 = "committed_at"
+	ChangeTableTriggersProducedAtColumn          = "triggers_produced_at"
+	ChangeTableTriggerProducerClaimedUntilColumn = "trigger_producer_claimed_until"
+	ChangeTableRepositoryIDColumn                = "repository_id"
 )
 
 var (
-	ChangeTableIDColumnWithTypeCast                 = `"id" AS id`
-	ChangeTableCreatedAtColumnWithTypeCast          = `"created_at" AS created_at`
-	ChangeTableUpdatedAtColumnWithTypeCast          = `"updated_at" AS updated_at`
-	ChangeTableDeletedAtColumnWithTypeCast          = `"deleted_at" AS deleted_at`
-	ChangeTableCommitHashColumnWithTypeCast         = `"commit_hash" AS commit_hash`
-	ChangeTableBranchNameColumnWithTypeCast         = `"branch_name" AS branch_name`
-	ChangeTableMessageColumnWithTypeCast            = `"message" AS message`
-	ChangeTableAuthoredByColumnWithTypeCast         = `"authored_by" AS authored_by`
-	ChangeTableAuthoredAtColumnWithTypeCast         = `"authored_at" AS authored_at`
-	ChangeTableCommittedByColumnWithTypeCast        = `"committed_by" AS committed_by`
-	ChangeTableCommittedAtColumnWithTypeCast        = `"committed_at" AS committed_at`
-	ChangeTableTriggersProducedAtColumnWithTypeCast = `"triggers_produced_at" AS triggers_produced_at`
-	ChangeTableRepositoryIDColumnWithTypeCast       = `"repository_id" AS repository_id`
+	ChangeTableIDColumnWithTypeCast                          = `"id" AS id`
+	ChangeTableCreatedAtColumnWithTypeCast                   = `"created_at" AS created_at`
+	ChangeTableUpdatedAtColumnWithTypeCast                   = `"updated_at" AS updated_at`
+	ChangeTableDeletedAtColumnWithTypeCast                   = `"deleted_at" AS deleted_at`
+	ChangeTableCommitHashColumnWithTypeCast                  = `"commit_hash" AS commit_hash`
+	ChangeTableBranchNameColumnWithTypeCast                  = `"branch_name" AS branch_name`
+	ChangeTableMessageColumnWithTypeCast                     = `"message" AS message`
+	ChangeTableAuthoredByColumnWithTypeCast                  = `"authored_by" AS authored_by`
+	ChangeTableAuthoredAtColumnWithTypeCast                  = `"authored_at" AS authored_at`
+	ChangeTableCommittedByColumnWithTypeCast                 = `"committed_by" AS committed_by`
+	ChangeTableCommittedAtColumnWithTypeCast                 = `"committed_at" AS committed_at`
+	ChangeTableTriggersProducedAtColumnWithTypeCast          = `"triggers_produced_at" AS triggers_produced_at`
+	ChangeTableTriggerProducerClaimedUntilColumnWithTypeCast = `"trigger_producer_claimed_until" AS trigger_producer_claimed_until`
+	ChangeTableRepositoryIDColumnWithTypeCast                = `"repository_id" AS repository_id`
 )
 
 var ChangeTableColumns = []string{
@@ -95,6 +102,7 @@ var ChangeTableColumns = []string{
 	ChangeTableCommittedByColumn,
 	ChangeTableCommittedAtColumn,
 	ChangeTableTriggersProducedAtColumn,
+	ChangeTableTriggerProducerClaimedUntilColumn,
 	ChangeTableRepositoryIDColumn,
 }
 
@@ -111,6 +119,7 @@ var ChangeTableColumnsWithTypeCasts = []string{
 	ChangeTableCommittedByColumnWithTypeCast,
 	ChangeTableCommittedAtColumnWithTypeCast,
 	ChangeTableTriggersProducedAtColumnWithTypeCast,
+	ChangeTableTriggerProducerClaimedUntilColumnWithTypeCast,
 	ChangeTableRepositoryIDColumnWithTypeCast,
 }
 
@@ -139,6 +148,11 @@ type ChangeOnePathParams struct {
 
 type ChangeLoadQueryParams struct {
 	Depth *int `json:"depth"`
+}
+
+type ChangeTriggerProducerClaimRequest struct {
+	Until          time.Time `json:"until"`
+	TimeoutSeconds float64   `json:"timeout_seconds"`
 }
 
 /*
@@ -420,6 +434,25 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.TriggersProducedAt = &temp2
 
+		case "trigger_producer_claimed_until":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutrigger_producer_claimed_until.UUID", temp1))
+				}
+			}
+
+			m.TriggerProducerClaimedUntil = temp2
+
 		case "repository_id":
 			if v == nil {
 				continue
@@ -480,8 +513,10 @@ func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.CommittedBy = o.CommittedBy
 	m.CommittedAt = o.CommittedAt
 	m.TriggersProducedAt = o.TriggersProducedAt
+	m.TriggerProducerClaimedUntil = o.TriggerProducerClaimedUntil
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
+	m.ReferencedByExecutionChangeIDObjects = o.ReferencedByExecutionChangeIDObjects
 
 	return nil
 }
@@ -622,6 +657,17 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroTime(m.TriggerProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducerClaimedUntilColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTriggerProducerClaimedUntilColumn) {
+		columns = append(columns, ChangeTableTriggerProducerClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.TriggerProducerClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.TriggerProducerClaimedUntil; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroUUID(m.RepositoryID) || slices.Contains(forceSetValuesForFields, ChangeTableRepositoryIDColumn) || isRequired(ChangeTableColumnLookup, ChangeTableRepositoryIDColumn) {
 		columns = append(columns, ChangeTableRepositoryIDColumn)
 
@@ -641,7 +687,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 	item, err := query.Insert(
 		ctx,
 		tx,
-		ChangeTable,
+		ChangeTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -812,6 +858,17 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
+	if setZeroValues || !types.IsZeroTime(m.TriggerProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducerClaimedUntilColumn) {
+		columns = append(columns, ChangeTableTriggerProducerClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.TriggerProducerClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.TriggerProducerClaimedUntil; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
 	if setZeroValues || !types.IsZeroUUID(m.RepositoryID) || slices.Contains(forceSetValuesForFields, ChangeTableRepositoryIDColumn) {
 		columns = append(columns, ChangeTableRepositoryIDColumn)
 
@@ -838,7 +895,7 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 	_, err = query.Update(
 		ctx,
 		tx,
-		ChangeTable,
+		ChangeTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", ChangeTableIDColumn),
 		ChangeTableColumns,
@@ -886,7 +943,7 @@ func (m *Change) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) err
 	err = query.Delete(
 		ctx,
 		tx,
-		ChangeTable,
+		ChangeTableWithSchema,
 		fmt.Sprintf("%v = $$??", ChangeTableIDColumn),
 		values...,
 	)
@@ -900,11 +957,11 @@ func (m *Change) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) err
 }
 
 func (m *Change) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, ChangeTable, timeouts...)
+	return query.LockTable(ctx, tx, ChangeTableWithSchema, timeouts...)
 }
 
 func (m *Change) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, ChangeTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, ChangeTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Change) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -913,6 +970,35 @@ func (m *Change) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeout
 
 func (m *Change) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int32, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
 	return query.AdvisoryLockWithRetries(ctx, tx, ChangeTableNamespaceID, key, overallTimeout, individualAttempttimeout)
+}
+
+func (m *Change) TriggerProducerClaim(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration) error {
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return fmt.Errorf("failed to claim (advisory lock): %s", err.Error())
+	}
+
+	_, _, _, _, _, err = SelectChange(
+		ctx,
+		tx,
+		fmt.Sprintf(
+			"%s = $$?? AND (trigger_producer_claimed_until IS null OR trigger_producer_claimed_until < now())",
+			ChangeTablePrimaryKeyColumn,
+		),
+		m.GetPrimaryKeyValue(),
+	)
+	if err != nil {
+		return fmt.Errorf("failed to claim (select): %s", err.Error())
+	}
+
+	m.TriggerProducerClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return fmt.Errorf("failed to claim (update): %s", err.Error())
+	}
+
+	return nil
 }
 
 func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string, limit *int, offset *int, values ...any) ([]*Change, int64, int64, int64, int64, error) {
@@ -956,7 +1042,7 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 		ctx,
 		tx,
 		ChangeTableColumnsWithTypeCasts,
-		ChangeTable,
+		ChangeTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -1005,6 +1091,43 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 			}
 		}
 
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectChanges->SelectExecutions for object.ReferencedByExecutionChangeIDObjects")
+				}
+
+				object.ReferencedByExecutionChangeIDObjects, _, _, _, _, err = SelectExecutions(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", ExecutionTableChangeIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectChanges->SelectExecutions for object.ReferencedByExecutionChangeIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
 		objects = append(objects, object)
 	}
 
@@ -1046,6 +1169,51 @@ func SelectChange(ctx context.Context, tx pgx.Tx, where string, values ...any) (
 	totalPages := page
 
 	return object, count, totalCount, page, totalPages, nil
+}
+
+func TriggerProducerClaimChange(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration, where string, values ...any) (*Change, error) {
+	m := &Change{}
+
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if strings.TrimSpace(where) != "" {
+		where += " AND\n"
+	}
+
+	where += "    (trigger_producer_claimed_until IS null OR trigger_producer_claimed_until < now())"
+
+	ms, _, _, _, _, err := SelectChanges(
+		ctx,
+		tx,
+		where,
+		helpers.Ptr(
+			"trigger_producer_claimed_until ASC",
+		),
+		helpers.Ptr(1),
+		nil,
+		values...,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if len(ms) == 0 {
+		return nil, nil
+	}
+
+	m = ms[0]
+
+	m.TriggerProducerClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	return m, nil
 }
 
 func handleGetChanges(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Change, int64, int64, int64, int64, error) {
@@ -1094,7 +1262,7 @@ func handleGetChange(arguments *server.SelectOneArguments, db *pgxpool.Pool, pri
 	return []*Change{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostChanges(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Change, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Change, int64, int64, int64, int64, error) {
+func handlePostChange(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Change, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Change, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1333,12 +1501,172 @@ func handleDeleteChange(arguments *server.LoadArguments, db *pgxpool.Pool, waitF
 	return nil
 }
 
-func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
+func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+	func() {
+		postHandlerForTriggerProducerClaim, err := getHTTPHandler(
+			http.MethodPost,
+			"/trigger-producer-claim-change",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams server.EmptyPathParams,
+				queryParams server.EmptyQueryParams,
+				req ChangeTriggerProducerClaimRequest,
+				rawReq any,
+			) (server.Response[Change], error) {
+				tx, err := db.Begin(ctx)
+				if err != nil {
+					return server.Response[Change]{}, err
+				}
+
+				defer func() {
+					_ = tx.Rollback(ctx)
+				}()
+
+				object, err := TriggerProducerClaimChange(ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000), "")
+				if err != nil {
+					return server.Response[Change]{}, err
+				}
+
+				count := int64(0)
+
+				totalCount := int64(0)
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				if object == nil {
+					return server.Response[Change]{
+						Status:     http.StatusOK,
+						Success:    true,
+						Error:      nil,
+						Objects:    []*Change{},
+						Count:      count,
+						TotalCount: totalCount,
+						Limit:      limit,
+						Offset:     offset,
+					}, nil
+				}
+
+				err = tx.Commit(ctx)
+				if err != nil {
+					return server.Response[Change]{}, err
+				}
+
+				return server.Response[Change]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Change{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}, nil
+			},
+			Change{},
+			ChangeIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForTriggerProducerClaim.FullPath, postHandlerForTriggerProducerClaim.ServeHTTP)
+
+		postHandlerForTriggerProducerClaimOne, err := getHTTPHandler(
+			http.MethodPost,
+			"/changes/{primaryKey}/trigger-producer-claim",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams ChangeOnePathParams,
+				queryParams ChangeLoadQueryParams,
+				req ChangeTriggerProducerClaimRequest,
+				rawReq any,
+			) (server.Response[Change], error) {
+				before := time.Now()
+
+				redisConn := redisPool.Get()
+				defer func() {
+					_ = redisConn.Close()
+				}()
+
+				arguments, err := server.GetSelectOneArguments(ctx, queryParams.Depth, ChangeIntrospectedTable, pathParams.PrimaryKey, nil, nil)
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Change]{}, err
+				}
+
+				/* note: deliberately no attempt at a cache hit */
+
+				var object *Change
+				var count int64
+				var totalCount int64
+
+				err = func() error {
+					tx, err := db.Begin(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					defer func() {
+						_ = tx.Rollback(arguments.Ctx)
+					}()
+
+					object, count, totalCount, _, _, err = SelectChange(arguments.Ctx, tx, arguments.Where, arguments.Values...)
+					if err != nil {
+						return fmt.Errorf("failed to select object to claim: %s", err.Error())
+					}
+
+					err = object.TriggerProducerClaim(arguments.Ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000))
+					if err != nil {
+						return err
+					}
+
+					err = tx.Commit(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				}()
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Change]{}, err
+				}
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				response := server.Response[Change]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Change{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}
+
+				return response, nil
+			},
+			Change{},
+			ChangeIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForTriggerProducerClaimOne.FullPath, postHandlerForTriggerProducerClaimOne.ServeHTTP)
+	}()
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1454,7 +1782,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1565,7 +1893,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1613,7 +1941,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 					return server.Response[Change]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostChanges(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostChange(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Change]{}, err
 				}
@@ -1639,7 +1967,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1693,7 +2021,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1756,7 +2084,7 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1792,10 +2120,8 @@ func GetChangeRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewChangeFromItem(item map[string]any) (any, error) {
@@ -1815,6 +2141,6 @@ func init() {
 		Change{},
 		NewChangeFromItem,
 		"/changes",
-		GetChangeRouter,
+		MutateRouterForChange,
 	)
 }

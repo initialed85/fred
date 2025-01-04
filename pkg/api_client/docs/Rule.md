@@ -8,9 +8,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**JobTriggerJobId** | Pointer to **string** |  | [optional] 
-**JobTriggerJobIdObject** | Pointer to [**Job**](Job.md) |  | [optional] 
-**ReferencedByJobRuleTriggerRuleIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**ReferencedByTriggerRuleIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -134,91 +132,31 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetJobTriggerJobId
+### GetReferencedByTriggerRuleIdObjects
 
-`func (o *Rule) GetJobTriggerJobId() string`
+`func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Trigger`
 
-GetJobTriggerJobId returns the JobTriggerJobId field if non-nil, zero value otherwise.
+GetReferencedByTriggerRuleIdObjects returns the ReferencedByTriggerRuleIdObjects field if non-nil, zero value otherwise.
 
-### GetJobTriggerJobIdOk
+### GetReferencedByTriggerRuleIdObjectsOk
 
-`func (o *Rule) GetJobTriggerJobIdOk() (*string, bool)`
+`func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() (*[]Trigger, bool)`
 
-GetJobTriggerJobIdOk returns a tuple with the JobTriggerJobId field if it's non-nil, zero value otherwise
+GetReferencedByTriggerRuleIdObjectsOk returns a tuple with the ReferencedByTriggerRuleIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetJobTriggerJobId
+### SetReferencedByTriggerRuleIdObjects
 
-`func (o *Rule) SetJobTriggerJobId(v string)`
+`func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Trigger)`
 
-SetJobTriggerJobId sets JobTriggerJobId field to given value.
+SetReferencedByTriggerRuleIdObjects sets ReferencedByTriggerRuleIdObjects field to given value.
 
-### HasJobTriggerJobId
+### HasReferencedByTriggerRuleIdObjects
 
-`func (o *Rule) HasJobTriggerJobId() bool`
+`func (o *Rule) HasReferencedByTriggerRuleIdObjects() bool`
 
-HasJobTriggerJobId returns a boolean if a field has been set.
+HasReferencedByTriggerRuleIdObjects returns a boolean if a field has been set.
 
-### GetJobTriggerJobIdObject
-
-`func (o *Rule) GetJobTriggerJobIdObject() Job`
-
-GetJobTriggerJobIdObject returns the JobTriggerJobIdObject field if non-nil, zero value otherwise.
-
-### GetJobTriggerJobIdObjectOk
-
-`func (o *Rule) GetJobTriggerJobIdObjectOk() (*Job, bool)`
-
-GetJobTriggerJobIdObjectOk returns a tuple with the JobTriggerJobIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetJobTriggerJobIdObject
-
-`func (o *Rule) SetJobTriggerJobIdObject(v Job)`
-
-SetJobTriggerJobIdObject sets JobTriggerJobIdObject field to given value.
-
-### HasJobTriggerJobIdObject
-
-`func (o *Rule) HasJobTriggerJobIdObject() bool`
-
-HasJobTriggerJobIdObject returns a boolean if a field has been set.
-
-### GetReferencedByJobRuleTriggerRuleIdObjects
-
-`func (o *Rule) GetReferencedByJobRuleTriggerRuleIdObjects() []Rule`
-
-GetReferencedByJobRuleTriggerRuleIdObjects returns the ReferencedByJobRuleTriggerRuleIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByJobRuleTriggerRuleIdObjectsOk
-
-`func (o *Rule) GetReferencedByJobRuleTriggerRuleIdObjectsOk() (*[]Rule, bool)`
-
-GetReferencedByJobRuleTriggerRuleIdObjectsOk returns a tuple with the ReferencedByJobRuleTriggerRuleIdObjects field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReferencedByJobRuleTriggerRuleIdObjects
-
-`func (o *Rule) SetReferencedByJobRuleTriggerRuleIdObjects(v []Rule)`
-
-SetReferencedByJobRuleTriggerRuleIdObjects sets ReferencedByJobRuleTriggerRuleIdObjects field to given value.
-
-### HasReferencedByJobRuleTriggerRuleIdObjects
-
-`func (o *Rule) HasReferencedByJobRuleTriggerRuleIdObjects() bool`
-
-HasReferencedByJobRuleTriggerRuleIdObjects returns a boolean if a field has been set.
-
-### SetReferencedByJobRuleTriggerRuleIdObjectsNil
-
-`func (o *Rule) SetReferencedByJobRuleTriggerRuleIdObjectsNil(b bool)`
-
- SetReferencedByJobRuleTriggerRuleIdObjectsNil sets the value for ReferencedByJobRuleTriggerRuleIdObjects to be an explicit nil
-
-### UnsetReferencedByJobRuleTriggerRuleIdObjects
-`func (o *Rule) UnsetReferencedByJobRuleTriggerRuleIdObjects()`
-
-UnsetReferencedByJobRuleTriggerRuleIdObjects ensures that no value is present for ReferencedByJobRuleTriggerRuleIdObjects, not even an explicit nil
 ### GetRepositoryId
 
 `func (o *Rule) GetRepositoryId() string`

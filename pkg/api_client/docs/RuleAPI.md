@@ -152,7 +152,7 @@ No authorization required
 
 ## GetRules
 
-> ResponseWithGenericOfRule GetRules(ctx).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).JobLoad(jobLoad).ReferencedByJobLoad(referencedByJobLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).JobTriggerJobIdEq(jobTriggerJobIdEq).JobTriggerJobIdNe(jobTriggerJobIdNe).JobTriggerJobIdGt(jobTriggerJobIdGt).JobTriggerJobIdGte(jobTriggerJobIdGte).JobTriggerJobIdLt(jobTriggerJobIdLt).JobTriggerJobIdLte(jobTriggerJobIdLte).JobTriggerJobIdIn(jobTriggerJobIdIn).JobTriggerJobIdNotin(jobTriggerJobIdNotin).JobTriggerJobIdLike(jobTriggerJobIdLike).JobTriggerJobIdNotlike(jobTriggerJobIdNotlike).JobTriggerJobIdIlike(jobTriggerJobIdIlike).JobTriggerJobIdNotilike(jobTriggerJobIdNotilike).JobTriggerJobIdDesc(jobTriggerJobIdDesc).JobTriggerJobIdAsc(jobTriggerJobIdAsc).JobTriggerJobIdObjectDesc(jobTriggerJobIdObjectDesc).JobTriggerJobIdObjectAsc(jobTriggerJobIdObjectAsc).ReferencedByJobRuleTriggerRuleIdObjectsDesc(referencedByJobRuleTriggerRuleIdObjectsDesc).ReferencedByJobRuleTriggerRuleIdObjectsAsc(referencedByJobRuleTriggerRuleIdObjectsAsc).Execute()
+> ResponseWithGenericOfRule GetRules(ctx).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByTriggerLoad(referencedByTriggerLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameContains(branchNameContains).BranchNameNotcontains(branchNameNotcontains).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByTriggerRuleIdObjectsContains(referencedByTriggerRuleIdObjectsContains).ReferencedByTriggerRuleIdObjectsNotcontains(referencedByTriggerRuleIdObjectsNotcontains).ReferencedByTriggerRuleIdObjectsDesc(referencedByTriggerRuleIdObjectsDesc).ReferencedByTriggerRuleIdObjectsAsc(referencedByTriggerRuleIdObjectsAsc).Execute()
 
 
 
@@ -173,9 +173,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
-	repositoryLoad := "repositoryLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
-	jobLoad := "jobLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobLoad := "referencedByJobLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
+	repositoryLoad := "repositoryLoad_example" // string | load the given directly related object, value is ignored (presence of key is sufficient) (optional)
+	referencedByTriggerLoad := "referencedByTriggerLoad_example" // string | load the given indirectly related objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -184,6 +183,8 @@ func main() {
 	idLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	idIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	idNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	idContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	idNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	idLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -198,6 +199,8 @@ func main() {
 	createdAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	createdAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	createdAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	createdAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	createdAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	createdAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -212,6 +215,8 @@ func main() {
 	updatedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	updatedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	updatedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	updatedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	updatedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	updatedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -226,6 +231,8 @@ func main() {
 	deletedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	deletedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	deletedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	deletedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	deletedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	deletedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -240,6 +247,8 @@ func main() {
 	branchNameLte := "branchNameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
 	branchNameIn := "branchNameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
 	branchNameNotin := "branchNameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	branchNameContains := "branchNameContains_example" // string | SQL @> comparison (optional)
+	branchNameNotcontains := "branchNameNotcontains_example" // string | SQL NOT @> comparison (optional)
 	branchNameLike := "branchNameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	branchNameNotlike := "branchNameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	branchNameIlike := "branchNameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -254,36 +263,26 @@ func main() {
 	repositoryIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	repositoryIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	repositoryIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	repositoryIdContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	repositoryIdNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	repositoryIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	repositoryIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	repositoryIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	repositoryIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	repositoryIdDesc := "repositoryIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	repositoryIdAsc := "repositoryIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	repositoryIdObjectContains := TODO // interface{} | SQL @> comparison (optional)
+	repositoryIdObjectNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
 	repositoryIdObjectDesc := "repositoryIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	repositoryIdObjectAsc := "repositoryIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobTriggerJobIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
-	jobTriggerJobIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
-	jobTriggerJobIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
-	jobTriggerJobIdGte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL >= comparison, may not work with all column types (optional)
-	jobTriggerJobIdLt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL < comparison, may not work with all column types (optional)
-	jobTriggerJobIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
-	jobTriggerJobIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
-	jobTriggerJobIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	jobTriggerJobIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobTriggerJobIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobTriggerJobIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobTriggerJobIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	jobTriggerJobIdDesc := "jobTriggerJobIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobTriggerJobIdAsc := "jobTriggerJobIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	jobTriggerJobIdObjectDesc := "jobTriggerJobIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	jobTriggerJobIdObjectAsc := "jobTriggerJobIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobRuleTriggerRuleIdObjectsDesc := "referencedByJobRuleTriggerRuleIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByJobRuleTriggerRuleIdObjectsAsc := "referencedByJobRuleTriggerRuleIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByTriggerRuleIdObjectsContains := TODO // interface{} | SQL @> comparison (optional)
+	referencedByTriggerRuleIdObjectsNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
+	referencedByTriggerRuleIdObjectsDesc := "referencedByTriggerRuleIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByTriggerRuleIdObjectsAsc := "referencedByTriggerRuleIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RuleAPI.GetRules(context.Background()).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).JobLoad(jobLoad).ReferencedByJobLoad(referencedByJobLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).JobTriggerJobIdEq(jobTriggerJobIdEq).JobTriggerJobIdNe(jobTriggerJobIdNe).JobTriggerJobIdGt(jobTriggerJobIdGt).JobTriggerJobIdGte(jobTriggerJobIdGte).JobTriggerJobIdLt(jobTriggerJobIdLt).JobTriggerJobIdLte(jobTriggerJobIdLte).JobTriggerJobIdIn(jobTriggerJobIdIn).JobTriggerJobIdNotin(jobTriggerJobIdNotin).JobTriggerJobIdLike(jobTriggerJobIdLike).JobTriggerJobIdNotlike(jobTriggerJobIdNotlike).JobTriggerJobIdIlike(jobTriggerJobIdIlike).JobTriggerJobIdNotilike(jobTriggerJobIdNotilike).JobTriggerJobIdDesc(jobTriggerJobIdDesc).JobTriggerJobIdAsc(jobTriggerJobIdAsc).JobTriggerJobIdObjectDesc(jobTriggerJobIdObjectDesc).JobTriggerJobIdObjectAsc(jobTriggerJobIdObjectAsc).ReferencedByJobRuleTriggerRuleIdObjectsDesc(referencedByJobRuleTriggerRuleIdObjectsDesc).ReferencedByJobRuleTriggerRuleIdObjectsAsc(referencedByJobRuleTriggerRuleIdObjectsAsc).Execute()
+	resp, r, err := apiClient.RuleAPI.GetRules(context.Background()).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByTriggerLoad(referencedByTriggerLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameContains(branchNameContains).BranchNameNotcontains(branchNameNotcontains).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByTriggerRuleIdObjectsContains(referencedByTriggerRuleIdObjectsContains).ReferencedByTriggerRuleIdObjectsNotcontains(referencedByTriggerRuleIdObjectsNotcontains).ReferencedByTriggerRuleIdObjectsDesc(referencedByTriggerRuleIdObjectsDesc).ReferencedByTriggerRuleIdObjectsAsc(referencedByTriggerRuleIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RuleAPI.GetRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -307,9 +306,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
- **repositoryLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
- **jobLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
- **referencedByJobLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
+ **repositoryLoad** | **string** | load the given directly related object, value is ignored (presence of key is sufficient) | 
+ **referencedByTriggerLoad** | **string** | load the given indirectly related objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -318,6 +316,8 @@ Name | Type | Description  | Notes
  **idLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **idIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **idNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **idContains** | **string** | SQL @&gt; comparison | 
+ **idNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **idLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -332,6 +332,8 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **createdAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **createdAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **createdAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **createdAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **createdAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -346,6 +348,8 @@ Name | Type | Description  | Notes
  **updatedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **updatedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **updatedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **updatedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **updatedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **updatedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -360,6 +364,8 @@ Name | Type | Description  | Notes
  **deletedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **deletedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **deletedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **deletedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **deletedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **deletedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -374,6 +380,8 @@ Name | Type | Description  | Notes
  **branchNameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **branchNameIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **branchNameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **branchNameContains** | **string** | SQL @&gt; comparison | 
+ **branchNameNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **branchNameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **branchNameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **branchNameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -388,32 +396,22 @@ Name | Type | Description  | Notes
  **repositoryIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **repositoryIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **repositoryIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **repositoryIdContains** | **string** | SQL @&gt; comparison | 
+ **repositoryIdNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **repositoryIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **repositoryIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **repositoryIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **repositoryIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **repositoryIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **repositoryIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **repositoryIdObjectContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **repositoryIdObjectNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
  **repositoryIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **repositoryIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobTriggerJobIdEq** | **string** | SQL &#x3D; comparison | 
- **jobTriggerJobIdNe** | **string** | SQL !&#x3D; comparison | 
- **jobTriggerJobIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **jobTriggerJobIdGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **jobTriggerJobIdLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **jobTriggerJobIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **jobTriggerJobIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **jobTriggerJobIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **jobTriggerJobIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobTriggerJobIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobTriggerJobIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobTriggerJobIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **jobTriggerJobIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobTriggerJobIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **jobTriggerJobIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **jobTriggerJobIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobRuleTriggerRuleIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByJobRuleTriggerRuleIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByTriggerRuleIdObjectsContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **referencedByTriggerRuleIdObjectsNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
+ **referencedByTriggerRuleIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByTriggerRuleIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 

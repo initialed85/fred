@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"net/http"
 	"net/netip"
 	"slices"
@@ -36,33 +37,38 @@ type Repository struct {
 	DeletedAt                             *time.Time `json:"deleted_at"`
 	URL                                   string     `json:"url"`
 	Name                                  *string    `json:"name"`
-	LastSyncedAt                          time.Time  `json:"last_synced_at"`
+	SyncedAt                              time.Time  `json:"synced_at"`
+	ChangeProducerClaimedUntil            time.Time  `json:"change_producer_claimed_until"`
 	ReferencedByChangeRepositoryIDObjects []*Change  `json:"referenced_by_change_repository_id_objects"`
 	ReferencedByRuleRepositoryIDObjects   []*Rule    `json:"referenced_by_rule_repository_id_objects"`
 }
 
 var RepositoryTable = "repository"
 
-var RepositoryTableNamespaceID int32 = 1337 + 7
+var RepositoryTableWithSchema = fmt.Sprintf("%s.%s", schema, RepositoryTable)
+
+var RepositoryTableNamespaceID int32 = 1337 + 6
 
 var (
-	RepositoryTableIDColumn           = "id"
-	RepositoryTableCreatedAtColumn    = "created_at"
-	RepositoryTableUpdatedAtColumn    = "updated_at"
-	RepositoryTableDeletedAtColumn    = "deleted_at"
-	RepositoryTableURLColumn          = "url"
-	RepositoryTableNameColumn         = "name"
-	RepositoryTableLastSyncedAtColumn = "last_synced_at"
+	RepositoryTableIDColumn                         = "id"
+	RepositoryTableCreatedAtColumn                  = "created_at"
+	RepositoryTableUpdatedAtColumn                  = "updated_at"
+	RepositoryTableDeletedAtColumn                  = "deleted_at"
+	RepositoryTableURLColumn                        = "url"
+	RepositoryTableNameColumn                       = "name"
+	RepositoryTableSyncedAtColumn                   = "synced_at"
+	RepositoryTableChangeProducerClaimedUntilColumn = "change_producer_claimed_until"
 )
 
 var (
-	RepositoryTableIDColumnWithTypeCast           = `"id" AS id`
-	RepositoryTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
-	RepositoryTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
-	RepositoryTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
-	RepositoryTableURLColumnWithTypeCast          = `"url" AS url`
-	RepositoryTableNameColumnWithTypeCast         = `"name" AS name`
-	RepositoryTableLastSyncedAtColumnWithTypeCast = `"last_synced_at" AS last_synced_at`
+	RepositoryTableIDColumnWithTypeCast                         = `"id" AS id`
+	RepositoryTableCreatedAtColumnWithTypeCast                  = `"created_at" AS created_at`
+	RepositoryTableUpdatedAtColumnWithTypeCast                  = `"updated_at" AS updated_at`
+	RepositoryTableDeletedAtColumnWithTypeCast                  = `"deleted_at" AS deleted_at`
+	RepositoryTableURLColumnWithTypeCast                        = `"url" AS url`
+	RepositoryTableNameColumnWithTypeCast                       = `"name" AS name`
+	RepositoryTableSyncedAtColumnWithTypeCast                   = `"synced_at" AS synced_at`
+	RepositoryTableChangeProducerClaimedUntilColumnWithTypeCast = `"change_producer_claimed_until" AS change_producer_claimed_until`
 )
 
 var RepositoryTableColumns = []string{
@@ -72,7 +78,8 @@ var RepositoryTableColumns = []string{
 	RepositoryTableDeletedAtColumn,
 	RepositoryTableURLColumn,
 	RepositoryTableNameColumn,
-	RepositoryTableLastSyncedAtColumn,
+	RepositoryTableSyncedAtColumn,
+	RepositoryTableChangeProducerClaimedUntilColumn,
 }
 
 var RepositoryTableColumnsWithTypeCasts = []string{
@@ -82,7 +89,8 @@ var RepositoryTableColumnsWithTypeCasts = []string{
 	RepositoryTableDeletedAtColumnWithTypeCast,
 	RepositoryTableURLColumnWithTypeCast,
 	RepositoryTableNameColumnWithTypeCast,
-	RepositoryTableLastSyncedAtColumnWithTypeCast,
+	RepositoryTableSyncedAtColumnWithTypeCast,
+	RepositoryTableChangeProducerClaimedUntilColumnWithTypeCast,
 }
 
 var RepositoryIntrospectedTable *introspect.Table
@@ -110,6 +118,11 @@ type RepositoryOnePathParams struct {
 
 type RepositoryLoadQueryParams struct {
 	Depth *int `json:"depth"`
+}
+
+type RepositoryChangeProducerClaimRequest struct {
+	Until          time.Time `json:"until"`
+	TimeoutSeconds float64   `json:"timeout_seconds"`
 }
 
 /*
@@ -277,7 +290,7 @@ func (m *Repository) FromItem(item map[string]any) error {
 
 			m.Name = &temp2
 
-		case "last_synced_at":
+		case "synced_at":
 			if v == nil {
 				continue
 			}
@@ -290,11 +303,30 @@ func (m *Repository) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(time.Time)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uulast_synced_at.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uusynced_at.UUID", temp1))
 				}
 			}
 
-			m.LastSyncedAt = temp2
+			m.SyncedAt = temp2
+
+		case "change_producer_claimed_until":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuchange_producer_claimed_until.UUID", temp1))
+				}
+			}
+
+			m.ChangeProducerClaimedUntil = temp2
 
 		}
 	}
@@ -331,7 +363,8 @@ func (m *Repository) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...b
 	m.DeletedAt = o.DeletedAt
 	m.URL = o.URL
 	m.Name = o.Name
-	m.LastSyncedAt = o.LastSyncedAt
+	m.SyncedAt = o.SyncedAt
+	m.ChangeProducerClaimedUntil = o.ChangeProducerClaimedUntil
 	m.ReferencedByChangeRepositoryIDObjects = o.ReferencedByChangeRepositoryIDObjects
 	m.ReferencedByRuleRepositoryIDObjects = o.ReferencedByRuleRepositoryIDObjects
 
@@ -408,12 +441,23 @@ func (m *Repository) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.LastSyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedAtColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableLastSyncedAtColumn) {
-		columns = append(columns, RepositoryTableLastSyncedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.SyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableSyncedAtColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableSyncedAtColumn) {
+		columns = append(columns, RepositoryTableSyncedAtColumn)
 
-		v, err := types.FormatTime(m.LastSyncedAt)
+		v, err := types.FormatTime(m.SyncedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.LastSyncedAt; %v", err)
+			return fmt.Errorf("failed to handle m.SyncedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.ChangeProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, RepositoryTableChangeProducerClaimedUntilColumn) || isRequired(RepositoryTableColumnLookup, RepositoryTableChangeProducerClaimedUntilColumn) {
+		columns = append(columns, RepositoryTableChangeProducerClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.ChangeProducerClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.ChangeProducerClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
@@ -427,7 +471,7 @@ func (m *Repository) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, 
 	item, err := query.Insert(
 		ctx,
 		tx,
-		RepositoryTable,
+		RepositoryTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -532,12 +576,23 @@ func (m *Repository) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.LastSyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableLastSyncedAtColumn) {
-		columns = append(columns, RepositoryTableLastSyncedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.SyncedAt) || slices.Contains(forceSetValuesForFields, RepositoryTableSyncedAtColumn) {
+		columns = append(columns, RepositoryTableSyncedAtColumn)
 
-		v, err := types.FormatTime(m.LastSyncedAt)
+		v, err := types.FormatTime(m.SyncedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.LastSyncedAt; %v", err)
+			return fmt.Errorf("failed to handle m.SyncedAt; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroTime(m.ChangeProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, RepositoryTableChangeProducerClaimedUntilColumn) {
+		columns = append(columns, RepositoryTableChangeProducerClaimedUntilColumn)
+
+		v, err := types.FormatTime(m.ChangeProducerClaimedUntil)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.ChangeProducerClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
@@ -558,7 +613,7 @@ func (m *Repository) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, 
 	_, err = query.Update(
 		ctx,
 		tx,
-		RepositoryTable,
+		RepositoryTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", RepositoryTableIDColumn),
 		RepositoryTableColumns,
@@ -606,7 +661,7 @@ func (m *Repository) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool)
 	err = query.Delete(
 		ctx,
 		tx,
-		RepositoryTable,
+		RepositoryTableWithSchema,
 		fmt.Sprintf("%v = $$??", RepositoryTableIDColumn),
 		values...,
 	)
@@ -620,11 +675,11 @@ func (m *Repository) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool)
 }
 
 func (m *Repository) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, RepositoryTable, timeouts...)
+	return query.LockTable(ctx, tx, RepositoryTableWithSchema, timeouts...)
 }
 
 func (m *Repository) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, RepositoryTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, RepositoryTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Repository) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -633,6 +688,35 @@ func (m *Repository) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, tim
 
 func (m *Repository) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int32, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
 	return query.AdvisoryLockWithRetries(ctx, tx, RepositoryTableNamespaceID, key, overallTimeout, individualAttempttimeout)
+}
+
+func (m *Repository) ChangeProducerClaim(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration) error {
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return fmt.Errorf("failed to claim (advisory lock): %s", err.Error())
+	}
+
+	_, _, _, _, _, err = SelectRepository(
+		ctx,
+		tx,
+		fmt.Sprintf(
+			"%s = $$?? AND (change_producer_claimed_until IS null OR change_producer_claimed_until < now())",
+			RepositoryTablePrimaryKeyColumn,
+		),
+		m.GetPrimaryKeyValue(),
+	)
+	if err != nil {
+		return fmt.Errorf("failed to claim (select): %s", err.Error())
+	}
+
+	m.ChangeProducerClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return fmt.Errorf("failed to claim (update): %s", err.Error())
+	}
+
+	return nil
 }
 
 func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *string, limit *int, offset *int, values ...any) ([]*Repository, int64, int64, int64, int64, error) {
@@ -676,7 +760,7 @@ func SelectRepositories(ctx context.Context, tx pgx.Tx, where string, orderBy *s
 		ctx,
 		tx,
 		RepositoryTableColumnsWithTypeCasts,
-		RepositoryTable,
+		RepositoryTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -814,6 +898,51 @@ func SelectRepository(ctx context.Context, tx pgx.Tx, where string, values ...an
 	return object, count, totalCount, page, totalPages, nil
 }
 
+func ChangeProducerClaimRepository(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration, where string, values ...any) (*Repository, error) {
+	m := &Repository{}
+
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if strings.TrimSpace(where) != "" {
+		where += " AND\n"
+	}
+
+	where += "    (change_producer_claimed_until IS null OR change_producer_claimed_until < now())"
+
+	ms, _, _, _, _, err := SelectRepositories(
+		ctx,
+		tx,
+		where,
+		helpers.Ptr(
+			"change_producer_claimed_until ASC",
+		),
+		helpers.Ptr(1),
+		nil,
+		values...,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if len(ms) == 0 {
+		return nil, nil
+	}
+
+	m = ms[0]
+
+	m.ChangeProducerClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	return m, nil
+}
+
 func handleGetRepositories(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Repository, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
@@ -860,7 +989,7 @@ func handleGetRepository(arguments *server.SelectOneArguments, db *pgxpool.Pool,
 	return []*Repository{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostRepositorys(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Repository, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Repository, int64, int64, int64, int64, error) {
+func handlePostRepository(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Repository, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Repository, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1099,12 +1228,172 @@ func handleDeleteRepository(arguments *server.LoadArguments, db *pgxpool.Pool, w
 	return nil
 }
 
-func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
+func MutateRouterForRepository(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+	func() {
+		postHandlerForChangeProducerClaim, err := getHTTPHandler(
+			http.MethodPost,
+			"/change-producer-claim-repository",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams server.EmptyPathParams,
+				queryParams server.EmptyQueryParams,
+				req RepositoryChangeProducerClaimRequest,
+				rawReq any,
+			) (server.Response[Repository], error) {
+				tx, err := db.Begin(ctx)
+				if err != nil {
+					return server.Response[Repository]{}, err
+				}
+
+				defer func() {
+					_ = tx.Rollback(ctx)
+				}()
+
+				object, err := ChangeProducerClaimRepository(ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000), "")
+				if err != nil {
+					return server.Response[Repository]{}, err
+				}
+
+				count := int64(0)
+
+				totalCount := int64(0)
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				if object == nil {
+					return server.Response[Repository]{
+						Status:     http.StatusOK,
+						Success:    true,
+						Error:      nil,
+						Objects:    []*Repository{},
+						Count:      count,
+						TotalCount: totalCount,
+						Limit:      limit,
+						Offset:     offset,
+					}, nil
+				}
+
+				err = tx.Commit(ctx)
+				if err != nil {
+					return server.Response[Repository]{}, err
+				}
+
+				return server.Response[Repository]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Repository{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}, nil
+			},
+			Repository{},
+			RepositoryIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForChangeProducerClaim.FullPath, postHandlerForChangeProducerClaim.ServeHTTP)
+
+		postHandlerForChangeProducerClaimOne, err := getHTTPHandler(
+			http.MethodPost,
+			"/repositories/{primaryKey}/change-producer-claim",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams RepositoryOnePathParams,
+				queryParams RepositoryLoadQueryParams,
+				req RepositoryChangeProducerClaimRequest,
+				rawReq any,
+			) (server.Response[Repository], error) {
+				before := time.Now()
+
+				redisConn := redisPool.Get()
+				defer func() {
+					_ = redisConn.Close()
+				}()
+
+				arguments, err := server.GetSelectOneArguments(ctx, queryParams.Depth, RepositoryIntrospectedTable, pathParams.PrimaryKey, nil, nil)
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Repository]{}, err
+				}
+
+				/* note: deliberately no attempt at a cache hit */
+
+				var object *Repository
+				var count int64
+				var totalCount int64
+
+				err = func() error {
+					tx, err := db.Begin(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					defer func() {
+						_ = tx.Rollback(arguments.Ctx)
+					}()
+
+					object, count, totalCount, _, _, err = SelectRepository(arguments.Ctx, tx, arguments.Where, arguments.Values...)
+					if err != nil {
+						return fmt.Errorf("failed to select object to claim: %s", err.Error())
+					}
+
+					err = object.ChangeProducerClaim(arguments.Ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000))
+					if err != nil {
+						return err
+					}
+
+					err = tx.Commit(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				}()
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Repository]{}, err
+				}
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				response := server.Response[Repository]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Repository{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}
+
+				return response, nil
+			},
+			Repository{},
+			RepositoryIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForChangeProducerClaimOne.FullPath, postHandlerForChangeProducerClaimOne.ServeHTTP)
+	}()
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1220,7 +1509,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1331,7 +1620,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1379,7 +1668,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 					return server.Response[Repository]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostRepositorys(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostRepository(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Repository]{}, err
 				}
@@ -1405,7 +1694,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1459,7 +1748,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1522,7 +1811,7 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1558,10 +1847,8 @@ func GetRepositoryRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddleware
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewRepositoryFromItem(item map[string]any) (any, error) {
@@ -1581,6 +1868,6 @@ func init() {
 		Repository{},
 		NewRepositoryFromItem,
 		"/repositories",
-		GetRepositoryRouter,
+		MutateRouterForRepository,
 	)
 }

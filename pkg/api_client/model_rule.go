@@ -20,16 +20,14 @@ var _ MappedNullable = &Rule{}
 
 // Rule struct for Rule
 type Rule struct {
-	BranchName *string `json:"branch_name,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	JobTriggerJobId *string `json:"job_trigger_job_id,omitempty"`
-	JobTriggerJobIdObject *Job `json:"job_trigger_job_id_object,omitempty"`
-	ReferencedByJobRuleTriggerRuleIdObjects []Rule `json:"referenced_by_job_rule_trigger_rule_id_objects,omitempty"`
-	RepositoryId *string `json:"repository_id,omitempty"`
-	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	BranchName                       *string     `json:"branch_name,omitempty"`
+	CreatedAt                        *time.Time  `json:"created_at,omitempty"`
+	DeletedAt                        *time.Time  `json:"deleted_at,omitempty"`
+	Id                               *string     `json:"id,omitempty"`
+	ReferencedByTriggerRuleIdObjects []Trigger   `json:"referenced_by_trigger_rule_id_objects,omitempty"`
+	RepositoryId                     *string     `json:"repository_id,omitempty"`
+	RepositoryIdObject               *Repository `json:"repository_id_object,omitempty"`
+	UpdatedAt                        *time.Time  `json:"updated_at,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -177,101 +175,36 @@ func (o *Rule) SetId(v string) {
 	o.Id = &v
 }
 
-// GetJobTriggerJobId returns the JobTriggerJobId field value if set, zero value otherwise.
-func (o *Rule) GetJobTriggerJobId() string {
-	if o == nil || IsNil(o.JobTriggerJobId) {
-		var ret string
+// GetReferencedByTriggerRuleIdObjects returns the ReferencedByTriggerRuleIdObjects field value if set, zero value otherwise.
+func (o *Rule) GetReferencedByTriggerRuleIdObjects() []Trigger {
+	if o == nil || IsNil(o.ReferencedByTriggerRuleIdObjects) {
+		var ret []Trigger
 		return ret
 	}
-	return *o.JobTriggerJobId
+	return o.ReferencedByTriggerRuleIdObjects
 }
 
-// GetJobTriggerJobIdOk returns a tuple with the JobTriggerJobId field value if set, nil otherwise
+// GetReferencedByTriggerRuleIdObjectsOk returns a tuple with the ReferencedByTriggerRuleIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Rule) GetJobTriggerJobIdOk() (*string, bool) {
-	if o == nil || IsNil(o.JobTriggerJobId) {
+func (o *Rule) GetReferencedByTriggerRuleIdObjectsOk() ([]Trigger, bool) {
+	if o == nil || IsNil(o.ReferencedByTriggerRuleIdObjects) {
 		return nil, false
 	}
-	return o.JobTriggerJobId, true
+	return o.ReferencedByTriggerRuleIdObjects, true
 }
 
-// HasJobTriggerJobId returns a boolean if a field has been set.
-func (o *Rule) HasJobTriggerJobId() bool {
-	if o != nil && !IsNil(o.JobTriggerJobId) {
+// HasReferencedByTriggerRuleIdObjects returns a boolean if a field has been set.
+func (o *Rule) HasReferencedByTriggerRuleIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByTriggerRuleIdObjects) {
 		return true
 	}
 
 	return false
 }
 
-// SetJobTriggerJobId gets a reference to the given string and assigns it to the JobTriggerJobId field.
-func (o *Rule) SetJobTriggerJobId(v string) {
-	o.JobTriggerJobId = &v
-}
-
-// GetJobTriggerJobIdObject returns the JobTriggerJobIdObject field value if set, zero value otherwise.
-func (o *Rule) GetJobTriggerJobIdObject() Job {
-	if o == nil || IsNil(o.JobTriggerJobIdObject) {
-		var ret Job
-		return ret
-	}
-	return *o.JobTriggerJobIdObject
-}
-
-// GetJobTriggerJobIdObjectOk returns a tuple with the JobTriggerJobIdObject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Rule) GetJobTriggerJobIdObjectOk() (*Job, bool) {
-	if o == nil || IsNil(o.JobTriggerJobIdObject) {
-		return nil, false
-	}
-	return o.JobTriggerJobIdObject, true
-}
-
-// HasJobTriggerJobIdObject returns a boolean if a field has been set.
-func (o *Rule) HasJobTriggerJobIdObject() bool {
-	if o != nil && !IsNil(o.JobTriggerJobIdObject) {
-		return true
-	}
-
-	return false
-}
-
-// SetJobTriggerJobIdObject gets a reference to the given Job and assigns it to the JobTriggerJobIdObject field.
-func (o *Rule) SetJobTriggerJobIdObject(v Job) {
-	o.JobTriggerJobIdObject = &v
-}
-
-// GetReferencedByJobRuleTriggerRuleIdObjects returns the ReferencedByJobRuleTriggerRuleIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Rule) GetReferencedByJobRuleTriggerRuleIdObjects() []Rule {
-	if o == nil {
-		var ret []Rule
-		return ret
-	}
-	return o.ReferencedByJobRuleTriggerRuleIdObjects
-}
-
-// GetReferencedByJobRuleTriggerRuleIdObjectsOk returns a tuple with the ReferencedByJobRuleTriggerRuleIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Rule) GetReferencedByJobRuleTriggerRuleIdObjectsOk() ([]Rule, bool) {
-	if o == nil || IsNil(o.ReferencedByJobRuleTriggerRuleIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByJobRuleTriggerRuleIdObjects, true
-}
-
-// HasReferencedByJobRuleTriggerRuleIdObjects returns a boolean if a field has been set.
-func (o *Rule) HasReferencedByJobRuleTriggerRuleIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByJobRuleTriggerRuleIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByJobRuleTriggerRuleIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByJobRuleTriggerRuleIdObjects field.
-func (o *Rule) SetReferencedByJobRuleTriggerRuleIdObjects(v []Rule) {
-	o.ReferencedByJobRuleTriggerRuleIdObjects = v
+// SetReferencedByTriggerRuleIdObjects gets a reference to the given []Trigger and assigns it to the ReferencedByTriggerRuleIdObjects field.
+func (o *Rule) SetReferencedByTriggerRuleIdObjects(v []Trigger) {
+	o.ReferencedByTriggerRuleIdObjects = v
 }
 
 // GetRepositoryId returns the RepositoryId field value if set, zero value otherwise.
@@ -371,7 +304,7 @@ func (o *Rule) SetUpdatedAt(v time.Time) {
 }
 
 func (o Rule) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -392,14 +325,8 @@ func (o Rule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.JobTriggerJobId) {
-		toSerialize["job_trigger_job_id"] = o.JobTriggerJobId
-	}
-	if !IsNil(o.JobTriggerJobIdObject) {
-		toSerialize["job_trigger_job_id_object"] = o.JobTriggerJobIdObject
-	}
-	if o.ReferencedByJobRuleTriggerRuleIdObjects != nil {
-		toSerialize["referenced_by_job_rule_trigger_rule_id_objects"] = o.ReferencedByJobRuleTriggerRuleIdObjects
+	if !IsNil(o.ReferencedByTriggerRuleIdObjects) {
+		toSerialize["referenced_by_trigger_rule_id_objects"] = o.ReferencedByTriggerRuleIdObjects
 	}
 	if !IsNil(o.RepositoryId) {
 		toSerialize["repository_id"] = o.RepositoryId
@@ -448,5 +375,3 @@ func (v *NullableRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

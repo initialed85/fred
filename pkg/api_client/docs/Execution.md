@@ -4,16 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ChangeId** | Pointer to **string** |  | [optional] 
+**ChangeIdObject** | Pointer to [**Change**](Change.md) |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **EndedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**M2mRuleTriggerJobId** | Pointer to **string** |  | [optional] 
-**M2mRuleTriggerJobIdObject** | Pointer to [**M2MRuleTriggerJob**](M2MRuleTriggerJob.md) |  | [optional] 
+**JobExecutorClaimedUntil** | Pointer to **time.Time** |  | [optional] 
+**JobId** | Pointer to **string** |  | [optional] 
+**JobIdObject** | Pointer to [**Job**](Job.md) |  | [optional] 
+**ReferencedByOutputExecutionIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **StartedAt** | Pointer to **time.Time** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**TaskId** | Pointer to **string** |  | [optional] 
-**TaskIdObject** | Pointer to [**Task**](Task.md) |  | [optional] 
+**TriggerId** | Pointer to **string** |  | [optional] 
+**TriggerIdObject** | Pointer to [**Trigger**](Trigger.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -34,6 +38,56 @@ will change when the set of required properties is changed
 NewExecutionWithDefaults instantiates a new Execution object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetChangeId
+
+`func (o *Execution) GetChangeId() string`
+
+GetChangeId returns the ChangeId field if non-nil, zero value otherwise.
+
+### GetChangeIdOk
+
+`func (o *Execution) GetChangeIdOk() (*string, bool)`
+
+GetChangeIdOk returns a tuple with the ChangeId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChangeId
+
+`func (o *Execution) SetChangeId(v string)`
+
+SetChangeId sets ChangeId field to given value.
+
+### HasChangeId
+
+`func (o *Execution) HasChangeId() bool`
+
+HasChangeId returns a boolean if a field has been set.
+
+### GetChangeIdObject
+
+`func (o *Execution) GetChangeIdObject() Change`
+
+GetChangeIdObject returns the ChangeIdObject field if non-nil, zero value otherwise.
+
+### GetChangeIdObjectOk
+
+`func (o *Execution) GetChangeIdObjectOk() (*Change, bool)`
+
+GetChangeIdObjectOk returns a tuple with the ChangeIdObject field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChangeIdObject
+
+`func (o *Execution) SetChangeIdObject(v Change)`
+
+SetChangeIdObject sets ChangeIdObject field to given value.
+
+### HasChangeIdObject
+
+`func (o *Execution) HasChangeIdObject() bool`
+
+HasChangeIdObject returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -135,55 +189,105 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetM2mRuleTriggerJobId
+### GetJobExecutorClaimedUntil
 
-`func (o *Execution) GetM2mRuleTriggerJobId() string`
+`func (o *Execution) GetJobExecutorClaimedUntil() time.Time`
 
-GetM2mRuleTriggerJobId returns the M2mRuleTriggerJobId field if non-nil, zero value otherwise.
+GetJobExecutorClaimedUntil returns the JobExecutorClaimedUntil field if non-nil, zero value otherwise.
 
-### GetM2mRuleTriggerJobIdOk
+### GetJobExecutorClaimedUntilOk
 
-`func (o *Execution) GetM2mRuleTriggerJobIdOk() (*string, bool)`
+`func (o *Execution) GetJobExecutorClaimedUntilOk() (*time.Time, bool)`
 
-GetM2mRuleTriggerJobIdOk returns a tuple with the M2mRuleTriggerJobId field if it's non-nil, zero value otherwise
+GetJobExecutorClaimedUntilOk returns a tuple with the JobExecutorClaimedUntil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetM2mRuleTriggerJobId
+### SetJobExecutorClaimedUntil
 
-`func (o *Execution) SetM2mRuleTriggerJobId(v string)`
+`func (o *Execution) SetJobExecutorClaimedUntil(v time.Time)`
 
-SetM2mRuleTriggerJobId sets M2mRuleTriggerJobId field to given value.
+SetJobExecutorClaimedUntil sets JobExecutorClaimedUntil field to given value.
 
-### HasM2mRuleTriggerJobId
+### HasJobExecutorClaimedUntil
 
-`func (o *Execution) HasM2mRuleTriggerJobId() bool`
+`func (o *Execution) HasJobExecutorClaimedUntil() bool`
 
-HasM2mRuleTriggerJobId returns a boolean if a field has been set.
+HasJobExecutorClaimedUntil returns a boolean if a field has been set.
 
-### GetM2mRuleTriggerJobIdObject
+### GetJobId
 
-`func (o *Execution) GetM2mRuleTriggerJobIdObject() M2MRuleTriggerJob`
+`func (o *Execution) GetJobId() string`
 
-GetM2mRuleTriggerJobIdObject returns the M2mRuleTriggerJobIdObject field if non-nil, zero value otherwise.
+GetJobId returns the JobId field if non-nil, zero value otherwise.
 
-### GetM2mRuleTriggerJobIdObjectOk
+### GetJobIdOk
 
-`func (o *Execution) GetM2mRuleTriggerJobIdObjectOk() (*M2MRuleTriggerJob, bool)`
+`func (o *Execution) GetJobIdOk() (*string, bool)`
 
-GetM2mRuleTriggerJobIdObjectOk returns a tuple with the M2mRuleTriggerJobIdObject field if it's non-nil, zero value otherwise
+GetJobIdOk returns a tuple with the JobId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetM2mRuleTriggerJobIdObject
+### SetJobId
 
-`func (o *Execution) SetM2mRuleTriggerJobIdObject(v M2MRuleTriggerJob)`
+`func (o *Execution) SetJobId(v string)`
 
-SetM2mRuleTriggerJobIdObject sets M2mRuleTriggerJobIdObject field to given value.
+SetJobId sets JobId field to given value.
 
-### HasM2mRuleTriggerJobIdObject
+### HasJobId
 
-`func (o *Execution) HasM2mRuleTriggerJobIdObject() bool`
+`func (o *Execution) HasJobId() bool`
 
-HasM2mRuleTriggerJobIdObject returns a boolean if a field has been set.
+HasJobId returns a boolean if a field has been set.
+
+### GetJobIdObject
+
+`func (o *Execution) GetJobIdObject() Job`
+
+GetJobIdObject returns the JobIdObject field if non-nil, zero value otherwise.
+
+### GetJobIdObjectOk
+
+`func (o *Execution) GetJobIdObjectOk() (*Job, bool)`
+
+GetJobIdObjectOk returns a tuple with the JobIdObject field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobIdObject
+
+`func (o *Execution) SetJobIdObject(v Job)`
+
+SetJobIdObject sets JobIdObject field to given value.
+
+### HasJobIdObject
+
+`func (o *Execution) HasJobIdObject() bool`
+
+HasJobIdObject returns a boolean if a field has been set.
+
+### GetReferencedByOutputExecutionIdObjects
+
+`func (o *Execution) GetReferencedByOutputExecutionIdObjects() []Output`
+
+GetReferencedByOutputExecutionIdObjects returns the ReferencedByOutputExecutionIdObjects field if non-nil, zero value otherwise.
+
+### GetReferencedByOutputExecutionIdObjectsOk
+
+`func (o *Execution) GetReferencedByOutputExecutionIdObjectsOk() (*[]Output, bool)`
+
+GetReferencedByOutputExecutionIdObjectsOk returns a tuple with the ReferencedByOutputExecutionIdObjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedByOutputExecutionIdObjects
+
+`func (o *Execution) SetReferencedByOutputExecutionIdObjects(v []Output)`
+
+SetReferencedByOutputExecutionIdObjects sets ReferencedByOutputExecutionIdObjects field to given value.
+
+### HasReferencedByOutputExecutionIdObjects
+
+`func (o *Execution) HasReferencedByOutputExecutionIdObjects() bool`
+
+HasReferencedByOutputExecutionIdObjects returns a boolean if a field has been set.
 
 ### GetStartedAt
 
@@ -235,55 +339,55 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### GetTaskId
+### GetTriggerId
 
-`func (o *Execution) GetTaskId() string`
+`func (o *Execution) GetTriggerId() string`
 
-GetTaskId returns the TaskId field if non-nil, zero value otherwise.
+GetTriggerId returns the TriggerId field if non-nil, zero value otherwise.
 
-### GetTaskIdOk
+### GetTriggerIdOk
 
-`func (o *Execution) GetTaskIdOk() (*string, bool)`
+`func (o *Execution) GetTriggerIdOk() (*string, bool)`
 
-GetTaskIdOk returns a tuple with the TaskId field if it's non-nil, zero value otherwise
+GetTriggerIdOk returns a tuple with the TriggerId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTaskId
+### SetTriggerId
 
-`func (o *Execution) SetTaskId(v string)`
+`func (o *Execution) SetTriggerId(v string)`
 
-SetTaskId sets TaskId field to given value.
+SetTriggerId sets TriggerId field to given value.
 
-### HasTaskId
+### HasTriggerId
 
-`func (o *Execution) HasTaskId() bool`
+`func (o *Execution) HasTriggerId() bool`
 
-HasTaskId returns a boolean if a field has been set.
+HasTriggerId returns a boolean if a field has been set.
 
-### GetTaskIdObject
+### GetTriggerIdObject
 
-`func (o *Execution) GetTaskIdObject() Task`
+`func (o *Execution) GetTriggerIdObject() Trigger`
 
-GetTaskIdObject returns the TaskIdObject field if non-nil, zero value otherwise.
+GetTriggerIdObject returns the TriggerIdObject field if non-nil, zero value otherwise.
 
-### GetTaskIdObjectOk
+### GetTriggerIdObjectOk
 
-`func (o *Execution) GetTaskIdObjectOk() (*Task, bool)`
+`func (o *Execution) GetTriggerIdObjectOk() (*Trigger, bool)`
 
-GetTaskIdObjectOk returns a tuple with the TaskIdObject field if it's non-nil, zero value otherwise
+GetTriggerIdObjectOk returns a tuple with the TriggerIdObject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTaskIdObject
+### SetTriggerIdObject
 
-`func (o *Execution) SetTaskIdObject(v Task)`
+`func (o *Execution) SetTriggerIdObject(v Trigger)`
 
-SetTaskIdObject sets TaskIdObject field to given value.
+SetTriggerIdObject sets TriggerIdObject field to given value.
 
-### HasTaskIdObject
+### HasTriggerIdObject
 
-`func (o *Execution) HasTaskIdObject() bool`
+`func (o *Execution) HasTriggerIdObject() bool`
 
-HasTaskIdObject returns a boolean if a field has been set.
+HasTriggerIdObject returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

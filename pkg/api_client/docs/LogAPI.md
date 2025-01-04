@@ -152,7 +152,7 @@ No authorization required
 
 ## GetLogs
 
-> ResponseWithGenericOfLog GetLogs(ctx).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogidObjectsDesc(referencedByOutputLogidObjectsDesc).ReferencedByOutputLogidObjectsAsc(referencedByOutputLogidObjectsAsc).Execute()
+> ResponseWithGenericOfLog GetLogs(ctx).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferContains(bufferContains).BufferNotcontains(bufferNotcontains).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdContains(outputIdContains).OutputIdNotcontains(outputIdNotcontains).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectContains(outputIdObjectContains).OutputIdObjectNotcontains(outputIdObjectNotcontains).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogIdObjectsContains(referencedByOutputLogIdObjectsContains).ReferencedByOutputLogIdObjectsNotcontains(referencedByOutputLogIdObjectsNotcontains).ReferencedByOutputLogIdObjectsDesc(referencedByOutputLogIdObjectsDesc).ReferencedByOutputLogIdObjectsAsc(referencedByOutputLogIdObjectsAsc).Execute()
 
 
 
@@ -173,8 +173,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
-	outputLoad := "outputLoad_example" // string | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) (optional)
-	referencedByOutputLoad := "referencedByOutputLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
+	outputLoad := "outputLoad_example" // string | load the given directly related object, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLoad := "referencedByOutputLoad_example" // string | load the given indirectly related objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -183,6 +183,8 @@ func main() {
 	idLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	idIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	idNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	idContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	idNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	idLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -197,6 +199,8 @@ func main() {
 	createdAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	createdAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	createdAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	createdAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	createdAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	createdAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -211,6 +215,8 @@ func main() {
 	updatedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	updatedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	updatedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	updatedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	updatedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	updatedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -225,6 +231,8 @@ func main() {
 	deletedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	deletedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	deletedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	deletedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	deletedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	deletedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -239,6 +247,8 @@ func main() {
 	bufferLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	bufferIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	bufferNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	bufferContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	bufferNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	bufferLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	bufferNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	bufferIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -253,20 +263,26 @@ func main() {
 	outputIdLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	outputIdIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	outputIdNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	outputIdContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	outputIdNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	outputIdLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	outputIdNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	outputIdIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	outputIdNotilike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	outputIdDesc := "outputIdDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	outputIdAsc := "outputIdAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	outputIdObjectContains := TODO // interface{} | SQL @> comparison (optional)
+	outputIdObjectNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
 	outputIdObjectDesc := "outputIdObjectDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	outputIdObjectAsc := "outputIdObjectAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByOutputLogidObjectsDesc := "referencedByOutputLogidObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	referencedByOutputLogidObjectsAsc := "referencedByOutputLogidObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLogIdObjectsContains := TODO // interface{} | SQL @> comparison (optional)
+	referencedByOutputLogIdObjectsNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
+	referencedByOutputLogIdObjectsDesc := "referencedByOutputLogIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByOutputLogIdObjectsAsc := "referencedByOutputLogIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LogAPI.GetLogs(context.Background()).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogidObjectsDesc(referencedByOutputLogidObjectsDesc).ReferencedByOutputLogidObjectsAsc(referencedByOutputLogidObjectsAsc).Execute()
+	resp, r, err := apiClient.LogAPI.GetLogs(context.Background()).Limit(limit).Offset(offset).Depth(depth).OutputLoad(outputLoad).ReferencedByOutputLoad(referencedByOutputLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).BufferEq(bufferEq).BufferNe(bufferNe).BufferGt(bufferGt).BufferGte(bufferGte).BufferLt(bufferLt).BufferLte(bufferLte).BufferIn(bufferIn).BufferNotin(bufferNotin).BufferContains(bufferContains).BufferNotcontains(bufferNotcontains).BufferLike(bufferLike).BufferNotlike(bufferNotlike).BufferIlike(bufferIlike).BufferNotilike(bufferNotilike).BufferDesc(bufferDesc).BufferAsc(bufferAsc).OutputIdEq(outputIdEq).OutputIdNe(outputIdNe).OutputIdGt(outputIdGt).OutputIdGte(outputIdGte).OutputIdLt(outputIdLt).OutputIdLte(outputIdLte).OutputIdIn(outputIdIn).OutputIdNotin(outputIdNotin).OutputIdContains(outputIdContains).OutputIdNotcontains(outputIdNotcontains).OutputIdLike(outputIdLike).OutputIdNotlike(outputIdNotlike).OutputIdIlike(outputIdIlike).OutputIdNotilike(outputIdNotilike).OutputIdDesc(outputIdDesc).OutputIdAsc(outputIdAsc).OutputIdObjectContains(outputIdObjectContains).OutputIdObjectNotcontains(outputIdObjectNotcontains).OutputIdObjectDesc(outputIdObjectDesc).OutputIdObjectAsc(outputIdObjectAsc).ReferencedByOutputLogIdObjectsContains(referencedByOutputLogIdObjectsContains).ReferencedByOutputLogIdObjectsNotcontains(referencedByOutputLogIdObjectsNotcontains).ReferencedByOutputLogIdObjectsDesc(referencedByOutputLogIdObjectsDesc).ReferencedByOutputLogIdObjectsAsc(referencedByOutputLogIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LogAPI.GetLogs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -290,8 +306,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
- **outputLoad** | **string** | load the given directly related Djangolang object, value is ignored (presence of key is sufficient) | 
- **referencedByOutputLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
+ **outputLoad** | **string** | load the given directly related object, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLoad** | **string** | load the given indirectly related objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -300,6 +316,8 @@ Name | Type | Description  | Notes
  **idLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **idIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **idNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **idContains** | **string** | SQL @&gt; comparison | 
+ **idNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **idLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -314,6 +332,8 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **createdAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **createdAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **createdAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **createdAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **createdAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -328,6 +348,8 @@ Name | Type | Description  | Notes
  **updatedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **updatedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **updatedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **updatedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **updatedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **updatedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -342,6 +364,8 @@ Name | Type | Description  | Notes
  **deletedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **deletedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **deletedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **deletedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **deletedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **deletedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -356,6 +380,8 @@ Name | Type | Description  | Notes
  **bufferLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **bufferIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **bufferNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **bufferContains** | **string** | SQL @&gt; comparison | 
+ **bufferNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **bufferLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **bufferNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **bufferIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -370,16 +396,22 @@ Name | Type | Description  | Notes
  **outputIdLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **outputIdIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **outputIdNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **outputIdContains** | **string** | SQL @&gt; comparison | 
+ **outputIdNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **outputIdLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **outputIdNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **outputIdIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **outputIdNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **outputIdDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **outputIdAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **outputIdObjectContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **outputIdObjectNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
  **outputIdObjectDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **outputIdObjectAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **referencedByOutputLogidObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **referencedByOutputLogidObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLogIdObjectsContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **referencedByOutputLogIdObjectsNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
+ **referencedByOutputLogIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByOutputLogIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
 ### Return type
 

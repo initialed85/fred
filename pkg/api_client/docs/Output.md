@@ -8,10 +8,12 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **EndedAt** | Pointer to **time.Time** |  | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
+**ExecutionId** | Pointer to **string** |  | [optional] 
+**ExecutionIdObject** | Pointer to [**Execution**](Execution.md) |  | [optional] 
 **ExitStatus** | Pointer to **int64** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**Logid** | Pointer to **string** |  | [optional] 
-**LogidObject** | Pointer to [**Log**](Log.md) |  | [optional] 
+**LogId** | Pointer to **string** |  | [optional] 
+**LogIdObject** | Pointer to [**Log**](Log.md) |  | [optional] 
 **ReferencedByLogOutputIdObjects** | Pointer to [**[]Log**](Log.md) |  | [optional] 
 **StartedAt** | Pointer to **time.Time** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -138,6 +140,56 @@ SetError sets Error field to given value.
 
 HasError returns a boolean if a field has been set.
 
+### GetExecutionId
+
+`func (o *Output) GetExecutionId() string`
+
+GetExecutionId returns the ExecutionId field if non-nil, zero value otherwise.
+
+### GetExecutionIdOk
+
+`func (o *Output) GetExecutionIdOk() (*string, bool)`
+
+GetExecutionIdOk returns a tuple with the ExecutionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExecutionId
+
+`func (o *Output) SetExecutionId(v string)`
+
+SetExecutionId sets ExecutionId field to given value.
+
+### HasExecutionId
+
+`func (o *Output) HasExecutionId() bool`
+
+HasExecutionId returns a boolean if a field has been set.
+
+### GetExecutionIdObject
+
+`func (o *Output) GetExecutionIdObject() Execution`
+
+GetExecutionIdObject returns the ExecutionIdObject field if non-nil, zero value otherwise.
+
+### GetExecutionIdObjectOk
+
+`func (o *Output) GetExecutionIdObjectOk() (*Execution, bool)`
+
+GetExecutionIdObjectOk returns a tuple with the ExecutionIdObject field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExecutionIdObject
+
+`func (o *Output) SetExecutionIdObject(v Execution)`
+
+SetExecutionIdObject sets ExecutionIdObject field to given value.
+
+### HasExecutionIdObject
+
+`func (o *Output) HasExecutionIdObject() bool`
+
+HasExecutionIdObject returns a boolean if a field has been set.
+
 ### GetExitStatus
 
 `func (o *Output) GetExitStatus() int64`
@@ -188,55 +240,55 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetLogid
+### GetLogId
 
-`func (o *Output) GetLogid() string`
+`func (o *Output) GetLogId() string`
 
-GetLogid returns the Logid field if non-nil, zero value otherwise.
+GetLogId returns the LogId field if non-nil, zero value otherwise.
 
-### GetLogidOk
+### GetLogIdOk
 
-`func (o *Output) GetLogidOk() (*string, bool)`
+`func (o *Output) GetLogIdOk() (*string, bool)`
 
-GetLogidOk returns a tuple with the Logid field if it's non-nil, zero value otherwise
+GetLogIdOk returns a tuple with the LogId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLogid
+### SetLogId
 
-`func (o *Output) SetLogid(v string)`
+`func (o *Output) SetLogId(v string)`
 
-SetLogid sets Logid field to given value.
+SetLogId sets LogId field to given value.
 
-### HasLogid
+### HasLogId
 
-`func (o *Output) HasLogid() bool`
+`func (o *Output) HasLogId() bool`
 
-HasLogid returns a boolean if a field has been set.
+HasLogId returns a boolean if a field has been set.
 
-### GetLogidObject
+### GetLogIdObject
 
-`func (o *Output) GetLogidObject() Log`
+`func (o *Output) GetLogIdObject() Log`
 
-GetLogidObject returns the LogidObject field if non-nil, zero value otherwise.
+GetLogIdObject returns the LogIdObject field if non-nil, zero value otherwise.
 
-### GetLogidObjectOk
+### GetLogIdObjectOk
 
-`func (o *Output) GetLogidObjectOk() (*Log, bool)`
+`func (o *Output) GetLogIdObjectOk() (*Log, bool)`
 
-GetLogidObjectOk returns a tuple with the LogidObject field if it's non-nil, zero value otherwise
+GetLogIdObjectOk returns a tuple with the LogIdObject field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLogidObject
+### SetLogIdObject
 
-`func (o *Output) SetLogidObject(v Log)`
+`func (o *Output) SetLogIdObject(v Log)`
 
-SetLogidObject sets LogidObject field to given value.
+SetLogIdObject sets LogIdObject field to given value.
 
-### HasLogidObject
+### HasLogIdObject
 
-`func (o *Output) HasLogidObject() bool`
+`func (o *Output) HasLogIdObject() bool`
 
-HasLogidObject returns a boolean if a field has been set.
+HasLogIdObject returns a boolean if a field has been set.
 
 ### GetReferencedByLogOutputIdObjects
 
@@ -263,16 +315,6 @@ SetReferencedByLogOutputIdObjects sets ReferencedByLogOutputIdObjects field to g
 
 HasReferencedByLogOutputIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByLogOutputIdObjectsNil
-
-`func (o *Output) SetReferencedByLogOutputIdObjectsNil(b bool)`
-
- SetReferencedByLogOutputIdObjectsNil sets the value for ReferencedByLogOutputIdObjects to be an explicit nil
-
-### UnsetReferencedByLogOutputIdObjects
-`func (o *Output) UnsetReferencedByLogOutputIdObjects()`
-
-UnsetReferencedByLogOutputIdObjects ensures that no value is present for ReferencedByLogOutputIdObjects, not even an explicit nil
 ### GetStartedAt
 
 `func (o *Output) GetStartedAt() time.Time`

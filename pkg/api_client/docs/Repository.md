@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ChangeProducerClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**LastSyncedAt** | Pointer to **time.Time** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **ReferencedByChangeRepositoryIdObjects** | Pointer to [**[]Change**](Change.md) |  | [optional] 
 **ReferencedByRuleRepositoryIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**SyncedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 
@@ -32,6 +33,31 @@ will change when the set of required properties is changed
 NewRepositoryWithDefaults instantiates a new Repository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetChangeProducerClaimedUntil
+
+`func (o *Repository) GetChangeProducerClaimedUntil() time.Time`
+
+GetChangeProducerClaimedUntil returns the ChangeProducerClaimedUntil field if non-nil, zero value otherwise.
+
+### GetChangeProducerClaimedUntilOk
+
+`func (o *Repository) GetChangeProducerClaimedUntilOk() (*time.Time, bool)`
+
+GetChangeProducerClaimedUntilOk returns a tuple with the ChangeProducerClaimedUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChangeProducerClaimedUntil
+
+`func (o *Repository) SetChangeProducerClaimedUntil(v time.Time)`
+
+SetChangeProducerClaimedUntil sets ChangeProducerClaimedUntil field to given value.
+
+### HasChangeProducerClaimedUntil
+
+`func (o *Repository) HasChangeProducerClaimedUntil() bool`
+
+HasChangeProducerClaimedUntil returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -108,31 +134,6 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
-### GetLastSyncedAt
-
-`func (o *Repository) GetLastSyncedAt() time.Time`
-
-GetLastSyncedAt returns the LastSyncedAt field if non-nil, zero value otherwise.
-
-### GetLastSyncedAtOk
-
-`func (o *Repository) GetLastSyncedAtOk() (*time.Time, bool)`
-
-GetLastSyncedAtOk returns a tuple with the LastSyncedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastSyncedAt
-
-`func (o *Repository) SetLastSyncedAt(v time.Time)`
-
-SetLastSyncedAt sets LastSyncedAt field to given value.
-
-### HasLastSyncedAt
-
-`func (o *Repository) HasLastSyncedAt() bool`
-
-HasLastSyncedAt returns a boolean if a field has been set.
-
 ### GetName
 
 `func (o *Repository) GetName() string`
@@ -183,16 +184,6 @@ SetReferencedByChangeRepositoryIdObjects sets ReferencedByChangeRepositoryIdObje
 
 HasReferencedByChangeRepositoryIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByChangeRepositoryIdObjectsNil
-
-`func (o *Repository) SetReferencedByChangeRepositoryIdObjectsNil(b bool)`
-
- SetReferencedByChangeRepositoryIdObjectsNil sets the value for ReferencedByChangeRepositoryIdObjects to be an explicit nil
-
-### UnsetReferencedByChangeRepositoryIdObjects
-`func (o *Repository) UnsetReferencedByChangeRepositoryIdObjects()`
-
-UnsetReferencedByChangeRepositoryIdObjects ensures that no value is present for ReferencedByChangeRepositoryIdObjects, not even an explicit nil
 ### GetReferencedByRuleRepositoryIdObjects
 
 `func (o *Repository) GetReferencedByRuleRepositoryIdObjects() []Rule`
@@ -218,16 +209,31 @@ SetReferencedByRuleRepositoryIdObjects sets ReferencedByRuleRepositoryIdObjects 
 
 HasReferencedByRuleRepositoryIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByRuleRepositoryIdObjectsNil
+### GetSyncedAt
 
-`func (o *Repository) SetReferencedByRuleRepositoryIdObjectsNil(b bool)`
+`func (o *Repository) GetSyncedAt() time.Time`
 
- SetReferencedByRuleRepositoryIdObjectsNil sets the value for ReferencedByRuleRepositoryIdObjects to be an explicit nil
+GetSyncedAt returns the SyncedAt field if non-nil, zero value otherwise.
 
-### UnsetReferencedByRuleRepositoryIdObjects
-`func (o *Repository) UnsetReferencedByRuleRepositoryIdObjects()`
+### GetSyncedAtOk
 
-UnsetReferencedByRuleRepositoryIdObjects ensures that no value is present for ReferencedByRuleRepositoryIdObjects, not even an explicit nil
+`func (o *Repository) GetSyncedAtOk() (*time.Time, bool)`
+
+GetSyncedAtOk returns a tuple with the SyncedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSyncedAt
+
+`func (o *Repository) SetSyncedAt(v time.Time)`
+
+SetSyncedAt sets SyncedAt field to given value.
+
+### HasSyncedAt
+
+`func (o *Repository) HasSyncedAt() bool`
+
+HasSyncedAt returns a boolean if a field has been set.
+
 ### GetUpdatedAt
 
 `func (o *Repository) GetUpdatedAt() time.Time`

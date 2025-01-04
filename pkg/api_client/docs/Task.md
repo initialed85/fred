@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **JobIdObject** | Pointer to [**Job**](Job.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Platform** | Pointer to **string** |  | [optional] 
-**ReferencedByExecutionTaskIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByOutputTaskIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **Script** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -262,41 +261,6 @@ SetPlatform sets Platform field to given value.
 
 HasPlatform returns a boolean if a field has been set.
 
-### GetReferencedByExecutionTaskIdObjects
-
-`func (o *Task) GetReferencedByExecutionTaskIdObjects() []Execution`
-
-GetReferencedByExecutionTaskIdObjects returns the ReferencedByExecutionTaskIdObjects field if non-nil, zero value otherwise.
-
-### GetReferencedByExecutionTaskIdObjectsOk
-
-`func (o *Task) GetReferencedByExecutionTaskIdObjectsOk() (*[]Execution, bool)`
-
-GetReferencedByExecutionTaskIdObjectsOk returns a tuple with the ReferencedByExecutionTaskIdObjects field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReferencedByExecutionTaskIdObjects
-
-`func (o *Task) SetReferencedByExecutionTaskIdObjects(v []Execution)`
-
-SetReferencedByExecutionTaskIdObjects sets ReferencedByExecutionTaskIdObjects field to given value.
-
-### HasReferencedByExecutionTaskIdObjects
-
-`func (o *Task) HasReferencedByExecutionTaskIdObjects() bool`
-
-HasReferencedByExecutionTaskIdObjects returns a boolean if a field has been set.
-
-### SetReferencedByExecutionTaskIdObjectsNil
-
-`func (o *Task) SetReferencedByExecutionTaskIdObjectsNil(b bool)`
-
- SetReferencedByExecutionTaskIdObjectsNil sets the value for ReferencedByExecutionTaskIdObjects to be an explicit nil
-
-### UnsetReferencedByExecutionTaskIdObjects
-`func (o *Task) UnsetReferencedByExecutionTaskIdObjects()`
-
-UnsetReferencedByExecutionTaskIdObjects ensures that no value is present for ReferencedByExecutionTaskIdObjects, not even an explicit nil
 ### GetReferencedByOutputTaskIdObjects
 
 `func (o *Task) GetReferencedByOutputTaskIdObjects() []Output`
@@ -322,16 +286,6 @@ SetReferencedByOutputTaskIdObjects sets ReferencedByOutputTaskIdObjects field to
 
 HasReferencedByOutputTaskIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByOutputTaskIdObjectsNil
-
-`func (o *Task) SetReferencedByOutputTaskIdObjectsNil(b bool)`
-
- SetReferencedByOutputTaskIdObjectsNil sets the value for ReferencedByOutputTaskIdObjects to be an explicit nil
-
-### UnsetReferencedByOutputTaskIdObjects
-`func (o *Task) UnsetReferencedByOutputTaskIdObjects()`
-
-UnsetReferencedByOutputTaskIdObjects ensures that no value is present for ReferencedByOutputTaskIdObjects, not even an explicit nil
 ### GetScript
 
 `func (o *Task) GetScript() string`

@@ -20,14 +20,14 @@ var _ MappedNullable = &Log{}
 
 // Log struct for Log
 type Log struct {
-	Buffer *string `json:"buffer,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	OutputId *string `json:"output_id,omitempty"`
-	OutputIdObject *Output `json:"output_id_object,omitempty"`
-	ReferencedByOutputLogidObjects []Output `json:"referenced_by_output_logid_objects,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Buffer                         *string    `json:"buffer,omitempty"`
+	CreatedAt                      *time.Time `json:"created_at,omitempty"`
+	DeletedAt                      *time.Time `json:"deleted_at,omitempty"`
+	Id                             *string    `json:"id,omitempty"`
+	OutputId                       *string    `json:"output_id,omitempty"`
+	OutputIdObject                 *Output    `json:"output_id_object,omitempty"`
+	ReferencedByOutputLogIdObjects []Output   `json:"referenced_by_output_log_id_objects,omitempty"`
+	UpdatedAt                      *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewLog instantiates a new Log object
@@ -239,37 +239,36 @@ func (o *Log) SetOutputIdObject(v Output) {
 	o.OutputIdObject = &v
 }
 
-// GetReferencedByOutputLogidObjects returns the ReferencedByOutputLogidObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Log) GetReferencedByOutputLogidObjects() []Output {
-	if o == nil {
+// GetReferencedByOutputLogIdObjects returns the ReferencedByOutputLogIdObjects field value if set, zero value otherwise.
+func (o *Log) GetReferencedByOutputLogIdObjects() []Output {
+	if o == nil || IsNil(o.ReferencedByOutputLogIdObjects) {
 		var ret []Output
 		return ret
 	}
-	return o.ReferencedByOutputLogidObjects
+	return o.ReferencedByOutputLogIdObjects
 }
 
-// GetReferencedByOutputLogidObjectsOk returns a tuple with the ReferencedByOutputLogidObjects field value if set, nil otherwise
+// GetReferencedByOutputLogIdObjectsOk returns a tuple with the ReferencedByOutputLogIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Log) GetReferencedByOutputLogidObjectsOk() ([]Output, bool) {
-	if o == nil || IsNil(o.ReferencedByOutputLogidObjects) {
+func (o *Log) GetReferencedByOutputLogIdObjectsOk() ([]Output, bool) {
+	if o == nil || IsNil(o.ReferencedByOutputLogIdObjects) {
 		return nil, false
 	}
-	return o.ReferencedByOutputLogidObjects, true
+	return o.ReferencedByOutputLogIdObjects, true
 }
 
-// HasReferencedByOutputLogidObjects returns a boolean if a field has been set.
-func (o *Log) HasReferencedByOutputLogidObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByOutputLogidObjects) {
+// HasReferencedByOutputLogIdObjects returns a boolean if a field has been set.
+func (o *Log) HasReferencedByOutputLogIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByOutputLogIdObjects) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByOutputLogidObjects gets a reference to the given []Output and assigns it to the ReferencedByOutputLogidObjects field.
-func (o *Log) SetReferencedByOutputLogidObjects(v []Output) {
-	o.ReferencedByOutputLogidObjects = v
+// SetReferencedByOutputLogIdObjects gets a reference to the given []Output and assigns it to the ReferencedByOutputLogIdObjects field.
+func (o *Log) SetReferencedByOutputLogIdObjects(v []Output) {
+	o.ReferencedByOutputLogIdObjects = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -305,7 +304,7 @@ func (o *Log) SetUpdatedAt(v time.Time) {
 }
 
 func (o Log) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -332,8 +331,8 @@ func (o Log) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputIdObject) {
 		toSerialize["output_id_object"] = o.OutputIdObject
 	}
-	if o.ReferencedByOutputLogidObjects != nil {
-		toSerialize["referenced_by_output_logid_objects"] = o.ReferencedByOutputLogidObjects
+	if !IsNil(o.ReferencedByOutputLogIdObjects) {
+		toSerialize["referenced_by_output_log_id_objects"] = o.ReferencedByOutputLogIdObjects
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -376,5 +375,3 @@ func (v *NullableLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetRepository**](RepositoryAPI.md#GetRepository) | **Get** /api/repositories/{primaryKey} | 
 [**PatchRepository**](RepositoryAPI.md#PatchRepository) | **Patch** /api/repositories/{primaryKey} | 
 [**PostRepositories**](RepositoryAPI.md#PostRepositories) | **Post** /api/repositories | 
+[**PostRepositoriesChangeProducerClaim**](RepositoryAPI.md#PostRepositoriesChangeProducerClaim) | **Post** /api/repositories/{primaryKey}/change-producer-claim | 
 
 
 
@@ -82,7 +83,7 @@ No authorization required
 
 ## GetRepositories
 
-> ResponseWithGenericOfRepository GetRepositories(ctx).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).LastSyncedAtEq(lastSyncedAtEq).LastSyncedAtNe(lastSyncedAtNe).LastSyncedAtGt(lastSyncedAtGt).LastSyncedAtGte(lastSyncedAtGte).LastSyncedAtLt(lastSyncedAtLt).LastSyncedAtLte(lastSyncedAtLte).LastSyncedAtIn(lastSyncedAtIn).LastSyncedAtNotin(lastSyncedAtNotin).LastSyncedAtLike(lastSyncedAtLike).LastSyncedAtNotlike(lastSyncedAtNotlike).LastSyncedAtIlike(lastSyncedAtIlike).LastSyncedAtNotilike(lastSyncedAtNotilike).LastSyncedAtDesc(lastSyncedAtDesc).LastSyncedAtAsc(lastSyncedAtAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
+> ResponseWithGenericOfRepository GetRepositories(ctx).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlContains(urlContains).UrlNotcontains(urlNotcontains).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameContains(nameContains).NameNotcontains(nameNotcontains).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).SyncedAtEq(syncedAtEq).SyncedAtNe(syncedAtNe).SyncedAtGt(syncedAtGt).SyncedAtGte(syncedAtGte).SyncedAtLt(syncedAtLt).SyncedAtLte(syncedAtLte).SyncedAtIn(syncedAtIn).SyncedAtNotin(syncedAtNotin).SyncedAtContains(syncedAtContains).SyncedAtNotcontains(syncedAtNotcontains).SyncedAtLike(syncedAtLike).SyncedAtNotlike(syncedAtNotlike).SyncedAtIlike(syncedAtIlike).SyncedAtNotilike(syncedAtNotilike).SyncedAtDesc(syncedAtDesc).SyncedAtAsc(syncedAtAsc).ChangeProducerClaimedUntilEq(changeProducerClaimedUntilEq).ChangeProducerClaimedUntilNe(changeProducerClaimedUntilNe).ChangeProducerClaimedUntilGt(changeProducerClaimedUntilGt).ChangeProducerClaimedUntilGte(changeProducerClaimedUntilGte).ChangeProducerClaimedUntilLt(changeProducerClaimedUntilLt).ChangeProducerClaimedUntilLte(changeProducerClaimedUntilLte).ChangeProducerClaimedUntilIn(changeProducerClaimedUntilIn).ChangeProducerClaimedUntilNotin(changeProducerClaimedUntilNotin).ChangeProducerClaimedUntilContains(changeProducerClaimedUntilContains).ChangeProducerClaimedUntilNotcontains(changeProducerClaimedUntilNotcontains).ChangeProducerClaimedUntilLike(changeProducerClaimedUntilLike).ChangeProducerClaimedUntilNotlike(changeProducerClaimedUntilNotlike).ChangeProducerClaimedUntilIlike(changeProducerClaimedUntilIlike).ChangeProducerClaimedUntilNotilike(changeProducerClaimedUntilNotilike).ChangeProducerClaimedUntilDesc(changeProducerClaimedUntilDesc).ChangeProducerClaimedUntilAsc(changeProducerClaimedUntilAsc).ReferencedByChangeRepositoryIdObjectsContains(referencedByChangeRepositoryIdObjectsContains).ReferencedByChangeRepositoryIdObjectsNotcontains(referencedByChangeRepositoryIdObjectsNotcontains).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsContains(referencedByRuleRepositoryIdObjectsContains).ReferencedByRuleRepositoryIdObjectsNotcontains(referencedByRuleRepositoryIdObjectsNotcontains).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
 
 
 
@@ -103,8 +104,8 @@ func main() {
 	limit := int32(56) // int32 | SQL LIMIT operator (optional)
 	offset := int32(56) // int32 | SQL OFFSET operator (optional)
 	depth := int32(56) // int32 | Max recursion depth for loading foreign objects; default = 1  (0 = recurse until graph cycle detected, 1 = this object only, 2 = this object + neighbours, 3 = this object + neighbours + their neighbours... etc) (optional)
-	referencedByChangeLoad := "referencedByChangeLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
-	referencedByRuleLoad := "referencedByRuleLoad_example" // string | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) (optional)
+	referencedByChangeLoad := "referencedByChangeLoad_example" // string | load the given indirectly related objects, value is ignored (presence of key is sufficient) (optional)
+	referencedByRuleLoad := "referencedByRuleLoad_example" // string | load the given indirectly related objects, value is ignored (presence of key is sufficient) (optional)
 	idEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	idNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	idGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -113,6 +114,8 @@ func main() {
 	idLte := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL <= comparison, may not work with all column types (optional)
 	idIn := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL IN comparison, permits comma-separated values (optional)
 	idNotin := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	idContains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL @> comparison (optional)
+	idNotcontains := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT @> comparison (optional)
 	idLike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idNotlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	idIlike := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -127,6 +130,8 @@ func main() {
 	createdAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	createdAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	createdAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	createdAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	createdAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	createdAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	createdAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -141,6 +146,8 @@ func main() {
 	updatedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	updatedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	updatedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	updatedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	updatedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	updatedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	updatedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -155,6 +162,8 @@ func main() {
 	deletedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
 	deletedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
 	deletedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	deletedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	deletedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
 	deletedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	deletedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -169,6 +178,8 @@ func main() {
 	urlLte := "urlLte_example" // string | SQL <= comparison, may not work with all column types (optional)
 	urlIn := "urlIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
 	urlNotin := "urlNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	urlContains := "urlContains_example" // string | SQL @> comparison (optional)
+	urlNotcontains := "urlNotcontains_example" // string | SQL NOT @> comparison (optional)
 	urlLike := "urlLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	urlNotlike := "urlNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	urlIlike := "urlIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
@@ -183,34 +194,58 @@ func main() {
 	nameLte := "nameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
 	nameIn := "nameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
 	nameNotin := "nameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	nameContains := "nameContains_example" // string | SQL @> comparison (optional)
+	nameNotcontains := "nameNotcontains_example" // string | SQL NOT @> comparison (optional)
 	nameLike := "nameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	nameNotlike := "nameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	nameIlike := "nameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	nameNotilike := "nameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	nameDesc := "nameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	nameAsc := "nameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	lastSyncedAtEq := time.Now() // time.Time | SQL = comparison (optional)
-	lastSyncedAtNe := time.Now() // time.Time | SQL != comparison (optional)
-	lastSyncedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
-	lastSyncedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
-	lastSyncedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
-	lastSyncedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
-	lastSyncedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
-	lastSyncedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
-	lastSyncedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	lastSyncedAtDesc := "lastSyncedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	lastSyncedAtAsc := "lastSyncedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	syncedAtEq := time.Now() // time.Time | SQL = comparison (optional)
+	syncedAtNe := time.Now() // time.Time | SQL != comparison (optional)
+	syncedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	syncedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	syncedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	syncedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	syncedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	syncedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	syncedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	syncedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
+	syncedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	syncedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	syncedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	syncedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	syncedAtDesc := "syncedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	syncedAtAsc := "syncedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	changeProducerClaimedUntilEq := time.Now() // time.Time | SQL = comparison (optional)
+	changeProducerClaimedUntilNe := time.Now() // time.Time | SQL != comparison (optional)
+	changeProducerClaimedUntilGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	changeProducerClaimedUntilGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	changeProducerClaimedUntilLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	changeProducerClaimedUntilLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	changeProducerClaimedUntilIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	changeProducerClaimedUntilNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	changeProducerClaimedUntilContains := time.Now() // time.Time | SQL @> comparison (optional)
+	changeProducerClaimedUntilNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
+	changeProducerClaimedUntilLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	changeProducerClaimedUntilNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	changeProducerClaimedUntilIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	changeProducerClaimedUntilNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	changeProducerClaimedUntilDesc := "changeProducerClaimedUntilDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	changeProducerClaimedUntilAsc := "changeProducerClaimedUntilAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByChangeRepositoryIdObjectsContains := TODO // interface{} | SQL @> comparison (optional)
+	referencedByChangeRepositoryIdObjectsNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
 	referencedByChangeRepositoryIdObjectsDesc := "referencedByChangeRepositoryIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByChangeRepositoryIdObjectsAsc := "referencedByChangeRepositoryIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	referencedByRuleRepositoryIdObjectsContains := TODO // interface{} | SQL @> comparison (optional)
+	referencedByRuleRepositoryIdObjectsNotcontains := TODO // interface{} | SQL NOT @> comparison (optional)
 	referencedByRuleRepositoryIdObjectsDesc := "referencedByRuleRepositoryIdObjectsDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	referencedByRuleRepositoryIdObjectsAsc := "referencedByRuleRepositoryIdObjectsAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RepositoryAPI.GetRepositories(context.Background()).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).LastSyncedAtEq(lastSyncedAtEq).LastSyncedAtNe(lastSyncedAtNe).LastSyncedAtGt(lastSyncedAtGt).LastSyncedAtGte(lastSyncedAtGte).LastSyncedAtLt(lastSyncedAtLt).LastSyncedAtLte(lastSyncedAtLte).LastSyncedAtIn(lastSyncedAtIn).LastSyncedAtNotin(lastSyncedAtNotin).LastSyncedAtLike(lastSyncedAtLike).LastSyncedAtNotlike(lastSyncedAtNotlike).LastSyncedAtIlike(lastSyncedAtIlike).LastSyncedAtNotilike(lastSyncedAtNotilike).LastSyncedAtDesc(lastSyncedAtDesc).LastSyncedAtAsc(lastSyncedAtAsc).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
+	resp, r, err := apiClient.RepositoryAPI.GetRepositories(context.Background()).Limit(limit).Offset(offset).Depth(depth).ReferencedByChangeLoad(referencedByChangeLoad).ReferencedByRuleLoad(referencedByRuleLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).UrlEq(urlEq).UrlNe(urlNe).UrlGt(urlGt).UrlGte(urlGte).UrlLt(urlLt).UrlLte(urlLte).UrlIn(urlIn).UrlNotin(urlNotin).UrlContains(urlContains).UrlNotcontains(urlNotcontains).UrlLike(urlLike).UrlNotlike(urlNotlike).UrlIlike(urlIlike).UrlNotilike(urlNotilike).UrlDesc(urlDesc).UrlAsc(urlAsc).NameEq(nameEq).NameNe(nameNe).NameGt(nameGt).NameGte(nameGte).NameLt(nameLt).NameLte(nameLte).NameIn(nameIn).NameNotin(nameNotin).NameContains(nameContains).NameNotcontains(nameNotcontains).NameLike(nameLike).NameNotlike(nameNotlike).NameIlike(nameIlike).NameNotilike(nameNotilike).NameDesc(nameDesc).NameAsc(nameAsc).SyncedAtEq(syncedAtEq).SyncedAtNe(syncedAtNe).SyncedAtGt(syncedAtGt).SyncedAtGte(syncedAtGte).SyncedAtLt(syncedAtLt).SyncedAtLte(syncedAtLte).SyncedAtIn(syncedAtIn).SyncedAtNotin(syncedAtNotin).SyncedAtContains(syncedAtContains).SyncedAtNotcontains(syncedAtNotcontains).SyncedAtLike(syncedAtLike).SyncedAtNotlike(syncedAtNotlike).SyncedAtIlike(syncedAtIlike).SyncedAtNotilike(syncedAtNotilike).SyncedAtDesc(syncedAtDesc).SyncedAtAsc(syncedAtAsc).ChangeProducerClaimedUntilEq(changeProducerClaimedUntilEq).ChangeProducerClaimedUntilNe(changeProducerClaimedUntilNe).ChangeProducerClaimedUntilGt(changeProducerClaimedUntilGt).ChangeProducerClaimedUntilGte(changeProducerClaimedUntilGte).ChangeProducerClaimedUntilLt(changeProducerClaimedUntilLt).ChangeProducerClaimedUntilLte(changeProducerClaimedUntilLte).ChangeProducerClaimedUntilIn(changeProducerClaimedUntilIn).ChangeProducerClaimedUntilNotin(changeProducerClaimedUntilNotin).ChangeProducerClaimedUntilContains(changeProducerClaimedUntilContains).ChangeProducerClaimedUntilNotcontains(changeProducerClaimedUntilNotcontains).ChangeProducerClaimedUntilLike(changeProducerClaimedUntilLike).ChangeProducerClaimedUntilNotlike(changeProducerClaimedUntilNotlike).ChangeProducerClaimedUntilIlike(changeProducerClaimedUntilIlike).ChangeProducerClaimedUntilNotilike(changeProducerClaimedUntilNotilike).ChangeProducerClaimedUntilDesc(changeProducerClaimedUntilDesc).ChangeProducerClaimedUntilAsc(changeProducerClaimedUntilAsc).ReferencedByChangeRepositoryIdObjectsContains(referencedByChangeRepositoryIdObjectsContains).ReferencedByChangeRepositoryIdObjectsNotcontains(referencedByChangeRepositoryIdObjectsNotcontains).ReferencedByChangeRepositoryIdObjectsDesc(referencedByChangeRepositoryIdObjectsDesc).ReferencedByChangeRepositoryIdObjectsAsc(referencedByChangeRepositoryIdObjectsAsc).ReferencedByRuleRepositoryIdObjectsContains(referencedByRuleRepositoryIdObjectsContains).ReferencedByRuleRepositoryIdObjectsNotcontains(referencedByRuleRepositoryIdObjectsNotcontains).ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc).ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RepositoryAPI.GetRepositories``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -234,8 +269,8 @@ Name | Type | Description  | Notes
  **limit** | **int32** | SQL LIMIT operator | 
  **offset** | **int32** | SQL OFFSET operator | 
  **depth** | **int32** | Max recursion depth for loading foreign objects; default &#x3D; 1  (0 &#x3D; recurse until graph cycle detected, 1 &#x3D; this object only, 2 &#x3D; this object + neighbours, 3 &#x3D; this object + neighbours + their neighbours... etc) | 
- **referencedByChangeLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
- **referencedByRuleLoad** | **string** | load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient) | 
+ **referencedByChangeLoad** | **string** | load the given indirectly related objects, value is ignored (presence of key is sufficient) | 
+ **referencedByRuleLoad** | **string** | load the given indirectly related objects, value is ignored (presence of key is sufficient) | 
  **idEq** | **string** | SQL &#x3D; comparison | 
  **idNe** | **string** | SQL !&#x3D; comparison | 
  **idGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -244,6 +279,8 @@ Name | Type | Description  | Notes
  **idLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **idIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **idNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **idContains** | **string** | SQL @&gt; comparison | 
+ **idNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **idLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **idIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -258,6 +295,8 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **createdAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **createdAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **createdAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **createdAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **createdAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **createdAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -272,6 +311,8 @@ Name | Type | Description  | Notes
  **updatedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **updatedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **updatedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **updatedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **updatedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **updatedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **updatedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -286,6 +327,8 @@ Name | Type | Description  | Notes
  **deletedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **deletedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
  **deletedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **deletedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **deletedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
  **deletedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **deletedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -300,6 +343,8 @@ Name | Type | Description  | Notes
  **urlLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **urlIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **urlNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **urlContains** | **string** | SQL @&gt; comparison | 
+ **urlNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **urlLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **urlNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **urlIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
@@ -314,28 +359,52 @@ Name | Type | Description  | Notes
  **nameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
  **nameIn** | **string** | SQL IN comparison, permits comma-separated values | 
  **nameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **nameContains** | **string** | SQL @&gt; comparison | 
+ **nameNotcontains** | **string** | SQL NOT @&gt; comparison | 
  **nameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **nameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
  **nameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **nameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **nameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **nameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **lastSyncedAtEq** | **time.Time** | SQL &#x3D; comparison | 
- **lastSyncedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
- **lastSyncedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
- **lastSyncedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **lastSyncedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
- **lastSyncedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **lastSyncedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
- **lastSyncedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
- **lastSyncedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **lastSyncedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **lastSyncedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **syncedAtEq** | **time.Time** | SQL &#x3D; comparison | 
+ **syncedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **syncedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **syncedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **syncedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **syncedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **syncedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **syncedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **syncedAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **syncedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
+ **syncedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **syncedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **syncedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **syncedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **syncedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **syncedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **changeProducerClaimedUntilEq** | **time.Time** | SQL &#x3D; comparison | 
+ **changeProducerClaimedUntilNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **changeProducerClaimedUntilGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **changeProducerClaimedUntilGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **changeProducerClaimedUntilLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **changeProducerClaimedUntilLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **changeProducerClaimedUntilIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **changeProducerClaimedUntilNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **changeProducerClaimedUntilContains** | **time.Time** | SQL @&gt; comparison | 
+ **changeProducerClaimedUntilNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
+ **changeProducerClaimedUntilLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **changeProducerClaimedUntilNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **changeProducerClaimedUntilIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **changeProducerClaimedUntilNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **changeProducerClaimedUntilDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **changeProducerClaimedUntilAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByChangeRepositoryIdObjectsContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **referencedByChangeRepositoryIdObjectsNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
  **referencedByChangeRepositoryIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByChangeRepositoryIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **referencedByRuleRepositoryIdObjectsContains** | [**interface{}**](interface{}.md) | SQL @&gt; comparison | 
+ **referencedByRuleRepositoryIdObjectsNotcontains** | [**interface{}**](interface{}.md) | SQL NOT @&gt; comparison | 
  **referencedByRuleRepositoryIdObjectsDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **referencedByRuleRepositoryIdObjectsAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
 
@@ -545,6 +614,78 @@ Other parameters are passed through a pointer to a apiPostRepositoriesRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repository** | [**[]Repository**](Repository.md) |  | 
+ **depth** | **int64** | Query parameter depth | 
+
+### Return type
+
+[**ResponseWithGenericOfRepository**](ResponseWithGenericOfRepository.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostRepositoriesChangeProducerClaim
+
+> ResponseWithGenericOfRepository PostRepositoriesChangeProducerClaim(ctx, primaryKey).RepositoryChangeProducerClaimRequest(repositoryChangeProducerClaimRequest).Depth(depth).Execute()
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	primaryKey := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Path parameter primaryKey
+	repositoryChangeProducerClaimRequest := *openapiclient.NewRepositoryChangeProducerClaimRequest() // RepositoryChangeProducerClaimRequest | 
+	depth := int64(789) // int64 | Query parameter depth (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RepositoryAPI.PostRepositoriesChangeProducerClaim(context.Background(), primaryKey).RepositoryChangeProducerClaimRequest(repositoryChangeProducerClaimRequest).Depth(depth).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RepositoryAPI.PostRepositoriesChangeProducerClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRepositoriesChangeProducerClaim`: ResponseWithGenericOfRepository
+	fmt.Fprintf(os.Stdout, "Response from `RepositoryAPI.PostRepositoriesChangeProducerClaim`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**primaryKey** | **string** | Path parameter primaryKey | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostRepositoriesChangeProducerClaimRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **repositoryChangeProducerClaimRequest** | [**RepositoryChangeProducerClaimRequest**](RepositoryChangeProducerClaimRequest.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

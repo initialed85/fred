@@ -14,8 +14,10 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
+**ReferencedByExecutionChangeIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
+**TriggerProducerClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **TriggersProducedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
@@ -288,6 +290,31 @@ SetMessage sets Message field to given value.
 
 HasMessage returns a boolean if a field has been set.
 
+### GetReferencedByExecutionChangeIdObjects
+
+`func (o *Change) GetReferencedByExecutionChangeIdObjects() []Execution`
+
+GetReferencedByExecutionChangeIdObjects returns the ReferencedByExecutionChangeIdObjects field if non-nil, zero value otherwise.
+
+### GetReferencedByExecutionChangeIdObjectsOk
+
+`func (o *Change) GetReferencedByExecutionChangeIdObjectsOk() (*[]Execution, bool)`
+
+GetReferencedByExecutionChangeIdObjectsOk returns a tuple with the ReferencedByExecutionChangeIdObjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedByExecutionChangeIdObjects
+
+`func (o *Change) SetReferencedByExecutionChangeIdObjects(v []Execution)`
+
+SetReferencedByExecutionChangeIdObjects sets ReferencedByExecutionChangeIdObjects field to given value.
+
+### HasReferencedByExecutionChangeIdObjects
+
+`func (o *Change) HasReferencedByExecutionChangeIdObjects() bool`
+
+HasReferencedByExecutionChangeIdObjects returns a boolean if a field has been set.
+
 ### GetRepositoryId
 
 `func (o *Change) GetRepositoryId() string`
@@ -337,6 +364,31 @@ SetRepositoryIdObject sets RepositoryIdObject field to given value.
 `func (o *Change) HasRepositoryIdObject() bool`
 
 HasRepositoryIdObject returns a boolean if a field has been set.
+
+### GetTriggerProducerClaimedUntil
+
+`func (o *Change) GetTriggerProducerClaimedUntil() time.Time`
+
+GetTriggerProducerClaimedUntil returns the TriggerProducerClaimedUntil field if non-nil, zero value otherwise.
+
+### GetTriggerProducerClaimedUntilOk
+
+`func (o *Change) GetTriggerProducerClaimedUntilOk() (*time.Time, bool)`
+
+GetTriggerProducerClaimedUntilOk returns a tuple with the TriggerProducerClaimedUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTriggerProducerClaimedUntil
+
+`func (o *Change) SetTriggerProducerClaimedUntil(v time.Time)`
+
+SetTriggerProducerClaimedUntil sets TriggerProducerClaimedUntil field to given value.
+
+### HasTriggerProducerClaimedUntil
+
+`func (o *Change) HasTriggerProducerClaimedUntil() bool`
+
+HasTriggerProducerClaimedUntil returns a boolean if a field has been set.
 
 ### GetTriggersProducedAt
 

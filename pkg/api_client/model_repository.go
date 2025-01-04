@@ -20,15 +20,16 @@ var _ MappedNullable = &Repository{}
 
 // Repository struct for Repository
 type Repository struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastSyncedAt *time.Time `json:"last_synced_at,omitempty"`
-	Name *string `json:"name,omitempty"`
-	ReferencedByChangeRepositoryIdObjects []Change `json:"referenced_by_change_repository_id_objects,omitempty"`
-	ReferencedByRuleRepositoryIdObjects []Rule `json:"referenced_by_rule_repository_id_objects,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
+	ChangeProducerClaimedUntil            *time.Time `json:"change_producer_claimed_until,omitempty"`
+	CreatedAt                             *time.Time `json:"created_at,omitempty"`
+	DeletedAt                             *time.Time `json:"deleted_at,omitempty"`
+	Id                                    *string    `json:"id,omitempty"`
+	Name                                  *string    `json:"name,omitempty"`
+	ReferencedByChangeRepositoryIdObjects []Change   `json:"referenced_by_change_repository_id_objects,omitempty"`
+	ReferencedByRuleRepositoryIdObjects   []Rule     `json:"referenced_by_rule_repository_id_objects,omitempty"`
+	SyncedAt                              *time.Time `json:"synced_at,omitempty"`
+	UpdatedAt                             *time.Time `json:"updated_at,omitempty"`
+	Url                                   *string    `json:"url,omitempty"`
 }
 
 // NewRepository instantiates a new Repository object
@@ -46,6 +47,38 @@ func NewRepository() *Repository {
 func NewRepositoryWithDefaults() *Repository {
 	this := Repository{}
 	return &this
+}
+
+// GetChangeProducerClaimedUntil returns the ChangeProducerClaimedUntil field value if set, zero value otherwise.
+func (o *Repository) GetChangeProducerClaimedUntil() time.Time {
+	if o == nil || IsNil(o.ChangeProducerClaimedUntil) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ChangeProducerClaimedUntil
+}
+
+// GetChangeProducerClaimedUntilOk returns a tuple with the ChangeProducerClaimedUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Repository) GetChangeProducerClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ChangeProducerClaimedUntil) {
+		return nil, false
+	}
+	return o.ChangeProducerClaimedUntil, true
+}
+
+// HasChangeProducerClaimedUntil returns a boolean if a field has been set.
+func (o *Repository) HasChangeProducerClaimedUntil() bool {
+	if o != nil && !IsNil(o.ChangeProducerClaimedUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeProducerClaimedUntil gets a reference to the given time.Time and assigns it to the ChangeProducerClaimedUntil field.
+func (o *Repository) SetChangeProducerClaimedUntil(v time.Time) {
+	o.ChangeProducerClaimedUntil = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -144,38 +177,6 @@ func (o *Repository) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLastSyncedAt returns the LastSyncedAt field value if set, zero value otherwise.
-func (o *Repository) GetLastSyncedAt() time.Time {
-	if o == nil || IsNil(o.LastSyncedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.LastSyncedAt
-}
-
-// GetLastSyncedAtOk returns a tuple with the LastSyncedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Repository) GetLastSyncedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.LastSyncedAt) {
-		return nil, false
-	}
-	return o.LastSyncedAt, true
-}
-
-// HasLastSyncedAt returns a boolean if a field has been set.
-func (o *Repository) HasLastSyncedAt() bool {
-	if o != nil && !IsNil(o.LastSyncedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastSyncedAt gets a reference to the given time.Time and assigns it to the LastSyncedAt field.
-func (o *Repository) SetLastSyncedAt(v time.Time) {
-	o.LastSyncedAt = &v
-}
-
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Repository) GetName() string {
 	if o == nil || IsNil(o.Name) {
@@ -208,9 +209,9 @@ func (o *Repository) SetName(v string) {
 	o.Name = &v
 }
 
-// GetReferencedByChangeRepositoryIdObjects returns the ReferencedByChangeRepositoryIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetReferencedByChangeRepositoryIdObjects returns the ReferencedByChangeRepositoryIdObjects field value if set, zero value otherwise.
 func (o *Repository) GetReferencedByChangeRepositoryIdObjects() []Change {
-	if o == nil {
+	if o == nil || IsNil(o.ReferencedByChangeRepositoryIdObjects) {
 		var ret []Change
 		return ret
 	}
@@ -219,7 +220,6 @@ func (o *Repository) GetReferencedByChangeRepositoryIdObjects() []Change {
 
 // GetReferencedByChangeRepositoryIdObjectsOk returns a tuple with the ReferencedByChangeRepositoryIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Repository) GetReferencedByChangeRepositoryIdObjectsOk() ([]Change, bool) {
 	if o == nil || IsNil(o.ReferencedByChangeRepositoryIdObjects) {
 		return nil, false
@@ -241,9 +241,9 @@ func (o *Repository) SetReferencedByChangeRepositoryIdObjects(v []Change) {
 	o.ReferencedByChangeRepositoryIdObjects = v
 }
 
-// GetReferencedByRuleRepositoryIdObjects returns the ReferencedByRuleRepositoryIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetReferencedByRuleRepositoryIdObjects returns the ReferencedByRuleRepositoryIdObjects field value if set, zero value otherwise.
 func (o *Repository) GetReferencedByRuleRepositoryIdObjects() []Rule {
-	if o == nil {
+	if o == nil || IsNil(o.ReferencedByRuleRepositoryIdObjects) {
 		var ret []Rule
 		return ret
 	}
@@ -252,7 +252,6 @@ func (o *Repository) GetReferencedByRuleRepositoryIdObjects() []Rule {
 
 // GetReferencedByRuleRepositoryIdObjectsOk returns a tuple with the ReferencedByRuleRepositoryIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Repository) GetReferencedByRuleRepositoryIdObjectsOk() ([]Rule, bool) {
 	if o == nil || IsNil(o.ReferencedByRuleRepositoryIdObjects) {
 		return nil, false
@@ -272,6 +271,38 @@ func (o *Repository) HasReferencedByRuleRepositoryIdObjects() bool {
 // SetReferencedByRuleRepositoryIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByRuleRepositoryIdObjects field.
 func (o *Repository) SetReferencedByRuleRepositoryIdObjects(v []Rule) {
 	o.ReferencedByRuleRepositoryIdObjects = v
+}
+
+// GetSyncedAt returns the SyncedAt field value if set, zero value otherwise.
+func (o *Repository) GetSyncedAt() time.Time {
+	if o == nil || IsNil(o.SyncedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SyncedAt
+}
+
+// GetSyncedAtOk returns a tuple with the SyncedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Repository) GetSyncedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SyncedAt) {
+		return nil, false
+	}
+	return o.SyncedAt, true
+}
+
+// HasSyncedAt returns a boolean if a field has been set.
+func (o *Repository) HasSyncedAt() bool {
+	if o != nil && !IsNil(o.SyncedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyncedAt gets a reference to the given time.Time and assigns it to the SyncedAt field.
+func (o *Repository) SetSyncedAt(v time.Time) {
+	o.SyncedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -339,7 +370,7 @@ func (o *Repository) SetUrl(v string) {
 }
 
 func (o Repository) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -348,6 +379,9 @@ func (o Repository) MarshalJSON() ([]byte, error) {
 
 func (o Repository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ChangeProducerClaimedUntil) {
+		toSerialize["change_producer_claimed_until"] = o.ChangeProducerClaimedUntil
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -357,17 +391,17 @@ func (o Repository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.LastSyncedAt) {
-		toSerialize["last_synced_at"] = o.LastSyncedAt
-	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.ReferencedByChangeRepositoryIdObjects != nil {
+	if !IsNil(o.ReferencedByChangeRepositoryIdObjects) {
 		toSerialize["referenced_by_change_repository_id_objects"] = o.ReferencedByChangeRepositoryIdObjects
 	}
-	if o.ReferencedByRuleRepositoryIdObjects != nil {
+	if !IsNil(o.ReferencedByRuleRepositoryIdObjects) {
 		toSerialize["referenced_by_rule_repository_id_objects"] = o.ReferencedByRuleRepositoryIdObjects
+	}
+	if !IsNil(o.SyncedAt) {
+		toSerialize["synced_at"] = o.SyncedAt
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -413,5 +447,3 @@ func (v *NullableRepository) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

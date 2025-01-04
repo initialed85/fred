@@ -83,26 +83,26 @@ Class | Method | HTTP request | Description
 *ChangeAPI* | [**GetChanges**](docs/ChangeAPI.md#getchanges) | **Get** /api/changes | 
 *ChangeAPI* | [**PatchChange**](docs/ChangeAPI.md#patchchange) | **Patch** /api/changes/{primaryKey} | 
 *ChangeAPI* | [**PostChanges**](docs/ChangeAPI.md#postchanges) | **Post** /api/changes | 
+*ChangeAPI* | [**PostChangesTriggerProducerClaim**](docs/ChangeAPI.md#postchangestriggerproducerclaim) | **Post** /api/changes/{primaryKey}/trigger-producer-claim | 
+*ChangeProducerClaimRepositoryAPI* | [**PostChangeProducerClaimRepositories**](docs/ChangeProducerClaimRepositoryAPI.md#postchangeproducerclaimrepositories) | **Post** /api/change-producer-claim-repository | 
 *ExecutionAPI* | [**DeleteExecution**](docs/ExecutionAPI.md#deleteexecution) | **Delete** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecution**](docs/ExecutionAPI.md#getexecution) | **Get** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**GetExecutions**](docs/ExecutionAPI.md#getexecutions) | **Get** /api/executions | 
 *ExecutionAPI* | [**PatchExecution**](docs/ExecutionAPI.md#patchexecution) | **Patch** /api/executions/{primaryKey} | 
 *ExecutionAPI* | [**PostExecutions**](docs/ExecutionAPI.md#postexecutions) | **Post** /api/executions | 
+*ExecutionAPI* | [**PostExecutionsJobExecutorClaim**](docs/ExecutionAPI.md#postexecutionsjobexecutorclaim) | **Post** /api/executions/{primaryKey}/job-executor-claim | 
 *JobAPI* | [**DeleteJob**](docs/JobAPI.md#deletejob) | **Delete** /api/jobs/{primaryKey} | 
 *JobAPI* | [**GetJob**](docs/JobAPI.md#getjob) | **Get** /api/jobs/{primaryKey} | 
 *JobAPI* | [**GetJobs**](docs/JobAPI.md#getjobs) | **Get** /api/jobs | 
 *JobAPI* | [**PatchJob**](docs/JobAPI.md#patchjob) | **Patch** /api/jobs/{primaryKey} | 
 *JobAPI* | [**PostJobs**](docs/JobAPI.md#postjobs) | **Post** /api/jobs | 
+*JobExecutorClaimExecutionAPI* | [**PostJobExecutorClaimExecutions**](docs/JobExecutorClaimExecutionAPI.md#postjobexecutorclaimexecutions) | **Post** /api/job-executor-claim-execution | 
+*JobExecutorClaimTriggerAPI* | [**PostJobExecutorClaimTriggers**](docs/JobExecutorClaimTriggerAPI.md#postjobexecutorclaimtriggers) | **Post** /api/job-executor-claim-trigger | 
 *LogAPI* | [**DeleteLog**](docs/LogAPI.md#deletelog) | **Delete** /api/logs/{primaryKey} | 
 *LogAPI* | [**GetLog**](docs/LogAPI.md#getlog) | **Get** /api/logs/{primaryKey} | 
 *LogAPI* | [**GetLogs**](docs/LogAPI.md#getlogs) | **Get** /api/logs | 
 *LogAPI* | [**PatchLog**](docs/LogAPI.md#patchlog) | **Patch** /api/logs/{primaryKey} | 
 *LogAPI* | [**PostLogs**](docs/LogAPI.md#postlogs) | **Post** /api/logs | 
-*M2mRuleTriggerJobAPI* | [**DeleteM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#deletem2mruletriggerjob) | **Delete** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
-*M2mRuleTriggerJobAPI* | [**GetM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#getm2mruletriggerjob) | **Get** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
-*M2mRuleTriggerJobAPI* | [**GetM2mRuleTriggerJobs**](docs/M2mRuleTriggerJobAPI.md#getm2mruletriggerjobs) | **Get** /api/m-2m-rule-trigger-jobs | 
-*M2mRuleTriggerJobAPI* | [**PatchM2mRuleTriggerJob**](docs/M2mRuleTriggerJobAPI.md#patchm2mruletriggerjob) | **Patch** /api/m-2m-rule-trigger-jobs/{primaryKey} | 
-*M2mRuleTriggerJobAPI* | [**PostM2mRuleTriggerJobs**](docs/M2mRuleTriggerJobAPI.md#postm2mruletriggerjobs) | **Post** /api/m-2m-rule-trigger-jobs | 
 *OutputAPI* | [**DeleteOutput**](docs/OutputAPI.md#deleteoutput) | **Delete** /api/outputs/{primaryKey} | 
 *OutputAPI* | [**GetOutput**](docs/OutputAPI.md#getoutput) | **Get** /api/outputs/{primaryKey} | 
 *OutputAPI* | [**GetOutputs**](docs/OutputAPI.md#getoutputs) | **Get** /api/outputs | 
@@ -113,6 +113,7 @@ Class | Method | HTTP request | Description
 *RepositoryAPI* | [**GetRepository**](docs/RepositoryAPI.md#getrepository) | **Get** /api/repositories/{primaryKey} | 
 *RepositoryAPI* | [**PatchRepository**](docs/RepositoryAPI.md#patchrepository) | **Patch** /api/repositories/{primaryKey} | 
 *RepositoryAPI* | [**PostRepositories**](docs/RepositoryAPI.md#postrepositories) | **Post** /api/repositories | 
+*RepositoryAPI* | [**PostRepositoriesChangeProducerClaim**](docs/RepositoryAPI.md#postrepositorieschangeproducerclaim) | **Post** /api/repositories/{primaryKey}/change-producer-claim | 
 *RuleAPI* | [**DeleteRule**](docs/RuleAPI.md#deleterule) | **Delete** /api/rules/{primaryKey} | 
 *RuleAPI* | [**GetRule**](docs/RuleAPI.md#getrule) | **Get** /api/rules/{primaryKey} | 
 *RuleAPI* | [**GetRules**](docs/RuleAPI.md#getrules) | **Get** /api/rules | 
@@ -123,29 +124,40 @@ Class | Method | HTTP request | Description
 *TaskAPI* | [**GetTasks**](docs/TaskAPI.md#gettasks) | **Get** /api/tasks | 
 *TaskAPI* | [**PatchTask**](docs/TaskAPI.md#patchtask) | **Patch** /api/tasks/{primaryKey} | 
 *TaskAPI* | [**PostTasks**](docs/TaskAPI.md#posttasks) | **Post** /api/tasks | 
+*TriggerAPI* | [**DeleteTrigger**](docs/TriggerAPI.md#deletetrigger) | **Delete** /api/triggers/{primaryKey} | 
+*TriggerAPI* | [**GetTrigger**](docs/TriggerAPI.md#gettrigger) | **Get** /api/triggers/{primaryKey} | 
+*TriggerAPI* | [**GetTriggers**](docs/TriggerAPI.md#gettriggers) | **Get** /api/triggers | 
+*TriggerAPI* | [**PatchTrigger**](docs/TriggerAPI.md#patchtrigger) | **Patch** /api/triggers/{primaryKey} | 
+*TriggerAPI* | [**PostTriggers**](docs/TriggerAPI.md#posttriggers) | **Post** /api/triggers | 
+*TriggerAPI* | [**PostTriggersJobExecutorClaim**](docs/TriggerAPI.md#posttriggersjobexecutorclaim) | **Post** /api/triggers/{primaryKey}/job-executor-claim | 
+*TriggerProducerClaimChangeAPI* | [**PostTriggerProducerClaimChanges**](docs/TriggerProducerClaimChangeAPI.md#posttriggerproducerclaimchanges) | **Post** /api/trigger-producer-claim-change | 
 
 
 ## Documentation For Models
 
  - [Change](docs/Change.md)
+ - [ChangeTriggerProducerClaimRequest](docs/ChangeTriggerProducerClaimRequest.md)
  - [Execution](docs/Execution.md)
- - [GetChangesDefaultResponse](docs/GetChangesDefaultResponse.md)
+ - [ExecutionJobExecutorClaimRequest](docs/ExecutionJobExecutorClaimRequest.md)
  - [Job](docs/Job.md)
  - [Log](docs/Log.md)
- - [M2MRuleTriggerJob](docs/M2MRuleTriggerJob.md)
  - [Output](docs/Output.md)
+ - [PostChangeProducerClaimRepositoriesDefaultResponse](docs/PostChangeProducerClaimRepositoriesDefaultResponse.md)
  - [Repository](docs/Repository.md)
+ - [RepositoryChangeProducerClaimRequest](docs/RepositoryChangeProducerClaimRequest.md)
  - [ResponseWithGenericOfChange](docs/ResponseWithGenericOfChange.md)
  - [ResponseWithGenericOfExecution](docs/ResponseWithGenericOfExecution.md)
  - [ResponseWithGenericOfJob](docs/ResponseWithGenericOfJob.md)
  - [ResponseWithGenericOfLog](docs/ResponseWithGenericOfLog.md)
- - [ResponseWithGenericOfM2mRuleTriggerJob](docs/ResponseWithGenericOfM2mRuleTriggerJob.md)
  - [ResponseWithGenericOfOutput](docs/ResponseWithGenericOfOutput.md)
  - [ResponseWithGenericOfRepository](docs/ResponseWithGenericOfRepository.md)
  - [ResponseWithGenericOfRule](docs/ResponseWithGenericOfRule.md)
  - [ResponseWithGenericOfTask](docs/ResponseWithGenericOfTask.md)
+ - [ResponseWithGenericOfTrigger](docs/ResponseWithGenericOfTrigger.md)
  - [Rule](docs/Rule.md)
  - [Task](docs/Task.md)
+ - [Trigger](docs/Trigger.md)
+ - [TriggerJobExecutorClaimRequest](docs/TriggerJobExecutorClaimRequest.md)
 
 
 ## Documentation For Authorization

@@ -19,14 +19,14 @@ var _ MappedNullable = &ResponseWithGenericOfOutput{}
 
 // ResponseWithGenericOfOutput struct for ResponseWithGenericOfOutput
 type ResponseWithGenericOfOutput struct {
-	Count *int64 `json:"count,omitempty"`
-	Error []string `json:"error,omitempty"`
-	Limit *int64 `json:"limit,omitempty"`
-	Objects []Output `json:"objects,omitempty"`
-	Offset *int64 `json:"offset,omitempty"`
-	Status *int64 `json:"status,omitempty"`
-	Success *bool `json:"success,omitempty"`
-	TotalCount *int64 `json:"total_count,omitempty"`
+	Count      *int64   `json:"count,omitempty"`
+	Error      []string `json:"error,omitempty"`
+	Limit      *int64   `json:"limit,omitempty"`
+	Objects    []Output `json:"objects,omitempty"`
+	Offset     *int64   `json:"offset,omitempty"`
+	Status     *int64   `json:"status,omitempty"`
+	Success    *bool    `json:"success,omitempty"`
+	TotalCount *int64   `json:"total_count,omitempty"`
 }
 
 // NewResponseWithGenericOfOutput instantiates a new ResponseWithGenericOfOutput object
@@ -78,9 +78,9 @@ func (o *ResponseWithGenericOfOutput) SetCount(v int64) {
 	o.Count = &v
 }
 
-// GetError returns the Error field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetError returns the Error field value if set, zero value otherwise.
 func (o *ResponseWithGenericOfOutput) GetError() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret []string
 		return ret
 	}
@@ -89,7 +89,6 @@ func (o *ResponseWithGenericOfOutput) GetError() []string {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResponseWithGenericOfOutput) GetErrorOk() ([]string, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
@@ -143,9 +142,9 @@ func (o *ResponseWithGenericOfOutput) SetLimit(v int64) {
 	o.Limit = &v
 }
 
-// GetObjects returns the Objects field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetObjects returns the Objects field value if set, zero value otherwise.
 func (o *ResponseWithGenericOfOutput) GetObjects() []Output {
-	if o == nil {
+	if o == nil || IsNil(o.Objects) {
 		var ret []Output
 		return ret
 	}
@@ -154,7 +153,6 @@ func (o *ResponseWithGenericOfOutput) GetObjects() []Output {
 
 // GetObjectsOk returns a tuple with the Objects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ResponseWithGenericOfOutput) GetObjectsOk() ([]Output, bool) {
 	if o == nil || IsNil(o.Objects) {
 		return nil, false
@@ -305,7 +303,7 @@ func (o *ResponseWithGenericOfOutput) SetTotalCount(v int64) {
 }
 
 func (o ResponseWithGenericOfOutput) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -317,13 +315,13 @@ func (o ResponseWithGenericOfOutput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Count) {
 		toSerialize["count"] = o.Count
 	}
-	if o.Error != nil {
+	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 	if !IsNil(o.Limit) {
 		toSerialize["limit"] = o.Limit
 	}
-	if o.Objects != nil {
+	if !IsNil(o.Objects) {
 		toSerialize["objects"] = o.Objects
 	}
 	if !IsNil(o.Offset) {
@@ -376,5 +374,3 @@ func (v *NullableResponseWithGenericOfOutput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

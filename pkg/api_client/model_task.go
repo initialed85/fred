@@ -20,19 +20,18 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Image *string `json:"image,omitempty"`
-	Index *int64 `json:"index,omitempty"`
-	JobId *string `json:"job_id,omitempty"`
-	JobIdObject *Job `json:"job_id_object,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Platform *string `json:"platform,omitempty"`
-	ReferencedByExecutionTaskIdObjects []Execution `json:"referenced_by_execution_task_id_objects,omitempty"`
-	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
-	Script *string `json:"script,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt                       *time.Time `json:"created_at,omitempty"`
+	DeletedAt                       *time.Time `json:"deleted_at,omitempty"`
+	Id                              *string    `json:"id,omitempty"`
+	Image                           *string    `json:"image,omitempty"`
+	Index                           *int64     `json:"index,omitempty"`
+	JobId                           *string    `json:"job_id,omitempty"`
+	JobIdObject                     *Job       `json:"job_id_object,omitempty"`
+	Name                            *string    `json:"name,omitempty"`
+	Platform                        *string    `json:"platform,omitempty"`
+	ReferencedByOutputTaskIdObjects []Output   `json:"referenced_by_output_task_id_objects,omitempty"`
+	Script                          *string    `json:"script,omitempty"`
+	UpdatedAt                       *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -340,42 +339,9 @@ func (o *Task) SetPlatform(v string) {
 	o.Platform = &v
 }
 
-// GetReferencedByExecutionTaskIdObjects returns the ReferencedByExecutionTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Task) GetReferencedByExecutionTaskIdObjects() []Execution {
-	if o == nil {
-		var ret []Execution
-		return ret
-	}
-	return o.ReferencedByExecutionTaskIdObjects
-}
-
-// GetReferencedByExecutionTaskIdObjectsOk returns a tuple with the ReferencedByExecutionTaskIdObjects field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Task) GetReferencedByExecutionTaskIdObjectsOk() ([]Execution, bool) {
-	if o == nil || IsNil(o.ReferencedByExecutionTaskIdObjects) {
-		return nil, false
-	}
-	return o.ReferencedByExecutionTaskIdObjects, true
-}
-
-// HasReferencedByExecutionTaskIdObjects returns a boolean if a field has been set.
-func (o *Task) HasReferencedByExecutionTaskIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByExecutionTaskIdObjects) {
-		return true
-	}
-
-	return false
-}
-
-// SetReferencedByExecutionTaskIdObjects gets a reference to the given []Execution and assigns it to the ReferencedByExecutionTaskIdObjects field.
-func (o *Task) SetReferencedByExecutionTaskIdObjects(v []Execution) {
-	o.ReferencedByExecutionTaskIdObjects = v
-}
-
-// GetReferencedByOutputTaskIdObjects returns the ReferencedByOutputTaskIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetReferencedByOutputTaskIdObjects returns the ReferencedByOutputTaskIdObjects field value if set, zero value otherwise.
 func (o *Task) GetReferencedByOutputTaskIdObjects() []Output {
-	if o == nil {
+	if o == nil || IsNil(o.ReferencedByOutputTaskIdObjects) {
 		var ret []Output
 		return ret
 	}
@@ -384,7 +350,6 @@ func (o *Task) GetReferencedByOutputTaskIdObjects() []Output {
 
 // GetReferencedByOutputTaskIdObjectsOk returns a tuple with the ReferencedByOutputTaskIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Task) GetReferencedByOutputTaskIdObjectsOk() ([]Output, bool) {
 	if o == nil || IsNil(o.ReferencedByOutputTaskIdObjects) {
 		return nil, false
@@ -471,7 +436,7 @@ func (o *Task) SetUpdatedAt(v time.Time) {
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -507,10 +472,7 @@ func (o Task) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
-	if o.ReferencedByExecutionTaskIdObjects != nil {
-		toSerialize["referenced_by_execution_task_id_objects"] = o.ReferencedByExecutionTaskIdObjects
-	}
-	if o.ReferencedByOutputTaskIdObjects != nil {
+	if !IsNil(o.ReferencedByOutputTaskIdObjects) {
 		toSerialize["referenced_by_output_task_id_objects"] = o.ReferencedByOutputTaskIdObjects
 	}
 	if !IsNil(o.Script) {
@@ -557,5 +519,3 @@ func (v *NullableTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -30,37 +30,36 @@ import (
 )
 
 type Job struct {
-	ID                                     uuid.UUID  `json:"id"`
-	CreatedAt                              time.Time  `json:"created_at"`
-	UpdatedAt                              time.Time  `json:"updated_at"`
-	DeletedAt                              *time.Time `json:"deleted_at"`
-	Name                                   string     `json:"name"`
-	RuleTriggerRuleID                      uuid.UUID  `json:"rule_trigger_rule_id"`
-	RuleTriggerRuleIDObject                *Rule      `json:"rule_trigger_rule_id_object"`
-	ReferencedByTaskJobIDObjects           []*Task    `json:"referenced_by_task_job_id_objects"`
-	ReferencedByRuleJobTriggerJobIDObjects []*Rule    `json:"referenced_by_rule_job_trigger_job_id_objects"`
+	ID                                uuid.UUID    `json:"id"`
+	CreatedAt                         time.Time    `json:"created_at"`
+	UpdatedAt                         time.Time    `json:"updated_at"`
+	DeletedAt                         *time.Time   `json:"deleted_at"`
+	Name                              string       `json:"name"`
+	ReferencedByExecutionJobIDObjects []*Execution `json:"referenced_by_execution_job_id_objects"`
+	ReferencedByTaskJobIDObjects      []*Task      `json:"referenced_by_task_job_id_objects"`
+	ReferencedByTriggerJobIDObjects   []*Trigger   `json:"referenced_by_trigger_job_id_objects"`
 }
 
 var JobTable = "job"
 
+var JobTableWithSchema = fmt.Sprintf("%s.%s", schema, JobTable)
+
 var JobTableNamespaceID int32 = 1337 + 3
 
 var (
-	JobTableIDColumn                = "id"
-	JobTableCreatedAtColumn         = "created_at"
-	JobTableUpdatedAtColumn         = "updated_at"
-	JobTableDeletedAtColumn         = "deleted_at"
-	JobTableNameColumn              = "name"
-	JobTableRuleTriggerRuleIDColumn = "rule_trigger_rule_id"
+	JobTableIDColumn        = "id"
+	JobTableCreatedAtColumn = "created_at"
+	JobTableUpdatedAtColumn = "updated_at"
+	JobTableDeletedAtColumn = "deleted_at"
+	JobTableNameColumn      = "name"
 )
 
 var (
-	JobTableIDColumnWithTypeCast                = `"id" AS id`
-	JobTableCreatedAtColumnWithTypeCast         = `"created_at" AS created_at`
-	JobTableUpdatedAtColumnWithTypeCast         = `"updated_at" AS updated_at`
-	JobTableDeletedAtColumnWithTypeCast         = `"deleted_at" AS deleted_at`
-	JobTableNameColumnWithTypeCast              = `"name" AS name`
-	JobTableRuleTriggerRuleIDColumnWithTypeCast = `"rule_trigger_rule_id" AS rule_trigger_rule_id`
+	JobTableIDColumnWithTypeCast        = `"id" AS id`
+	JobTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
+	JobTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
+	JobTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
+	JobTableNameColumnWithTypeCast      = `"name" AS name`
 )
 
 var JobTableColumns = []string{
@@ -69,7 +68,6 @@ var JobTableColumns = []string{
 	JobTableUpdatedAtColumn,
 	JobTableDeletedAtColumn,
 	JobTableNameColumn,
-	JobTableRuleTriggerRuleIDColumn,
 }
 
 var JobTableColumnsWithTypeCasts = []string{
@@ -78,7 +76,6 @@ var JobTableColumnsWithTypeCasts = []string{
 	JobTableUpdatedAtColumnWithTypeCast,
 	JobTableDeletedAtColumnWithTypeCast,
 	JobTableNameColumnWithTypeCast,
-	JobTableRuleTriggerRuleIDColumnWithTypeCast,
 }
 
 var JobIntrospectedTable *introspect.Table
@@ -254,25 +251,6 @@ func (m *Job) FromItem(item map[string]any) error {
 
 			m.Name = temp2
 
-		case "rule_trigger_rule_id":
-			if v == nil {
-				continue
-			}
-
-			temp1, err := types.ParseUUID(v)
-			if err != nil {
-				return wrapError(k, v, err)
-			}
-
-			temp2, ok := temp1.(uuid.UUID)
-			if !ok {
-				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uurule_trigger_rule_id.UUID", temp1))
-				}
-			}
-
-			m.RuleTriggerRuleID = temp2
-
 		}
 	}
 
@@ -307,10 +285,9 @@ func (m *Job) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) er
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.Name = o.Name
-	m.RuleTriggerRuleID = o.RuleTriggerRuleID
-	m.RuleTriggerRuleIDObject = o.RuleTriggerRuleIDObject
+	m.ReferencedByExecutionJobIDObjects = o.ReferencedByExecutionJobIDObjects
 	m.ReferencedByTaskJobIDObjects = o.ReferencedByTaskJobIDObjects
-	m.ReferencedByRuleJobTriggerJobIDObjects = o.ReferencedByRuleJobTriggerJobIDObjects
+	m.ReferencedByTriggerJobIDObjects = o.ReferencedByTriggerJobIDObjects
 
 	return nil
 }
@@ -374,17 +351,6 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.RuleTriggerRuleID) || slices.Contains(forceSetValuesForFields, JobTableRuleTriggerRuleIDColumn) || isRequired(JobTableColumnLookup, JobTableRuleTriggerRuleIDColumn) {
-		columns = append(columns, JobTableRuleTriggerRuleIDColumn)
-
-		v, err := types.FormatUUID(m.RuleTriggerRuleID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.RuleTriggerRuleID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	ctx, cleanup := query.WithQueryID(ctx)
 	defer cleanup()
 
@@ -393,7 +359,7 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 	item, err := query.Insert(
 		ctx,
 		tx,
-		JobTable,
+		JobTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -487,17 +453,6 @@ func (m *Job) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSe
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.RuleTriggerRuleID) || slices.Contains(forceSetValuesForFields, JobTableRuleTriggerRuleIDColumn) {
-		columns = append(columns, JobTableRuleTriggerRuleIDColumn)
-
-		v, err := types.FormatUUID(m.RuleTriggerRuleID)
-		if err != nil {
-			return fmt.Errorf("failed to handle m.RuleTriggerRuleID; %v", err)
-		}
-
-		values = append(values, v)
-	}
-
 	v, err := types.FormatUUID(m.ID)
 	if err != nil {
 		return fmt.Errorf("failed to handle m.ID; %v", err)
@@ -513,7 +468,7 @@ func (m *Job) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSe
 	_, err = query.Update(
 		ctx,
 		tx,
-		JobTable,
+		JobTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", JobTableIDColumn),
 		JobTableColumns,
@@ -561,7 +516,7 @@ func (m *Job) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error 
 	err = query.Delete(
 		ctx,
 		tx,
-		JobTable,
+		JobTableWithSchema,
 		fmt.Sprintf("%v = $$??", JobTableIDColumn),
 		values...,
 	)
@@ -575,11 +530,11 @@ func (m *Job) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) error 
 }
 
 func (m *Job) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, JobTable, timeouts...)
+	return query.LockTable(ctx, tx, JobTableWithSchema, timeouts...)
 }
 
 func (m *Job) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, JobTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, JobTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Job) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -631,7 +586,7 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 		ctx,
 		tx,
 		JobTableColumnsWithTypeCasts,
-		JobTable,
+		JobTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -652,32 +607,41 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 			return nil, 0, 0, 0, 0, err
 		}
 
-		if !types.IsZeroUUID(object.RuleTriggerRuleID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RuleTable, object.RuleTriggerRuleID), true)
-			shouldLoad := query.ShouldLoad(ctx, RuleTable)
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", ExecutionTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", ExecutionTable, object.GetPrimaryKeyValue()), true)
 			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectJobs->SelectRule for object.RuleTriggerRuleIDObject{%s: %v}", RuleTablePrimaryKeyColumn, object.RuleTriggerRuleID)
+					log.Printf("loading SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects")
 				}
 
-				object.RuleTriggerRuleIDObject, _, _, _, _, err = SelectRule(
+				object.ReferencedByExecutionJobIDObjects, _, _, _, _, err = SelectExecutions(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", RuleTablePrimaryKeyColumn),
-					object.RuleTriggerRuleID,
+					fmt.Sprintf("%v = $1", ExecutionTableJobIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
-						return nil, 0, 0, 0, 0, err
+						return err
 					}
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectJobs->SelectRule for object.RuleTriggerRuleIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectJobs->SelectExecutions for object.ReferencedByExecutionJobIDObjects in %s", time.Since(thisBefore))
 				}
+
 			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
 		}
 
 		err = func() error {
@@ -718,19 +682,19 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 		}
 
 		err = func() error {
-			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", RuleTable))
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", RuleTable, object.GetPrimaryKeyValue()), true)
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", TriggerTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TriggerTable, object.GetPrimaryKeyValue()), true)
 			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectJobs->SelectRules for object.ReferencedByRuleJobTriggerJobIDObjects")
+					log.Printf("loading SelectJobs->SelectTriggers for object.ReferencedByTriggerJobIDObjects")
 				}
 
-				object.ReferencedByRuleJobTriggerJobIDObjects, _, _, _, _, err = SelectRules(
+				object.ReferencedByTriggerJobIDObjects, _, _, _, _, err = SelectTriggers(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", RuleTableJobTriggerJobIDColumn),
+					fmt.Sprintf("%v = $1", TriggerTableJobIDColumn),
 					nil,
 					nil,
 					nil,
@@ -743,7 +707,7 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectJobs->SelectRules for object.ReferencedByRuleJobTriggerJobIDObjects in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectJobs->SelectTriggers for object.ReferencedByTriggerJobIDObjects in %s", time.Since(thisBefore))
 				}
 
 			}
@@ -843,7 +807,7 @@ func handleGetJob(arguments *server.SelectOneArguments, db *pgxpool.Pool, primar
 	return []*Job{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostJobs(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Job, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Job, int64, int64, int64, int64, error) {
+func handlePostJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Job, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Job, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1082,12 +1046,7 @@ func handleDeleteJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForC
 	return nil
 }
 
-func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
-
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+func MutateRouterForJob(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1203,7 +1162,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1314,7 +1273,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1362,7 +1321,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 					return server.Response[Job]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostJobs(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostJob(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Job]{}, err
 				}
@@ -1388,7 +1347,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1442,7 +1401,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1505,7 +1464,7 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1541,10 +1500,8 @@ func GetJobRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []ser
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewJobFromItem(item map[string]any) (any, error) {
@@ -1564,6 +1521,6 @@ func init() {
 		Job{},
 		NewJobFromItem,
 		"/jobs",
-		GetJobRouter,
+		MutateRouterForJob,
 	)
 }

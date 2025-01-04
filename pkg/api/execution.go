@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"net/http"
 	"net/netip"
 	"slices"
@@ -30,45 +31,55 @@ import (
 )
 
 type Execution struct {
-	ID                        uuid.UUID          `json:"id"`
-	CreatedAt                 time.Time          `json:"created_at"`
-	UpdatedAt                 time.Time          `json:"updated_at"`
-	DeletedAt                 *time.Time         `json:"deleted_at"`
-	Status                    string             `json:"status"`
-	StartedAt                 *time.Time         `json:"started_at"`
-	EndedAt                   *time.Time         `json:"ended_at"`
-	TaskID                    uuid.UUID          `json:"task_id"`
-	TaskIDObject              *Task              `json:"task_id_object"`
-	M2mRuleTriggerJobID       uuid.UUID          `json:"m2m_rule_trigger_job_id"`
-	M2mRuleTriggerJobIDObject *M2mRuleTriggerJob `json:"m2m_rule_trigger_job_id_object"`
+	ID                                   uuid.UUID  `json:"id"`
+	CreatedAt                            time.Time  `json:"created_at"`
+	UpdatedAt                            time.Time  `json:"updated_at"`
+	DeletedAt                            *time.Time `json:"deleted_at"`
+	Status                               string     `json:"status"`
+	StartedAt                            *time.Time `json:"started_at"`
+	EndedAt                              *time.Time `json:"ended_at"`
+	JobExecutorClaimedUntil              time.Time  `json:"job_executor_claimed_until"`
+	ChangeID                             uuid.UUID  `json:"change_id"`
+	ChangeIDObject                       *Change    `json:"change_id_object"`
+	TriggerID                            uuid.UUID  `json:"trigger_id"`
+	TriggerIDObject                      *Trigger   `json:"trigger_id_object"`
+	JobID                                uuid.UUID  `json:"job_id"`
+	JobIDObject                          *Job       `json:"job_id_object"`
+	ReferencedByOutputExecutionIDObjects []*Output  `json:"referenced_by_output_execution_id_objects"`
 }
 
 var ExecutionTable = "execution"
 
+var ExecutionTableWithSchema = fmt.Sprintf("%s.%s", schema, ExecutionTable)
+
 var ExecutionTableNamespaceID int32 = 1337 + 2
 
 var (
-	ExecutionTableIDColumn                  = "id"
-	ExecutionTableCreatedAtColumn           = "created_at"
-	ExecutionTableUpdatedAtColumn           = "updated_at"
-	ExecutionTableDeletedAtColumn           = "deleted_at"
-	ExecutionTableStatusColumn              = "status"
-	ExecutionTableStartedAtColumn           = "started_at"
-	ExecutionTableEndedAtColumn             = "ended_at"
-	ExecutionTableTaskIDColumn              = "task_id"
-	ExecutionTableM2mRuleTriggerJobIDColumn = "m2m_rule_trigger_job_id"
+	ExecutionTableIDColumn                      = "id"
+	ExecutionTableCreatedAtColumn               = "created_at"
+	ExecutionTableUpdatedAtColumn               = "updated_at"
+	ExecutionTableDeletedAtColumn               = "deleted_at"
+	ExecutionTableStatusColumn                  = "status"
+	ExecutionTableStartedAtColumn               = "started_at"
+	ExecutionTableEndedAtColumn                 = "ended_at"
+	ExecutionTableJobExecutorClaimedUntilColumn = "job_executor_claimed_until"
+	ExecutionTableChangeIDColumn                = "change_id"
+	ExecutionTableTriggerIDColumn               = "trigger_id"
+	ExecutionTableJobIDColumn                   = "job_id"
 )
 
 var (
-	ExecutionTableIDColumnWithTypeCast                  = `"id" AS id`
-	ExecutionTableCreatedAtColumnWithTypeCast           = `"created_at" AS created_at`
-	ExecutionTableUpdatedAtColumnWithTypeCast           = `"updated_at" AS updated_at`
-	ExecutionTableDeletedAtColumnWithTypeCast           = `"deleted_at" AS deleted_at`
-	ExecutionTableStatusColumnWithTypeCast              = `"status" AS status`
-	ExecutionTableStartedAtColumnWithTypeCast           = `"started_at" AS started_at`
-	ExecutionTableEndedAtColumnWithTypeCast             = `"ended_at" AS ended_at`
-	ExecutionTableTaskIDColumnWithTypeCast              = `"task_id" AS task_id`
-	ExecutionTableM2mRuleTriggerJobIDColumnWithTypeCast = `"m2m_rule_trigger_job_id" AS m2m_rule_trigger_job_id`
+	ExecutionTableIDColumnWithTypeCast                      = `"id" AS id`
+	ExecutionTableCreatedAtColumnWithTypeCast               = `"created_at" AS created_at`
+	ExecutionTableUpdatedAtColumnWithTypeCast               = `"updated_at" AS updated_at`
+	ExecutionTableDeletedAtColumnWithTypeCast               = `"deleted_at" AS deleted_at`
+	ExecutionTableStatusColumnWithTypeCast                  = `"status" AS status`
+	ExecutionTableStartedAtColumnWithTypeCast               = `"started_at" AS started_at`
+	ExecutionTableEndedAtColumnWithTypeCast                 = `"ended_at" AS ended_at`
+	ExecutionTableJobExecutorClaimedUntilColumnWithTypeCast = `"job_executor_claimed_until" AS job_executor_claimed_until`
+	ExecutionTableChangeIDColumnWithTypeCast                = `"change_id" AS change_id`
+	ExecutionTableTriggerIDColumnWithTypeCast               = `"trigger_id" AS trigger_id`
+	ExecutionTableJobIDColumnWithTypeCast                   = `"job_id" AS job_id`
 )
 
 var ExecutionTableColumns = []string{
@@ -79,8 +90,10 @@ var ExecutionTableColumns = []string{
 	ExecutionTableStatusColumn,
 	ExecutionTableStartedAtColumn,
 	ExecutionTableEndedAtColumn,
-	ExecutionTableTaskIDColumn,
-	ExecutionTableM2mRuleTriggerJobIDColumn,
+	ExecutionTableJobExecutorClaimedUntilColumn,
+	ExecutionTableChangeIDColumn,
+	ExecutionTableTriggerIDColumn,
+	ExecutionTableJobIDColumn,
 }
 
 var ExecutionTableColumnsWithTypeCasts = []string{
@@ -91,8 +104,10 @@ var ExecutionTableColumnsWithTypeCasts = []string{
 	ExecutionTableStatusColumnWithTypeCast,
 	ExecutionTableStartedAtColumnWithTypeCast,
 	ExecutionTableEndedAtColumnWithTypeCast,
-	ExecutionTableTaskIDColumnWithTypeCast,
-	ExecutionTableM2mRuleTriggerJobIDColumnWithTypeCast,
+	ExecutionTableJobExecutorClaimedUntilColumnWithTypeCast,
+	ExecutionTableChangeIDColumnWithTypeCast,
+	ExecutionTableTriggerIDColumnWithTypeCast,
+	ExecutionTableJobIDColumnWithTypeCast,
 }
 
 var ExecutionIntrospectedTable *introspect.Table
@@ -120,6 +135,11 @@ type ExecutionOnePathParams struct {
 
 type ExecutionLoadQueryParams struct {
 	Depth *int `json:"depth"`
+}
+
+type ExecutionJobExecutorClaimRequest struct {
+	Until          time.Time `json:"until"`
+	TimeoutSeconds float64   `json:"timeout_seconds"`
 }
 
 /*
@@ -306,7 +326,26 @@ func (m *Execution) FromItem(item map[string]any) error {
 
 			m.EndedAt = &temp2
 
-		case "task_id":
+		case "job_executor_claimed_until":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseTime(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(time.Time)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_executor_claimed_until.UUID", temp1))
+				}
+			}
+
+			m.JobExecutorClaimedUntil = temp2
+
+		case "change_id":
 			if v == nil {
 				continue
 			}
@@ -319,13 +358,13 @@ func (m *Execution) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(uuid.UUID)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutask_id.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuchange_id.UUID", temp1))
 				}
 			}
 
-			m.TaskID = temp2
+			m.ChangeID = temp2
 
-		case "m2m_rule_trigger_job_id":
+		case "trigger_id":
 			if v == nil {
 				continue
 			}
@@ -338,11 +377,30 @@ func (m *Execution) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(uuid.UUID)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uum2m_rule_trigger_job_id.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutrigger_id.UUID", temp1))
 				}
 			}
 
-			m.M2mRuleTriggerJobID = temp2
+			m.TriggerID = temp2
+
+		case "job_id":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseUUID(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(uuid.UUID)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_id.UUID", temp1))
+				}
+			}
+
+			m.JobID = temp2
 
 		}
 	}
@@ -380,10 +438,14 @@ func (m *Execution) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bo
 	m.Status = o.Status
 	m.StartedAt = o.StartedAt
 	m.EndedAt = o.EndedAt
-	m.TaskID = o.TaskID
-	m.TaskIDObject = o.TaskIDObject
-	m.M2mRuleTriggerJobID = o.M2mRuleTriggerJobID
-	m.M2mRuleTriggerJobIDObject = o.M2mRuleTriggerJobIDObject
+	m.JobExecutorClaimedUntil = o.JobExecutorClaimedUntil
+	m.ChangeID = o.ChangeID
+	m.ChangeIDObject = o.ChangeIDObject
+	m.TriggerID = o.TriggerID
+	m.TriggerIDObject = o.TriggerIDObject
+	m.JobID = o.JobID
+	m.JobIDObject = o.JobIDObject
+	m.ReferencedByOutputExecutionIDObjects = o.ReferencedByOutputExecutionIDObjects
 
 	return nil
 }
@@ -469,23 +531,45 @@ func (m *Execution) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, s
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TaskID) || slices.Contains(forceSetValuesForFields, ExecutionTableTaskIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableTaskIDColumn) {
-		columns = append(columns, ExecutionTableTaskIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, ExecutionTableJobExecutorClaimedUntilColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, ExecutionTableJobExecutorClaimedUntilColumn)
 
-		v, err := types.FormatUUID(m.TaskID)
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TaskID; %v", err)
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.M2mRuleTriggerJobID) || slices.Contains(forceSetValuesForFields, ExecutionTableM2mRuleTriggerJobIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableM2mRuleTriggerJobIDColumn) {
-		columns = append(columns, ExecutionTableM2mRuleTriggerJobIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.ChangeID) || slices.Contains(forceSetValuesForFields, ExecutionTableChangeIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableChangeIDColumn) {
+		columns = append(columns, ExecutionTableChangeIDColumn)
 
-		v, err := types.FormatUUID(m.M2mRuleTriggerJobID)
+		v, err := types.FormatUUID(m.ChangeID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.M2mRuleTriggerJobID; %v", err)
+			return fmt.Errorf("failed to handle m.ChangeID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.TriggerID) || slices.Contains(forceSetValuesForFields, ExecutionTableTriggerIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableTriggerIDColumn) {
+		columns = append(columns, ExecutionTableTriggerIDColumn)
+
+		v, err := types.FormatUUID(m.TriggerID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.TriggerID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, ExecutionTableJobIDColumn) || isRequired(ExecutionTableColumnLookup, ExecutionTableJobIDColumn) {
+		columns = append(columns, ExecutionTableJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -499,7 +583,7 @@ func (m *Execution) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, s
 	item, err := query.Insert(
 		ctx,
 		tx,
-		ExecutionTable,
+		ExecutionTableWithSchema,
 		columns,
 		nil,
 		false,
@@ -615,23 +699,45 @@ func (m *Execution) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, f
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.TaskID) || slices.Contains(forceSetValuesForFields, ExecutionTableTaskIDColumn) {
-		columns = append(columns, ExecutionTableTaskIDColumn)
+	if setZeroValues || !types.IsZeroTime(m.JobExecutorClaimedUntil) || slices.Contains(forceSetValuesForFields, ExecutionTableJobExecutorClaimedUntilColumn) {
+		columns = append(columns, ExecutionTableJobExecutorClaimedUntilColumn)
 
-		v, err := types.FormatUUID(m.TaskID)
+		v, err := types.FormatTime(m.JobExecutorClaimedUntil)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TaskID; %v", err)
+			return fmt.Errorf("failed to handle m.JobExecutorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroUUID(m.M2mRuleTriggerJobID) || slices.Contains(forceSetValuesForFields, ExecutionTableM2mRuleTriggerJobIDColumn) {
-		columns = append(columns, ExecutionTableM2mRuleTriggerJobIDColumn)
+	if setZeroValues || !types.IsZeroUUID(m.ChangeID) || slices.Contains(forceSetValuesForFields, ExecutionTableChangeIDColumn) {
+		columns = append(columns, ExecutionTableChangeIDColumn)
 
-		v, err := types.FormatUUID(m.M2mRuleTriggerJobID)
+		v, err := types.FormatUUID(m.ChangeID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.M2mRuleTriggerJobID; %v", err)
+			return fmt.Errorf("failed to handle m.ChangeID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.TriggerID) || slices.Contains(forceSetValuesForFields, ExecutionTableTriggerIDColumn) {
+		columns = append(columns, ExecutionTableTriggerIDColumn)
+
+		v, err := types.FormatUUID(m.TriggerID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.TriggerID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.JobID) || slices.Contains(forceSetValuesForFields, ExecutionTableJobIDColumn) {
+		columns = append(columns, ExecutionTableJobIDColumn)
+
+		v, err := types.FormatUUID(m.JobID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.JobID; %v", err)
 		}
 
 		values = append(values, v)
@@ -652,7 +758,7 @@ func (m *Execution) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, f
 	_, err = query.Update(
 		ctx,
 		tx,
-		ExecutionTable,
+		ExecutionTableWithSchema,
 		columns,
 		fmt.Sprintf("%v = $$??", ExecutionTableIDColumn),
 		ExecutionTableColumns,
@@ -700,7 +806,7 @@ func (m *Execution) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) 
 	err = query.Delete(
 		ctx,
 		tx,
-		ExecutionTable,
+		ExecutionTableWithSchema,
 		fmt.Sprintf("%v = $$??", ExecutionTableIDColumn),
 		values...,
 	)
@@ -714,11 +820,11 @@ func (m *Execution) Delete(ctx context.Context, tx pgx.Tx, hardDeletes ...bool) 
 }
 
 func (m *Execution) LockTable(ctx context.Context, tx pgx.Tx, timeouts ...time.Duration) error {
-	return query.LockTable(ctx, tx, ExecutionTable, timeouts...)
+	return query.LockTable(ctx, tx, ExecutionTableWithSchema, timeouts...)
 }
 
 func (m *Execution) LockTableWithRetries(ctx context.Context, tx pgx.Tx, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
-	return query.LockTableWithRetries(ctx, tx, ExecutionTable, overallTimeout, individualAttempttimeout)
+	return query.LockTableWithRetries(ctx, tx, ExecutionTableWithSchema, overallTimeout, individualAttempttimeout)
 }
 
 func (m *Execution) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, timeouts ...time.Duration) error {
@@ -727,6 +833,35 @@ func (m *Execution) AdvisoryLock(ctx context.Context, tx pgx.Tx, key int32, time
 
 func (m *Execution) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int32, overallTimeout time.Duration, individualAttempttimeout time.Duration) error {
 	return query.AdvisoryLockWithRetries(ctx, tx, ExecutionTableNamespaceID, key, overallTimeout, individualAttempttimeout)
+}
+
+func (m *Execution) JobExecutorClaim(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration) error {
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return fmt.Errorf("failed to claim (advisory lock): %s", err.Error())
+	}
+
+	_, _, _, _, _, err = SelectExecution(
+		ctx,
+		tx,
+		fmt.Sprintf(
+			"%s = $$?? AND (job_executor_claimed_until IS null OR job_executor_claimed_until < now())",
+			ExecutionTablePrimaryKeyColumn,
+		),
+		m.GetPrimaryKeyValue(),
+	)
+	if err != nil {
+		return fmt.Errorf("failed to claim (select): %s", err.Error())
+	}
+
+	m.JobExecutorClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return fmt.Errorf("failed to claim (update): %s", err.Error())
+	}
+
+	return nil
 }
 
 func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *string, limit *int, offset *int, values ...any) ([]*Execution, int64, int64, int64, int64, error) {
@@ -770,7 +905,7 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 		ctx,
 		tx,
 		ExecutionTableColumnsWithTypeCasts,
-		ExecutionTable,
+		ExecutionTableWithSchema,
 		where,
 		orderBy,
 		limit,
@@ -791,21 +926,21 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 			return nil, 0, 0, 0, 0, err
 		}
 
-		if !types.IsZeroUUID(object.TaskID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TaskTable, object.TaskID), true)
-			shouldLoad := query.ShouldLoad(ctx, TaskTable)
+		if !types.IsZeroUUID(object.ChangeID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", ChangeTable, object.ChangeID), true)
+			shouldLoad := query.ShouldLoad(ctx, ChangeTable)
 			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectTask for object.TaskIDObject{%s: %v}", TaskTablePrimaryKeyColumn, object.TaskID)
+					log.Printf("loading SelectExecutions->SelectChange for object.ChangeIDObject{%s: %v}", ChangeTablePrimaryKeyColumn, object.ChangeID)
 				}
 
-				object.TaskIDObject, _, _, _, _, err = SelectTask(
+				object.ChangeIDObject, _, _, _, _, err = SelectChange(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", TaskTablePrimaryKeyColumn),
-					object.TaskID,
+					fmt.Sprintf("%v = $1", ChangeTablePrimaryKeyColumn),
+					object.ChangeID,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
@@ -814,26 +949,26 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectTask for object.TaskIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectExecutions->SelectChange for object.ChangeIDObject in %s", time.Since(thisBefore))
 				}
 			}
 		}
 
-		if !types.IsZeroUUID(object.M2mRuleTriggerJobID) {
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", M2mRuleTriggerJobTable, object.M2mRuleTriggerJobID), true)
-			shouldLoad := query.ShouldLoad(ctx, M2mRuleTriggerJobTable)
+		if !types.IsZeroUUID(object.TriggerID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", TriggerTable, object.TriggerID), true)
+			shouldLoad := query.ShouldLoad(ctx, TriggerTable)
 			if ok || shouldLoad {
 				thisBefore := time.Now()
 
 				if config.Debug() {
-					log.Printf("loading SelectExecutions->SelectM2mRuleTriggerJob for object.M2mRuleTriggerJobIDObject{%s: %v}", M2mRuleTriggerJobTablePrimaryKeyColumn, object.M2mRuleTriggerJobID)
+					log.Printf("loading SelectExecutions->SelectTrigger for object.TriggerIDObject{%s: %v}", TriggerTablePrimaryKeyColumn, object.TriggerID)
 				}
 
-				object.M2mRuleTriggerJobIDObject, _, _, _, _, err = SelectM2mRuleTriggerJob(
+				object.TriggerIDObject, _, _, _, _, err = SelectTrigger(
 					ctx,
 					tx,
-					fmt.Sprintf("%v = $1", M2mRuleTriggerJobTablePrimaryKeyColumn),
-					object.M2mRuleTriggerJobID,
+					fmt.Sprintf("%v = $1", TriggerTablePrimaryKeyColumn),
+					object.TriggerID,
 				)
 				if err != nil {
 					if !errors.Is(err, sql.ErrNoRows) {
@@ -842,9 +977,74 @@ func SelectExecutions(ctx context.Context, tx pgx.Tx, where string, orderBy *str
 				}
 
 				if config.Debug() {
-					log.Printf("loaded SelectExecutions->SelectM2mRuleTriggerJob for object.M2mRuleTriggerJobIDObject in %s", time.Since(thisBefore))
+					log.Printf("loaded SelectExecutions->SelectTrigger for object.TriggerIDObject in %s", time.Since(thisBefore))
 				}
 			}
+		}
+
+		if !types.IsZeroUUID(object.JobID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", JobTable, object.JobID), true)
+			shouldLoad := query.ShouldLoad(ctx, JobTable)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectExecutions->SelectJob for object.JobIDObject{%s: %v}", JobTablePrimaryKeyColumn, object.JobID)
+				}
+
+				object.JobIDObject, _, _, _, _, err = SelectJob(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", JobTablePrimaryKeyColumn),
+					object.JobID,
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return nil, 0, 0, 0, 0, err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectExecutions->SelectJob for object.JobIDObject in %s", time.Since(thisBefore))
+				}
+			}
+		}
+
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", OutputTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", OutputTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectExecutions->SelectOutputs for object.ReferencedByOutputExecutionIDObjects")
+				}
+
+				object.ReferencedByOutputExecutionIDObjects, _, _, _, _, err = SelectOutputs(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", OutputTableExecutionIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectExecutions->SelectOutputs for object.ReferencedByOutputExecutionIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
 		}
 
 		objects = append(objects, object)
@@ -888,6 +1088,51 @@ func SelectExecution(ctx context.Context, tx pgx.Tx, where string, values ...any
 	totalPages := page
 
 	return object, count, totalCount, page, totalPages, nil
+}
+
+func JobExecutorClaimExecution(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration, where string, values ...any) (*Execution, error) {
+	m := &Execution{}
+
+	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if strings.TrimSpace(where) != "" {
+		where += " AND\n"
+	}
+
+	where += "    (job_executor_claimed_until IS null OR job_executor_claimed_until < now())"
+
+	ms, _, _, _, _, err := SelectExecutions(
+		ctx,
+		tx,
+		where,
+		helpers.Ptr(
+			"job_executor_claimed_until ASC",
+		),
+		helpers.Ptr(1),
+		nil,
+		values...,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	if len(ms) == 0 {
+		return nil, nil
+	}
+
+	m = ms[0]
+
+	m.JobExecutorClaimedUntil = until
+
+	err = m.Update(ctx, tx, false)
+	if err != nil {
+		return nil, fmt.Errorf("failed to claim: %s", err.Error())
+	}
+
+	return m, nil
 }
 
 func handleGetExecutions(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Execution, int64, int64, int64, int64, error) {
@@ -936,7 +1181,7 @@ func handleGetExecution(arguments *server.SelectOneArguments, db *pgxpool.Pool, 
 	return []*Execution{object}, count, totalCount, page, totalPages, nil
 }
 
-func handlePostExecutions(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Execution, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Execution, int64, int64, int64, int64, error) {
+func handlePostExecution(arguments *server.LoadArguments, db *pgxpool.Pool, waitForChange server.WaitForChange, objects []*Execution, forceSetValuesForFieldsByObjectIndex [][]string) ([]*Execution, int64, int64, int64, int64, error) {
 	tx, err := db.Begin(arguments.Ctx)
 	if err != nil {
 		err = fmt.Errorf("failed to begin DB transaction; %v", err)
@@ -1175,12 +1420,172 @@ func handleDeleteExecution(arguments *server.LoadArguments, db *pgxpool.Pool, wa
 	return nil
 }
 
-func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares []server.HTTPMiddleware, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) chi.Router {
-	r := chi.NewRouter()
+func MutateRouterForExecution(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
-	for _, m := range httpMiddlewares {
-		r.Use(m)
-	}
+	func() {
+		postHandlerForJobExecutorClaim, err := getHTTPHandler(
+			http.MethodPost,
+			"/job-executor-claim-execution",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams server.EmptyPathParams,
+				queryParams server.EmptyQueryParams,
+				req ExecutionJobExecutorClaimRequest,
+				rawReq any,
+			) (server.Response[Execution], error) {
+				tx, err := db.Begin(ctx)
+				if err != nil {
+					return server.Response[Execution]{}, err
+				}
+
+				defer func() {
+					_ = tx.Rollback(ctx)
+				}()
+
+				object, err := JobExecutorClaimExecution(ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000), "")
+				if err != nil {
+					return server.Response[Execution]{}, err
+				}
+
+				count := int64(0)
+
+				totalCount := int64(0)
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				if object == nil {
+					return server.Response[Execution]{
+						Status:     http.StatusOK,
+						Success:    true,
+						Error:      nil,
+						Objects:    []*Execution{},
+						Count:      count,
+						TotalCount: totalCount,
+						Limit:      limit,
+						Offset:     offset,
+					}, nil
+				}
+
+				err = tx.Commit(ctx)
+				if err != nil {
+					return server.Response[Execution]{}, err
+				}
+
+				return server.Response[Execution]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Execution{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}, nil
+			},
+			Execution{},
+			ExecutionIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForJobExecutorClaim.FullPath, postHandlerForJobExecutorClaim.ServeHTTP)
+
+		postHandlerForJobExecutorClaimOne, err := getHTTPHandler(
+			http.MethodPost,
+			"/executions/{primaryKey}/job-executor-claim",
+			http.StatusOK,
+			func(
+				ctx context.Context,
+				pathParams ExecutionOnePathParams,
+				queryParams ExecutionLoadQueryParams,
+				req ExecutionJobExecutorClaimRequest,
+				rawReq any,
+			) (server.Response[Execution], error) {
+				before := time.Now()
+
+				redisConn := redisPool.Get()
+				defer func() {
+					_ = redisConn.Close()
+				}()
+
+				arguments, err := server.GetSelectOneArguments(ctx, queryParams.Depth, ExecutionIntrospectedTable, pathParams.PrimaryKey, nil, nil)
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Execution]{}, err
+				}
+
+				/* note: deliberately no attempt at a cache hit */
+
+				var object *Execution
+				var count int64
+				var totalCount int64
+
+				err = func() error {
+					tx, err := db.Begin(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					defer func() {
+						_ = tx.Rollback(arguments.Ctx)
+					}()
+
+					object, count, totalCount, _, _, err = SelectExecution(arguments.Ctx, tx, arguments.Where, arguments.Values...)
+					if err != nil {
+						return fmt.Errorf("failed to select object to claim: %s", err.Error())
+					}
+
+					err = object.JobExecutorClaim(arguments.Ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000))
+					if err != nil {
+						return err
+					}
+
+					err = tx.Commit(arguments.Ctx)
+					if err != nil {
+						return err
+					}
+
+					return nil
+				}()
+				if err != nil {
+					if config.Debug() {
+						log.Printf("request failed in %s %s path: %#+v query: %#+v req: %#+v", time.Since(before), http.MethodGet, pathParams, queryParams, req)
+					}
+
+					return server.Response[Execution]{}, err
+				}
+
+				limit := int64(0)
+
+				offset := int64(0)
+
+				response := server.Response[Execution]{
+					Status:     http.StatusOK,
+					Success:    true,
+					Error:      nil,
+					Objects:    []*Execution{object},
+					Count:      count,
+					TotalCount: totalCount,
+					Limit:      limit,
+					Offset:     offset,
+				}
+
+				return response, nil
+			},
+			Execution{},
+			ExecutionIntrospectedTable,
+		)
+		if err != nil {
+			panic(err)
+		}
+		r.Post(postHandlerForJobExecutorClaimOne.FullPath, postHandlerForJobExecutorClaimOne.ServeHTTP)
+	}()
 
 	func() {
 		getManyHandler, err := getHTTPHandler(
@@ -1296,7 +1701,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getManyHandler.PathWithinRouter, getManyHandler.ServeHTTP)
+		r.Get(getManyHandler.FullPath, getManyHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1407,7 +1812,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Get(getOneHandler.PathWithinRouter, getOneHandler.ServeHTTP)
+		r.Get(getOneHandler.FullPath, getOneHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1455,7 +1860,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 					return server.Response[Execution]{}, err
 				}
 
-				objects, count, totalCount, _, _, err := handlePostExecutions(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
+				objects, count, totalCount, _, _, err := handlePostExecution(arguments, db, waitForChange, req, forceSetValuesForFieldsByObjectIndex)
 				if err != nil {
 					return server.Response[Execution]{}, err
 				}
@@ -1481,7 +1886,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandler.PathWithinRouter, postHandler.ServeHTTP)
+		r.Post(postHandler.FullPath, postHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1535,7 +1940,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Put(putHandler.PathWithinRouter, putHandler.ServeHTTP)
+		r.Put(putHandler.FullPath, putHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1598,7 +2003,7 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Patch(patchHandler.PathWithinRouter, patchHandler.ServeHTTP)
+		r.Patch(patchHandler.FullPath, patchHandler.ServeHTTP)
 	}()
 
 	func() {
@@ -1634,10 +2039,8 @@ func GetExecutionRouter(db *pgxpool.Pool, redisPool *redis.Pool, httpMiddlewares
 		if err != nil {
 			panic(err)
 		}
-		r.Delete(deleteHandler.PathWithinRouter, deleteHandler.ServeHTTP)
+		r.Delete(deleteHandler.FullPath, deleteHandler.ServeHTTP)
 	}()
-
-	return r
 }
 
 func NewExecutionFromItem(item map[string]any) (any, error) {
@@ -1657,6 +2060,6 @@ func init() {
 		Execution{},
 		NewExecutionFromItem,
 		"/executions",
-		GetExecutionRouter,
+		MutateRouterForExecution,
 	)
 }

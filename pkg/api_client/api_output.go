@@ -20,15 +20,14 @@ import (
 	"time"
 )
 
-
 // OutputAPIService OutputAPI service
 type OutputAPIService service
 
 type ApiDeleteOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -44,14 +43,14 @@ func (r ApiDeleteOutputRequest) Execute() (*http.Response, error) {
 /*
 DeleteOutput Method for DeleteOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiDeleteOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiDeleteOutputRequest
 */
 func (a *OutputAPIService) DeleteOutput(ctx context.Context, primaryKey string) ApiDeleteOutputRequest {
 	return ApiDeleteOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -59,9 +58,9 @@ func (a *OutputAPIService) DeleteOutput(ctx context.Context, primaryKey string) 
 // Execute executes the request
 func (a *OutputAPIService) DeleteOutputExecute(r ApiDeleteOutputRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.DeleteOutput")
@@ -125,10 +124,10 @@ func (a *OutputAPIService) DeleteOutputExecute(r ApiDeleteOutputRequest) (*http.
 }
 
 type ApiGetOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	depth *int64
+	depth      *int64
 }
 
 // Query parameter depth
@@ -144,26 +143,27 @@ func (r ApiGetOutputRequest) Execute() (*ResponseWithGenericOfOutput, *http.Resp
 /*
 GetOutput Method for GetOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiGetOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiGetOutputRequest
 */
 func (a *OutputAPIService) GetOutput(ctx context.Context, primaryKey string) ApiGetOutputRequest {
 	return ApiGetOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.GetOutput")
@@ -220,14 +220,14 @@ func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,170 +244,219 @@ func (a *OutputAPIService) GetOutputExecute(r ApiGetOutputRequest) (*ResponseWit
 }
 
 type ApiGetOutputsRequest struct {
-	ctx context.Context
-	ApiService *OutputAPIService
-	limit *int32
-	offset *int32
-	depth *int32
-	taskLoad *string
-	logLoad *string
-	referencedByLogLoad *string
-	idEq *string
-	idNe *string
-	idGt *string
-	idGte *string
-	idLt *string
-	idLte *string
-	idIn *string
-	idNotin *string
-	idLike *string
-	idNotlike *string
-	idIlike *string
-	idNotilike *string
-	idDesc *string
-	idAsc *string
-	createdAtEq *time.Time
-	createdAtNe *time.Time
-	createdAtGt *time.Time
-	createdAtGte *time.Time
-	createdAtLt *time.Time
-	createdAtLte *time.Time
-	createdAtIn *time.Time
-	createdAtNotin *time.Time
-	createdAtLike *time.Time
-	createdAtNotlike *time.Time
-	createdAtIlike *time.Time
-	createdAtNotilike *time.Time
-	createdAtDesc *string
-	createdAtAsc *string
-	updatedAtEq *time.Time
-	updatedAtNe *time.Time
-	updatedAtGt *time.Time
-	updatedAtGte *time.Time
-	updatedAtLt *time.Time
-	updatedAtLte *time.Time
-	updatedAtIn *time.Time
-	updatedAtNotin *time.Time
-	updatedAtLike *time.Time
-	updatedAtNotlike *time.Time
-	updatedAtIlike *time.Time
-	updatedAtNotilike *time.Time
-	updatedAtDesc *string
-	updatedAtAsc *string
-	deletedAtEq *time.Time
-	deletedAtNe *time.Time
-	deletedAtGt *time.Time
-	deletedAtGte *time.Time
-	deletedAtLt *time.Time
-	deletedAtLte *time.Time
-	deletedAtIn *time.Time
-	deletedAtNotin *time.Time
-	deletedAtLike *time.Time
-	deletedAtNotlike *time.Time
-	deletedAtIlike *time.Time
-	deletedAtNotilike *time.Time
-	deletedAtDesc *string
-	deletedAtAsc *string
-	statusEq *string
-	statusNe *string
-	statusGt *string
-	statusGte *string
-	statusLt *string
-	statusLte *string
-	statusIn *string
-	statusNotin *string
-	statusLike *string
-	statusNotlike *string
-	statusIlike *string
-	statusNotilike *string
-	statusDesc *string
-	statusAsc *string
-	startedAtEq *time.Time
-	startedAtNe *time.Time
-	startedAtGt *time.Time
-	startedAtGte *time.Time
-	startedAtLt *time.Time
-	startedAtLte *time.Time
-	startedAtIn *time.Time
-	startedAtNotin *time.Time
-	startedAtLike *time.Time
-	startedAtNotlike *time.Time
-	startedAtIlike *time.Time
-	startedAtNotilike *time.Time
-	startedAtDesc *string
-	startedAtAsc *string
-	endedAtEq *time.Time
-	endedAtNe *time.Time
-	endedAtGt *time.Time
-	endedAtGte *time.Time
-	endedAtLt *time.Time
-	endedAtLte *time.Time
-	endedAtIn *time.Time
-	endedAtNotin *time.Time
-	endedAtLike *time.Time
-	endedAtNotlike *time.Time
-	endedAtIlike *time.Time
-	endedAtNotilike *time.Time
-	endedAtDesc *string
-	endedAtAsc *string
-	exitStatusEq *int64
-	exitStatusNe *int64
-	exitStatusGt *int64
-	exitStatusGte *int64
-	exitStatusLt *int64
-	exitStatusLte *int64
-	exitStatusIn *int64
-	exitStatusNotin *int64
-	exitStatusDesc *string
-	exitStatusAsc *string
-	errorEq *string
-	errorNe *string
-	errorGt *string
-	errorGte *string
-	errorLt *string
-	errorLte *string
-	errorIn *string
-	errorNotin *string
-	errorLike *string
-	errorNotlike *string
-	errorIlike *string
-	errorNotilike *string
-	errorDesc *string
-	errorAsc *string
-	taskIdEq *string
-	taskIdNe *string
-	taskIdGt *string
-	taskIdGte *string
-	taskIdLt *string
-	taskIdLte *string
-	taskIdIn *string
-	taskIdNotin *string
-	taskIdLike *string
-	taskIdNotlike *string
-	taskIdIlike *string
-	taskIdNotilike *string
-	taskIdDesc *string
-	taskIdAsc *string
-	taskIdObjectDesc *string
-	taskIdObjectAsc *string
-	logidEq *string
-	logidNe *string
-	logidGt *string
-	logidGte *string
-	logidLt *string
-	logidLte *string
-	logidIn *string
-	logidNotin *string
-	logidLike *string
-	logidNotlike *string
-	logidIlike *string
-	logidNotilike *string
-	logidDesc *string
-	logidAsc *string
-	logidObjectDesc *string
-	logidObjectAsc *string
-	referencedByLogOutputIdObjectsDesc *string
-	referencedByLogOutputIdObjectsAsc *string
+	ctx                                       context.Context
+	ApiService                                *OutputAPIService
+	limit                                     *int32
+	offset                                    *int32
+	depth                                     *int32
+	executionLoad                             *string
+	taskLoad                                  *string
+	logLoad                                   *string
+	referencedByLogLoad                       *string
+	idEq                                      *string
+	idNe                                      *string
+	idGt                                      *string
+	idGte                                     *string
+	idLt                                      *string
+	idLte                                     *string
+	idIn                                      *string
+	idNotin                                   *string
+	idContains                                *string
+	idNotcontains                             *string
+	idLike                                    *string
+	idNotlike                                 *string
+	idIlike                                   *string
+	idNotilike                                *string
+	idDesc                                    *string
+	idAsc                                     *string
+	createdAtEq                               *time.Time
+	createdAtNe                               *time.Time
+	createdAtGt                               *time.Time
+	createdAtGte                              *time.Time
+	createdAtLt                               *time.Time
+	createdAtLte                              *time.Time
+	createdAtIn                               *time.Time
+	createdAtNotin                            *time.Time
+	createdAtContains                         *time.Time
+	createdAtNotcontains                      *time.Time
+	createdAtLike                             *time.Time
+	createdAtNotlike                          *time.Time
+	createdAtIlike                            *time.Time
+	createdAtNotilike                         *time.Time
+	createdAtDesc                             *string
+	createdAtAsc                              *string
+	updatedAtEq                               *time.Time
+	updatedAtNe                               *time.Time
+	updatedAtGt                               *time.Time
+	updatedAtGte                              *time.Time
+	updatedAtLt                               *time.Time
+	updatedAtLte                              *time.Time
+	updatedAtIn                               *time.Time
+	updatedAtNotin                            *time.Time
+	updatedAtContains                         *time.Time
+	updatedAtNotcontains                      *time.Time
+	updatedAtLike                             *time.Time
+	updatedAtNotlike                          *time.Time
+	updatedAtIlike                            *time.Time
+	updatedAtNotilike                         *time.Time
+	updatedAtDesc                             *string
+	updatedAtAsc                              *string
+	deletedAtEq                               *time.Time
+	deletedAtNe                               *time.Time
+	deletedAtGt                               *time.Time
+	deletedAtGte                              *time.Time
+	deletedAtLt                               *time.Time
+	deletedAtLte                              *time.Time
+	deletedAtIn                               *time.Time
+	deletedAtNotin                            *time.Time
+	deletedAtContains                         *time.Time
+	deletedAtNotcontains                      *time.Time
+	deletedAtLike                             *time.Time
+	deletedAtNotlike                          *time.Time
+	deletedAtIlike                            *time.Time
+	deletedAtNotilike                         *time.Time
+	deletedAtDesc                             *string
+	deletedAtAsc                              *string
+	statusEq                                  *string
+	statusNe                                  *string
+	statusGt                                  *string
+	statusGte                                 *string
+	statusLt                                  *string
+	statusLte                                 *string
+	statusIn                                  *string
+	statusNotin                               *string
+	statusContains                            *string
+	statusNotcontains                         *string
+	statusLike                                *string
+	statusNotlike                             *string
+	statusIlike                               *string
+	statusNotilike                            *string
+	statusDesc                                *string
+	statusAsc                                 *string
+	startedAtEq                               *time.Time
+	startedAtNe                               *time.Time
+	startedAtGt                               *time.Time
+	startedAtGte                              *time.Time
+	startedAtLt                               *time.Time
+	startedAtLte                              *time.Time
+	startedAtIn                               *time.Time
+	startedAtNotin                            *time.Time
+	startedAtContains                         *time.Time
+	startedAtNotcontains                      *time.Time
+	startedAtLike                             *time.Time
+	startedAtNotlike                          *time.Time
+	startedAtIlike                            *time.Time
+	startedAtNotilike                         *time.Time
+	startedAtDesc                             *string
+	startedAtAsc                              *string
+	endedAtEq                                 *time.Time
+	endedAtNe                                 *time.Time
+	endedAtGt                                 *time.Time
+	endedAtGte                                *time.Time
+	endedAtLt                                 *time.Time
+	endedAtLte                                *time.Time
+	endedAtIn                                 *time.Time
+	endedAtNotin                              *time.Time
+	endedAtContains                           *time.Time
+	endedAtNotcontains                        *time.Time
+	endedAtLike                               *time.Time
+	endedAtNotlike                            *time.Time
+	endedAtIlike                              *time.Time
+	endedAtNotilike                           *time.Time
+	endedAtDesc                               *string
+	endedAtAsc                                *string
+	exitStatusEq                              *int64
+	exitStatusNe                              *int64
+	exitStatusGt                              *int64
+	exitStatusGte                             *int64
+	exitStatusLt                              *int64
+	exitStatusLte                             *int64
+	exitStatusIn                              *int64
+	exitStatusNotin                           *int64
+	exitStatusContains                        *int64
+	exitStatusNotcontains                     *int64
+	exitStatusDesc                            *string
+	exitStatusAsc                             *string
+	errorEq                                   *string
+	errorNe                                   *string
+	errorGt                                   *string
+	errorGte                                  *string
+	errorLt                                   *string
+	errorLte                                  *string
+	errorIn                                   *string
+	errorNotin                                *string
+	errorContains                             *string
+	errorNotcontains                          *string
+	errorLike                                 *string
+	errorNotlike                              *string
+	errorIlike                                *string
+	errorNotilike                             *string
+	errorDesc                                 *string
+	errorAsc                                  *string
+	executionIdEq                             *string
+	executionIdNe                             *string
+	executionIdGt                             *string
+	executionIdGte                            *string
+	executionIdLt                             *string
+	executionIdLte                            *string
+	executionIdIn                             *string
+	executionIdNotin                          *string
+	executionIdContains                       *string
+	executionIdNotcontains                    *string
+	executionIdLike                           *string
+	executionIdNotlike                        *string
+	executionIdIlike                          *string
+	executionIdNotilike                       *string
+	executionIdDesc                           *string
+	executionIdAsc                            *string
+	executionIdObjectContains                 *interface{}
+	executionIdObjectNotcontains              *interface{}
+	executionIdObjectDesc                     *string
+	executionIdObjectAsc                      *string
+	taskIdEq                                  *string
+	taskIdNe                                  *string
+	taskIdGt                                  *string
+	taskIdGte                                 *string
+	taskIdLt                                  *string
+	taskIdLte                                 *string
+	taskIdIn                                  *string
+	taskIdNotin                               *string
+	taskIdContains                            *string
+	taskIdNotcontains                         *string
+	taskIdLike                                *string
+	taskIdNotlike                             *string
+	taskIdIlike                               *string
+	taskIdNotilike                            *string
+	taskIdDesc                                *string
+	taskIdAsc                                 *string
+	taskIdObjectContains                      *interface{}
+	taskIdObjectNotcontains                   *interface{}
+	taskIdObjectDesc                          *string
+	taskIdObjectAsc                           *string
+	logIdEq                                   *string
+	logIdNe                                   *string
+	logIdGt                                   *string
+	logIdGte                                  *string
+	logIdLt                                   *string
+	logIdLte                                  *string
+	logIdIn                                   *string
+	logIdNotin                                *string
+	logIdContains                             *string
+	logIdNotcontains                          *string
+	logIdLike                                 *string
+	logIdNotlike                              *string
+	logIdIlike                                *string
+	logIdNotilike                             *string
+	logIdDesc                                 *string
+	logIdAsc                                  *string
+	logIdObjectContains                       *interface{}
+	logIdObjectNotcontains                    *interface{}
+	logIdObjectDesc                           *string
+	logIdObjectAsc                            *string
+	referencedByLogOutputIdObjectsContains    *interface{}
+	referencedByLogOutputIdObjectsNotcontains *interface{}
+	referencedByLogOutputIdObjectsDesc        *string
+	referencedByLogOutputIdObjectsAsc         *string
 }
 
 // SQL LIMIT operator
@@ -428,19 +477,25 @@ func (r ApiGetOutputsRequest) Depth(depth int32) ApiGetOutputsRequest {
 	return r
 }
 
-// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+// load the given directly related object, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExecutionLoad(executionLoad string) ApiGetOutputsRequest {
+	r.executionLoad = &executionLoad
+	return r
+}
+
+// load the given directly related object, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) TaskLoad(taskLoad string) ApiGetOutputsRequest {
 	r.taskLoad = &taskLoad
 	return r
 }
 
-// load the given directly related Djangolang object, value is ignored (presence of key is sufficient)
+// load the given directly related object, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) LogLoad(logLoad string) ApiGetOutputsRequest {
 	r.logLoad = &logLoad
 	return r
 }
 
-// load the given indirectly related Djangolang objects, value is ignored (presence of key is sufficient)
+// load the given indirectly related objects, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) ReferencedByLogLoad(referencedByLogLoad string) ApiGetOutputsRequest {
 	r.referencedByLogLoad = &referencedByLogLoad
 	return r
@@ -491,6 +546,18 @@ func (r ApiGetOutputsRequest) IdIn(idIn string) ApiGetOutputsRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetOutputsRequest) IdNotin(idNotin string) ApiGetOutputsRequest {
 	r.idNotin = &idNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) IdContains(idContains string) ApiGetOutputsRequest {
+	r.idContains = &idContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) IdNotcontains(idNotcontains string) ApiGetOutputsRequest {
+	r.idNotcontains = &idNotcontains
 	return r
 }
 
@@ -578,6 +645,18 @@ func (r ApiGetOutputsRequest) CreatedAtNotin(createdAtNotin time.Time) ApiGetOut
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) CreatedAtContains(createdAtContains time.Time) ApiGetOutputsRequest {
+	r.createdAtContains = &createdAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) CreatedAtNotcontains(createdAtNotcontains time.Time) ApiGetOutputsRequest {
+	r.createdAtNotcontains = &createdAtNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetOutputsRequest) CreatedAtLike(createdAtLike time.Time) ApiGetOutputsRequest {
 	r.createdAtLike = &createdAtLike
@@ -659,6 +738,18 @@ func (r ApiGetOutputsRequest) UpdatedAtIn(updatedAtIn time.Time) ApiGetOutputsRe
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetOutputsRequest) UpdatedAtNotin(updatedAtNotin time.Time) ApiGetOutputsRequest {
 	r.updatedAtNotin = &updatedAtNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) UpdatedAtContains(updatedAtContains time.Time) ApiGetOutputsRequest {
+	r.updatedAtContains = &updatedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) UpdatedAtNotcontains(updatedAtNotcontains time.Time) ApiGetOutputsRequest {
+	r.updatedAtNotcontains = &updatedAtNotcontains
 	return r
 }
 
@@ -746,6 +837,18 @@ func (r ApiGetOutputsRequest) DeletedAtNotin(deletedAtNotin time.Time) ApiGetOut
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) DeletedAtContains(deletedAtContains time.Time) ApiGetOutputsRequest {
+	r.deletedAtContains = &deletedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) DeletedAtNotcontains(deletedAtNotcontains time.Time) ApiGetOutputsRequest {
+	r.deletedAtNotcontains = &deletedAtNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetOutputsRequest) DeletedAtLike(deletedAtLike time.Time) ApiGetOutputsRequest {
 	r.deletedAtLike = &deletedAtLike
@@ -827,6 +930,18 @@ func (r ApiGetOutputsRequest) StatusIn(statusIn string) ApiGetOutputsRequest {
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetOutputsRequest) StatusNotin(statusNotin string) ApiGetOutputsRequest {
 	r.statusNotin = &statusNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) StatusContains(statusContains string) ApiGetOutputsRequest {
+	r.statusContains = &statusContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) StatusNotcontains(statusNotcontains string) ApiGetOutputsRequest {
+	r.statusNotcontains = &statusNotcontains
 	return r
 }
 
@@ -914,6 +1029,18 @@ func (r ApiGetOutputsRequest) StartedAtNotin(startedAtNotin time.Time) ApiGetOut
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) StartedAtContains(startedAtContains time.Time) ApiGetOutputsRequest {
+	r.startedAtContains = &startedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) StartedAtNotcontains(startedAtNotcontains time.Time) ApiGetOutputsRequest {
+	r.startedAtNotcontains = &startedAtNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetOutputsRequest) StartedAtLike(startedAtLike time.Time) ApiGetOutputsRequest {
 	r.startedAtLike = &startedAtLike
@@ -995,6 +1122,18 @@ func (r ApiGetOutputsRequest) EndedAtIn(endedAtIn time.Time) ApiGetOutputsReques
 // SQL NOT IN comparison, permits comma-separated values
 func (r ApiGetOutputsRequest) EndedAtNotin(endedAtNotin time.Time) ApiGetOutputsRequest {
 	r.endedAtNotin = &endedAtNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) EndedAtContains(endedAtContains time.Time) ApiGetOutputsRequest {
+	r.endedAtContains = &endedAtContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) EndedAtNotcontains(endedAtNotcontains time.Time) ApiGetOutputsRequest {
+	r.endedAtNotcontains = &endedAtNotcontains
 	return r
 }
 
@@ -1082,6 +1221,18 @@ func (r ApiGetOutputsRequest) ExitStatusNotin(exitStatusNotin int64) ApiGetOutpu
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) ExitStatusContains(exitStatusContains int64) ApiGetOutputsRequest {
+	r.exitStatusContains = &exitStatusContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) ExitStatusNotcontains(exitStatusNotcontains int64) ApiGetOutputsRequest {
+	r.exitStatusNotcontains = &exitStatusNotcontains
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) ExitStatusDesc(exitStatusDesc string) ApiGetOutputsRequest {
 	r.exitStatusDesc = &exitStatusDesc
@@ -1142,6 +1293,18 @@ func (r ApiGetOutputsRequest) ErrorNotin(errorNotin string) ApiGetOutputsRequest
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) ErrorContains(errorContains string) ApiGetOutputsRequest {
+	r.errorContains = &errorContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) ErrorNotcontains(errorNotcontains string) ApiGetOutputsRequest {
+	r.errorNotcontains = &errorNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetOutputsRequest) ErrorLike(errorLike string) ApiGetOutputsRequest {
 	r.errorLike = &errorLike
@@ -1175,6 +1338,126 @@ func (r ApiGetOutputsRequest) ErrorDesc(errorDesc string) ApiGetOutputsRequest {
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) ErrorAsc(errorAsc string) ApiGetOutputsRequest {
 	r.errorAsc = &errorAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetOutputsRequest) ExecutionIdEq(executionIdEq string) ApiGetOutputsRequest {
+	r.executionIdEq = &executionIdEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetOutputsRequest) ExecutionIdNe(executionIdNe string) ApiGetOutputsRequest {
+	r.executionIdNe = &executionIdNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExecutionIdGt(executionIdGt string) ApiGetOutputsRequest {
+	r.executionIdGt = &executionIdGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExecutionIdGte(executionIdGte string) ApiGetOutputsRequest {
+	r.executionIdGte = &executionIdGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExecutionIdLt(executionIdLt string) ApiGetOutputsRequest {
+	r.executionIdLt = &executionIdLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetOutputsRequest) ExecutionIdLte(executionIdLte string) ApiGetOutputsRequest {
+	r.executionIdLte = &executionIdLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ExecutionIdIn(executionIdIn string) ApiGetOutputsRequest {
+	r.executionIdIn = &executionIdIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetOutputsRequest) ExecutionIdNotin(executionIdNotin string) ApiGetOutputsRequest {
+	r.executionIdNotin = &executionIdNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) ExecutionIdContains(executionIdContains string) ApiGetOutputsRequest {
+	r.executionIdContains = &executionIdContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) ExecutionIdNotcontains(executionIdNotcontains string) ApiGetOutputsRequest {
+	r.executionIdNotcontains = &executionIdNotcontains
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ExecutionIdLike(executionIdLike string) ApiGetOutputsRequest {
+	r.executionIdLike = &executionIdLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ExecutionIdNotlike(executionIdNotlike string) ApiGetOutputsRequest {
+	r.executionIdNotlike = &executionIdNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ExecutionIdIlike(executionIdIlike string) ApiGetOutputsRequest {
+	r.executionIdIlike = &executionIdIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetOutputsRequest) ExecutionIdNotilike(executionIdNotilike string) ApiGetOutputsRequest {
+	r.executionIdNotilike = &executionIdNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExecutionIdDesc(executionIdDesc string) ApiGetOutputsRequest {
+	r.executionIdDesc = &executionIdDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExecutionIdAsc(executionIdAsc string) ApiGetOutputsRequest {
+	r.executionIdAsc = &executionIdAsc
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) ExecutionIdObjectContains(executionIdObjectContains interface{}) ApiGetOutputsRequest {
+	r.executionIdObjectContains = &executionIdObjectContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) ExecutionIdObjectNotcontains(executionIdObjectNotcontains interface{}) ApiGetOutputsRequest {
+	r.executionIdObjectNotcontains = &executionIdObjectNotcontains
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExecutionIdObjectDesc(executionIdObjectDesc string) ApiGetOutputsRequest {
+	r.executionIdObjectDesc = &executionIdObjectDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetOutputsRequest) ExecutionIdObjectAsc(executionIdObjectAsc string) ApiGetOutputsRequest {
+	r.executionIdObjectAsc = &executionIdObjectAsc
 	return r
 }
 
@@ -1226,6 +1509,18 @@ func (r ApiGetOutputsRequest) TaskIdNotin(taskIdNotin string) ApiGetOutputsReque
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) TaskIdContains(taskIdContains string) ApiGetOutputsRequest {
+	r.taskIdContains = &taskIdContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) TaskIdNotcontains(taskIdNotcontains string) ApiGetOutputsRequest {
+	r.taskIdNotcontains = &taskIdNotcontains
+	return r
+}
+
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
 func (r ApiGetOutputsRequest) TaskIdLike(taskIdLike string) ApiGetOutputsRequest {
 	r.taskIdLike = &taskIdLike
@@ -1262,6 +1557,18 @@ func (r ApiGetOutputsRequest) TaskIdAsc(taskIdAsc string) ApiGetOutputsRequest {
 	return r
 }
 
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) TaskIdObjectContains(taskIdObjectContains interface{}) ApiGetOutputsRequest {
+	r.taskIdObjectContains = &taskIdObjectContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) TaskIdObjectNotcontains(taskIdObjectNotcontains interface{}) ApiGetOutputsRequest {
+	r.taskIdObjectNotcontains = &taskIdObjectNotcontains
+	return r
+}
+
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
 func (r ApiGetOutputsRequest) TaskIdObjectDesc(taskIdObjectDesc string) ApiGetOutputsRequest {
 	r.taskIdObjectDesc = &taskIdObjectDesc
@@ -1275,98 +1582,134 @@ func (r ApiGetOutputsRequest) TaskIdObjectAsc(taskIdObjectAsc string) ApiGetOutp
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetOutputsRequest) LogidEq(logidEq string) ApiGetOutputsRequest {
-	r.logidEq = &logidEq
+func (r ApiGetOutputsRequest) LogIdEq(logIdEq string) ApiGetOutputsRequest {
+	r.logIdEq = &logIdEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetOutputsRequest) LogidNe(logidNe string) ApiGetOutputsRequest {
-	r.logidNe = &logidNe
+func (r ApiGetOutputsRequest) LogIdNe(logIdNe string) ApiGetOutputsRequest {
+	r.logIdNe = &logIdNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) LogidGt(logidGt string) ApiGetOutputsRequest {
-	r.logidGt = &logidGt
+func (r ApiGetOutputsRequest) LogIdGt(logIdGt string) ApiGetOutputsRequest {
+	r.logIdGt = &logIdGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) LogidGte(logidGte string) ApiGetOutputsRequest {
-	r.logidGte = &logidGte
+func (r ApiGetOutputsRequest) LogIdGte(logIdGte string) ApiGetOutputsRequest {
+	r.logIdGte = &logIdGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) LogidLt(logidLt string) ApiGetOutputsRequest {
-	r.logidLt = &logidLt
+func (r ApiGetOutputsRequest) LogIdLt(logIdLt string) ApiGetOutputsRequest {
+	r.logIdLt = &logIdLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetOutputsRequest) LogidLte(logidLte string) ApiGetOutputsRequest {
-	r.logidLte = &logidLte
+func (r ApiGetOutputsRequest) LogIdLte(logIdLte string) ApiGetOutputsRequest {
+	r.logIdLte = &logIdLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetOutputsRequest) LogidIn(logidIn string) ApiGetOutputsRequest {
-	r.logidIn = &logidIn
+func (r ApiGetOutputsRequest) LogIdIn(logIdIn string) ApiGetOutputsRequest {
+	r.logIdIn = &logIdIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetOutputsRequest) LogidNotin(logidNotin string) ApiGetOutputsRequest {
-	r.logidNotin = &logidNotin
+func (r ApiGetOutputsRequest) LogIdNotin(logIdNotin string) ApiGetOutputsRequest {
+	r.logIdNotin = &logIdNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) LogIdContains(logIdContains string) ApiGetOutputsRequest {
+	r.logIdContains = &logIdContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) LogIdNotcontains(logIdNotcontains string) ApiGetOutputsRequest {
+	r.logIdNotcontains = &logIdNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) LogidLike(logidLike string) ApiGetOutputsRequest {
-	r.logidLike = &logidLike
+func (r ApiGetOutputsRequest) LogIdLike(logIdLike string) ApiGetOutputsRequest {
+	r.logIdLike = &logIdLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) LogidNotlike(logidNotlike string) ApiGetOutputsRequest {
-	r.logidNotlike = &logidNotlike
+func (r ApiGetOutputsRequest) LogIdNotlike(logIdNotlike string) ApiGetOutputsRequest {
+	r.logIdNotlike = &logIdNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) LogidIlike(logidIlike string) ApiGetOutputsRequest {
-	r.logidIlike = &logidIlike
+func (r ApiGetOutputsRequest) LogIdIlike(logIdIlike string) ApiGetOutputsRequest {
+	r.logIdIlike = &logIdIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetOutputsRequest) LogidNotilike(logidNotilike string) ApiGetOutputsRequest {
-	r.logidNotilike = &logidNotilike
+func (r ApiGetOutputsRequest) LogIdNotilike(logIdNotilike string) ApiGetOutputsRequest {
+	r.logIdNotilike = &logIdNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) LogidDesc(logidDesc string) ApiGetOutputsRequest {
-	r.logidDesc = &logidDesc
+func (r ApiGetOutputsRequest) LogIdDesc(logIdDesc string) ApiGetOutputsRequest {
+	r.logIdDesc = &logIdDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) LogidAsc(logidAsc string) ApiGetOutputsRequest {
-	r.logidAsc = &logidAsc
+func (r ApiGetOutputsRequest) LogIdAsc(logIdAsc string) ApiGetOutputsRequest {
+	r.logIdAsc = &logIdAsc
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) LogIdObjectContains(logIdObjectContains interface{}) ApiGetOutputsRequest {
+	r.logIdObjectContains = &logIdObjectContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) LogIdObjectNotcontains(logIdObjectNotcontains interface{}) ApiGetOutputsRequest {
+	r.logIdObjectNotcontains = &logIdObjectNotcontains
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) LogidObjectDesc(logidObjectDesc string) ApiGetOutputsRequest {
-	r.logidObjectDesc = &logidObjectDesc
+func (r ApiGetOutputsRequest) LogIdObjectDesc(logIdObjectDesc string) ApiGetOutputsRequest {
+	r.logIdObjectDesc = &logIdObjectDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetOutputsRequest) LogidObjectAsc(logidObjectAsc string) ApiGetOutputsRequest {
-	r.logidObjectAsc = &logidObjectAsc
+func (r ApiGetOutputsRequest) LogIdObjectAsc(logIdObjectAsc string) ApiGetOutputsRequest {
+	r.logIdObjectAsc = &logIdObjectAsc
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetOutputsRequest) ReferencedByLogOutputIdObjectsContains(referencedByLogOutputIdObjectsContains interface{}) ApiGetOutputsRequest {
+	r.referencedByLogOutputIdObjectsContains = &referencedByLogOutputIdObjectsContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetOutputsRequest) ReferencedByLogOutputIdObjectsNotcontains(referencedByLogOutputIdObjectsNotcontains interface{}) ApiGetOutputsRequest {
+	r.referencedByLogOutputIdObjectsNotcontains = &referencedByLogOutputIdObjectsNotcontains
 	return r
 }
 
@@ -1389,24 +1732,25 @@ func (r ApiGetOutputsRequest) Execute() (*ResponseWithGenericOfOutput, *http.Res
 /*
 GetOutputs Method for GetOutputs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOutputsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOutputsRequest
 */
 func (a *OutputAPIService) GetOutputs(ctx context.Context) ApiGetOutputsRequest {
 	return ApiGetOutputsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.GetOutputs")
@@ -1428,6 +1772,9 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.depth != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "depth", r.depth, "form", "")
+	}
+	if r.executionLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution__load", r.executionLoad, "form", "")
 	}
 	if r.taskLoad != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task__load", r.taskLoad, "form", "")
@@ -1461,6 +1808,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.idNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__notin", r.idNotin, "form", "")
+	}
+	if r.idContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id__contains", r.idContains, "form", "")
+	}
+	if r.idNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id__notcontains", r.idNotcontains, "form", "")
 	}
 	if r.idLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__like", r.idLike, "form", "")
@@ -1504,6 +1857,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.createdAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__notin", r.createdAtNotin, "form", "")
 	}
+	if r.createdAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__contains", r.createdAtContains, "form", "")
+	}
+	if r.createdAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__notcontains", r.createdAtNotcontains, "form", "")
+	}
 	if r.createdAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__like", r.createdAtLike, "form", "")
 	}
@@ -1545,6 +1904,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.updatedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__notin", r.updatedAtNotin, "form", "")
+	}
+	if r.updatedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__contains", r.updatedAtContains, "form", "")
+	}
+	if r.updatedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__notcontains", r.updatedAtNotcontains, "form", "")
 	}
 	if r.updatedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_at__like", r.updatedAtLike, "form", "")
@@ -1588,6 +1953,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.deletedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__notin", r.deletedAtNotin, "form", "")
 	}
+	if r.deletedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__contains", r.deletedAtContains, "form", "")
+	}
+	if r.deletedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__notcontains", r.deletedAtNotcontains, "form", "")
+	}
 	if r.deletedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted_at__like", r.deletedAtLike, "form", "")
 	}
@@ -1629,6 +2000,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.statusNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notin", r.statusNotin, "form", "")
+	}
+	if r.statusContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__contains", r.statusContains, "form", "")
+	}
+	if r.statusNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status__notcontains", r.statusNotcontains, "form", "")
 	}
 	if r.statusLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status__like", r.statusLike, "form", "")
@@ -1672,6 +2049,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.startedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__notin", r.startedAtNotin, "form", "")
 	}
+	if r.startedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__contains", r.startedAtContains, "form", "")
+	}
+	if r.startedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__notcontains", r.startedAtNotcontains, "form", "")
+	}
 	if r.startedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "started_at__like", r.startedAtLike, "form", "")
 	}
@@ -1713,6 +2096,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.endedAtNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__notin", r.endedAtNotin, "form", "")
+	}
+	if r.endedAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__contains", r.endedAtContains, "form", "")
+	}
+	if r.endedAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__notcontains", r.endedAtNotcontains, "form", "")
 	}
 	if r.endedAtLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "ended_at__like", r.endedAtLike, "form", "")
@@ -1756,6 +2145,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.exitStatusNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__notin", r.exitStatusNotin, "form", "")
 	}
+	if r.exitStatusContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__contains", r.exitStatusContains, "form", "")
+	}
+	if r.exitStatusNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__notcontains", r.exitStatusNotcontains, "form", "")
+	}
 	if r.exitStatusDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "exit_status__desc", r.exitStatusDesc, "form", "")
 	}
@@ -1786,6 +2181,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.errorNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "error__notin", r.errorNotin, "form", "")
 	}
+	if r.errorContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__contains", r.errorContains, "form", "")
+	}
+	if r.errorNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "error__notcontains", r.errorNotcontains, "form", "")
+	}
 	if r.errorLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "error__like", r.errorLike, "form", "")
 	}
@@ -1803,6 +2204,66 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	}
 	if r.errorAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "error__asc", r.errorAsc, "form", "")
+	}
+	if r.executionIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__eq", r.executionIdEq, "form", "")
+	}
+	if r.executionIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__ne", r.executionIdNe, "form", "")
+	}
+	if r.executionIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__gt", r.executionIdGt, "form", "")
+	}
+	if r.executionIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__gte", r.executionIdGte, "form", "")
+	}
+	if r.executionIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__lt", r.executionIdLt, "form", "")
+	}
+	if r.executionIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__lte", r.executionIdLte, "form", "")
+	}
+	if r.executionIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__in", r.executionIdIn, "form", "")
+	}
+	if r.executionIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notin", r.executionIdNotin, "form", "")
+	}
+	if r.executionIdContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__contains", r.executionIdContains, "form", "")
+	}
+	if r.executionIdNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notcontains", r.executionIdNotcontains, "form", "")
+	}
+	if r.executionIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__like", r.executionIdLike, "form", "")
+	}
+	if r.executionIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notlike", r.executionIdNotlike, "form", "")
+	}
+	if r.executionIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__ilike", r.executionIdIlike, "form", "")
+	}
+	if r.executionIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__notilike", r.executionIdNotilike, "form", "")
+	}
+	if r.executionIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__desc", r.executionIdDesc, "form", "")
+	}
+	if r.executionIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id__asc", r.executionIdAsc, "form", "")
+	}
+	if r.executionIdObjectContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__contains", r.executionIdObjectContains, "form", "")
+	}
+	if r.executionIdObjectNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__notcontains", r.executionIdObjectNotcontains, "form", "")
+	}
+	if r.executionIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__desc", r.executionIdObjectDesc, "form", "")
+	}
+	if r.executionIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_id_object__asc", r.executionIdObjectAsc, "form", "")
 	}
 	if r.taskIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__eq", r.taskIdEq, "form", "")
@@ -1828,6 +2289,12 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.taskIdNotin != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__notin", r.taskIdNotin, "form", "")
 	}
+	if r.taskIdContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__contains", r.taskIdContains, "form", "")
+	}
+	if r.taskIdNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__notcontains", r.taskIdNotcontains, "form", "")
+	}
 	if r.taskIdLike != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__like", r.taskIdLike, "form", "")
 	}
@@ -1846,59 +2313,83 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 	if r.taskIdAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id__asc", r.taskIdAsc, "form", "")
 	}
+	if r.taskIdObjectContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id_object__contains", r.taskIdObjectContains, "form", "")
+	}
+	if r.taskIdObjectNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id_object__notcontains", r.taskIdObjectNotcontains, "form", "")
+	}
 	if r.taskIdObjectDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id_object__desc", r.taskIdObjectDesc, "form", "")
 	}
 	if r.taskIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "task_id_object__asc", r.taskIdObjectAsc, "form", "")
 	}
-	if r.logidEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__eq", r.logidEq, "form", "")
+	if r.logIdEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__eq", r.logIdEq, "form", "")
 	}
-	if r.logidNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__ne", r.logidNe, "form", "")
+	if r.logIdNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__ne", r.logIdNe, "form", "")
 	}
-	if r.logidGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__gt", r.logidGt, "form", "")
+	if r.logIdGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__gt", r.logIdGt, "form", "")
 	}
-	if r.logidGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__gte", r.logidGte, "form", "")
+	if r.logIdGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__gte", r.logIdGte, "form", "")
 	}
-	if r.logidLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__lt", r.logidLt, "form", "")
+	if r.logIdLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__lt", r.logIdLt, "form", "")
 	}
-	if r.logidLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__lte", r.logidLte, "form", "")
+	if r.logIdLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__lte", r.logIdLte, "form", "")
 	}
-	if r.logidIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__in", r.logidIn, "form", "")
+	if r.logIdIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__in", r.logIdIn, "form", "")
 	}
-	if r.logidNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notin", r.logidNotin, "form", "")
+	if r.logIdNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__notin", r.logIdNotin, "form", "")
 	}
-	if r.logidLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__like", r.logidLike, "form", "")
+	if r.logIdContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__contains", r.logIdContains, "form", "")
 	}
-	if r.logidNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notlike", r.logidNotlike, "form", "")
+	if r.logIdNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__notcontains", r.logIdNotcontains, "form", "")
 	}
-	if r.logidIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__ilike", r.logidIlike, "form", "")
+	if r.logIdLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__like", r.logIdLike, "form", "")
 	}
-	if r.logidNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__notilike", r.logidNotilike, "form", "")
+	if r.logIdNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__notlike", r.logIdNotlike, "form", "")
 	}
-	if r.logidDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__desc", r.logidDesc, "form", "")
+	if r.logIdIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__ilike", r.logIdIlike, "form", "")
 	}
-	if r.logidAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid__asc", r.logidAsc, "form", "")
+	if r.logIdNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__notilike", r.logIdNotilike, "form", "")
 	}
-	if r.logidObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid_object__desc", r.logidObjectDesc, "form", "")
+	if r.logIdDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__desc", r.logIdDesc, "form", "")
 	}
-	if r.logidObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "logid_object__asc", r.logidObjectAsc, "form", "")
+	if r.logIdAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id__asc", r.logIdAsc, "form", "")
+	}
+	if r.logIdObjectContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id_object__contains", r.logIdObjectContains, "form", "")
+	}
+	if r.logIdObjectNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id_object__notcontains", r.logIdObjectNotcontains, "form", "")
+	}
+	if r.logIdObjectDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id_object__desc", r.logIdObjectDesc, "form", "")
+	}
+	if r.logIdObjectAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "log_id_object__asc", r.logIdObjectAsc, "form", "")
+	}
+	if r.referencedByLogOutputIdObjectsContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log_output_id_objects__contains", r.referencedByLogOutputIdObjectsContains, "form", "")
+	}
+	if r.referencedByLogOutputIdObjectsNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log_output_id_objects__notcontains", r.referencedByLogOutputIdObjectsNotcontains, "form", "")
 	}
 	if r.referencedByLogOutputIdObjectsDesc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_log_output_id_objects__desc", r.referencedByLogOutputIdObjectsDesc, "form", "")
@@ -1945,14 +2436,14 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1969,11 +2460,11 @@ func (a *OutputAPIService) GetOutputsExecute(r ApiGetOutputsRequest) (*ResponseW
 }
 
 type ApiPatchOutputRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
 	primaryKey string
-	output *Output
-	depth *int64
+	output     *Output
+	depth      *int64
 }
 
 func (r ApiPatchOutputRequest) Output(output Output) ApiPatchOutputRequest {
@@ -1994,26 +2485,27 @@ func (r ApiPatchOutputRequest) Execute() (*ResponseWithGenericOfOutput, *http.Re
 /*
 PatchOutput Method for PatchOutput
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param primaryKey Path parameter primaryKey
- @return ApiPatchOutputRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param primaryKey Path parameter primaryKey
+	@return ApiPatchOutputRequest
 */
 func (a *OutputAPIService) PatchOutput(ctx context.Context, primaryKey string) ApiPatchOutputRequest {
 	return ApiPatchOutputRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodPatch
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.PatchOutput")
@@ -2075,14 +2567,14 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2099,10 +2591,10 @@ func (a *OutputAPIService) PatchOutputExecute(r ApiPatchOutputRequest) (*Respons
 }
 
 type ApiPostOutputsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *OutputAPIService
-	output *[]Output
-	depth *int64
+	output     *[]Output
+	depth      *int64
 }
 
 func (r ApiPostOutputsRequest) Output(output []Output) ApiPostOutputsRequest {
@@ -2123,24 +2615,25 @@ func (r ApiPostOutputsRequest) Execute() (*ResponseWithGenericOfOutput, *http.Re
 /*
 PostOutputs Method for PostOutputs
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostOutputsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostOutputsRequest
 */
 func (a *OutputAPIService) PostOutputs(ctx context.Context) ApiPostOutputsRequest {
 	return ApiPostOutputsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ResponseWithGenericOfOutput
+//
+//	@return ResponseWithGenericOfOutput
 func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*ResponseWithGenericOfOutput, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ResponseWithGenericOfOutput
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ResponseWithGenericOfOutput
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OutputAPIService.PostOutputs")
@@ -2201,14 +2694,14 @@ func (a *OutputAPIService) PostOutputsExecute(r ApiPostOutputsRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v GetChangesDefaultResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v PostChangeProducerClaimRepositoriesDefaultResponse
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

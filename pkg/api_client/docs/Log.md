@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **OutputId** | Pointer to **string** |  | [optional] 
 **OutputIdObject** | Pointer to [**Output**](Output.md) |  | [optional] 
-**ReferencedByOutputLogidObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
+**ReferencedByOutputLogIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -182,41 +182,31 @@ SetOutputIdObject sets OutputIdObject field to given value.
 
 HasOutputIdObject returns a boolean if a field has been set.
 
-### GetReferencedByOutputLogidObjects
+### GetReferencedByOutputLogIdObjects
 
-`func (o *Log) GetReferencedByOutputLogidObjects() []Output`
+`func (o *Log) GetReferencedByOutputLogIdObjects() []Output`
 
-GetReferencedByOutputLogidObjects returns the ReferencedByOutputLogidObjects field if non-nil, zero value otherwise.
+GetReferencedByOutputLogIdObjects returns the ReferencedByOutputLogIdObjects field if non-nil, zero value otherwise.
 
-### GetReferencedByOutputLogidObjectsOk
+### GetReferencedByOutputLogIdObjectsOk
 
-`func (o *Log) GetReferencedByOutputLogidObjectsOk() (*[]Output, bool)`
+`func (o *Log) GetReferencedByOutputLogIdObjectsOk() (*[]Output, bool)`
 
-GetReferencedByOutputLogidObjectsOk returns a tuple with the ReferencedByOutputLogidObjects field if it's non-nil, zero value otherwise
+GetReferencedByOutputLogIdObjectsOk returns a tuple with the ReferencedByOutputLogIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByOutputLogidObjects
+### SetReferencedByOutputLogIdObjects
 
-`func (o *Log) SetReferencedByOutputLogidObjects(v []Output)`
+`func (o *Log) SetReferencedByOutputLogIdObjects(v []Output)`
 
-SetReferencedByOutputLogidObjects sets ReferencedByOutputLogidObjects field to given value.
+SetReferencedByOutputLogIdObjects sets ReferencedByOutputLogIdObjects field to given value.
 
-### HasReferencedByOutputLogidObjects
+### HasReferencedByOutputLogIdObjects
 
-`func (o *Log) HasReferencedByOutputLogidObjects() bool`
+`func (o *Log) HasReferencedByOutputLogIdObjects() bool`
 
-HasReferencedByOutputLogidObjects returns a boolean if a field has been set.
+HasReferencedByOutputLogIdObjects returns a boolean if a field has been set.
 
-### SetReferencedByOutputLogidObjectsNil
-
-`func (o *Log) SetReferencedByOutputLogidObjectsNil(b bool)`
-
- SetReferencedByOutputLogidObjectsNil sets the value for ReferencedByOutputLogidObjects to be an explicit nil
-
-### UnsetReferencedByOutputLogidObjects
-`func (o *Log) UnsetReferencedByOutputLogidObjects()`
-
-UnsetReferencedByOutputLogidObjects ensures that no value is present for ReferencedByOutputLogidObjects, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *Log) GetUpdatedAt() time.Time`

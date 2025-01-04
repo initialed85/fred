@@ -82,16 +82,6 @@ SetError sets Error field to given value.
 
 HasError returns a boolean if a field has been set.
 
-### SetErrorNil
-
-`func (o *ResponseWithGenericOfOutput) SetErrorNil(b bool)`
-
- SetErrorNil sets the value for Error to be an explicit nil
-
-### UnsetError
-`func (o *ResponseWithGenericOfOutput) UnsetError()`
-
-UnsetError ensures that no value is present for Error, not even an explicit nil
 ### GetLimit
 
 `func (o *ResponseWithGenericOfOutput) GetLimit() int64`
@@ -142,16 +132,6 @@ SetObjects sets Objects field to given value.
 
 HasObjects returns a boolean if a field has been set.
 
-### SetObjectsNil
-
-`func (o *ResponseWithGenericOfOutput) SetObjectsNil(b bool)`
-
- SetObjectsNil sets the value for Objects to be an explicit nil
-
-### UnsetObjects
-`func (o *ResponseWithGenericOfOutput) UnsetObjects()`
-
-UnsetObjects ensures that no value is present for Objects, not even an explicit nil
 ### GetOffset
 
 `func (o *ResponseWithGenericOfOutput) GetOffset() int64`

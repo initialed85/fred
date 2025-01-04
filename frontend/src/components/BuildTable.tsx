@@ -1,3 +1,4 @@
+import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 import Link from "@mui/joy/Link";
 import Modal from "@mui/joy/Modal";
@@ -11,7 +12,6 @@ import { useInView } from "react-intersection-observer";
 import { clientForReactQuery } from "../api";
 import { components } from "../api/api";
 import { Logs } from "./Logs";
-import Button from "@mui/joy/Button";
 
 const defaultLimit = 10;
 
@@ -67,7 +67,7 @@ export function BuildTable(props: BuildTableProps) {
           query: {
             repository_id__eq: props.repositoryId,
             created_at__desc: "",
-            depth: 2,
+            depth: 4,
             limit: relevantLimit,
             offset: pageParam,
           },
@@ -83,11 +83,11 @@ export function BuildTable(props: BuildTableProps) {
       finished executions from processing executions
       */
 
-      if (lastPage!.count === 0) {
+      if (lastPage?.count === 0) {
         return lastPage!.offset;
       }
 
-      return (lastPage!.offset || 0) + relevantLimit;
+      return (lastPage?.offset || 0) + relevantLimit;
     },
   });
 
@@ -185,40 +185,40 @@ export function BuildTable(props: BuildTableProps) {
                   <td>
                     <Link
                       href={
-                        (repository!.url || "") +
+                        (repository?.url || "") +
                         "/commit/" +
-                        (change!.commit_hash || "")
+                        (change?.commit_hash || "")
                       }
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {repository!.url}
+                      {repository?.url}
                     </Link>
                   </td>
                   <td>
                     <Link
                       href={
-                        (repository!.url || "") +
+                        (repository?.url || "") +
                         "/tree/" +
-                        (change!.branch_name || "")
+                        (change?.branch_name || "")
                       }
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {change!.branch_name}
+                      {change?.branch_name}
                     </Link>
                   </td>
                   <Tooltip
                     size={"sm"}
-                    title={`${change!.authored_by} @ ${change!.authored_at}: ${change!.message}`}
+                    title={`${change?.authored_by} @ ${change?.authored_at}: ${change?.message}`}
                   >
                     <td>
                       <>
                         <Link
                           href={
-                            (repository!.url || "") +
+                            (repository?.url || "") +
                             "/commit/" +
-                            (change!.commit_hash || "")
+                            (change?.commit_hash || "")
                           }
                           target="_blank"
                           rel="noreferrer"
@@ -236,10 +236,10 @@ export function BuildTable(props: BuildTableProps) {
                             return (
                               <tr>
                                 <td style={{ width: "200px" }}>
-                                  {execution!.job_name}
+                                  {execution?.job_id_object?.name}
                                 </td>
                                 <td style={{ width: "100px" }}>
-                                  <Status status={execution!.status!} />
+                                  <Status status={execution?.status!} />
                                 </td>
                                 <td>
                                   <Table
@@ -248,17 +248,21 @@ export function BuildTable(props: BuildTableProps) {
                                     borderAxis="y"
                                   >
                                     <tbody>
-                                      {change?.referenced_by_output_change_id_objects
+                                      {/* {change?.referenced_by_output_change_id_objects
                                         ?.filter(
                                           (output) =>
                                             output.execution_id ===
-                                            execution!.id,
+                                            execution?.id,
                                         )
                                         .sort((a, b) => {
-                                          if (a!.task_index! < b!.task_index!) {
+                                          if (
+                                            a!.task_id_object?.index! <
+                                            b!.task_id_object?.index!
+                                          ) {
                                             return -1;
                                           } else if (
-                                            a!.task_index! > b!.task_index!
+                                            a!.task_id_object?.index! >
+                                            b!.task_id_object?.index!
                                           ) {
                                             return 1;
                                           } else {
@@ -269,7 +273,7 @@ export function BuildTable(props: BuildTableProps) {
                                           return (
                                             <tr>
                                               <td style={{ width: "25px" }}>
-                                                {output!.task_name}
+                                                {output!.task_id_object?.name}
                                               </td>
                                               <td style={{ width: "50px" }}>
                                                 <Status
@@ -295,7 +299,7 @@ export function BuildTable(props: BuildTableProps) {
                                               </td>
                                             </tr>
                                           );
-                                        })}
+                                        })} */}
                                     </tbody>
                                   </Table>
                                 </td>
@@ -306,50 +310,6 @@ export function BuildTable(props: BuildTableProps) {
                       </tbody>
                     </Table>
                   </td>
-                  {/* <td>{"a"}</td> */}
-                  {/* <td style={{ padding: 0, margin: 0 }}> */}
-                  {/* <Table size="sm" sx={{ p: 0, m: 0 }} borderAxis="y">
-                      <tbody>
-                        {outputs.map((output) => {
-                          const statusText =
-                            (output.status || "").slice(0, 1).toUpperCase() + (output.status || "").slice(1);
-
-                          let status = <Chip color={"danger"}>{statusText}</Chip>;
-
-                          if (output!.status === "running") {
-                            status = <Chip color={"warning"}>{statusText}</Chip>;
-                          } else if (output!.status === "pending") {
-                            status = <Chip color={"primary"}>{statusText}</Chip>;
-                          } else if (output!.status === "succeeded") {
-                            status = <Chip color={"success"}>{statusText}</Chip>;
-                          }
-
-                          return (
-                            <tr>
-                              <td style={{ width: "33%" }}>{output!.task_name}</td>
-                              <td style={{ width: "33%" }}>{status}</td>
-                              <td style={{ width: "33%" }}>
-                                <Button
-                                  size={"sm"}
-                                  variant="soft"
-                                  color={"primary"}
-                                  sx={{
-                                    fontSize: "var(--joy-fontSize-xs, 0.75rem)",
-                                  }}
-                                  onClick={() => {
-                                    setOutputId(output!.id);
-                                    setShowLogModal(true);
-                                  }}
-                                >
-                                  Logs
-                                </Button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </Table> */}
-                  {/* </td> */}
                 </tr>
               );
             })

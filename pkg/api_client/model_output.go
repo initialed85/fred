@@ -20,20 +20,22 @@ var _ MappedNullable = &Output{}
 
 // Output struct for Output
 type Output struct {
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-	EndedAt *time.Time `json:"ended_at,omitempty"`
-	Error *string `json:"error,omitempty"`
-	ExitStatus *int64 `json:"exit_status,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Logid *string `json:"logid,omitempty"`
-	LogidObject *Log `json:"logid_object,omitempty"`
-	ReferencedByLogOutputIdObjects []Log `json:"referenced_by_log_output_id_objects,omitempty"`
-	StartedAt *time.Time `json:"started_at,omitempty"`
-	Status *string `json:"status,omitempty"`
-	TaskId *string `json:"task_id,omitempty"`
-	TaskIdObject *Task `json:"task_id_object,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt                      *time.Time `json:"created_at,omitempty"`
+	DeletedAt                      *time.Time `json:"deleted_at,omitempty"`
+	EndedAt                        *time.Time `json:"ended_at,omitempty"`
+	Error                          *string    `json:"error,omitempty"`
+	ExecutionId                    *string    `json:"execution_id,omitempty"`
+	ExecutionIdObject              *Execution `json:"execution_id_object,omitempty"`
+	ExitStatus                     *int64     `json:"exit_status,omitempty"`
+	Id                             *string    `json:"id,omitempty"`
+	LogId                          *string    `json:"log_id,omitempty"`
+	LogIdObject                    *Log       `json:"log_id_object,omitempty"`
+	ReferencedByLogOutputIdObjects []Log      `json:"referenced_by_log_output_id_objects,omitempty"`
+	StartedAt                      *time.Time `json:"started_at,omitempty"`
+	Status                         *string    `json:"status,omitempty"`
+	TaskId                         *string    `json:"task_id,omitempty"`
+	TaskIdObject                   *Task      `json:"task_id_object,omitempty"`
+	UpdatedAt                      *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewOutput instantiates a new Output object
@@ -181,6 +183,70 @@ func (o *Output) SetError(v string) {
 	o.Error = &v
 }
 
+// GetExecutionId returns the ExecutionId field value if set, zero value otherwise.
+func (o *Output) GetExecutionId() string {
+	if o == nil || IsNil(o.ExecutionId) {
+		var ret string
+		return ret
+	}
+	return *o.ExecutionId
+}
+
+// GetExecutionIdOk returns a tuple with the ExecutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetExecutionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExecutionId) {
+		return nil, false
+	}
+	return o.ExecutionId, true
+}
+
+// HasExecutionId returns a boolean if a field has been set.
+func (o *Output) HasExecutionId() bool {
+	if o != nil && !IsNil(o.ExecutionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionId gets a reference to the given string and assigns it to the ExecutionId field.
+func (o *Output) SetExecutionId(v string) {
+	o.ExecutionId = &v
+}
+
+// GetExecutionIdObject returns the ExecutionIdObject field value if set, zero value otherwise.
+func (o *Output) GetExecutionIdObject() Execution {
+	if o == nil || IsNil(o.ExecutionIdObject) {
+		var ret Execution
+		return ret
+	}
+	return *o.ExecutionIdObject
+}
+
+// GetExecutionIdObjectOk returns a tuple with the ExecutionIdObject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Output) GetExecutionIdObjectOk() (*Execution, bool) {
+	if o == nil || IsNil(o.ExecutionIdObject) {
+		return nil, false
+	}
+	return o.ExecutionIdObject, true
+}
+
+// HasExecutionIdObject returns a boolean if a field has been set.
+func (o *Output) HasExecutionIdObject() bool {
+	if o != nil && !IsNil(o.ExecutionIdObject) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionIdObject gets a reference to the given Execution and assigns it to the ExecutionIdObject field.
+func (o *Output) SetExecutionIdObject(v Execution) {
+	o.ExecutionIdObject = &v
+}
+
 // GetExitStatus returns the ExitStatus field value if set, zero value otherwise.
 func (o *Output) GetExitStatus() int64 {
 	if o == nil || IsNil(o.ExitStatus) {
@@ -245,73 +311,73 @@ func (o *Output) SetId(v string) {
 	o.Id = &v
 }
 
-// GetLogid returns the Logid field value if set, zero value otherwise.
-func (o *Output) GetLogid() string {
-	if o == nil || IsNil(o.Logid) {
+// GetLogId returns the LogId field value if set, zero value otherwise.
+func (o *Output) GetLogId() string {
+	if o == nil || IsNil(o.LogId) {
 		var ret string
 		return ret
 	}
-	return *o.Logid
+	return *o.LogId
 }
 
-// GetLogidOk returns a tuple with the Logid field value if set, nil otherwise
+// GetLogIdOk returns a tuple with the LogId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Output) GetLogidOk() (*string, bool) {
-	if o == nil || IsNil(o.Logid) {
+func (o *Output) GetLogIdOk() (*string, bool) {
+	if o == nil || IsNil(o.LogId) {
 		return nil, false
 	}
-	return o.Logid, true
+	return o.LogId, true
 }
 
-// HasLogid returns a boolean if a field has been set.
-func (o *Output) HasLogid() bool {
-	if o != nil && !IsNil(o.Logid) {
+// HasLogId returns a boolean if a field has been set.
+func (o *Output) HasLogId() bool {
+	if o != nil && !IsNil(o.LogId) {
 		return true
 	}
 
 	return false
 }
 
-// SetLogid gets a reference to the given string and assigns it to the Logid field.
-func (o *Output) SetLogid(v string) {
-	o.Logid = &v
+// SetLogId gets a reference to the given string and assigns it to the LogId field.
+func (o *Output) SetLogId(v string) {
+	o.LogId = &v
 }
 
-// GetLogidObject returns the LogidObject field value if set, zero value otherwise.
-func (o *Output) GetLogidObject() Log {
-	if o == nil || IsNil(o.LogidObject) {
+// GetLogIdObject returns the LogIdObject field value if set, zero value otherwise.
+func (o *Output) GetLogIdObject() Log {
+	if o == nil || IsNil(o.LogIdObject) {
 		var ret Log
 		return ret
 	}
-	return *o.LogidObject
+	return *o.LogIdObject
 }
 
-// GetLogidObjectOk returns a tuple with the LogidObject field value if set, nil otherwise
+// GetLogIdObjectOk returns a tuple with the LogIdObject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Output) GetLogidObjectOk() (*Log, bool) {
-	if o == nil || IsNil(o.LogidObject) {
+func (o *Output) GetLogIdObjectOk() (*Log, bool) {
+	if o == nil || IsNil(o.LogIdObject) {
 		return nil, false
 	}
-	return o.LogidObject, true
+	return o.LogIdObject, true
 }
 
-// HasLogidObject returns a boolean if a field has been set.
-func (o *Output) HasLogidObject() bool {
-	if o != nil && !IsNil(o.LogidObject) {
+// HasLogIdObject returns a boolean if a field has been set.
+func (o *Output) HasLogIdObject() bool {
+	if o != nil && !IsNil(o.LogIdObject) {
 		return true
 	}
 
 	return false
 }
 
-// SetLogidObject gets a reference to the given Log and assigns it to the LogidObject field.
-func (o *Output) SetLogidObject(v Log) {
-	o.LogidObject = &v
+// SetLogIdObject gets a reference to the given Log and assigns it to the LogIdObject field.
+func (o *Output) SetLogIdObject(v Log) {
+	o.LogIdObject = &v
 }
 
-// GetReferencedByLogOutputIdObjects returns the ReferencedByLogOutputIdObjects field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetReferencedByLogOutputIdObjects returns the ReferencedByLogOutputIdObjects field value if set, zero value otherwise.
 func (o *Output) GetReferencedByLogOutputIdObjects() []Log {
-	if o == nil {
+	if o == nil || IsNil(o.ReferencedByLogOutputIdObjects) {
 		var ret []Log
 		return ret
 	}
@@ -320,7 +386,6 @@ func (o *Output) GetReferencedByLogOutputIdObjects() []Log {
 
 // GetReferencedByLogOutputIdObjectsOk returns a tuple with the ReferencedByLogOutputIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Output) GetReferencedByLogOutputIdObjectsOk() ([]Log, bool) {
 	if o == nil || IsNil(o.ReferencedByLogOutputIdObjects) {
 		return nil, false
@@ -503,7 +568,7 @@ func (o *Output) SetUpdatedAt(v time.Time) {
 }
 
 func (o Output) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -524,19 +589,25 @@ func (o Output) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+	if !IsNil(o.ExecutionId) {
+		toSerialize["execution_id"] = o.ExecutionId
+	}
+	if !IsNil(o.ExecutionIdObject) {
+		toSerialize["execution_id_object"] = o.ExecutionIdObject
+	}
 	if !IsNil(o.ExitStatus) {
 		toSerialize["exit_status"] = o.ExitStatus
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if !IsNil(o.Logid) {
-		toSerialize["logid"] = o.Logid
+	if !IsNil(o.LogId) {
+		toSerialize["log_id"] = o.LogId
 	}
-	if !IsNil(o.LogidObject) {
-		toSerialize["logid_object"] = o.LogidObject
+	if !IsNil(o.LogIdObject) {
+		toSerialize["log_id_object"] = o.LogIdObject
 	}
-	if o.ReferencedByLogOutputIdObjects != nil {
+	if !IsNil(o.ReferencedByLogOutputIdObjects) {
 		toSerialize["referenced_by_log_output_id_objects"] = o.ReferencedByLogOutputIdObjects
 	}
 	if !IsNil(o.StartedAt) {
@@ -592,5 +663,3 @@ func (v *NullableOutput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

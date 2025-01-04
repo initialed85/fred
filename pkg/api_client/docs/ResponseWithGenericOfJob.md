@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Count** | Pointer to **int64** |  | [optional] 
 **Error** | Pointer to **[]string** |  | [optional] 
 **Limit** | Pointer to **int64** |  | [optional] 
-**Objects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**Objects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
 **Offset** | Pointer to **int64** |  | [optional] 
 **Status** | Pointer to **int64** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
@@ -82,16 +82,6 @@ SetError sets Error field to given value.
 
 HasError returns a boolean if a field has been set.
 
-### SetErrorNil
-
-`func (o *ResponseWithGenericOfJob) SetErrorNil(b bool)`
-
- SetErrorNil sets the value for Error to be an explicit nil
-
-### UnsetError
-`func (o *ResponseWithGenericOfJob) UnsetError()`
-
-UnsetError ensures that no value is present for Error, not even an explicit nil
 ### GetLimit
 
 `func (o *ResponseWithGenericOfJob) GetLimit() int64`
@@ -119,20 +109,20 @@ HasLimit returns a boolean if a field has been set.
 
 ### GetObjects
 
-`func (o *ResponseWithGenericOfJob) GetObjects() []Rule`
+`func (o *ResponseWithGenericOfJob) GetObjects() []Job`
 
 GetObjects returns the Objects field if non-nil, zero value otherwise.
 
 ### GetObjectsOk
 
-`func (o *ResponseWithGenericOfJob) GetObjectsOk() (*[]Rule, bool)`
+`func (o *ResponseWithGenericOfJob) GetObjectsOk() (*[]Job, bool)`
 
 GetObjectsOk returns a tuple with the Objects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetObjects
 
-`func (o *ResponseWithGenericOfJob) SetObjects(v []Rule)`
+`func (o *ResponseWithGenericOfJob) SetObjects(v []Job)`
 
 SetObjects sets Objects field to given value.
 
@@ -142,16 +132,6 @@ SetObjects sets Objects field to given value.
 
 HasObjects returns a boolean if a field has been set.
 
-### SetObjectsNil
-
-`func (o *ResponseWithGenericOfJob) SetObjectsNil(b bool)`
-
- SetObjectsNil sets the value for Objects to be an explicit nil
-
-### UnsetObjects
-`func (o *ResponseWithGenericOfJob) UnsetObjects()`
-
-UnsetObjects ensures that no value is present for Objects, not even an explicit nil
 ### GetOffset
 
 `func (o *ResponseWithGenericOfJob) GetOffset() int64`
