@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // RepositoryAPIService RepositoryAPI service
 type RepositoryAPIService service
 
 type ApiDeleteRepositoryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteRepositoryRequest) Execute() (*http.Response, error) {
 /*
 DeleteRepository Method for DeleteRepository
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteRepositoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteRepositoryRequest
 */
 func (a *RepositoryAPIService) DeleteRepository(ctx context.Context, primaryKey string) ApiDeleteRepositoryRequest {
 	return ApiDeleteRepositoryRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *RepositoryAPIService) DeleteRepository(ctx context.Context, primaryKey 
 // Execute executes the request
 func (a *RepositoryAPIService) DeleteRepositoryExecute(r ApiDeleteRepositoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.DeleteRepository")
@@ -124,149 +125,149 @@ func (a *RepositoryAPIService) DeleteRepositoryExecute(r ApiDeleteRepositoryRequ
 }
 
 type ApiGetRepositoriesRequest struct {
-	ctx                                              context.Context
-	ApiService                                       *RepositoryAPIService
-	limit                                            *int32
-	offset                                           *int32
-	depth                                            *int32
-	referencedByChangeLoad                           *string
-	referencedByRuleLoad                             *string
-	idEq                                             *string
-	idNe                                             *string
-	idGt                                             *string
-	idGte                                            *string
-	idLt                                             *string
-	idLte                                            *string
-	idIn                                             *string
-	idNotin                                          *string
-	idContains                                       *string
-	idNotcontains                                    *string
-	idLike                                           *string
-	idNotlike                                        *string
-	idIlike                                          *string
-	idNotilike                                       *string
-	idDesc                                           *string
-	idAsc                                            *string
-	createdAtEq                                      *time.Time
-	createdAtNe                                      *time.Time
-	createdAtGt                                      *time.Time
-	createdAtGte                                     *time.Time
-	createdAtLt                                      *time.Time
-	createdAtLte                                     *time.Time
-	createdAtIn                                      *time.Time
-	createdAtNotin                                   *time.Time
-	createdAtContains                                *time.Time
-	createdAtNotcontains                             *time.Time
-	createdAtLike                                    *time.Time
-	createdAtNotlike                                 *time.Time
-	createdAtIlike                                   *time.Time
-	createdAtNotilike                                *time.Time
-	createdAtDesc                                    *string
-	createdAtAsc                                     *string
-	updatedAtEq                                      *time.Time
-	updatedAtNe                                      *time.Time
-	updatedAtGt                                      *time.Time
-	updatedAtGte                                     *time.Time
-	updatedAtLt                                      *time.Time
-	updatedAtLte                                     *time.Time
-	updatedAtIn                                      *time.Time
-	updatedAtNotin                                   *time.Time
-	updatedAtContains                                *time.Time
-	updatedAtNotcontains                             *time.Time
-	updatedAtLike                                    *time.Time
-	updatedAtNotlike                                 *time.Time
-	updatedAtIlike                                   *time.Time
-	updatedAtNotilike                                *time.Time
-	updatedAtDesc                                    *string
-	updatedAtAsc                                     *string
-	deletedAtEq                                      *time.Time
-	deletedAtNe                                      *time.Time
-	deletedAtGt                                      *time.Time
-	deletedAtGte                                     *time.Time
-	deletedAtLt                                      *time.Time
-	deletedAtLte                                     *time.Time
-	deletedAtIn                                      *time.Time
-	deletedAtNotin                                   *time.Time
-	deletedAtContains                                *time.Time
-	deletedAtNotcontains                             *time.Time
-	deletedAtLike                                    *time.Time
-	deletedAtNotlike                                 *time.Time
-	deletedAtIlike                                   *time.Time
-	deletedAtNotilike                                *time.Time
-	deletedAtDesc                                    *string
-	deletedAtAsc                                     *string
-	urlEq                                            *string
-	urlNe                                            *string
-	urlGt                                            *string
-	urlGte                                           *string
-	urlLt                                            *string
-	urlLte                                           *string
-	urlIn                                            *string
-	urlNotin                                         *string
-	urlContains                                      *string
-	urlNotcontains                                   *string
-	urlLike                                          *string
-	urlNotlike                                       *string
-	urlIlike                                         *string
-	urlNotilike                                      *string
-	urlDesc                                          *string
-	urlAsc                                           *string
-	nameEq                                           *string
-	nameNe                                           *string
-	nameGt                                           *string
-	nameGte                                          *string
-	nameLt                                           *string
-	nameLte                                          *string
-	nameIn                                           *string
-	nameNotin                                        *string
-	nameContains                                     *string
-	nameNotcontains                                  *string
-	nameLike                                         *string
-	nameNotlike                                      *string
-	nameIlike                                        *string
-	nameNotilike                                     *string
-	nameDesc                                         *string
-	nameAsc                                          *string
-	syncedAtEq                                       *time.Time
-	syncedAtNe                                       *time.Time
-	syncedAtGt                                       *time.Time
-	syncedAtGte                                      *time.Time
-	syncedAtLt                                       *time.Time
-	syncedAtLte                                      *time.Time
-	syncedAtIn                                       *time.Time
-	syncedAtNotin                                    *time.Time
-	syncedAtContains                                 *time.Time
-	syncedAtNotcontains                              *time.Time
-	syncedAtLike                                     *time.Time
-	syncedAtNotlike                                  *time.Time
-	syncedAtIlike                                    *time.Time
-	syncedAtNotilike                                 *time.Time
-	syncedAtDesc                                     *string
-	syncedAtAsc                                      *string
-	changeProducerClaimedUntilEq                     *time.Time
-	changeProducerClaimedUntilNe                     *time.Time
-	changeProducerClaimedUntilGt                     *time.Time
-	changeProducerClaimedUntilGte                    *time.Time
-	changeProducerClaimedUntilLt                     *time.Time
-	changeProducerClaimedUntilLte                    *time.Time
-	changeProducerClaimedUntilIn                     *time.Time
-	changeProducerClaimedUntilNotin                  *time.Time
-	changeProducerClaimedUntilContains               *time.Time
-	changeProducerClaimedUntilNotcontains            *time.Time
-	changeProducerClaimedUntilLike                   *time.Time
-	changeProducerClaimedUntilNotlike                *time.Time
-	changeProducerClaimedUntilIlike                  *time.Time
-	changeProducerClaimedUntilNotilike               *time.Time
-	changeProducerClaimedUntilDesc                   *string
-	changeProducerClaimedUntilAsc                    *string
-	referencedByChangeRepositoryIdObjectsContains    *interface{}
+	ctx context.Context
+	ApiService *RepositoryAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	referencedByChangeLoad *string
+	referencedByJobLoad *string
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idContains *string
+	idNotcontains *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtContains *time.Time
+	createdAtNotcontains *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtContains *time.Time
+	updatedAtNotcontains *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtContains *time.Time
+	deletedAtNotcontains *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	urlEq *string
+	urlNe *string
+	urlGt *string
+	urlGte *string
+	urlLt *string
+	urlLte *string
+	urlIn *string
+	urlNotin *string
+	urlContains *string
+	urlNotcontains *string
+	urlLike *string
+	urlNotlike *string
+	urlIlike *string
+	urlNotilike *string
+	urlDesc *string
+	urlAsc *string
+	nameEq *string
+	nameNe *string
+	nameGt *string
+	nameGte *string
+	nameLt *string
+	nameLte *string
+	nameIn *string
+	nameNotin *string
+	nameContains *string
+	nameNotcontains *string
+	nameLike *string
+	nameNotlike *string
+	nameIlike *string
+	nameNotilike *string
+	nameDesc *string
+	nameAsc *string
+	handledAtEq *time.Time
+	handledAtNe *time.Time
+	handledAtGt *time.Time
+	handledAtGte *time.Time
+	handledAtLt *time.Time
+	handledAtLte *time.Time
+	handledAtIn *time.Time
+	handledAtNotin *time.Time
+	handledAtContains *time.Time
+	handledAtNotcontains *time.Time
+	handledAtLike *time.Time
+	handledAtNotlike *time.Time
+	handledAtIlike *time.Time
+	handledAtNotilike *time.Time
+	handledAtDesc *string
+	handledAtAsc *string
+	repositorySyncerClaimedUntilEq *time.Time
+	repositorySyncerClaimedUntilNe *time.Time
+	repositorySyncerClaimedUntilGt *time.Time
+	repositorySyncerClaimedUntilGte *time.Time
+	repositorySyncerClaimedUntilLt *time.Time
+	repositorySyncerClaimedUntilLte *time.Time
+	repositorySyncerClaimedUntilIn *time.Time
+	repositorySyncerClaimedUntilNotin *time.Time
+	repositorySyncerClaimedUntilContains *time.Time
+	repositorySyncerClaimedUntilNotcontains *time.Time
+	repositorySyncerClaimedUntilLike *time.Time
+	repositorySyncerClaimedUntilNotlike *time.Time
+	repositorySyncerClaimedUntilIlike *time.Time
+	repositorySyncerClaimedUntilNotilike *time.Time
+	repositorySyncerClaimedUntilDesc *string
+	repositorySyncerClaimedUntilAsc *string
+	referencedByChangeRepositoryIdObjectsContains *interface{}
 	referencedByChangeRepositoryIdObjectsNotcontains *interface{}
-	referencedByChangeRepositoryIdObjectsDesc        *string
-	referencedByChangeRepositoryIdObjectsAsc         *string
-	referencedByRuleRepositoryIdObjectsContains      *interface{}
-	referencedByRuleRepositoryIdObjectsNotcontains   *interface{}
-	referencedByRuleRepositoryIdObjectsDesc          *string
-	referencedByRuleRepositoryIdObjectsAsc           *string
+	referencedByChangeRepositoryIdObjectsDesc *string
+	referencedByChangeRepositoryIdObjectsAsc *string
+	referencedByJobRepositoryIdObjectsContains *interface{}
+	referencedByJobRepositoryIdObjectsNotcontains *interface{}
+	referencedByJobRepositoryIdObjectsDesc *string
+	referencedByJobRepositoryIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -294,8 +295,8 @@ func (r ApiGetRepositoriesRequest) ReferencedByChangeLoad(referencedByChangeLoad
 }
 
 // load the given indirectly related objects, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ReferencedByRuleLoad(referencedByRuleLoad string) ApiGetRepositoriesRequest {
-	r.referencedByRuleLoad = &referencedByRuleLoad
+func (r ApiGetRepositoriesRequest) ReferencedByJobLoad(referencedByJobLoad string) ApiGetRepositoriesRequest {
+	r.referencedByJobLoad = &referencedByJobLoad
 	return r
 }
 
@@ -876,194 +877,194 @@ func (r ApiGetRepositoriesRequest) NameAsc(nameAsc string) ApiGetRepositoriesReq
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) SyncedAtEq(syncedAtEq time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtEq = &syncedAtEq
+func (r ApiGetRepositoriesRequest) HandledAtEq(handledAtEq time.Time) ApiGetRepositoriesRequest {
+	r.handledAtEq = &handledAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) SyncedAtNe(syncedAtNe time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtNe = &syncedAtNe
+func (r ApiGetRepositoriesRequest) HandledAtNe(handledAtNe time.Time) ApiGetRepositoriesRequest {
+	r.handledAtNe = &handledAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SyncedAtGt(syncedAtGt time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtGt = &syncedAtGt
+func (r ApiGetRepositoriesRequest) HandledAtGt(handledAtGt time.Time) ApiGetRepositoriesRequest {
+	r.handledAtGt = &handledAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SyncedAtGte(syncedAtGte time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtGte = &syncedAtGte
+func (r ApiGetRepositoriesRequest) HandledAtGte(handledAtGte time.Time) ApiGetRepositoriesRequest {
+	r.handledAtGte = &handledAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SyncedAtLt(syncedAtLt time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtLt = &syncedAtLt
+func (r ApiGetRepositoriesRequest) HandledAtLt(handledAtLt time.Time) ApiGetRepositoriesRequest {
+	r.handledAtLt = &handledAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) SyncedAtLte(syncedAtLte time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtLte = &syncedAtLte
+func (r ApiGetRepositoriesRequest) HandledAtLte(handledAtLte time.Time) ApiGetRepositoriesRequest {
+	r.handledAtLte = &handledAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) SyncedAtIn(syncedAtIn time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtIn = &syncedAtIn
+func (r ApiGetRepositoriesRequest) HandledAtIn(handledAtIn time.Time) ApiGetRepositoriesRequest {
+	r.handledAtIn = &handledAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) SyncedAtNotin(syncedAtNotin time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtNotin = &syncedAtNotin
+func (r ApiGetRepositoriesRequest) HandledAtNotin(handledAtNotin time.Time) ApiGetRepositoriesRequest {
+	r.handledAtNotin = &handledAtNotin
 	return r
 }
 
 // SQL @&gt; comparison
-func (r ApiGetRepositoriesRequest) SyncedAtContains(syncedAtContains time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtContains = &syncedAtContains
+func (r ApiGetRepositoriesRequest) HandledAtContains(handledAtContains time.Time) ApiGetRepositoriesRequest {
+	r.handledAtContains = &handledAtContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetRepositoriesRequest) SyncedAtNotcontains(syncedAtNotcontains time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtNotcontains = &syncedAtNotcontains
+func (r ApiGetRepositoriesRequest) HandledAtNotcontains(handledAtNotcontains time.Time) ApiGetRepositoriesRequest {
+	r.handledAtNotcontains = &handledAtNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SyncedAtLike(syncedAtLike time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtLike = &syncedAtLike
+func (r ApiGetRepositoriesRequest) HandledAtLike(handledAtLike time.Time) ApiGetRepositoriesRequest {
+	r.handledAtLike = &handledAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SyncedAtNotlike(syncedAtNotlike time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtNotlike = &syncedAtNotlike
+func (r ApiGetRepositoriesRequest) HandledAtNotlike(handledAtNotlike time.Time) ApiGetRepositoriesRequest {
+	r.handledAtNotlike = &handledAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SyncedAtIlike(syncedAtIlike time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtIlike = &syncedAtIlike
+func (r ApiGetRepositoriesRequest) HandledAtIlike(handledAtIlike time.Time) ApiGetRepositoriesRequest {
+	r.handledAtIlike = &handledAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) SyncedAtNotilike(syncedAtNotilike time.Time) ApiGetRepositoriesRequest {
-	r.syncedAtNotilike = &syncedAtNotilike
+func (r ApiGetRepositoriesRequest) HandledAtNotilike(handledAtNotilike time.Time) ApiGetRepositoriesRequest {
+	r.handledAtNotilike = &handledAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) SyncedAtDesc(syncedAtDesc string) ApiGetRepositoriesRequest {
-	r.syncedAtDesc = &syncedAtDesc
+func (r ApiGetRepositoriesRequest) HandledAtDesc(handledAtDesc string) ApiGetRepositoriesRequest {
+	r.handledAtDesc = &handledAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) SyncedAtAsc(syncedAtAsc string) ApiGetRepositoriesRequest {
-	r.syncedAtAsc = &syncedAtAsc
+func (r ApiGetRepositoriesRequest) HandledAtAsc(handledAtAsc string) ApiGetRepositoriesRequest {
+	r.handledAtAsc = &handledAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilEq(changeProducerClaimedUntilEq time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilEq = &changeProducerClaimedUntilEq
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilEq(repositorySyncerClaimedUntilEq time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilEq = &repositorySyncerClaimedUntilEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilNe(changeProducerClaimedUntilNe time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilNe = &changeProducerClaimedUntilNe
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilNe(repositorySyncerClaimedUntilNe time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilNe = &repositorySyncerClaimedUntilNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilGt(changeProducerClaimedUntilGt time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilGt = &changeProducerClaimedUntilGt
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilGt(repositorySyncerClaimedUntilGt time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilGt = &repositorySyncerClaimedUntilGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilGte(changeProducerClaimedUntilGte time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilGte = &changeProducerClaimedUntilGte
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilGte(repositorySyncerClaimedUntilGte time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilGte = &repositorySyncerClaimedUntilGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilLt(changeProducerClaimedUntilLt time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilLt = &changeProducerClaimedUntilLt
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilLt(repositorySyncerClaimedUntilLt time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilLt = &repositorySyncerClaimedUntilLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilLte(changeProducerClaimedUntilLte time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilLte = &changeProducerClaimedUntilLte
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilLte(repositorySyncerClaimedUntilLte time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilLte = &repositorySyncerClaimedUntilLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilIn(changeProducerClaimedUntilIn time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilIn = &changeProducerClaimedUntilIn
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilIn(repositorySyncerClaimedUntilIn time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilIn = &repositorySyncerClaimedUntilIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilNotin(changeProducerClaimedUntilNotin time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilNotin = &changeProducerClaimedUntilNotin
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilNotin(repositorySyncerClaimedUntilNotin time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilNotin = &repositorySyncerClaimedUntilNotin
 	return r
 }
 
 // SQL @&gt; comparison
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilContains(changeProducerClaimedUntilContains time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilContains = &changeProducerClaimedUntilContains
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilContains(repositorySyncerClaimedUntilContains time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilContains = &repositorySyncerClaimedUntilContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilNotcontains(changeProducerClaimedUntilNotcontains time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilNotcontains = &changeProducerClaimedUntilNotcontains
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilNotcontains(repositorySyncerClaimedUntilNotcontains time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilNotcontains = &repositorySyncerClaimedUntilNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilLike(changeProducerClaimedUntilLike time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilLike = &changeProducerClaimedUntilLike
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilLike(repositorySyncerClaimedUntilLike time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilLike = &repositorySyncerClaimedUntilLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilNotlike(changeProducerClaimedUntilNotlike time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilNotlike = &changeProducerClaimedUntilNotlike
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilNotlike(repositorySyncerClaimedUntilNotlike time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilNotlike = &repositorySyncerClaimedUntilNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilIlike(changeProducerClaimedUntilIlike time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilIlike = &changeProducerClaimedUntilIlike
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilIlike(repositorySyncerClaimedUntilIlike time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilIlike = &repositorySyncerClaimedUntilIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilNotilike(changeProducerClaimedUntilNotilike time.Time) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilNotilike = &changeProducerClaimedUntilNotilike
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilNotilike(repositorySyncerClaimedUntilNotilike time.Time) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilNotilike = &repositorySyncerClaimedUntilNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilDesc(changeProducerClaimedUntilDesc string) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilDesc = &changeProducerClaimedUntilDesc
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilDesc(repositorySyncerClaimedUntilDesc string) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilDesc = &repositorySyncerClaimedUntilDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ChangeProducerClaimedUntilAsc(changeProducerClaimedUntilAsc string) ApiGetRepositoriesRequest {
-	r.changeProducerClaimedUntilAsc = &changeProducerClaimedUntilAsc
+func (r ApiGetRepositoriesRequest) RepositorySyncerClaimedUntilAsc(repositorySyncerClaimedUntilAsc string) ApiGetRepositoriesRequest {
+	r.repositorySyncerClaimedUntilAsc = &repositorySyncerClaimedUntilAsc
 	return r
 }
 
@@ -1092,26 +1093,26 @@ func (r ApiGetRepositoriesRequest) ReferencedByChangeRepositoryIdObjectsAsc(refe
 }
 
 // SQL @&gt; comparison
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsContains(referencedByRuleRepositoryIdObjectsContains interface{}) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsContains = &referencedByRuleRepositoryIdObjectsContains
+func (r ApiGetRepositoriesRequest) ReferencedByJobRepositoryIdObjectsContains(referencedByJobRepositoryIdObjectsContains interface{}) ApiGetRepositoriesRequest {
+	r.referencedByJobRepositoryIdObjectsContains = &referencedByJobRepositoryIdObjectsContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsNotcontains(referencedByRuleRepositoryIdObjectsNotcontains interface{}) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsNotcontains = &referencedByRuleRepositoryIdObjectsNotcontains
+func (r ApiGetRepositoriesRequest) ReferencedByJobRepositoryIdObjectsNotcontains(referencedByJobRepositoryIdObjectsNotcontains interface{}) ApiGetRepositoriesRequest {
+	r.referencedByJobRepositoryIdObjectsNotcontains = &referencedByJobRepositoryIdObjectsNotcontains
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsDesc(referencedByRuleRepositoryIdObjectsDesc string) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsDesc = &referencedByRuleRepositoryIdObjectsDesc
+func (r ApiGetRepositoriesRequest) ReferencedByJobRepositoryIdObjectsDesc(referencedByJobRepositoryIdObjectsDesc string) ApiGetRepositoriesRequest {
+	r.referencedByJobRepositoryIdObjectsDesc = &referencedByJobRepositoryIdObjectsDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetRepositoriesRequest) ReferencedByRuleRepositoryIdObjectsAsc(referencedByRuleRepositoryIdObjectsAsc string) ApiGetRepositoriesRequest {
-	r.referencedByRuleRepositoryIdObjectsAsc = &referencedByRuleRepositoryIdObjectsAsc
+func (r ApiGetRepositoriesRequest) ReferencedByJobRepositoryIdObjectsAsc(referencedByJobRepositoryIdObjectsAsc string) ApiGetRepositoriesRequest {
+	r.referencedByJobRepositoryIdObjectsAsc = &referencedByJobRepositoryIdObjectsAsc
 	return r
 }
 
@@ -1122,25 +1123,24 @@ func (r ApiGetRepositoriesRequest) Execute() (*ResponseWithGenericOfRepository, 
 /*
 GetRepositories Method for GetRepositories
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRepositoriesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetRepositoriesRequest
 */
 func (a *RepositoryAPIService) GetRepositories(ctx context.Context) ApiGetRepositoriesRequest {
 	return ApiGetRepositoriesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRepository
+//  @return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRepository
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.GetRepositories")
@@ -1166,8 +1166,8 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	if r.referencedByChangeLoad != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change__load", r.referencedByChangeLoad, "form", "")
 	}
-	if r.referencedByRuleLoad != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule__load", r.referencedByRuleLoad, "form", "")
+	if r.referencedByJobLoad != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job__load", r.referencedByJobLoad, "form", "")
 	}
 	if r.idEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id__eq", r.idEq, "form", "")
@@ -1457,101 +1457,101 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	if r.nameAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name__asc", r.nameAsc, "form", "")
 	}
-	if r.syncedAtEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__eq", r.syncedAtEq, "form", "")
+	if r.handledAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__eq", r.handledAtEq, "form", "")
 	}
-	if r.syncedAtNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__ne", r.syncedAtNe, "form", "")
+	if r.handledAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__ne", r.handledAtNe, "form", "")
 	}
-	if r.syncedAtGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__gt", r.syncedAtGt, "form", "")
+	if r.handledAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__gt", r.handledAtGt, "form", "")
 	}
-	if r.syncedAtGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__gte", r.syncedAtGte, "form", "")
+	if r.handledAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__gte", r.handledAtGte, "form", "")
 	}
-	if r.syncedAtLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__lt", r.syncedAtLt, "form", "")
+	if r.handledAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__lt", r.handledAtLt, "form", "")
 	}
-	if r.syncedAtLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__lte", r.syncedAtLte, "form", "")
+	if r.handledAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__lte", r.handledAtLte, "form", "")
 	}
-	if r.syncedAtIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__in", r.syncedAtIn, "form", "")
+	if r.handledAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__in", r.handledAtIn, "form", "")
 	}
-	if r.syncedAtNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__notin", r.syncedAtNotin, "form", "")
+	if r.handledAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notin", r.handledAtNotin, "form", "")
 	}
-	if r.syncedAtContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__contains", r.syncedAtContains, "form", "")
+	if r.handledAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__contains", r.handledAtContains, "form", "")
 	}
-	if r.syncedAtNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__notcontains", r.syncedAtNotcontains, "form", "")
+	if r.handledAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notcontains", r.handledAtNotcontains, "form", "")
 	}
-	if r.syncedAtLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__like", r.syncedAtLike, "form", "")
+	if r.handledAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__like", r.handledAtLike, "form", "")
 	}
-	if r.syncedAtNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__notlike", r.syncedAtNotlike, "form", "")
+	if r.handledAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notlike", r.handledAtNotlike, "form", "")
 	}
-	if r.syncedAtIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__ilike", r.syncedAtIlike, "form", "")
+	if r.handledAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__ilike", r.handledAtIlike, "form", "")
 	}
-	if r.syncedAtNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__notilike", r.syncedAtNotilike, "form", "")
+	if r.handledAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notilike", r.handledAtNotilike, "form", "")
 	}
-	if r.syncedAtDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__desc", r.syncedAtDesc, "form", "")
+	if r.handledAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__desc", r.handledAtDesc, "form", "")
 	}
-	if r.syncedAtAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "synced_at__asc", r.syncedAtAsc, "form", "")
+	if r.handledAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__asc", r.handledAtAsc, "form", "")
 	}
-	if r.changeProducerClaimedUntilEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__eq", r.changeProducerClaimedUntilEq, "form", "")
+	if r.repositorySyncerClaimedUntilEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__eq", r.repositorySyncerClaimedUntilEq, "form", "")
 	}
-	if r.changeProducerClaimedUntilNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__ne", r.changeProducerClaimedUntilNe, "form", "")
+	if r.repositorySyncerClaimedUntilNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__ne", r.repositorySyncerClaimedUntilNe, "form", "")
 	}
-	if r.changeProducerClaimedUntilGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__gt", r.changeProducerClaimedUntilGt, "form", "")
+	if r.repositorySyncerClaimedUntilGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__gt", r.repositorySyncerClaimedUntilGt, "form", "")
 	}
-	if r.changeProducerClaimedUntilGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__gte", r.changeProducerClaimedUntilGte, "form", "")
+	if r.repositorySyncerClaimedUntilGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__gte", r.repositorySyncerClaimedUntilGte, "form", "")
 	}
-	if r.changeProducerClaimedUntilLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__lt", r.changeProducerClaimedUntilLt, "form", "")
+	if r.repositorySyncerClaimedUntilLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__lt", r.repositorySyncerClaimedUntilLt, "form", "")
 	}
-	if r.changeProducerClaimedUntilLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__lte", r.changeProducerClaimedUntilLte, "form", "")
+	if r.repositorySyncerClaimedUntilLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__lte", r.repositorySyncerClaimedUntilLte, "form", "")
 	}
-	if r.changeProducerClaimedUntilIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__in", r.changeProducerClaimedUntilIn, "form", "")
+	if r.repositorySyncerClaimedUntilIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__in", r.repositorySyncerClaimedUntilIn, "form", "")
 	}
-	if r.changeProducerClaimedUntilNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__notin", r.changeProducerClaimedUntilNotin, "form", "")
+	if r.repositorySyncerClaimedUntilNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__notin", r.repositorySyncerClaimedUntilNotin, "form", "")
 	}
-	if r.changeProducerClaimedUntilContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__contains", r.changeProducerClaimedUntilContains, "form", "")
+	if r.repositorySyncerClaimedUntilContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__contains", r.repositorySyncerClaimedUntilContains, "form", "")
 	}
-	if r.changeProducerClaimedUntilNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__notcontains", r.changeProducerClaimedUntilNotcontains, "form", "")
+	if r.repositorySyncerClaimedUntilNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__notcontains", r.repositorySyncerClaimedUntilNotcontains, "form", "")
 	}
-	if r.changeProducerClaimedUntilLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__like", r.changeProducerClaimedUntilLike, "form", "")
+	if r.repositorySyncerClaimedUntilLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__like", r.repositorySyncerClaimedUntilLike, "form", "")
 	}
-	if r.changeProducerClaimedUntilNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__notlike", r.changeProducerClaimedUntilNotlike, "form", "")
+	if r.repositorySyncerClaimedUntilNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__notlike", r.repositorySyncerClaimedUntilNotlike, "form", "")
 	}
-	if r.changeProducerClaimedUntilIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__ilike", r.changeProducerClaimedUntilIlike, "form", "")
+	if r.repositorySyncerClaimedUntilIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__ilike", r.repositorySyncerClaimedUntilIlike, "form", "")
 	}
-	if r.changeProducerClaimedUntilNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__notilike", r.changeProducerClaimedUntilNotilike, "form", "")
+	if r.repositorySyncerClaimedUntilNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__notilike", r.repositorySyncerClaimedUntilNotilike, "form", "")
 	}
-	if r.changeProducerClaimedUntilDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__desc", r.changeProducerClaimedUntilDesc, "form", "")
+	if r.repositorySyncerClaimedUntilDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__desc", r.repositorySyncerClaimedUntilDesc, "form", "")
 	}
-	if r.changeProducerClaimedUntilAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "change_producer_claimed_until__asc", r.changeProducerClaimedUntilAsc, "form", "")
+	if r.repositorySyncerClaimedUntilAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_syncer_claimed_until__asc", r.repositorySyncerClaimedUntilAsc, "form", "")
 	}
 	if r.referencedByChangeRepositoryIdObjectsContains != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change_repository_id_objects__contains", r.referencedByChangeRepositoryIdObjectsContains, "form", "")
@@ -1565,17 +1565,17 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 	if r.referencedByChangeRepositoryIdObjectsAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_change_repository_id_objects__asc", r.referencedByChangeRepositoryIdObjectsAsc, "form", "")
 	}
-	if r.referencedByRuleRepositoryIdObjectsContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__contains", r.referencedByRuleRepositoryIdObjectsContains, "form", "")
+	if r.referencedByJobRepositoryIdObjectsContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_repository_id_objects__contains", r.referencedByJobRepositoryIdObjectsContains, "form", "")
 	}
-	if r.referencedByRuleRepositoryIdObjectsNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__notcontains", r.referencedByRuleRepositoryIdObjectsNotcontains, "form", "")
+	if r.referencedByJobRepositoryIdObjectsNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_repository_id_objects__notcontains", r.referencedByJobRepositoryIdObjectsNotcontains, "form", "")
 	}
-	if r.referencedByRuleRepositoryIdObjectsDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__desc", r.referencedByRuleRepositoryIdObjectsDesc, "form", "")
+	if r.referencedByJobRepositoryIdObjectsDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_repository_id_objects__desc", r.referencedByJobRepositoryIdObjectsDesc, "form", "")
 	}
-	if r.referencedByRuleRepositoryIdObjectsAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_rule_repository_id_objects__asc", r.referencedByRuleRepositoryIdObjectsAsc, "form", "")
+	if r.referencedByJobRepositoryIdObjectsAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "referenced_by_job_repository_id_objects__asc", r.referencedByJobRepositoryIdObjectsAsc, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1616,14 +1616,14 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1640,10 +1640,10 @@ func (a *RepositoryAPIService) GetRepositoriesExecute(r ApiGetRepositoriesReques
 }
 
 type ApiGetRepositoryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -1659,27 +1659,26 @@ func (r ApiGetRepositoryRequest) Execute() (*ResponseWithGenericOfRepository, *h
 /*
 GetRepository Method for GetRepository
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetRepositoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetRepositoryRequest
 */
 func (a *RepositoryAPIService) GetRepository(ctx context.Context, primaryKey string) ApiGetRepositoryRequest {
 	return ApiGetRepositoryRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRepository
+//  @return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRepository
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.GetRepository")
@@ -1736,14 +1735,14 @@ func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1760,11 +1759,11 @@ func (a *RepositoryAPIService) GetRepositoryExecute(r ApiGetRepositoryRequest) (
 }
 
 type ApiPatchRepositoryRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RepositoryAPIService
 	primaryKey string
 	repository *Repository
-	depth      *int64
+	depth *int64
 }
 
 func (r ApiPatchRepositoryRequest) Repository(repository Repository) ApiPatchRepositoryRequest {
@@ -1785,27 +1784,26 @@ func (r ApiPatchRepositoryRequest) Execute() (*ResponseWithGenericOfRepository, 
 /*
 PatchRepository Method for PatchRepository
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchRepositoryRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchRepositoryRequest
 */
 func (a *RepositoryAPIService) PatchRepository(ctx context.Context, primaryKey string) ApiPatchRepositoryRequest {
 	return ApiPatchRepositoryRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRepository
+//  @return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRepository
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PatchRepository")
@@ -1867,14 +1865,14 @@ func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryReques
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1891,10 +1889,10 @@ func (a *RepositoryAPIService) PatchRepositoryExecute(r ApiPatchRepositoryReques
 }
 
 type ApiPostRepositoriesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *RepositoryAPIService
 	repository *[]Repository
-	depth      *int64
+	depth *int64
 }
 
 func (r ApiPostRepositoriesRequest) Repository(repository []Repository) ApiPostRepositoriesRequest {
@@ -1915,25 +1913,24 @@ func (r ApiPostRepositoriesRequest) Execute() (*ResponseWithGenericOfRepository,
 /*
 PostRepositories Method for PostRepositories
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostRepositoriesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostRepositoriesRequest
 */
 func (a *RepositoryAPIService) PostRepositories(ctx context.Context) ApiPostRepositoriesRequest {
 	return ApiPostRepositoriesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRepository
+//  @return ResponseWithGenericOfRepository
 func (a *RepositoryAPIService) PostRepositoriesExecute(r ApiPostRepositoriesRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRepository
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRepository
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PostRepositories")
@@ -1994,14 +1991,14 @@ func (a *RepositoryAPIService) PostRepositoriesExecute(r ApiPostRepositoriesRequ
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2017,68 +2014,67 @@ func (a *RepositoryAPIService) PostRepositoriesExecute(r ApiPostRepositoriesRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostRepositoriesChangeProducerClaimRequest struct {
-	ctx                                  context.Context
-	ApiService                           *RepositoryAPIService
-	primaryKey                           string
-	repositoryChangeProducerClaimRequest *RepositoryChangeProducerClaimRequest
-	depth                                *int64
+type ApiPostRepositoriesRepositorySyncerClaimRequest struct {
+	ctx context.Context
+	ApiService *RepositoryAPIService
+	primaryKey string
+	repositoryRepositorySyncerClaimRequest *RepositoryRepositorySyncerClaimRequest
+	depth *int64
 }
 
-func (r ApiPostRepositoriesChangeProducerClaimRequest) RepositoryChangeProducerClaimRequest(repositoryChangeProducerClaimRequest RepositoryChangeProducerClaimRequest) ApiPostRepositoriesChangeProducerClaimRequest {
-	r.repositoryChangeProducerClaimRequest = &repositoryChangeProducerClaimRequest
+func (r ApiPostRepositoriesRepositorySyncerClaimRequest) RepositoryRepositorySyncerClaimRequest(repositoryRepositorySyncerClaimRequest RepositoryRepositorySyncerClaimRequest) ApiPostRepositoriesRepositorySyncerClaimRequest {
+	r.repositoryRepositorySyncerClaimRequest = &repositoryRepositorySyncerClaimRequest
 	return r
 }
 
 // Query parameter depth
-func (r ApiPostRepositoriesChangeProducerClaimRequest) Depth(depth int64) ApiPostRepositoriesChangeProducerClaimRequest {
+func (r ApiPostRepositoriesRepositorySyncerClaimRequest) Depth(depth int64) ApiPostRepositoriesRepositorySyncerClaimRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPostRepositoriesChangeProducerClaimRequest) Execute() (*ResponseWithGenericOfRepository, *http.Response, error) {
-	return r.ApiService.PostRepositoriesChangeProducerClaimExecute(r)
+func (r ApiPostRepositoriesRepositorySyncerClaimRequest) Execute() (*ResponseWithGenericOfRepository, *http.Response, error) {
+	return r.ApiService.PostRepositoriesRepositorySyncerClaimExecute(r)
 }
 
 /*
-PostRepositoriesChangeProducerClaim Method for PostRepositoriesChangeProducerClaim
+PostRepositoriesRepositorySyncerClaim Method for PostRepositoriesRepositorySyncerClaim
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPostRepositoriesChangeProducerClaimRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPostRepositoriesRepositorySyncerClaimRequest
 */
-func (a *RepositoryAPIService) PostRepositoriesChangeProducerClaim(ctx context.Context, primaryKey string) ApiPostRepositoriesChangeProducerClaimRequest {
-	return ApiPostRepositoriesChangeProducerClaimRequest{
+func (a *RepositoryAPIService) PostRepositoriesRepositorySyncerClaim(ctx context.Context, primaryKey string) ApiPostRepositoriesRepositorySyncerClaimRequest {
+	return ApiPostRepositoriesRepositorySyncerClaimRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfRepository
-func (a *RepositoryAPIService) PostRepositoriesChangeProducerClaimExecute(r ApiPostRepositoriesChangeProducerClaimRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
+//  @return ResponseWithGenericOfRepository
+func (a *RepositoryAPIService) PostRepositoriesRepositorySyncerClaimExecute(r ApiPostRepositoriesRepositorySyncerClaimRequest) (*ResponseWithGenericOfRepository, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfRepository
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfRepository
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PostRepositoriesChangeProducerClaim")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.PostRepositoriesRepositorySyncerClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/repositories/{primaryKey}/change-producer-claim"
+	localVarPath := localBasePath + "/api/repositories/{primaryKey}/repository-syncer-claim"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.repositoryChangeProducerClaimRequest == nil {
-		return localVarReturnValue, nil, reportError("repositoryChangeProducerClaimRequest is required and must be specified")
+	if r.repositoryRepositorySyncerClaimRequest == nil {
+		return localVarReturnValue, nil, reportError("repositoryRepositorySyncerClaimRequest is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -2102,7 +2098,7 @@ func (a *RepositoryAPIService) PostRepositoriesChangeProducerClaimExecute(r ApiP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.repositoryChangeProducerClaimRequest
+	localVarPostBody = r.repositoryRepositorySyncerClaimRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -2125,14 +2121,14 @@ func (a *RepositoryAPIService) PostRepositoriesChangeProducerClaimExecute(r ApiP
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

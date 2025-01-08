@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // LogAPIService LogAPI service
 type LogAPIService service
 
 type ApiDeleteLogRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *LogAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteLogRequest) Execute() (*http.Response, error) {
 /*
 DeleteLog Method for DeleteLog
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteLogRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteLogRequest
 */
 func (a *LogAPIService) DeleteLog(ctx context.Context, primaryKey string) ApiDeleteLogRequest {
 	return ApiDeleteLogRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *LogAPIService) DeleteLog(ctx context.Context, primaryKey string) ApiDel
 // Execute executes the request
 func (a *LogAPIService) DeleteLogExecute(r ApiDeleteLogRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.DeleteLog")
@@ -124,10 +125,10 @@ func (a *LogAPIService) DeleteLogExecute(r ApiDeleteLogRequest) (*http.Response,
 }
 
 type ApiGetLogRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *LogAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -143,27 +144,26 @@ func (r ApiGetLogRequest) Execute() (*ResponseWithGenericOfLog, *http.Response, 
 /*
 GetLog Method for GetLog
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetLogRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetLogRequest
 */
 func (a *LogAPIService) GetLog(ctx context.Context, primaryKey string) ApiGetLogRequest {
 	return ApiGetLogRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfLog
+//  @return ResponseWithGenericOfLog
 func (a *LogAPIService) GetLogExecute(r ApiGetLogRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfLog
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.GetLog")
@@ -220,14 +220,14 @@ func (a *LogAPIService) GetLogExecute(r ApiGetLogRequest) (*ResponseWithGenericO
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,117 +244,117 @@ func (a *LogAPIService) GetLogExecute(r ApiGetLogRequest) (*ResponseWithGenericO
 }
 
 type ApiGetLogsRequest struct {
-	ctx                                       context.Context
-	ApiService                                *LogAPIService
-	limit                                     *int32
-	offset                                    *int32
-	depth                                     *int32
-	outputLoad                                *string
-	referencedByOutputLoad                    *string
-	idEq                                      *string
-	idNe                                      *string
-	idGt                                      *string
-	idGte                                     *string
-	idLt                                      *string
-	idLte                                     *string
-	idIn                                      *string
-	idNotin                                   *string
-	idContains                                *string
-	idNotcontains                             *string
-	idLike                                    *string
-	idNotlike                                 *string
-	idIlike                                   *string
-	idNotilike                                *string
-	idDesc                                    *string
-	idAsc                                     *string
-	createdAtEq                               *time.Time
-	createdAtNe                               *time.Time
-	createdAtGt                               *time.Time
-	createdAtGte                              *time.Time
-	createdAtLt                               *time.Time
-	createdAtLte                              *time.Time
-	createdAtIn                               *time.Time
-	createdAtNotin                            *time.Time
-	createdAtContains                         *time.Time
-	createdAtNotcontains                      *time.Time
-	createdAtLike                             *time.Time
-	createdAtNotlike                          *time.Time
-	createdAtIlike                            *time.Time
-	createdAtNotilike                         *time.Time
-	createdAtDesc                             *string
-	createdAtAsc                              *string
-	updatedAtEq                               *time.Time
-	updatedAtNe                               *time.Time
-	updatedAtGt                               *time.Time
-	updatedAtGte                              *time.Time
-	updatedAtLt                               *time.Time
-	updatedAtLte                              *time.Time
-	updatedAtIn                               *time.Time
-	updatedAtNotin                            *time.Time
-	updatedAtContains                         *time.Time
-	updatedAtNotcontains                      *time.Time
-	updatedAtLike                             *time.Time
-	updatedAtNotlike                          *time.Time
-	updatedAtIlike                            *time.Time
-	updatedAtNotilike                         *time.Time
-	updatedAtDesc                             *string
-	updatedAtAsc                              *string
-	deletedAtEq                               *time.Time
-	deletedAtNe                               *time.Time
-	deletedAtGt                               *time.Time
-	deletedAtGte                              *time.Time
-	deletedAtLt                               *time.Time
-	deletedAtLte                              *time.Time
-	deletedAtIn                               *time.Time
-	deletedAtNotin                            *time.Time
-	deletedAtContains                         *time.Time
-	deletedAtNotcontains                      *time.Time
-	deletedAtLike                             *time.Time
-	deletedAtNotlike                          *time.Time
-	deletedAtIlike                            *time.Time
-	deletedAtNotilike                         *time.Time
-	deletedAtDesc                             *string
-	deletedAtAsc                              *string
-	bufferEq                                  *string
-	bufferNe                                  *string
-	bufferGt                                  *string
-	bufferGte                                 *string
-	bufferLt                                  *string
-	bufferLte                                 *string
-	bufferIn                                  *string
-	bufferNotin                               *string
-	bufferContains                            *string
-	bufferNotcontains                         *string
-	bufferLike                                *string
-	bufferNotlike                             *string
-	bufferIlike                               *string
-	bufferNotilike                            *string
-	bufferDesc                                *string
-	bufferAsc                                 *string
-	outputIdEq                                *string
-	outputIdNe                                *string
-	outputIdGt                                *string
-	outputIdGte                               *string
-	outputIdLt                                *string
-	outputIdLte                               *string
-	outputIdIn                                *string
-	outputIdNotin                             *string
-	outputIdContains                          *string
-	outputIdNotcontains                       *string
-	outputIdLike                              *string
-	outputIdNotlike                           *string
-	outputIdIlike                             *string
-	outputIdNotilike                          *string
-	outputIdDesc                              *string
-	outputIdAsc                               *string
-	outputIdObjectContains                    *interface{}
-	outputIdObjectNotcontains                 *interface{}
-	outputIdObjectDesc                        *string
-	outputIdObjectAsc                         *string
-	referencedByOutputLogIdObjectsContains    *interface{}
+	ctx context.Context
+	ApiService *LogAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	outputLoad *string
+	referencedByOutputLoad *string
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idContains *string
+	idNotcontains *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtContains *time.Time
+	createdAtNotcontains *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtContains *time.Time
+	updatedAtNotcontains *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtContains *time.Time
+	deletedAtNotcontains *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	bufferEq *string
+	bufferNe *string
+	bufferGt *string
+	bufferGte *string
+	bufferLt *string
+	bufferLte *string
+	bufferIn *string
+	bufferNotin *string
+	bufferContains *string
+	bufferNotcontains *string
+	bufferLike *string
+	bufferNotlike *string
+	bufferIlike *string
+	bufferNotilike *string
+	bufferDesc *string
+	bufferAsc *string
+	outputIdEq *string
+	outputIdNe *string
+	outputIdGt *string
+	outputIdGte *string
+	outputIdLt *string
+	outputIdLte *string
+	outputIdIn *string
+	outputIdNotin *string
+	outputIdContains *string
+	outputIdNotcontains *string
+	outputIdLike *string
+	outputIdNotlike *string
+	outputIdIlike *string
+	outputIdNotilike *string
+	outputIdDesc *string
+	outputIdAsc *string
+	outputIdObjectContains *interface{}
+	outputIdObjectNotcontains *interface{}
+	outputIdObjectDesc *string
+	outputIdObjectAsc *string
+	referencedByOutputLogIdObjectsContains *interface{}
 	referencedByOutputLogIdObjectsNotcontains *interface{}
-	referencedByOutputLogIdObjectsDesc        *string
-	referencedByOutputLogIdObjectsAsc         *string
+	referencedByOutputLogIdObjectsDesc *string
+	referencedByOutputLogIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -1018,25 +1018,24 @@ func (r ApiGetLogsRequest) Execute() (*ResponseWithGenericOfLog, *http.Response,
 /*
 GetLogs Method for GetLogs
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetLogsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetLogsRequest
 */
 func (a *LogAPIService) GetLogs(ctx context.Context) ApiGetLogsRequest {
 	return ApiGetLogsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfLog
+//  @return ResponseWithGenericOfLog
 func (a *LogAPIService) GetLogsExecute(r ApiGetLogsRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfLog
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.GetLogs")
@@ -1416,14 +1415,14 @@ func (a *LogAPIService) GetLogsExecute(r ApiGetLogsRequest) (*ResponseWithGeneri
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1440,11 +1439,11 @@ func (a *LogAPIService) GetLogsExecute(r ApiGetLogsRequest) (*ResponseWithGeneri
 }
 
 type ApiPatchLogRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *LogAPIService
 	primaryKey string
-	log        *Log
-	depth      *int64
+	log *Log
+	depth *int64
 }
 
 func (r ApiPatchLogRequest) Log(log Log) ApiPatchLogRequest {
@@ -1465,27 +1464,26 @@ func (r ApiPatchLogRequest) Execute() (*ResponseWithGenericOfLog, *http.Response
 /*
 PatchLog Method for PatchLog
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchLogRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchLogRequest
 */
 func (a *LogAPIService) PatchLog(ctx context.Context, primaryKey string) ApiPatchLogRequest {
 	return ApiPatchLogRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfLog
+//  @return ResponseWithGenericOfLog
 func (a *LogAPIService) PatchLogExecute(r ApiPatchLogRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfLog
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.PatchLog")
@@ -1547,14 +1545,14 @@ func (a *LogAPIService) PatchLogExecute(r ApiPatchLogRequest) (*ResponseWithGene
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -1571,10 +1569,10 @@ func (a *LogAPIService) PatchLogExecute(r ApiPatchLogRequest) (*ResponseWithGene
 }
 
 type ApiPostLogsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *LogAPIService
-	log        *[]Log
-	depth      *int64
+	log *[]Log
+	depth *int64
 }
 
 func (r ApiPostLogsRequest) Log(log []Log) ApiPostLogsRequest {
@@ -1595,25 +1593,24 @@ func (r ApiPostLogsRequest) Execute() (*ResponseWithGenericOfLog, *http.Response
 /*
 PostLogs Method for PostLogs
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostLogsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostLogsRequest
 */
 func (a *LogAPIService) PostLogs(ctx context.Context) ApiPostLogsRequest {
 	return ApiPostLogsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfLog
+//  @return ResponseWithGenericOfLog
 func (a *LogAPIService) PostLogsExecute(r ApiPostLogsRequest) (*ResponseWithGenericOfLog, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfLog
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfLog
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogAPIService.PostLogs")
@@ -1674,14 +1671,14 @@ func (a *LogAPIService) PostLogsExecute(r ApiPostLogsRequest) (*ResponseWithGene
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

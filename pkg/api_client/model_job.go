@@ -20,14 +20,19 @@ var _ MappedNullable = &Job{}
 
 // Job struct for Job
 type Job struct {
-	CreatedAt                         *time.Time  `json:"created_at,omitempty"`
-	DeletedAt                         *time.Time  `json:"deleted_at,omitempty"`
-	Id                                *string     `json:"id,omitempty"`
-	Name                              *string     `json:"name,omitempty"`
+	Branches *string `json:"branches,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	ReferencedByDependsOnSinkJobIdObjects []DependsOn `json:"referenced_by_depends_on_sink_job_id_objects,omitempty"`
+	ReferencedByDependsOnSourceJobIdObjects []DependsOn `json:"referenced_by_depends_on_source_job_id_objects,omitempty"`
 	ReferencedByExecutionJobIdObjects []Execution `json:"referenced_by_execution_job_id_objects,omitempty"`
-	ReferencedByTaskJobIdObjects      []Task      `json:"referenced_by_task_job_id_objects,omitempty"`
-	ReferencedByTriggerJobIdObjects   []Trigger   `json:"referenced_by_trigger_job_id_objects,omitempty"`
-	UpdatedAt                         *time.Time  `json:"updated_at,omitempty"`
+	ReferencedByTaskJobIdObjects []Task `json:"referenced_by_task_job_id_objects,omitempty"`
+	RepositoryId *string `json:"repository_id,omitempty"`
+	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
+	Tags *string `json:"tags,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewJob instantiates a new Job object
@@ -45,6 +50,38 @@ func NewJob() *Job {
 func NewJobWithDefaults() *Job {
 	this := Job{}
 	return &this
+}
+
+// GetBranches returns the Branches field value if set, zero value otherwise.
+func (o *Job) GetBranches() string {
+	if o == nil || IsNil(o.Branches) {
+		var ret string
+		return ret
+	}
+	return *o.Branches
+}
+
+// GetBranchesOk returns a tuple with the Branches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetBranchesOk() (*string, bool) {
+	if o == nil || IsNil(o.Branches) {
+		return nil, false
+	}
+	return o.Branches, true
+}
+
+// HasBranches returns a boolean if a field has been set.
+func (o *Job) HasBranches() bool {
+	if o != nil && !IsNil(o.Branches) {
+		return true
+	}
+
+	return false
+}
+
+// SetBranches gets a reference to the given string and assigns it to the Branches field.
+func (o *Job) SetBranches(v string) {
+	o.Branches = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -175,6 +212,70 @@ func (o *Job) SetName(v string) {
 	o.Name = &v
 }
 
+// GetReferencedByDependsOnSinkJobIdObjects returns the ReferencedByDependsOnSinkJobIdObjects field value if set, zero value otherwise.
+func (o *Job) GetReferencedByDependsOnSinkJobIdObjects() []DependsOn {
+	if o == nil || IsNil(o.ReferencedByDependsOnSinkJobIdObjects) {
+		var ret []DependsOn
+		return ret
+	}
+	return o.ReferencedByDependsOnSinkJobIdObjects
+}
+
+// GetReferencedByDependsOnSinkJobIdObjectsOk returns a tuple with the ReferencedByDependsOnSinkJobIdObjects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetReferencedByDependsOnSinkJobIdObjectsOk() ([]DependsOn, bool) {
+	if o == nil || IsNil(o.ReferencedByDependsOnSinkJobIdObjects) {
+		return nil, false
+	}
+	return o.ReferencedByDependsOnSinkJobIdObjects, true
+}
+
+// HasReferencedByDependsOnSinkJobIdObjects returns a boolean if a field has been set.
+func (o *Job) HasReferencedByDependsOnSinkJobIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByDependsOnSinkJobIdObjects) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferencedByDependsOnSinkJobIdObjects gets a reference to the given []DependsOn and assigns it to the ReferencedByDependsOnSinkJobIdObjects field.
+func (o *Job) SetReferencedByDependsOnSinkJobIdObjects(v []DependsOn) {
+	o.ReferencedByDependsOnSinkJobIdObjects = v
+}
+
+// GetReferencedByDependsOnSourceJobIdObjects returns the ReferencedByDependsOnSourceJobIdObjects field value if set, zero value otherwise.
+func (o *Job) GetReferencedByDependsOnSourceJobIdObjects() []DependsOn {
+	if o == nil || IsNil(o.ReferencedByDependsOnSourceJobIdObjects) {
+		var ret []DependsOn
+		return ret
+	}
+	return o.ReferencedByDependsOnSourceJobIdObjects
+}
+
+// GetReferencedByDependsOnSourceJobIdObjectsOk returns a tuple with the ReferencedByDependsOnSourceJobIdObjects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetReferencedByDependsOnSourceJobIdObjectsOk() ([]DependsOn, bool) {
+	if o == nil || IsNil(o.ReferencedByDependsOnSourceJobIdObjects) {
+		return nil, false
+	}
+	return o.ReferencedByDependsOnSourceJobIdObjects, true
+}
+
+// HasReferencedByDependsOnSourceJobIdObjects returns a boolean if a field has been set.
+func (o *Job) HasReferencedByDependsOnSourceJobIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByDependsOnSourceJobIdObjects) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferencedByDependsOnSourceJobIdObjects gets a reference to the given []DependsOn and assigns it to the ReferencedByDependsOnSourceJobIdObjects field.
+func (o *Job) SetReferencedByDependsOnSourceJobIdObjects(v []DependsOn) {
+	o.ReferencedByDependsOnSourceJobIdObjects = v
+}
+
 // GetReferencedByExecutionJobIdObjects returns the ReferencedByExecutionJobIdObjects field value if set, zero value otherwise.
 func (o *Job) GetReferencedByExecutionJobIdObjects() []Execution {
 	if o == nil || IsNil(o.ReferencedByExecutionJobIdObjects) {
@@ -239,36 +340,100 @@ func (o *Job) SetReferencedByTaskJobIdObjects(v []Task) {
 	o.ReferencedByTaskJobIdObjects = v
 }
 
-// GetReferencedByTriggerJobIdObjects returns the ReferencedByTriggerJobIdObjects field value if set, zero value otherwise.
-func (o *Job) GetReferencedByTriggerJobIdObjects() []Trigger {
-	if o == nil || IsNil(o.ReferencedByTriggerJobIdObjects) {
-		var ret []Trigger
+// GetRepositoryId returns the RepositoryId field value if set, zero value otherwise.
+func (o *Job) GetRepositoryId() string {
+	if o == nil || IsNil(o.RepositoryId) {
+		var ret string
 		return ret
 	}
-	return o.ReferencedByTriggerJobIdObjects
+	return *o.RepositoryId
 }
 
-// GetReferencedByTriggerJobIdObjectsOk returns a tuple with the ReferencedByTriggerJobIdObjects field value if set, nil otherwise
+// GetRepositoryIdOk returns a tuple with the RepositoryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Job) GetReferencedByTriggerJobIdObjectsOk() ([]Trigger, bool) {
-	if o == nil || IsNil(o.ReferencedByTriggerJobIdObjects) {
+func (o *Job) GetRepositoryIdOk() (*string, bool) {
+	if o == nil || IsNil(o.RepositoryId) {
 		return nil, false
 	}
-	return o.ReferencedByTriggerJobIdObjects, true
+	return o.RepositoryId, true
 }
 
-// HasReferencedByTriggerJobIdObjects returns a boolean if a field has been set.
-func (o *Job) HasReferencedByTriggerJobIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByTriggerJobIdObjects) {
+// HasRepositoryId returns a boolean if a field has been set.
+func (o *Job) HasRepositoryId() bool {
+	if o != nil && !IsNil(o.RepositoryId) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByTriggerJobIdObjects gets a reference to the given []Trigger and assigns it to the ReferencedByTriggerJobIdObjects field.
-func (o *Job) SetReferencedByTriggerJobIdObjects(v []Trigger) {
-	o.ReferencedByTriggerJobIdObjects = v
+// SetRepositoryId gets a reference to the given string and assigns it to the RepositoryId field.
+func (o *Job) SetRepositoryId(v string) {
+	o.RepositoryId = &v
+}
+
+// GetRepositoryIdObject returns the RepositoryIdObject field value if set, zero value otherwise.
+func (o *Job) GetRepositoryIdObject() Repository {
+	if o == nil || IsNil(o.RepositoryIdObject) {
+		var ret Repository
+		return ret
+	}
+	return *o.RepositoryIdObject
+}
+
+// GetRepositoryIdObjectOk returns a tuple with the RepositoryIdObject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetRepositoryIdObjectOk() (*Repository, bool) {
+	if o == nil || IsNil(o.RepositoryIdObject) {
+		return nil, false
+	}
+	return o.RepositoryIdObject, true
+}
+
+// HasRepositoryIdObject returns a boolean if a field has been set.
+func (o *Job) HasRepositoryIdObject() bool {
+	if o != nil && !IsNil(o.RepositoryIdObject) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryIdObject gets a reference to the given Repository and assigns it to the RepositoryIdObject field.
+func (o *Job) SetRepositoryIdObject(v Repository) {
+	o.RepositoryIdObject = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Job) GetTags() string {
+	if o == nil || IsNil(o.Tags) {
+		var ret string
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Job) GetTagsOk() (*string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Job) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given string and assigns it to the Tags field.
+func (o *Job) SetTags(v string) {
+	o.Tags = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -304,7 +469,7 @@ func (o *Job) SetUpdatedAt(v time.Time) {
 }
 
 func (o Job) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -313,6 +478,9 @@ func (o Job) MarshalJSON() ([]byte, error) {
 
 func (o Job) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Branches) {
+		toSerialize["branches"] = o.Branches
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -325,14 +493,26 @@ func (o Job) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.ReferencedByDependsOnSinkJobIdObjects) {
+		toSerialize["referenced_by_depends_on_sink_job_id_objects"] = o.ReferencedByDependsOnSinkJobIdObjects
+	}
+	if !IsNil(o.ReferencedByDependsOnSourceJobIdObjects) {
+		toSerialize["referenced_by_depends_on_source_job_id_objects"] = o.ReferencedByDependsOnSourceJobIdObjects
+	}
 	if !IsNil(o.ReferencedByExecutionJobIdObjects) {
 		toSerialize["referenced_by_execution_job_id_objects"] = o.ReferencedByExecutionJobIdObjects
 	}
 	if !IsNil(o.ReferencedByTaskJobIdObjects) {
 		toSerialize["referenced_by_task_job_id_objects"] = o.ReferencedByTaskJobIdObjects
 	}
-	if !IsNil(o.ReferencedByTriggerJobIdObjects) {
-		toSerialize["referenced_by_trigger_job_id_objects"] = o.ReferencedByTriggerJobIdObjects
+	if !IsNil(o.RepositoryId) {
+		toSerialize["repository_id"] = o.RepositoryId
+	}
+	if !IsNil(o.RepositoryIdObject) {
+		toSerialize["repository_id_object"] = o.RepositoryIdObject
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -375,3 +555,5 @@ func (v *NullableJob) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -14,8 +14,8 @@ CREATE TABLE
         deleted_at timestamptz NULL DEFAULT NULL,
         url text NOT NULL,
         name text NULL,
-        synced_at timestamptz NOT NULL DEFAULT to_timestamp(0),
-        change_producer_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
+        handled_at timestamptz NOT NULL DEFAULT to_timestamp(0),
+        repository_syncer_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
     );
 
 ALTER TABLE public.repository OWNER TO postgres;
@@ -72,14 +72,15 @@ CREATE TABLE
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
         commit_hash text NOT NULL,
-        branch_name text NOT NULL,
+        branch text NOT NULL,
+        tag text NULL,
         message text NOT NULL,
         authored_by text NOT NULL,
         authored_at timestamptz NOT NULL,
         committed_by text NOT NULL,
         committed_at timestamptz NOT NULL,
-        triggers_produced_at timestamptz NULL DEFAULT NULL,
-        trigger_producer_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
+        handled_at timestamptz NULL,
+        job_coordinator_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
     );
 
 ALTER TABLE public.change OWNER TO postgres;
@@ -126,118 +127,6 @@ DO INSTEAD (
 );
 
 --
--- rule
---
-
-CREATE TABLE
-    public.rule (
-        id uuid PRIMARY KEY NOT NULL UNIQUE DEFAULT gen_random_uuid (),
-        created_at timestamptz NOT NULL DEFAULT now(),
-        updated_at timestamptz NOT NULL DEFAULT now(),
-        deleted_at timestamptz NULL DEFAULT NULL,
-        branch_name text NULL
-    );
-
-ALTER TABLE public.rule OWNER TO postgres;
-
-CREATE
-OR REPLACE FUNCTION create_rule () RETURNS TRIGGER AS $$
-BEGIN
-  NEW.created_at = now();
-  NEW.updated_at = now();
-  NEW.deleted_at = null;
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER create_rule BEFORE INSERT ON public.rule FOR EACH ROW
-EXECUTE PROCEDURE create_rule ();
-
-CREATE
-OR REPLACE FUNCTION update_rule () RETURNS TRIGGER AS $$
-BEGIN
-  NEW.created_at = OLD.created_at;
-  NEW.updated_at = now();
-  IF OLD.deleted_at IS NOT null AND NEW.deleted_at IS NOT null THEN
-    NEW.deleted_at = OLD.deleted_at;
-  END IF;
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER update_rule BEFORE
-UPDATE ON public.rule FOR EACH ROW
-EXECUTE PROCEDURE public.update_rule ();
-
-CREATE RULE delete_rule AS ON DELETE TO public.rule
-DO INSTEAD (
-    UPDATE public.rule
-    SET
-        created_at = old.created_at,
-        updated_at = now(),
-        deleted_at = now()
-    WHERE
-        id = old.id
-        AND deleted_at IS null
-);
-
---
--- trigger
---
-
-CREATE TABLE
-    public.trigger (
-        id uuid PRIMARY KEY NOT NULL UNIQUE DEFAULT gen_random_uuid (),
-        created_at timestamptz NOT NULL DEFAULT now(),
-        updated_at timestamptz NOT NULL DEFAULT now(),
-        deleted_at timestamptz NULL DEFAULT NULL,
-        job_executor_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
-    );
-
-ALTER TABLE public.trigger OWNER TO postgres;
-
-CREATE
-OR REPLACE FUNCTION create_trigger () RETURNS TRIGGER AS $$
-BEGIN
-  NEW.created_at = now();
-  NEW.updated_at = now();
-  NEW.deleted_at = null;
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER create_trigger BEFORE INSERT ON public.trigger FOR EACH ROW
-EXECUTE PROCEDURE create_trigger ();
-
-CREATE
-OR REPLACE FUNCTION update_trigger () RETURNS TRIGGER AS $$
-BEGIN
-  NEW.created_at = OLD.created_at;
-  NEW.updated_at = now();
-  IF OLD.deleted_at IS NOT null AND NEW.deleted_at IS NOT null THEN
-    NEW.deleted_at = OLD.deleted_at;
-  END IF;
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER update_trigger BEFORE
-UPDATE ON public.trigger FOR EACH ROW
-EXECUTE PROCEDURE public.update_trigger ();
-
-CREATE RULE delete_trigger AS ON DELETE TO public.trigger
-DO INSTEAD (
-    UPDATE public.trigger
-    SET
-        created_at = old.created_at,
-        updated_at = now(),
-        deleted_at = now()
-    WHERE
-        id = old.id
-        AND deleted_at IS null
-);
-
---
 -- job
 --
 
@@ -247,7 +136,9 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
-        name text NOT NULL
+        name text NOT NULL,
+        branches text NULL,
+        tags text NULL
     );
 
 ALTER TABLE public.job OWNER TO postgres;
@@ -294,6 +185,61 @@ DO INSTEAD (
 );
 
 --
+-- depends_on
+--
+
+CREATE TABLE
+    public.depends_on (
+        id uuid PRIMARY KEY NOT NULL UNIQUE DEFAULT gen_random_uuid (),
+        created_at timestamptz NOT NULL DEFAULT now(),
+        updated_at timestamptz NOT NULL DEFAULT now(),
+        deleted_at timestamptz NULL DEFAULT NULL
+    );
+
+ALTER TABLE public.depends_on OWNER TO postgres;
+
+CREATE
+OR REPLACE FUNCTION create_depends_on () RETURNS TRIGGER AS $$
+BEGIN
+  NEW.created_at = now();
+  NEW.updated_at = now();
+  NEW.deleted_at = null;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER create_depends_on BEFORE INSERT ON public.depends_on FOR EACH ROW
+EXECUTE PROCEDURE create_depends_on ();
+
+CREATE
+OR REPLACE FUNCTION update_depends_on () RETURNS TRIGGER AS $$
+BEGIN
+  NEW.created_at = OLD.created_at;
+  NEW.updated_at = now();
+  IF OLD.deleted_at IS NOT null AND NEW.deleted_at IS NOT null THEN
+    NEW.deleted_at = OLD.deleted_at;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_depends_on BEFORE
+UPDATE ON public.depends_on FOR EACH ROW
+EXECUTE PROCEDURE public.update_depends_on ();
+
+CREATE RULE delete_depends_on AS ON DELETE TO public.depends_on
+DO INSTEAD (
+    UPDATE public.depends_on
+    SET
+        created_at = old.created_at,
+        updated_at = now(),
+        deleted_at = now()
+    WHERE
+        id = old.id
+        AND deleted_at IS null
+);
+
+--
 -- execution
 --
 
@@ -303,9 +249,9 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
-        status text NOT NULL,
+        status text NOT NULL CHECK (status IN ('pending', 'running', 'succeeded', 'failing', 'failed', 'erroring', 'errored', 'skipped')),
         started_at timestamptz NULL DEFAULT NULL,
-        ended_at timestamptz NULL DEFAULT NULL,
+        ended_at timestamptz NULL DEFAULT NULL CHECK (ended_at IS null OR ended_at >= started_at),
         job_executor_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
     );
 
@@ -422,7 +368,7 @@ CREATE TABLE
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
-        status text NOT NULL,
+        status text NOT NULL CHECK (status IN ('pending', 'running', 'succeeded', 'failing', 'failed', 'erroring', 'errored', 'skipped')),
         started_at timestamptz NULL DEFAULT NULL,
         ended_at timestamptz NULL DEFAULT NULL,
         exit_status int NOT NULL,
@@ -536,10 +482,10 @@ ALTER TABLE public.change
 ADD COLUMN repository_id uuid NOT NULL REFERENCES public.repository (id);
 
 --
--- repository -> rule (one-to-many)
+-- repository -> job (one-to-many)
 --
 
-ALTER TABLE public.rule
+ALTER TABLE public.job
 ADD COLUMN repository_id uuid NOT NULL REFERENCES public.repository (id);
 
 --
@@ -548,27 +494,6 @@ ADD COLUMN repository_id uuid NOT NULL REFERENCES public.repository (id);
 
 ALTER TABLE public.execution
 ADD COLUMN change_id uuid NOT NULL REFERENCES public.change (id);
-
---
--- rule -> trigger (one-to-many)
---
-
-ALTER TABLE public.trigger
-ADD COLUMN rule_id uuid NOT NULL REFERENCES public.rule (id);
-
---
--- job -> trigger (one-to-many)
---
-
-ALTER TABLE public.trigger
-ADD COLUMN job_id uuid NOT NULL REFERENCES public.job (id);
-
---
--- trigger -> execution (one-to-many)
---
-
-ALTER TABLE public.execution
-ADD COLUMN trigger_id uuid NOT NULL REFERENCES public.trigger (id);
 
 --
 -- job -> execution (one-to-many)
@@ -583,6 +508,20 @@ ADD COLUMN job_id uuid NOT NULL REFERENCES public.job (id);
 
 ALTER TABLE public.task
 ADD COLUMN job_id uuid NOT NULL REFERENCES public.job (id);
+
+--
+-- job -> depends_on (one-to-many)
+--
+
+ALTER TABLE public.depends_on
+ADD COLUMN source_job_id uuid NOT NULL REFERENCES public.job (id);
+
+--
+-- job -> depends_on (one-to-many)
+--
+
+ALTER TABLE public.depends_on
+ADD COLUMN sink_job_id uuid NOT NULL REFERENCES public.job (id);
 
 --
 -- execution -> output (one-to-many)
@@ -633,6 +572,32 @@ WHERE
     deleted_at IS null;
 
 CREATE UNIQUE INDEX change_unique_commit_hash_repository_id_deleted ON public.change (commit_hash, repository_id, deleted_at)
+WHERE
+    deleted_at IS NOT null;
+
+
+--
+-- job unique on (name)
+--
+
+CREATE UNIQUE INDEX job_unique_name_not_deleted ON public.job (name)
+WHERE
+    deleted_at IS null;
+
+CREATE UNIQUE INDEX job_unique_name_deleted ON public.job (name, deleted_at)
+WHERE
+    deleted_at IS NOT null;
+
+
+--
+-- task unique on (name, job_id)
+--
+
+CREATE UNIQUE INDEX task_unique_name_job_id_not_deleted ON public.task (name, job_id)
+WHERE
+    deleted_at IS null;
+
+CREATE UNIQUE INDEX task_unique_name_job_id_deleted ON public.task (name, job_id, deleted_at)
 WHERE
     deleted_at IS NOT null;
 

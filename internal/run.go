@@ -13,6 +13,10 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
+const (
+	tickerInterval = time.Second * 10
+)
+
 func Run(
 	log *_log.Logger,
 	work func(ctx context.Context, db *pgxpool.Pool) error,
@@ -37,7 +41,7 @@ func Run(
 		innerCancel()
 	}()
 
-	t := time.NewTicker(time.Second * 1)
+	t := time.NewTicker(tickerInterval)
 
 	log.Printf("running...")
 

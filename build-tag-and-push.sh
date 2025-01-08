@@ -19,16 +19,16 @@ if [[ "${ONLY}" == "api" ]] || [[ "${ONLY}" == "" ]]; then
     docker build --platform=linux/amd64 -t kube-registry:5000/fred-api:latest -f ./docker/api/Dockerfile .
 fi
 
-if [[ "${ONLY}" == "change-producer" ]] || [[ "${ONLY}" == "" ]]; then
-    docker build --platform=linux/amd64 -t kube-registry:5000/fred-change-producer:latest -f ./docker/change-producer/Dockerfile .
+if [[ "${ONLY}" == "repository-syncer" ]] || [[ "${ONLY}" == "" ]]; then
+    docker build --platform=linux/amd64 -t kube-registry:5000/fred-repository-syncer:latest -f ./docker/repository-syncer/Dockerfile .
+fi
+
+if [[ "${ONLY}" == "job-coordinator" ]] || [[ "${ONLY}" == "" ]]; then
+    docker build --platform=linux/amd64 -t kube-registry:5000/fred-job-coordinator:latest -f ./docker/job-coordinator/Dockerfile .
 fi
 
 if [[ "${ONLY}" == "job-executor" ]] || [[ "${ONLY}" == "" ]]; then
     docker build --platform=linux/amd64 -t kube-registry:5000/fred-job-executor:latest -f ./docker/job-executor/Dockerfile .
-fi
-
-if [[ "${ONLY}" == "trigger-producer" ]] || [[ "${ONLY}" == "" ]]; then
-    docker build --platform=linux/amd64 -t kube-registry:5000/fred-trigger-producer:latest -f ./docker/trigger-producer/Dockerfile .
 fi
 
 if [[ "${ONLY}" == "frontend" ]] || [[ "${ONLY}" == "" ]]; then
@@ -39,16 +39,16 @@ if [[ "${ONLY}" == "api" ]] || [[ "${ONLY}" == "" ]]; then
     docker image push kube-registry:5000/fred-api:latest
 fi
 
-if [[ "${ONLY}" == "change-producer" ]] || [[ "${ONLY}" == "" ]]; then
-    docker image push kube-registry:5000/fred-change-producer:latest
+if [[ "${ONLY}" == "repository-syncer" ]] || [[ "${ONLY}" == "" ]]; then
+    docker image push kube-registry:5000/fred-repository-syncer:latest
+fi
+
+if [[ "${ONLY}" == "job-coordinator" ]] || [[ "${ONLY}" == "" ]]; then
+    docker image push kube-registry:5000/fred-job-coordinator:latest
 fi
 
 if [[ "${ONLY}" == "job-executor" ]] || [[ "${ONLY}" == "" ]]; then
     docker image push kube-registry:5000/fred-job-executor:latest
-fi
-
-if [[ "${ONLY}" == "trigger-producer" ]] || [[ "${ONLY}" == "" ]]; then
-    docker image push kube-registry:5000/fred-trigger-producer:latest
 fi
 
 if [[ "${ONLY}" == "frontend" ]] || [[ "${ONLY}" == "" ]]; then

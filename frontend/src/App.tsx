@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import JobDropdownMenu from "./components/JobDropdownMenu";
 import ModeToggle from "./components/ModeToggle";
 import RepositoryDropdownMenu from "./components/RepositoryDropdownMenu";
-import RuleDropdownMenu from "./components/RuleDropdownMenu";
 import TaskDropdownMenu from "./components/TaskDropdownMenu";
 import { responsiveWidth } from "./config";
 import { BuildTable } from "./components/BuildTable";
@@ -97,12 +96,6 @@ function App() {
             responsive={responsive}
             repositoryId={repositoryId}
             setRepositoryId={setRepositoryId}
-          />
-          <RuleDropdownMenu
-            responsive={responsive}
-            ruleId={ruleId}
-            setRuleId={setRuleId}
-            repositoryId={repositoryId}
           />
           <JobDropdownMenu
             responsive={responsive}

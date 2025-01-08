@@ -4,13 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Branches** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**ReferencedByDependsOnSinkJobIdObjects** | Pointer to [**[]DependsOn**](DependsOn.md) |  | [optional] 
+**ReferencedByDependsOnSourceJobIdObjects** | Pointer to [**[]DependsOn**](DependsOn.md) |  | [optional] 
 **ReferencedByExecutionJobIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **ReferencedByTaskJobIdObjects** | Pointer to [**[]Task**](Task.md) |  | [optional] 
-**ReferencedByTriggerJobIdObjects** | Pointer to [**[]Trigger**](Trigger.md) |  | [optional] 
+**RepositoryId** | Pointer to **string** |  | [optional] 
+**RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
+**Tags** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -31,6 +36,31 @@ will change when the set of required properties is changed
 NewJobWithDefaults instantiates a new Job object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBranches
+
+`func (o *Job) GetBranches() string`
+
+GetBranches returns the Branches field if non-nil, zero value otherwise.
+
+### GetBranchesOk
+
+`func (o *Job) GetBranchesOk() (*string, bool)`
+
+GetBranchesOk returns a tuple with the Branches field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBranches
+
+`func (o *Job) SetBranches(v string)`
+
+SetBranches sets Branches field to given value.
+
+### HasBranches
+
+`func (o *Job) HasBranches() bool`
+
+HasBranches returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -132,6 +162,56 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetReferencedByDependsOnSinkJobIdObjects
+
+`func (o *Job) GetReferencedByDependsOnSinkJobIdObjects() []DependsOn`
+
+GetReferencedByDependsOnSinkJobIdObjects returns the ReferencedByDependsOnSinkJobIdObjects field if non-nil, zero value otherwise.
+
+### GetReferencedByDependsOnSinkJobIdObjectsOk
+
+`func (o *Job) GetReferencedByDependsOnSinkJobIdObjectsOk() (*[]DependsOn, bool)`
+
+GetReferencedByDependsOnSinkJobIdObjectsOk returns a tuple with the ReferencedByDependsOnSinkJobIdObjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedByDependsOnSinkJobIdObjects
+
+`func (o *Job) SetReferencedByDependsOnSinkJobIdObjects(v []DependsOn)`
+
+SetReferencedByDependsOnSinkJobIdObjects sets ReferencedByDependsOnSinkJobIdObjects field to given value.
+
+### HasReferencedByDependsOnSinkJobIdObjects
+
+`func (o *Job) HasReferencedByDependsOnSinkJobIdObjects() bool`
+
+HasReferencedByDependsOnSinkJobIdObjects returns a boolean if a field has been set.
+
+### GetReferencedByDependsOnSourceJobIdObjects
+
+`func (o *Job) GetReferencedByDependsOnSourceJobIdObjects() []DependsOn`
+
+GetReferencedByDependsOnSourceJobIdObjects returns the ReferencedByDependsOnSourceJobIdObjects field if non-nil, zero value otherwise.
+
+### GetReferencedByDependsOnSourceJobIdObjectsOk
+
+`func (o *Job) GetReferencedByDependsOnSourceJobIdObjectsOk() (*[]DependsOn, bool)`
+
+GetReferencedByDependsOnSourceJobIdObjectsOk returns a tuple with the ReferencedByDependsOnSourceJobIdObjects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferencedByDependsOnSourceJobIdObjects
+
+`func (o *Job) SetReferencedByDependsOnSourceJobIdObjects(v []DependsOn)`
+
+SetReferencedByDependsOnSourceJobIdObjects sets ReferencedByDependsOnSourceJobIdObjects field to given value.
+
+### HasReferencedByDependsOnSourceJobIdObjects
+
+`func (o *Job) HasReferencedByDependsOnSourceJobIdObjects() bool`
+
+HasReferencedByDependsOnSourceJobIdObjects returns a boolean if a field has been set.
+
 ### GetReferencedByExecutionJobIdObjects
 
 `func (o *Job) GetReferencedByExecutionJobIdObjects() []Execution`
@@ -182,30 +262,80 @@ SetReferencedByTaskJobIdObjects sets ReferencedByTaskJobIdObjects field to given
 
 HasReferencedByTaskJobIdObjects returns a boolean if a field has been set.
 
-### GetReferencedByTriggerJobIdObjects
+### GetRepositoryId
 
-`func (o *Job) GetReferencedByTriggerJobIdObjects() []Trigger`
+`func (o *Job) GetRepositoryId() string`
 
-GetReferencedByTriggerJobIdObjects returns the ReferencedByTriggerJobIdObjects field if non-nil, zero value otherwise.
+GetRepositoryId returns the RepositoryId field if non-nil, zero value otherwise.
 
-### GetReferencedByTriggerJobIdObjectsOk
+### GetRepositoryIdOk
 
-`func (o *Job) GetReferencedByTriggerJobIdObjectsOk() (*[]Trigger, bool)`
+`func (o *Job) GetRepositoryIdOk() (*string, bool)`
 
-GetReferencedByTriggerJobIdObjectsOk returns a tuple with the ReferencedByTriggerJobIdObjects field if it's non-nil, zero value otherwise
+GetRepositoryIdOk returns a tuple with the RepositoryId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByTriggerJobIdObjects
+### SetRepositoryId
 
-`func (o *Job) SetReferencedByTriggerJobIdObjects(v []Trigger)`
+`func (o *Job) SetRepositoryId(v string)`
 
-SetReferencedByTriggerJobIdObjects sets ReferencedByTriggerJobIdObjects field to given value.
+SetRepositoryId sets RepositoryId field to given value.
 
-### HasReferencedByTriggerJobIdObjects
+### HasRepositoryId
 
-`func (o *Job) HasReferencedByTriggerJobIdObjects() bool`
+`func (o *Job) HasRepositoryId() bool`
 
-HasReferencedByTriggerJobIdObjects returns a boolean if a field has been set.
+HasRepositoryId returns a boolean if a field has been set.
+
+### GetRepositoryIdObject
+
+`func (o *Job) GetRepositoryIdObject() Repository`
+
+GetRepositoryIdObject returns the RepositoryIdObject field if non-nil, zero value otherwise.
+
+### GetRepositoryIdObjectOk
+
+`func (o *Job) GetRepositoryIdObjectOk() (*Repository, bool)`
+
+GetRepositoryIdObjectOk returns a tuple with the RepositoryIdObject field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepositoryIdObject
+
+`func (o *Job) SetRepositoryIdObject(v Repository)`
+
+SetRepositoryIdObject sets RepositoryIdObject field to given value.
+
+### HasRepositoryIdObject
+
+`func (o *Job) HasRepositoryIdObject() bool`
+
+HasRepositoryIdObject returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *Job) GetTags() string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *Job) GetTagsOk() (*string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *Job) SetTags(v string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *Job) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

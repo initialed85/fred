@@ -20,14 +20,14 @@ var _ MappedNullable = &Log{}
 
 // Log struct for Log
 type Log struct {
-	Buffer                         *string    `json:"buffer,omitempty"`
-	CreatedAt                      *time.Time `json:"created_at,omitempty"`
-	DeletedAt                      *time.Time `json:"deleted_at,omitempty"`
-	Id                             *string    `json:"id,omitempty"`
-	OutputId                       *string    `json:"output_id,omitempty"`
-	OutputIdObject                 *Output    `json:"output_id_object,omitempty"`
-	ReferencedByOutputLogIdObjects []Output   `json:"referenced_by_output_log_id_objects,omitempty"`
-	UpdatedAt                      *time.Time `json:"updated_at,omitempty"`
+	Buffer *string `json:"buffer,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	OutputId *string `json:"output_id,omitempty"`
+	OutputIdObject *Output `json:"output_id_object,omitempty"`
+	ReferencedByOutputLogIdObjects []Output `json:"referenced_by_output_log_id_objects,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewLog instantiates a new Log object
@@ -304,7 +304,7 @@ func (o *Log) SetUpdatedAt(v time.Time) {
 }
 
 func (o Log) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -375,3 +375,5 @@ func (v *NullableLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

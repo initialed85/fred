@@ -104,13 +104,13 @@ websocat ws://localhost:7070/api/__stream --exit-on-eof | jq
 ./bootstrap-for-dev.sh
 
 # shell 5
-DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/change_producer/
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/repository_syncer/
 
 # shell 6
-DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/trigger_producer
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_coordinator/
 
 # shell 7
-DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor
+DJANGOLANG_API_ROOT=/api/ POSTGRES_DB=fred POSTGRES_PASSWORD=NoCI\!11 go run ./cmd/job_executor/
 
 # shell 8
 echo -e "$(curl 'http://localhost:7070/api/executions?created_at__desc=&limit=2&depth=2' | jq | sed 's/\\u001b/\\033/g')"

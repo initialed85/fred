@@ -82,7 +82,7 @@ git log -n 1
 echo -e "\n${task_entrypoint}:\n"
 
 set +e
-"../${task_entrypoint}"
+bash -c "../${task_entrypoint}"
 retval=${?}
 set -e
 

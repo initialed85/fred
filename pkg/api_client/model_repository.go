@@ -20,16 +20,16 @@ var _ MappedNullable = &Repository{}
 
 // Repository struct for Repository
 type Repository struct {
-	ChangeProducerClaimedUntil            *time.Time `json:"change_producer_claimed_until,omitempty"`
-	CreatedAt                             *time.Time `json:"created_at,omitempty"`
-	DeletedAt                             *time.Time `json:"deleted_at,omitempty"`
-	Id                                    *string    `json:"id,omitempty"`
-	Name                                  *string    `json:"name,omitempty"`
-	ReferencedByChangeRepositoryIdObjects []Change   `json:"referenced_by_change_repository_id_objects,omitempty"`
-	ReferencedByRuleRepositoryIdObjects   []Rule     `json:"referenced_by_rule_repository_id_objects,omitempty"`
-	SyncedAt                              *time.Time `json:"synced_at,omitempty"`
-	UpdatedAt                             *time.Time `json:"updated_at,omitempty"`
-	Url                                   *string    `json:"url,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	HandledAt *time.Time `json:"handled_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	ReferencedByChangeRepositoryIdObjects []Change `json:"referenced_by_change_repository_id_objects,omitempty"`
+	ReferencedByJobRepositoryIdObjects []Job `json:"referenced_by_job_repository_id_objects,omitempty"`
+	RepositorySyncerClaimedUntil *time.Time `json:"repository_syncer_claimed_until,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Url *string `json:"url,omitempty"`
 }
 
 // NewRepository instantiates a new Repository object
@@ -47,38 +47,6 @@ func NewRepository() *Repository {
 func NewRepositoryWithDefaults() *Repository {
 	this := Repository{}
 	return &this
-}
-
-// GetChangeProducerClaimedUntil returns the ChangeProducerClaimedUntil field value if set, zero value otherwise.
-func (o *Repository) GetChangeProducerClaimedUntil() time.Time {
-	if o == nil || IsNil(o.ChangeProducerClaimedUntil) {
-		var ret time.Time
-		return ret
-	}
-	return *o.ChangeProducerClaimedUntil
-}
-
-// GetChangeProducerClaimedUntilOk returns a tuple with the ChangeProducerClaimedUntil field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Repository) GetChangeProducerClaimedUntilOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ChangeProducerClaimedUntil) {
-		return nil, false
-	}
-	return o.ChangeProducerClaimedUntil, true
-}
-
-// HasChangeProducerClaimedUntil returns a boolean if a field has been set.
-func (o *Repository) HasChangeProducerClaimedUntil() bool {
-	if o != nil && !IsNil(o.ChangeProducerClaimedUntil) {
-		return true
-	}
-
-	return false
-}
-
-// SetChangeProducerClaimedUntil gets a reference to the given time.Time and assigns it to the ChangeProducerClaimedUntil field.
-func (o *Repository) SetChangeProducerClaimedUntil(v time.Time) {
-	o.ChangeProducerClaimedUntil = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -143,6 +111,38 @@ func (o *Repository) HasDeletedAt() bool {
 // SetDeletedAt gets a reference to the given time.Time and assigns it to the DeletedAt field.
 func (o *Repository) SetDeletedAt(v time.Time) {
 	o.DeletedAt = &v
+}
+
+// GetHandledAt returns the HandledAt field value if set, zero value otherwise.
+func (o *Repository) GetHandledAt() time.Time {
+	if o == nil || IsNil(o.HandledAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.HandledAt
+}
+
+// GetHandledAtOk returns a tuple with the HandledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Repository) GetHandledAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.HandledAt) {
+		return nil, false
+	}
+	return o.HandledAt, true
+}
+
+// HasHandledAt returns a boolean if a field has been set.
+func (o *Repository) HasHandledAt() bool {
+	if o != nil && !IsNil(o.HandledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetHandledAt gets a reference to the given time.Time and assigns it to the HandledAt field.
+func (o *Repository) SetHandledAt(v time.Time) {
+	o.HandledAt = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -241,68 +241,68 @@ func (o *Repository) SetReferencedByChangeRepositoryIdObjects(v []Change) {
 	o.ReferencedByChangeRepositoryIdObjects = v
 }
 
-// GetReferencedByRuleRepositoryIdObjects returns the ReferencedByRuleRepositoryIdObjects field value if set, zero value otherwise.
-func (o *Repository) GetReferencedByRuleRepositoryIdObjects() []Rule {
-	if o == nil || IsNil(o.ReferencedByRuleRepositoryIdObjects) {
-		var ret []Rule
+// GetReferencedByJobRepositoryIdObjects returns the ReferencedByJobRepositoryIdObjects field value if set, zero value otherwise.
+func (o *Repository) GetReferencedByJobRepositoryIdObjects() []Job {
+	if o == nil || IsNil(o.ReferencedByJobRepositoryIdObjects) {
+		var ret []Job
 		return ret
 	}
-	return o.ReferencedByRuleRepositoryIdObjects
+	return o.ReferencedByJobRepositoryIdObjects
 }
 
-// GetReferencedByRuleRepositoryIdObjectsOk returns a tuple with the ReferencedByRuleRepositoryIdObjects field value if set, nil otherwise
+// GetReferencedByJobRepositoryIdObjectsOk returns a tuple with the ReferencedByJobRepositoryIdObjects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Repository) GetReferencedByRuleRepositoryIdObjectsOk() ([]Rule, bool) {
-	if o == nil || IsNil(o.ReferencedByRuleRepositoryIdObjects) {
+func (o *Repository) GetReferencedByJobRepositoryIdObjectsOk() ([]Job, bool) {
+	if o == nil || IsNil(o.ReferencedByJobRepositoryIdObjects) {
 		return nil, false
 	}
-	return o.ReferencedByRuleRepositoryIdObjects, true
+	return o.ReferencedByJobRepositoryIdObjects, true
 }
 
-// HasReferencedByRuleRepositoryIdObjects returns a boolean if a field has been set.
-func (o *Repository) HasReferencedByRuleRepositoryIdObjects() bool {
-	if o != nil && !IsNil(o.ReferencedByRuleRepositoryIdObjects) {
+// HasReferencedByJobRepositoryIdObjects returns a boolean if a field has been set.
+func (o *Repository) HasReferencedByJobRepositoryIdObjects() bool {
+	if o != nil && !IsNil(o.ReferencedByJobRepositoryIdObjects) {
 		return true
 	}
 
 	return false
 }
 
-// SetReferencedByRuleRepositoryIdObjects gets a reference to the given []Rule and assigns it to the ReferencedByRuleRepositoryIdObjects field.
-func (o *Repository) SetReferencedByRuleRepositoryIdObjects(v []Rule) {
-	o.ReferencedByRuleRepositoryIdObjects = v
+// SetReferencedByJobRepositoryIdObjects gets a reference to the given []Job and assigns it to the ReferencedByJobRepositoryIdObjects field.
+func (o *Repository) SetReferencedByJobRepositoryIdObjects(v []Job) {
+	o.ReferencedByJobRepositoryIdObjects = v
 }
 
-// GetSyncedAt returns the SyncedAt field value if set, zero value otherwise.
-func (o *Repository) GetSyncedAt() time.Time {
-	if o == nil || IsNil(o.SyncedAt) {
+// GetRepositorySyncerClaimedUntil returns the RepositorySyncerClaimedUntil field value if set, zero value otherwise.
+func (o *Repository) GetRepositorySyncerClaimedUntil() time.Time {
+	if o == nil || IsNil(o.RepositorySyncerClaimedUntil) {
 		var ret time.Time
 		return ret
 	}
-	return *o.SyncedAt
+	return *o.RepositorySyncerClaimedUntil
 }
 
-// GetSyncedAtOk returns a tuple with the SyncedAt field value if set, nil otherwise
+// GetRepositorySyncerClaimedUntilOk returns a tuple with the RepositorySyncerClaimedUntil field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Repository) GetSyncedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.SyncedAt) {
+func (o *Repository) GetRepositorySyncerClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RepositorySyncerClaimedUntil) {
 		return nil, false
 	}
-	return o.SyncedAt, true
+	return o.RepositorySyncerClaimedUntil, true
 }
 
-// HasSyncedAt returns a boolean if a field has been set.
-func (o *Repository) HasSyncedAt() bool {
-	if o != nil && !IsNil(o.SyncedAt) {
+// HasRepositorySyncerClaimedUntil returns a boolean if a field has been set.
+func (o *Repository) HasRepositorySyncerClaimedUntil() bool {
+	if o != nil && !IsNil(o.RepositorySyncerClaimedUntil) {
 		return true
 	}
 
 	return false
 }
 
-// SetSyncedAt gets a reference to the given time.Time and assigns it to the SyncedAt field.
-func (o *Repository) SetSyncedAt(v time.Time) {
-	o.SyncedAt = &v
+// SetRepositorySyncerClaimedUntil gets a reference to the given time.Time and assigns it to the RepositorySyncerClaimedUntil field.
+func (o *Repository) SetRepositorySyncerClaimedUntil(v time.Time) {
+	o.RepositorySyncerClaimedUntil = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -370,7 +370,7 @@ func (o *Repository) SetUrl(v string) {
 }
 
 func (o Repository) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -379,14 +379,14 @@ func (o Repository) MarshalJSON() ([]byte, error) {
 
 func (o Repository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ChangeProducerClaimedUntil) {
-		toSerialize["change_producer_claimed_until"] = o.ChangeProducerClaimedUntil
-	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if !IsNil(o.DeletedAt) {
 		toSerialize["deleted_at"] = o.DeletedAt
+	}
+	if !IsNil(o.HandledAt) {
+		toSerialize["handled_at"] = o.HandledAt
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -397,11 +397,11 @@ func (o Repository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReferencedByChangeRepositoryIdObjects) {
 		toSerialize["referenced_by_change_repository_id_objects"] = o.ReferencedByChangeRepositoryIdObjects
 	}
-	if !IsNil(o.ReferencedByRuleRepositoryIdObjects) {
-		toSerialize["referenced_by_rule_repository_id_objects"] = o.ReferencedByRuleRepositoryIdObjects
+	if !IsNil(o.ReferencedByJobRepositoryIdObjects) {
+		toSerialize["referenced_by_job_repository_id_objects"] = o.ReferencedByJobRepositoryIdObjects
 	}
-	if !IsNil(o.SyncedAt) {
-		toSerialize["synced_at"] = o.SyncedAt
+	if !IsNil(o.RepositorySyncerClaimedUntil) {
+		toSerialize["repository_syncer_claimed_until"] = o.RepositorySyncerClaimedUntil
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -447,3 +447,5 @@ func (v *NullableRepository) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

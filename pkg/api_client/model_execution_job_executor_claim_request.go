@@ -20,8 +20,8 @@ var _ MappedNullable = &ExecutionJobExecutorClaimRequest{}
 
 // ExecutionJobExecutorClaimRequest struct for ExecutionJobExecutorClaimRequest
 type ExecutionJobExecutorClaimRequest struct {
-	TimeoutSeconds *float64   `json:"timeout_seconds,omitempty"`
-	Until          *time.Time `json:"until,omitempty"`
+	TimeoutSeconds *float64 `json:"timeout_seconds,omitempty"`
+	Until *time.Time `json:"until,omitempty"`
 }
 
 // NewExecutionJobExecutorClaimRequest instantiates a new ExecutionJobExecutorClaimRequest object
@@ -106,7 +106,7 @@ func (o *ExecutionJobExecutorClaimRequest) SetUntil(v time.Time) {
 }
 
 func (o ExecutionJobExecutorClaimRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -159,3 +159,5 @@ func (v *NullableExecutionJobExecutorClaimRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

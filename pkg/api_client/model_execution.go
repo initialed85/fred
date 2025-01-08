@@ -20,21 +20,19 @@ var _ MappedNullable = &Execution{}
 
 // Execution struct for Execution
 type Execution struct {
-	ChangeId                             *string    `json:"change_id,omitempty"`
-	ChangeIdObject                       *Change    `json:"change_id_object,omitempty"`
-	CreatedAt                            *time.Time `json:"created_at,omitempty"`
-	DeletedAt                            *time.Time `json:"deleted_at,omitempty"`
-	EndedAt                              *time.Time `json:"ended_at,omitempty"`
-	Id                                   *string    `json:"id,omitempty"`
-	JobExecutorClaimedUntil              *time.Time `json:"job_executor_claimed_until,omitempty"`
-	JobId                                *string    `json:"job_id,omitempty"`
-	JobIdObject                          *Job       `json:"job_id_object,omitempty"`
-	ReferencedByOutputExecutionIdObjects []Output   `json:"referenced_by_output_execution_id_objects,omitempty"`
-	StartedAt                            *time.Time `json:"started_at,omitempty"`
-	Status                               *string    `json:"status,omitempty"`
-	TriggerId                            *string    `json:"trigger_id,omitempty"`
-	TriggerIdObject                      *Trigger   `json:"trigger_id_object,omitempty"`
-	UpdatedAt                            *time.Time `json:"updated_at,omitempty"`
+	ChangeId *string `json:"change_id,omitempty"`
+	ChangeIdObject *Change `json:"change_id_object,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	EndedAt *time.Time `json:"ended_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	JobExecutorClaimedUntil *time.Time `json:"job_executor_claimed_until,omitempty"`
+	JobId *string `json:"job_id,omitempty"`
+	JobIdObject *Job `json:"job_id_object,omitempty"`
+	ReferencedByOutputExecutionIdObjects []Output `json:"referenced_by_output_execution_id_objects,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	Status *string `json:"status,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewExecution instantiates a new Execution object
@@ -438,70 +436,6 @@ func (o *Execution) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetTriggerId returns the TriggerId field value if set, zero value otherwise.
-func (o *Execution) GetTriggerId() string {
-	if o == nil || IsNil(o.TriggerId) {
-		var ret string
-		return ret
-	}
-	return *o.TriggerId
-}
-
-// GetTriggerIdOk returns a tuple with the TriggerId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Execution) GetTriggerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TriggerId) {
-		return nil, false
-	}
-	return o.TriggerId, true
-}
-
-// HasTriggerId returns a boolean if a field has been set.
-func (o *Execution) HasTriggerId() bool {
-	if o != nil && !IsNil(o.TriggerId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggerId gets a reference to the given string and assigns it to the TriggerId field.
-func (o *Execution) SetTriggerId(v string) {
-	o.TriggerId = &v
-}
-
-// GetTriggerIdObject returns the TriggerIdObject field value if set, zero value otherwise.
-func (o *Execution) GetTriggerIdObject() Trigger {
-	if o == nil || IsNil(o.TriggerIdObject) {
-		var ret Trigger
-		return ret
-	}
-	return *o.TriggerIdObject
-}
-
-// GetTriggerIdObjectOk returns a tuple with the TriggerIdObject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Execution) GetTriggerIdObjectOk() (*Trigger, bool) {
-	if o == nil || IsNil(o.TriggerIdObject) {
-		return nil, false
-	}
-	return o.TriggerIdObject, true
-}
-
-// HasTriggerIdObject returns a boolean if a field has been set.
-func (o *Execution) HasTriggerIdObject() bool {
-	if o != nil && !IsNil(o.TriggerIdObject) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggerIdObject gets a reference to the given Trigger and assigns it to the TriggerIdObject field.
-func (o *Execution) SetTriggerIdObject(v Trigger) {
-	o.TriggerIdObject = &v
-}
-
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *Execution) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -535,7 +469,7 @@ func (o *Execution) SetUpdatedAt(v time.Time) {
 }
 
 func (o Execution) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -580,12 +514,6 @@ func (o Execution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.TriggerId) {
-		toSerialize["trigger_id"] = o.TriggerId
-	}
-	if !IsNil(o.TriggerIdObject) {
-		toSerialize["trigger_id_object"] = o.TriggerIdObject
-	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
@@ -627,3 +555,5 @@ func (v *NullableExecution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

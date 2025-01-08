@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"maps"
 	"net/http"
 	"net/netip"
 	"slices"
@@ -26,40 +27,50 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"golang.org/x/exp/maps"
 )
 
 type Job struct {
-	ID                                uuid.UUID    `json:"id"`
-	CreatedAt                         time.Time    `json:"created_at"`
-	UpdatedAt                         time.Time    `json:"updated_at"`
-	DeletedAt                         *time.Time   `json:"deleted_at"`
-	Name                              string       `json:"name"`
-	ReferencedByExecutionJobIDObjects []*Execution `json:"referenced_by_execution_job_id_objects"`
-	ReferencedByTaskJobIDObjects      []*Task      `json:"referenced_by_task_job_id_objects"`
-	ReferencedByTriggerJobIDObjects   []*Trigger   `json:"referenced_by_trigger_job_id_objects"`
+	ID                                      uuid.UUID    `json:"id"`
+	CreatedAt                               time.Time    `json:"created_at"`
+	UpdatedAt                               time.Time    `json:"updated_at"`
+	DeletedAt                               *time.Time   `json:"deleted_at"`
+	Name                                    string       `json:"name"`
+	Branches                                *string      `json:"branches"`
+	Tags                                    *string      `json:"tags"`
+	RepositoryID                            uuid.UUID    `json:"repository_id"`
+	RepositoryIDObject                      *Repository  `json:"repository_id_object"`
+	ReferencedByDependsOnSourceJobIDObjects []*DependsOn `json:"referenced_by_depends_on_source_job_id_objects"`
+	ReferencedByDependsOnSinkJobIDObjects   []*DependsOn `json:"referenced_by_depends_on_sink_job_id_objects"`
+	ReferencedByExecutionJobIDObjects       []*Execution `json:"referenced_by_execution_job_id_objects"`
+	ReferencedByTaskJobIDObjects            []*Task      `json:"referenced_by_task_job_id_objects"`
 }
 
 var JobTable = "job"
 
 var JobTableWithSchema = fmt.Sprintf("%s.%s", schema, JobTable)
 
-var JobTableNamespaceID int32 = 1337 + 3
+var JobTableNamespaceID int32 = 1337 + 4
 
 var (
-	JobTableIDColumn        = "id"
-	JobTableCreatedAtColumn = "created_at"
-	JobTableUpdatedAtColumn = "updated_at"
-	JobTableDeletedAtColumn = "deleted_at"
-	JobTableNameColumn      = "name"
+	JobTableIDColumn           = "id"
+	JobTableCreatedAtColumn    = "created_at"
+	JobTableUpdatedAtColumn    = "updated_at"
+	JobTableDeletedAtColumn    = "deleted_at"
+	JobTableNameColumn         = "name"
+	JobTableBranchesColumn     = "branches"
+	JobTableTagsColumn         = "tags"
+	JobTableRepositoryIDColumn = "repository_id"
 )
 
 var (
-	JobTableIDColumnWithTypeCast        = `"id" AS id`
-	JobTableCreatedAtColumnWithTypeCast = `"created_at" AS created_at`
-	JobTableUpdatedAtColumnWithTypeCast = `"updated_at" AS updated_at`
-	JobTableDeletedAtColumnWithTypeCast = `"deleted_at" AS deleted_at`
-	JobTableNameColumnWithTypeCast      = `"name" AS name`
+	JobTableIDColumnWithTypeCast           = `"id" AS id`
+	JobTableCreatedAtColumnWithTypeCast    = `"created_at" AS created_at`
+	JobTableUpdatedAtColumnWithTypeCast    = `"updated_at" AS updated_at`
+	JobTableDeletedAtColumnWithTypeCast    = `"deleted_at" AS deleted_at`
+	JobTableNameColumnWithTypeCast         = `"name" AS name`
+	JobTableBranchesColumnWithTypeCast     = `"branches" AS branches`
+	JobTableTagsColumnWithTypeCast         = `"tags" AS tags`
+	JobTableRepositoryIDColumnWithTypeCast = `"repository_id" AS repository_id`
 )
 
 var JobTableColumns = []string{
@@ -68,6 +79,9 @@ var JobTableColumns = []string{
 	JobTableUpdatedAtColumn,
 	JobTableDeletedAtColumn,
 	JobTableNameColumn,
+	JobTableBranchesColumn,
+	JobTableTagsColumn,
+	JobTableRepositoryIDColumn,
 }
 
 var JobTableColumnsWithTypeCasts = []string{
@@ -76,6 +90,9 @@ var JobTableColumnsWithTypeCasts = []string{
 	JobTableUpdatedAtColumnWithTypeCast,
 	JobTableDeletedAtColumnWithTypeCast,
 	JobTableNameColumnWithTypeCast,
+	JobTableBranchesColumnWithTypeCast,
+	JobTableTagsColumnWithTypeCast,
+	JobTableRepositoryIDColumnWithTypeCast,
 }
 
 var JobIntrospectedTable *introspect.Table
@@ -251,10 +268,83 @@ func (m *Job) FromItem(item map[string]any) error {
 
 			m.Name = temp2
 
+		case "branches":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranches.UUID", temp1))
+				}
+			}
+
+			m.Branches = &temp2
+
+		case "tags":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutags.UUID", temp1))
+				}
+			}
+
+			m.Tags = &temp2
+
+		case "repository_id":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseUUID(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(uuid.UUID)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uurepository_id.UUID", temp1))
+				}
+			}
+
+			m.RepositoryID = temp2
+
 		}
 	}
 
 	return nil
+}
+
+func (m *Job) ToItem() map[string]any {
+	item := make(map[string]any)
+
+	b, err := json.Marshal(m)
+	if err != nil {
+		panic(fmt.Sprintf("%T.ToItem() failed intermediate marshal to JSON: %s", m, err))
+	}
+
+	err = json.Unmarshal(b, &item)
+	if err != nil {
+		panic(fmt.Sprintf("%T.ToItem() failed intermediate unmarshal from JSON: %s", m, err))
+	}
+
+	return item
 }
 
 func (m *Job) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) error {
@@ -285,14 +375,19 @@ func (m *Job) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) er
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.Name = o.Name
+	m.Branches = o.Branches
+	m.Tags = o.Tags
+	m.RepositoryID = o.RepositoryID
+	m.RepositoryIDObject = o.RepositoryIDObject
+	m.ReferencedByDependsOnSourceJobIDObjects = o.ReferencedByDependsOnSourceJobIDObjects
+	m.ReferencedByDependsOnSinkJobIDObjects = o.ReferencedByDependsOnSinkJobIDObjects
 	m.ReferencedByExecutionJobIDObjects = o.ReferencedByExecutionJobIDObjects
 	m.ReferencedByTaskJobIDObjects = o.ReferencedByTaskJobIDObjects
-	m.ReferencedByTriggerJobIDObjects = o.ReferencedByTriggerJobIDObjects
 
 	return nil
 }
 
-func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
+func (m *Job) GetColumnsAndValues(setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) ([]string, []any, error) {
 	columns := make([]string, 0)
 	values := make([]any, 0)
 
@@ -301,7 +396,7 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 
 		v, err := types.FormatUUID(m.ID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.ID; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.ID; %v", err)
 		}
 
 		values = append(values, v)
@@ -312,7 +407,7 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 
 		v, err := types.FormatTime(m.CreatedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.CreatedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.CreatedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -323,7 +418,7 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 
 		v, err := types.FormatTime(m.UpdatedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.UpdatedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.UpdatedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -334,7 +429,7 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.DeletedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -345,10 +440,52 @@ func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZero
 
 		v, err := types.FormatString(m.Name)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Name; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.Name; %v", err)
 		}
 
 		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Branches) || slices.Contains(forceSetValuesForFields, JobTableBranchesColumn) || isRequired(JobTableColumnLookup, JobTableBranchesColumn) {
+		columns = append(columns, JobTableBranchesColumn)
+
+		v, err := types.FormatString(m.Branches)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to handle m.Branches; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Tags) || slices.Contains(forceSetValuesForFields, JobTableTagsColumn) || isRequired(JobTableColumnLookup, JobTableTagsColumn) {
+		columns = append(columns, JobTableTagsColumn)
+
+		v, err := types.FormatString(m.Tags)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to handle m.Tags; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.RepositoryID) || slices.Contains(forceSetValuesForFields, JobTableRepositoryIDColumn) || isRequired(JobTableColumnLookup, JobTableRepositoryIDColumn) {
+		columns = append(columns, JobTableRepositoryIDColumn)
+
+		v, err := types.FormatUUID(m.RepositoryID)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to handle m.RepositoryID; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	return columns, values, nil
+}
+
+func (m *Job) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
+	columns, values, err := m.GetColumnsAndValues(setPrimaryKey, setZeroValues, forceSetValuesForFields...)
+	if err != nil {
+		return fmt.Errorf("failed to get columns and values to insert %#+v; %v", m, err)
 	}
 
 	ctx, cleanup := query.WithQueryID(ctx)
@@ -448,6 +585,39 @@ func (m *Job) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forceSe
 		v, err := types.FormatString(m.Name)
 		if err != nil {
 			return fmt.Errorf("failed to handle m.Name; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Branches) || slices.Contains(forceSetValuesForFields, JobTableBranchesColumn) {
+		columns = append(columns, JobTableBranchesColumn)
+
+		v, err := types.FormatString(m.Branches)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Branches; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Tags) || slices.Contains(forceSetValuesForFields, JobTableTagsColumn) {
+		columns = append(columns, JobTableTagsColumn)
+
+		v, err := types.FormatString(m.Tags)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Tags; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroUUID(m.RepositoryID) || slices.Contains(forceSetValuesForFields, JobTableRepositoryIDColumn) {
+		columns = append(columns, JobTableRepositoryIDColumn)
+
+		v, err := types.FormatUUID(m.RepositoryID)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.RepositoryID; %v", err)
 		}
 
 		values = append(values, v)
@@ -582,27 +752,157 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 		return []*Job{}, 0, 0, 0, 0, nil
 	}
 
-	items, count, totalCount, page, totalPages, err := query.Select(
-		ctx,
-		tx,
-		JobTableColumnsWithTypeCasts,
-		JobTableWithSchema,
-		where,
-		orderBy,
-		limit,
-		offset,
-		values...,
-	)
-	if err != nil {
-		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectJobs; %v", err)
+	var items *[]map[string]any
+	var count int64
+	var totalCount int64
+	var page int64
+	var totalPages int64
+	var err error
+
+	useInstead, shouldSkip := query.ShouldSkip[Job](ctx)
+	if !shouldSkip {
+		items, count, totalCount, page, totalPages, err = query.Select(
+			ctx,
+			tx,
+			JobTableColumnsWithTypeCasts,
+			JobTableWithSchema,
+			where,
+			orderBy,
+			limit,
+			offset,
+			values...,
+		)
+		if err != nil {
+			return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectJobs; %v", err)
+		}
+	} else {
+		ctx = query.WithoutSkip(ctx)
+		count = 1
+		totalCount = 1
+		page = 1
+		totalPages = 1
+		items = &[]map[string]any{
+			nil,
+		}
 	}
 
 	objects := make([]*Job, 0)
 
 	for _, item := range *items {
-		object := &Job{}
+		var object *Job
 
-		err = object.FromItem(item)
+		if !shouldSkip {
+			object = &Job{}
+			err = object.FromItem(item)
+			if err != nil {
+				return nil, 0, 0, 0, 0, err
+			}
+		} else {
+			object = useInstead
+		}
+
+		if object == nil {
+			return nil, 0, 0, 0, 0, fmt.Errorf("assertion failed: object unexpectedly nil")
+		}
+
+		if !types.IsZeroUUID(object.RepositoryID) {
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("%s{%v}", RepositoryTable, object.RepositoryID), true)
+			shouldLoad := query.ShouldLoad(ctx, RepositoryTable)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectJobs->SelectRepository for object.RepositoryIDObject{%s: %v}", RepositoryTablePrimaryKeyColumn, object.RepositoryID)
+				}
+
+				object.RepositoryIDObject, _, _, _, _, err = SelectRepository(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", RepositoryTablePrimaryKeyColumn),
+					object.RepositoryID,
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return nil, 0, 0, 0, 0, err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectJobs->SelectRepository for object.RepositoryIDObject in %s", time.Since(thisBefore))
+				}
+			}
+		}
+
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", DependsOnTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", DependsOnTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectJobs->SelectDependsOns for object.ReferencedByDependsOnSourceJobIDObjects")
+				}
+
+				object.ReferencedByDependsOnSourceJobIDObjects, _, _, _, _, err = SelectDependsOns(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", DependsOnTableSourceJobIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectJobs->SelectDependsOns for object.ReferencedByDependsOnSourceJobIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
+		if err != nil {
+			return nil, 0, 0, 0, 0, err
+		}
+
+		err = func() error {
+			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", DependsOnTable))
+			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", DependsOnTable, object.GetPrimaryKeyValue()), true)
+			if ok || shouldLoad {
+				thisBefore := time.Now()
+
+				if config.Debug() {
+					log.Printf("loading SelectJobs->SelectDependsOns for object.ReferencedByDependsOnSinkJobIDObjects")
+				}
+
+				object.ReferencedByDependsOnSinkJobIDObjects, _, _, _, _, err = SelectDependsOns(
+					ctx,
+					tx,
+					fmt.Sprintf("%v = $1", DependsOnTableSinkJobIDColumn),
+					nil,
+					nil,
+					nil,
+					object.GetPrimaryKeyValue(),
+				)
+				if err != nil {
+					if !errors.Is(err, sql.ErrNoRows) {
+						return err
+					}
+				}
+
+				if config.Debug() {
+					log.Printf("loaded SelectJobs->SelectDependsOns for object.ReferencedByDependsOnSinkJobIDObjects in %s", time.Since(thisBefore))
+				}
+
+			}
+
+			return nil
+		}()
 		if err != nil {
 			return nil, 0, 0, 0, 0, err
 		}
@@ -681,43 +981,6 @@ func SelectJobs(ctx context.Context, tx pgx.Tx, where string, orderBy *string, l
 			return nil, 0, 0, 0, 0, err
 		}
 
-		err = func() error {
-			shouldLoad := query.ShouldLoad(ctx, fmt.Sprintf("referenced_by_%s", TriggerTable))
-			ctx, ok := query.HandleQueryPathGraphCycles(ctx, fmt.Sprintf("__ReferencedBy__%s{%v}", TriggerTable, object.GetPrimaryKeyValue()), true)
-			if ok || shouldLoad {
-				thisBefore := time.Now()
-
-				if config.Debug() {
-					log.Printf("loading SelectJobs->SelectTriggers for object.ReferencedByTriggerJobIDObjects")
-				}
-
-				object.ReferencedByTriggerJobIDObjects, _, _, _, _, err = SelectTriggers(
-					ctx,
-					tx,
-					fmt.Sprintf("%v = $1", TriggerTableJobIDColumn),
-					nil,
-					nil,
-					nil,
-					object.GetPrimaryKeyValue(),
-				)
-				if err != nil {
-					if !errors.Is(err, sql.ErrNoRows) {
-						return err
-					}
-				}
-
-				if config.Debug() {
-					log.Printf("loaded SelectJobs->SelectTriggers for object.ReferencedByTriggerJobIDObjects in %s", time.Since(thisBefore))
-				}
-
-			}
-
-			return nil
-		}()
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
-		}
-
 		objects = append(objects, object)
 	}
 
@@ -759,6 +1022,72 @@ func SelectJob(ctx context.Context, tx pgx.Tx, where string, values ...any) (*Jo
 	totalPages := page
 
 	return object, count, totalCount, page, totalPages, nil
+}
+
+func InsertJobs(ctx context.Context, tx pgx.Tx, objects []*Job, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) ([]*Job, error) {
+	var columns []string
+	values := make([]any, 0)
+
+	for i, object := range objects {
+		thisColumns, thisValues, err := object.GetColumnsAndValues(setPrimaryKey, setZeroValues, forceSetValuesForFields...)
+		if err != nil {
+			return nil, err
+		}
+
+		if columns == nil {
+			columns = thisColumns
+		} else {
+			if len(columns) != len(thisColumns) {
+				return nil, fmt.Errorf(
+					"assertion failed: call 1 of object.GetColumnsAndValues() gave %d columns but call %d gave %d columns",
+					len(columns),
+					i+1,
+					len(thisColumns),
+				)
+			}
+		}
+
+		values = append(values, thisValues...)
+	}
+
+	ctx, cleanup := query.WithQueryID(ctx)
+	defer cleanup()
+
+	ctx = query.WithMaxDepth(ctx, nil)
+
+	items, err := query.BulkInsert(
+		ctx,
+		tx,
+		JobTableWithSchema,
+		columns,
+		nil,
+		false,
+		false,
+		JobTableColumns,
+		values...,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to bulk insert %d objects; %v", len(objects), err)
+	}
+
+	returnedObjects := make([]*Job, 0)
+
+	for _, item := range items {
+		v := &Job{}
+		err = v.FromItem(*item)
+		if err != nil {
+			return nil, fmt.Errorf("failed %T.FromItem for %#+v; %v", *item, *item, err)
+		}
+
+		err = v.Reload(query.WithSkip(ctx, v), tx)
+		if err != nil {
+			return nil, fmt.Errorf("failed %T.Reload for %#+v; %v", *item, *item, err)
+		}
+
+		returnedObjects = append(returnedObjects, v)
+	}
+
+	return returnedObjects, nil
 }
 
 func handleGetJobs(arguments *server.SelectManyArguments, db *pgxpool.Pool) ([]*Job, int64, int64, int64, int64, error) {
@@ -823,17 +1152,22 @@ func handlePostJob(arguments *server.LoadArguments, db *pgxpool.Pool, waitForCha
 		err = fmt.Errorf("failed to get xid; %v", err)
 		return nil, 0, 0, 0, 0, err
 	}
-	_ = xid
 
-	for i, object := range objects {
-		err = object.Insert(arguments.Ctx, tx, false, false, forceSetValuesForFieldsByObjectIndex[i]...)
-		if err != nil {
-			err = fmt.Errorf("failed to insert %#+v; %v", object, err)
-			return nil, 0, 0, 0, 0, err
+	/* TODO: problematic- basically the bulks insert insists all rows have the same schema, which they usually should */
+	forceSetValuesForFieldsByObjectIndexMaximal := make(map[string]struct{})
+	for _, forceSetforceSetValuesForFields := range forceSetValuesForFieldsByObjectIndex {
+		for _, field := range forceSetforceSetValuesForFields {
+			forceSetValuesForFieldsByObjectIndexMaximal[field] = struct{}{}
 		}
-
-		objects[i] = object
 	}
+
+	returnedObjects, err := InsertJobs(arguments.Ctx, tx, objects, false, false, slices.Collect(maps.Keys(forceSetValuesForFieldsByObjectIndexMaximal))...)
+	if err != nil {
+		err = fmt.Errorf("failed to insert %d objects; %v", len(objects), err)
+		return nil, 0, 0, 0, 0, err
+	}
+
+	copy(objects, returnedObjects)
 
 	errs := make(chan error, 1)
 	go func() {
@@ -1306,7 +1640,7 @@ func MutateRouterForJob(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, o
 				forceSetValuesForFieldsByObjectIndex := make([][]string, 0)
 				for _, item := range allItems {
 					forceSetValuesForFields := make([]string, 0)
-					for _, possibleField := range maps.Keys(item) {
+					for _, possibleField := range slices.Collect(maps.Keys(item)) {
 						if !slices.Contains(JobTableColumns, possibleField) {
 							continue
 						}
@@ -1422,7 +1756,7 @@ func MutateRouterForJob(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, o
 				}
 
 				forceSetValuesForFields := make([]string, 0)
-				for _, possibleField := range maps.Keys(item) {
+				for _, possibleField := range slices.Collect(maps.Keys(item)) {
 					if !slices.Contains(JobTableColumns, possibleField) {
 						continue
 					}

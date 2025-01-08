@@ -27,9 +27,7 @@ export interface BuildTableProps {
 }
 
 function Status(props: { status: string }) {
-  const statusText =
-    (props.status || "").slice(0, 1).toUpperCase() +
-    (props.status || "").slice(1);
+  const statusText = (props.status || "").slice(0, 1).toUpperCase() + (props.status || "").slice(1);
 
   let status = <Chip color={"danger"}>{statusText}</Chip>;
 
@@ -157,21 +155,11 @@ export function BuildTable(props: BuildTableProps) {
       >
         <thead>
           <tr>
-            <th style={{ width: "200px", ...truncateStyleProps }}>
-              {props.responsive ? "W" : "When"}
-            </th>
-            <th style={{ width: "250px", ...truncateStyleProps }}>
-              {props.responsive ? "U" : "URL"}
-            </th>
-            <th style={{ width: "150px", ...truncateStyleProps }}>
-              {props.responsive ? "B" : "Branch"}
-            </th>
-            <th style={{ width: "325px", ...truncateStyleProps }}>
-              {props.responsive ? "C" : "Commit"}
-            </th>
-            <th style={{ ...truncateStyleProps }}>
-              {props.responsive ? "E" : "Executions"}
-            </th>
+            <th style={{ width: "200px", ...truncateStyleProps }}>{props.responsive ? "W" : "When"}</th>
+            <th style={{ width: "250px", ...truncateStyleProps }}>{props.responsive ? "U" : "URL"}</th>
+            <th style={{ width: "150px", ...truncateStyleProps }}>{props.responsive ? "B" : "Branch"}</th>
+            <th style={{ width: "325px", ...truncateStyleProps }}>{props.responsive ? "C" : "Commit"}</th>
+            <th style={{ ...truncateStyleProps }}>{props.responsive ? "E" : "Executions"}</th>
           </tr>
         </thead>
         <tbody>
@@ -184,11 +172,7 @@ export function BuildTable(props: BuildTableProps) {
                   <td>{change!.authored_at}</td>
                   <td>
                     <Link
-                      href={
-                        (repository?.url || "") +
-                        "/commit/" +
-                        (change?.commit_hash || "")
-                      }
+                      href={(repository?.url || "") + "/commit/" + (change?.commit_hash || "")}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -197,29 +181,18 @@ export function BuildTable(props: BuildTableProps) {
                   </td>
                   <td>
                     <Link
-                      href={
-                        (repository?.url || "") +
-                        "/tree/" +
-                        (change?.branch_name || "")
-                      }
+                      href={(repository?.url || "") + "/tree/" + (change?.branch || "")}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {change?.branch_name}
+                      {change?.branch}
                     </Link>
                   </td>
-                  <Tooltip
-                    size={"sm"}
-                    title={`${change?.authored_by} @ ${change?.authored_at}: ${change?.message}`}
-                  >
+                  <Tooltip size={"sm"} title={`${change?.authored_by} @ ${change?.authored_at}: ${change?.message}`}>
                     <td>
                       <>
                         <Link
-                          href={
-                            (repository?.url || "") +
-                            "/commit/" +
-                            (change?.commit_hash || "")
-                          }
+                          href={(repository?.url || "") + "/commit/" + (change?.commit_hash || "")}
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -231,82 +204,59 @@ export function BuildTable(props: BuildTableProps) {
                   <td>
                     <Table size="sm" sx={{ p: 0, m: 0 }} borderAxis="y">
                       <tbody>
-                        {change?.referenced_by_execution_change_id_objects?.map(
-                          (execution) => {
-                            return (
-                              <tr>
-                                <td style={{ width: "200px" }}>
-                                  {execution?.job_id_object?.name}
-                                </td>
-                                <td style={{ width: "100px" }}>
-                                  <Status status={execution?.status!} />
-                                </td>
-                                <td>
-                                  <Table
-                                    size="sm"
-                                    sx={{ p: 0, m: 0 }}
-                                    borderAxis="y"
-                                  >
-                                    <tbody>
-                                      {/* {change?.referenced_by_output_change_id_objects
-                                        ?.filter(
-                                          (output) =>
-                                            output.execution_id ===
-                                            execution?.id,
-                                        )
-                                        .sort((a, b) => {
-                                          if (
-                                            a!.task_id_object?.index! <
-                                            b!.task_id_object?.index!
-                                          ) {
-                                            return -1;
-                                          } else if (
-                                            a!.task_id_object?.index! >
-                                            b!.task_id_object?.index!
-                                          ) {
-                                            return 1;
-                                          } else {
-                                            return 0;
-                                          }
-                                        })
-                                        .map((output) => {
-                                          return (
-                                            <tr>
-                                              <td style={{ width: "25px" }}>
-                                                {output!.task_id_object?.name}
-                                              </td>
-                                              <td style={{ width: "50px" }}>
-                                                <Status
-                                                  status={output!.status!}
-                                                />
-                                              </td>
-                                              <td style={{ width: "100px" }}>
-                                                <Button
-                                                  size={"sm"}
-                                                  variant="soft"
-                                                  color={"primary"}
-                                                  sx={{
-                                                    fontSize:
-                                                      "var(--joy-fontSize-xs, 0.75rem)",
-                                                  }}
-                                                  onClick={() => {
-                                                    setOutputId(output!.id);
-                                                    setShowLogModal(true);
-                                                  }}
-                                                >
-                                                  Logs
-                                                </Button>
-                                              </td>
-                                            </tr>
-                                          );
-                                        })} */}
-                                    </tbody>
-                                  </Table>
-                                </td>
-                              </tr>
-                            );
-                          },
-                        )}
+                        {change?.referenced_by_execution_change_id_objects?.map((execution) => {
+                          return (
+                            <tr>
+                              <td style={{ width: "200px" }}>{execution?.job_id_object?.name}</td>
+                              <td style={{ width: "100px" }}>
+                                <Status status={execution?.status!} />
+                              </td>
+                              <td>
+                                <Table size="sm" sx={{ p: 0, m: 0 }} borderAxis="y">
+                                  <tbody>
+                                    {execution?.referenced_by_output_execution_id_objects
+                                      ?.filter((output) => output.execution_id === execution?.id)
+                                      .sort((a, b) => {
+                                        if (a!.task_id_object?.index! < b!.task_id_object?.index!) {
+                                          return -1;
+                                        } else if (a!.task_id_object?.index! > b!.task_id_object?.index!) {
+                                          return 1;
+                                        } else {
+                                          return 0;
+                                        }
+                                      })
+                                      .map((output) => {
+                                        return (
+                                          <tr>
+                                            <td style={{ width: "25px" }}>{output!.task_id_object?.name}</td>
+                                            <td style={{ width: "50px" }}>
+                                              <Status status={output!.status!} />
+                                            </td>
+                                            <td style={{ width: "100px" }}>
+                                              <Button
+                                                size={"sm"}
+                                                variant="soft"
+                                                color={"primary"}
+                                                sx={{
+                                                  fontSize: "var(--joy-fontSize-xs, 0.75rem)",
+                                                }}
+                                                onClick={() => {
+                                                  setOutputId(output!.id);
+                                                  setShowLogModal(true);
+                                                }}
+                                              >
+                                                Logs
+                                              </Button>
+                                            </td>
+                                          </tr>
+                                        );
+                                      })}
+                                  </tbody>
+                                </Table>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </Table>
                   </td>
@@ -316,9 +266,7 @@ export function BuildTable(props: BuildTableProps) {
           ) : (
             <tr>
               <td colSpan={5}>
-                <Typography color={"neutral"}>
-                  (No executions for the selected filters)
-                </Typography>
+                <Typography color={"neutral"}>(No executions for the selected filters)</Typography>
               </td>
             </tr>
           )}

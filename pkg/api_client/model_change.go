@@ -20,22 +20,23 @@ var _ MappedNullable = &Change{}
 
 // Change struct for Change
 type Change struct {
-	AuthoredAt                           *time.Time  `json:"authored_at,omitempty"`
-	AuthoredBy                           *string     `json:"authored_by,omitempty"`
-	BranchName                           *string     `json:"branch_name,omitempty"`
-	CommitHash                           *string     `json:"commit_hash,omitempty"`
-	CommittedAt                          *time.Time  `json:"committed_at,omitempty"`
-	CommittedBy                          *string     `json:"committed_by,omitempty"`
-	CreatedAt                            *time.Time  `json:"created_at,omitempty"`
-	DeletedAt                            *time.Time  `json:"deleted_at,omitempty"`
-	Id                                   *string     `json:"id,omitempty"`
-	Message                              *string     `json:"message,omitempty"`
+	AuthoredAt *time.Time `json:"authored_at,omitempty"`
+	AuthoredBy *string `json:"authored_by,omitempty"`
+	Branch *string `json:"branch,omitempty"`
+	CommitHash *string `json:"commit_hash,omitempty"`
+	CommittedAt *time.Time `json:"committed_at,omitempty"`
+	CommittedBy *string `json:"committed_by,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	HandledAt *time.Time `json:"handled_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	JobCoordinatorClaimedUntil *time.Time `json:"job_coordinator_claimed_until,omitempty"`
+	Message *string `json:"message,omitempty"`
 	ReferencedByExecutionChangeIdObjects []Execution `json:"referenced_by_execution_change_id_objects,omitempty"`
-	RepositoryId                         *string     `json:"repository_id,omitempty"`
-	RepositoryIdObject                   *Repository `json:"repository_id_object,omitempty"`
-	TriggerProducerClaimedUntil          *time.Time  `json:"trigger_producer_claimed_until,omitempty"`
-	TriggersProducedAt                   *time.Time  `json:"triggers_produced_at,omitempty"`
-	UpdatedAt                            *time.Time  `json:"updated_at,omitempty"`
+	RepositoryId *string `json:"repository_id,omitempty"`
+	RepositoryIdObject *Repository `json:"repository_id_object,omitempty"`
+	Tag *string `json:"tag,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewChange instantiates a new Change object
@@ -119,36 +120,36 @@ func (o *Change) SetAuthoredBy(v string) {
 	o.AuthoredBy = &v
 }
 
-// GetBranchName returns the BranchName field value if set, zero value otherwise.
-func (o *Change) GetBranchName() string {
-	if o == nil || IsNil(o.BranchName) {
+// GetBranch returns the Branch field value if set, zero value otherwise.
+func (o *Change) GetBranch() string {
+	if o == nil || IsNil(o.Branch) {
 		var ret string
 		return ret
 	}
-	return *o.BranchName
+	return *o.Branch
 }
 
-// GetBranchNameOk returns a tuple with the BranchName field value if set, nil otherwise
+// GetBranchOk returns a tuple with the Branch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Change) GetBranchNameOk() (*string, bool) {
-	if o == nil || IsNil(o.BranchName) {
+func (o *Change) GetBranchOk() (*string, bool) {
+	if o == nil || IsNil(o.Branch) {
 		return nil, false
 	}
-	return o.BranchName, true
+	return o.Branch, true
 }
 
-// HasBranchName returns a boolean if a field has been set.
-func (o *Change) HasBranchName() bool {
-	if o != nil && !IsNil(o.BranchName) {
+// HasBranch returns a boolean if a field has been set.
+func (o *Change) HasBranch() bool {
+	if o != nil && !IsNil(o.Branch) {
 		return true
 	}
 
 	return false
 }
 
-// SetBranchName gets a reference to the given string and assigns it to the BranchName field.
-func (o *Change) SetBranchName(v string) {
-	o.BranchName = &v
+// SetBranch gets a reference to the given string and assigns it to the Branch field.
+func (o *Change) SetBranch(v string) {
+	o.Branch = &v
 }
 
 // GetCommitHash returns the CommitHash field value if set, zero value otherwise.
@@ -311,6 +312,38 @@ func (o *Change) SetDeletedAt(v time.Time) {
 	o.DeletedAt = &v
 }
 
+// GetHandledAt returns the HandledAt field value if set, zero value otherwise.
+func (o *Change) GetHandledAt() time.Time {
+	if o == nil || IsNil(o.HandledAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.HandledAt
+}
+
+// GetHandledAtOk returns a tuple with the HandledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetHandledAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.HandledAt) {
+		return nil, false
+	}
+	return o.HandledAt, true
+}
+
+// HasHandledAt returns a boolean if a field has been set.
+func (o *Change) HasHandledAt() bool {
+	if o != nil && !IsNil(o.HandledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetHandledAt gets a reference to the given time.Time and assigns it to the HandledAt field.
+func (o *Change) SetHandledAt(v time.Time) {
+	o.HandledAt = &v
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Change) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -341,6 +374,38 @@ func (o *Change) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Change) SetId(v string) {
 	o.Id = &v
+}
+
+// GetJobCoordinatorClaimedUntil returns the JobCoordinatorClaimedUntil field value if set, zero value otherwise.
+func (o *Change) GetJobCoordinatorClaimedUntil() time.Time {
+	if o == nil || IsNil(o.JobCoordinatorClaimedUntil) {
+		var ret time.Time
+		return ret
+	}
+	return *o.JobCoordinatorClaimedUntil
+}
+
+// GetJobCoordinatorClaimedUntilOk returns a tuple with the JobCoordinatorClaimedUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Change) GetJobCoordinatorClaimedUntilOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.JobCoordinatorClaimedUntil) {
+		return nil, false
+	}
+	return o.JobCoordinatorClaimedUntil, true
+}
+
+// HasJobCoordinatorClaimedUntil returns a boolean if a field has been set.
+func (o *Change) HasJobCoordinatorClaimedUntil() bool {
+	if o != nil && !IsNil(o.JobCoordinatorClaimedUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetJobCoordinatorClaimedUntil gets a reference to the given time.Time and assigns it to the JobCoordinatorClaimedUntil field.
+func (o *Change) SetJobCoordinatorClaimedUntil(v time.Time) {
+	o.JobCoordinatorClaimedUntil = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -471,68 +536,36 @@ func (o *Change) SetRepositoryIdObject(v Repository) {
 	o.RepositoryIdObject = &v
 }
 
-// GetTriggerProducerClaimedUntil returns the TriggerProducerClaimedUntil field value if set, zero value otherwise.
-func (o *Change) GetTriggerProducerClaimedUntil() time.Time {
-	if o == nil || IsNil(o.TriggerProducerClaimedUntil) {
-		var ret time.Time
+// GetTag returns the Tag field value if set, zero value otherwise.
+func (o *Change) GetTag() string {
+	if o == nil || IsNil(o.Tag) {
+		var ret string
 		return ret
 	}
-	return *o.TriggerProducerClaimedUntil
+	return *o.Tag
 }
 
-// GetTriggerProducerClaimedUntilOk returns a tuple with the TriggerProducerClaimedUntil field value if set, nil otherwise
+// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Change) GetTriggerProducerClaimedUntilOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.TriggerProducerClaimedUntil) {
+func (o *Change) GetTagOk() (*string, bool) {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
-	return o.TriggerProducerClaimedUntil, true
+	return o.Tag, true
 }
 
-// HasTriggerProducerClaimedUntil returns a boolean if a field has been set.
-func (o *Change) HasTriggerProducerClaimedUntil() bool {
-	if o != nil && !IsNil(o.TriggerProducerClaimedUntil) {
+// HasTag returns a boolean if a field has been set.
+func (o *Change) HasTag() bool {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
 	return false
 }
 
-// SetTriggerProducerClaimedUntil gets a reference to the given time.Time and assigns it to the TriggerProducerClaimedUntil field.
-func (o *Change) SetTriggerProducerClaimedUntil(v time.Time) {
-	o.TriggerProducerClaimedUntil = &v
-}
-
-// GetTriggersProducedAt returns the TriggersProducedAt field value if set, zero value otherwise.
-func (o *Change) GetTriggersProducedAt() time.Time {
-	if o == nil || IsNil(o.TriggersProducedAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.TriggersProducedAt
-}
-
-// GetTriggersProducedAtOk returns a tuple with the TriggersProducedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Change) GetTriggersProducedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.TriggersProducedAt) {
-		return nil, false
-	}
-	return o.TriggersProducedAt, true
-}
-
-// HasTriggersProducedAt returns a boolean if a field has been set.
-func (o *Change) HasTriggersProducedAt() bool {
-	if o != nil && !IsNil(o.TriggersProducedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetTriggersProducedAt gets a reference to the given time.Time and assigns it to the TriggersProducedAt field.
-func (o *Change) SetTriggersProducedAt(v time.Time) {
-	o.TriggersProducedAt = &v
+// SetTag gets a reference to the given string and assigns it to the Tag field.
+func (o *Change) SetTag(v string) {
+	o.Tag = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -568,7 +601,7 @@ func (o *Change) SetUpdatedAt(v time.Time) {
 }
 
 func (o Change) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -583,8 +616,8 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AuthoredBy) {
 		toSerialize["authored_by"] = o.AuthoredBy
 	}
-	if !IsNil(o.BranchName) {
-		toSerialize["branch_name"] = o.BranchName
+	if !IsNil(o.Branch) {
+		toSerialize["branch"] = o.Branch
 	}
 	if !IsNil(o.CommitHash) {
 		toSerialize["commit_hash"] = o.CommitHash
@@ -601,8 +634,14 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DeletedAt) {
 		toSerialize["deleted_at"] = o.DeletedAt
 	}
+	if !IsNil(o.HandledAt) {
+		toSerialize["handled_at"] = o.HandledAt
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.JobCoordinatorClaimedUntil) {
+		toSerialize["job_coordinator_claimed_until"] = o.JobCoordinatorClaimedUntil
 	}
 	if !IsNil(o.Message) {
 		toSerialize["message"] = o.Message
@@ -616,11 +655,8 @@ func (o Change) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RepositoryIdObject) {
 		toSerialize["repository_id_object"] = o.RepositoryIdObject
 	}
-	if !IsNil(o.TriggerProducerClaimedUntil) {
-		toSerialize["trigger_producer_claimed_until"] = o.TriggerProducerClaimedUntil
-	}
-	if !IsNil(o.TriggersProducedAt) {
-		toSerialize["triggers_produced_at"] = o.TriggersProducedAt
+	if !IsNil(o.Tag) {
+		toSerialize["tag"] = o.Tag
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
@@ -663,3 +699,5 @@ func (v *NullableChange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // TaskAPIService TaskAPI service
 type TaskAPIService service
 
 type ApiDeleteTaskRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteTaskRequest) Execute() (*http.Response, error) {
 /*
 DeleteTask Method for DeleteTask
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteTaskRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteTaskRequest
 */
 func (a *TaskAPIService) DeleteTask(ctx context.Context, primaryKey string) ApiDeleteTaskRequest {
 	return ApiDeleteTaskRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *TaskAPIService) DeleteTask(ctx context.Context, primaryKey string) ApiD
 // Execute executes the request
 func (a *TaskAPIService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.DeleteTask")
@@ -124,10 +125,10 @@ func (a *TaskAPIService) DeleteTaskExecute(r ApiDeleteTaskRequest) (*http.Respon
 }
 
 type ApiGetTaskRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -143,27 +144,26 @@ func (r ApiGetTaskRequest) Execute() (*ResponseWithGenericOfTask, *http.Response
 /*
 GetTask Method for GetTask
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetTaskRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetTaskRequest
 */
 func (a *TaskAPIService) GetTask(ctx context.Context, primaryKey string) ApiGetTaskRequest {
 	return ApiGetTaskRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfTask
+//  @return ResponseWithGenericOfTask
 func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfTask
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTask")
@@ -220,14 +220,14 @@ func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGener
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,177 +244,177 @@ func (a *TaskAPIService) GetTaskExecute(r ApiGetTaskRequest) (*ResponseWithGener
 }
 
 type ApiGetTasksRequest struct {
-	ctx                                        context.Context
-	ApiService                                 *TaskAPIService
-	limit                                      *int32
-	offset                                     *int32
-	depth                                      *int32
-	jobLoad                                    *string
-	referencedByOutputLoad                     *string
-	idEq                                       *string
-	idNe                                       *string
-	idGt                                       *string
-	idGte                                      *string
-	idLt                                       *string
-	idLte                                      *string
-	idIn                                       *string
-	idNotin                                    *string
-	idContains                                 *string
-	idNotcontains                              *string
-	idLike                                     *string
-	idNotlike                                  *string
-	idIlike                                    *string
-	idNotilike                                 *string
-	idDesc                                     *string
-	idAsc                                      *string
-	createdAtEq                                *time.Time
-	createdAtNe                                *time.Time
-	createdAtGt                                *time.Time
-	createdAtGte                               *time.Time
-	createdAtLt                                *time.Time
-	createdAtLte                               *time.Time
-	createdAtIn                                *time.Time
-	createdAtNotin                             *time.Time
-	createdAtContains                          *time.Time
-	createdAtNotcontains                       *time.Time
-	createdAtLike                              *time.Time
-	createdAtNotlike                           *time.Time
-	createdAtIlike                             *time.Time
-	createdAtNotilike                          *time.Time
-	createdAtDesc                              *string
-	createdAtAsc                               *string
-	updatedAtEq                                *time.Time
-	updatedAtNe                                *time.Time
-	updatedAtGt                                *time.Time
-	updatedAtGte                               *time.Time
-	updatedAtLt                                *time.Time
-	updatedAtLte                               *time.Time
-	updatedAtIn                                *time.Time
-	updatedAtNotin                             *time.Time
-	updatedAtContains                          *time.Time
-	updatedAtNotcontains                       *time.Time
-	updatedAtLike                              *time.Time
-	updatedAtNotlike                           *time.Time
-	updatedAtIlike                             *time.Time
-	updatedAtNotilike                          *time.Time
-	updatedAtDesc                              *string
-	updatedAtAsc                               *string
-	deletedAtEq                                *time.Time
-	deletedAtNe                                *time.Time
-	deletedAtGt                                *time.Time
-	deletedAtGte                               *time.Time
-	deletedAtLt                                *time.Time
-	deletedAtLte                               *time.Time
-	deletedAtIn                                *time.Time
-	deletedAtNotin                             *time.Time
-	deletedAtContains                          *time.Time
-	deletedAtNotcontains                       *time.Time
-	deletedAtLike                              *time.Time
-	deletedAtNotlike                           *time.Time
-	deletedAtIlike                             *time.Time
-	deletedAtNotilike                          *time.Time
-	deletedAtDesc                              *string
-	deletedAtAsc                               *string
-	nameEq                                     *string
-	nameNe                                     *string
-	nameGt                                     *string
-	nameGte                                    *string
-	nameLt                                     *string
-	nameLte                                    *string
-	nameIn                                     *string
-	nameNotin                                  *string
-	nameContains                               *string
-	nameNotcontains                            *string
-	nameLike                                   *string
-	nameNotlike                                *string
-	nameIlike                                  *string
-	nameNotilike                               *string
-	nameDesc                                   *string
-	nameAsc                                    *string
-	indexEq                                    *int64
-	indexNe                                    *int64
-	indexGt                                    *int64
-	indexGte                                   *int64
-	indexLt                                    *int64
-	indexLte                                   *int64
-	indexIn                                    *int64
-	indexNotin                                 *int64
-	indexContains                              *int64
-	indexNotcontains                           *int64
-	indexDesc                                  *string
-	indexAsc                                   *string
-	platformEq                                 *string
-	platformNe                                 *string
-	platformGt                                 *string
-	platformGte                                *string
-	platformLt                                 *string
-	platformLte                                *string
-	platformIn                                 *string
-	platformNotin                              *string
-	platformContains                           *string
-	platformNotcontains                        *string
-	platformLike                               *string
-	platformNotlike                            *string
-	platformIlike                              *string
-	platformNotilike                           *string
-	platformDesc                               *string
-	platformAsc                                *string
-	imageEq                                    *string
-	imageNe                                    *string
-	imageGt                                    *string
-	imageGte                                   *string
-	imageLt                                    *string
-	imageLte                                   *string
-	imageIn                                    *string
-	imageNotin                                 *string
-	imageContains                              *string
-	imageNotcontains                           *string
-	imageLike                                  *string
-	imageNotlike                               *string
-	imageIlike                                 *string
-	imageNotilike                              *string
-	imageDesc                                  *string
-	imageAsc                                   *string
-	scriptEq                                   *string
-	scriptNe                                   *string
-	scriptGt                                   *string
-	scriptGte                                  *string
-	scriptLt                                   *string
-	scriptLte                                  *string
-	scriptIn                                   *string
-	scriptNotin                                *string
-	scriptContains                             *string
-	scriptNotcontains                          *string
-	scriptLike                                 *string
-	scriptNotlike                              *string
-	scriptIlike                                *string
-	scriptNotilike                             *string
-	scriptDesc                                 *string
-	scriptAsc                                  *string
-	jobIdEq                                    *string
-	jobIdNe                                    *string
-	jobIdGt                                    *string
-	jobIdGte                                   *string
-	jobIdLt                                    *string
-	jobIdLte                                   *string
-	jobIdIn                                    *string
-	jobIdNotin                                 *string
-	jobIdContains                              *string
-	jobIdNotcontains                           *string
-	jobIdLike                                  *string
-	jobIdNotlike                               *string
-	jobIdIlike                                 *string
-	jobIdNotilike                              *string
-	jobIdDesc                                  *string
-	jobIdAsc                                   *string
-	jobIdObjectContains                        *interface{}
-	jobIdObjectNotcontains                     *interface{}
-	jobIdObjectDesc                            *string
-	jobIdObjectAsc                             *string
-	referencedByOutputTaskIdObjectsContains    *interface{}
+	ctx context.Context
+	ApiService *TaskAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	jobLoad *string
+	referencedByOutputLoad *string
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idContains *string
+	idNotcontains *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtContains *time.Time
+	createdAtNotcontains *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtContains *time.Time
+	updatedAtNotcontains *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtContains *time.Time
+	deletedAtNotcontains *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	nameEq *string
+	nameNe *string
+	nameGt *string
+	nameGte *string
+	nameLt *string
+	nameLte *string
+	nameIn *string
+	nameNotin *string
+	nameContains *string
+	nameNotcontains *string
+	nameLike *string
+	nameNotlike *string
+	nameIlike *string
+	nameNotilike *string
+	nameDesc *string
+	nameAsc *string
+	indexEq *int64
+	indexNe *int64
+	indexGt *int64
+	indexGte *int64
+	indexLt *int64
+	indexLte *int64
+	indexIn *int64
+	indexNotin *int64
+	indexContains *int64
+	indexNotcontains *int64
+	indexDesc *string
+	indexAsc *string
+	platformEq *string
+	platformNe *string
+	platformGt *string
+	platformGte *string
+	platformLt *string
+	platformLte *string
+	platformIn *string
+	platformNotin *string
+	platformContains *string
+	platformNotcontains *string
+	platformLike *string
+	platformNotlike *string
+	platformIlike *string
+	platformNotilike *string
+	platformDesc *string
+	platformAsc *string
+	imageEq *string
+	imageNe *string
+	imageGt *string
+	imageGte *string
+	imageLt *string
+	imageLte *string
+	imageIn *string
+	imageNotin *string
+	imageContains *string
+	imageNotcontains *string
+	imageLike *string
+	imageNotlike *string
+	imageIlike *string
+	imageNotilike *string
+	imageDesc *string
+	imageAsc *string
+	scriptEq *string
+	scriptNe *string
+	scriptGt *string
+	scriptGte *string
+	scriptLt *string
+	scriptLte *string
+	scriptIn *string
+	scriptNotin *string
+	scriptContains *string
+	scriptNotcontains *string
+	scriptLike *string
+	scriptNotlike *string
+	scriptIlike *string
+	scriptNotilike *string
+	scriptDesc *string
+	scriptAsc *string
+	jobIdEq *string
+	jobIdNe *string
+	jobIdGt *string
+	jobIdGte *string
+	jobIdLt *string
+	jobIdLte *string
+	jobIdIn *string
+	jobIdNotin *string
+	jobIdContains *string
+	jobIdNotcontains *string
+	jobIdLike *string
+	jobIdNotlike *string
+	jobIdIlike *string
+	jobIdNotilike *string
+	jobIdDesc *string
+	jobIdAsc *string
+	jobIdObjectContains *interface{}
+	jobIdObjectNotcontains *interface{}
+	jobIdObjectDesc *string
+	jobIdObjectAsc *string
+	referencedByOutputTaskIdObjectsContains *interface{}
 	referencedByOutputTaskIdObjectsNotcontains *interface{}
-	referencedByOutputTaskIdObjectsDesc        *string
-	referencedByOutputTaskIdObjectsAsc         *string
+	referencedByOutputTaskIdObjectsDesc *string
+	referencedByOutputTaskIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -1438,25 +1438,24 @@ func (r ApiGetTasksRequest) Execute() (*ResponseWithGenericOfTask, *http.Respons
 /*
 GetTasks Method for GetTasks
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetTasksRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetTasksRequest
 */
 func (a *TaskAPIService) GetTasks(ctx context.Context) ApiGetTasksRequest {
 	return ApiGetTasksRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfTask
+//  @return ResponseWithGenericOfTask
 func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfTask
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.GetTasks")
@@ -2016,14 +2015,14 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2040,11 +2039,11 @@ func (a *TaskAPIService) GetTasksExecute(r ApiGetTasksRequest) (*ResponseWithGen
 }
 
 type ApiPatchTaskRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TaskAPIService
 	primaryKey string
-	task       *Task
-	depth      *int64
+	task *Task
+	depth *int64
 }
 
 func (r ApiPatchTaskRequest) Task(task Task) ApiPatchTaskRequest {
@@ -2065,27 +2064,26 @@ func (r ApiPatchTaskRequest) Execute() (*ResponseWithGenericOfTask, *http.Respon
 /*
 PatchTask Method for PatchTask
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchTaskRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchTaskRequest
 */
 func (a *TaskAPIService) PatchTask(ctx context.Context, primaryKey string) ApiPatchTaskRequest {
 	return ApiPatchTaskRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfTask
+//  @return ResponseWithGenericOfTask
 func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfTask
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.PatchTask")
@@ -2147,14 +2145,14 @@ func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2171,10 +2169,10 @@ func (a *TaskAPIService) PatchTaskExecute(r ApiPatchTaskRequest) (*ResponseWithG
 }
 
 type ApiPostTasksRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *TaskAPIService
-	task       *[]Task
-	depth      *int64
+	task *[]Task
+	depth *int64
 }
 
 func (r ApiPostTasksRequest) Task(task []Task) ApiPostTasksRequest {
@@ -2195,25 +2193,24 @@ func (r ApiPostTasksRequest) Execute() (*ResponseWithGenericOfTask, *http.Respon
 /*
 PostTasks Method for PostTasks
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostTasksRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostTasksRequest
 */
 func (a *TaskAPIService) PostTasks(ctx context.Context) ApiPostTasksRequest {
 	return ApiPostTasksRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfTask
+//  @return ResponseWithGenericOfTask
 func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithGenericOfTask, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfTask
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfTask
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TaskAPIService.PostTasks")
@@ -2274,14 +2271,14 @@ func (a *TaskAPIService) PostTasksExecute(r ApiPostTasksRequest) (*ResponseWithG
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

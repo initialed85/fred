@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetChanges**](ChangeAPI.md#GetChanges) | **Get** /api/changes | 
 [**PatchChange**](ChangeAPI.md#PatchChange) | **Patch** /api/changes/{primaryKey} | 
 [**PostChanges**](ChangeAPI.md#PostChanges) | **Post** /api/changes | 
-[**PostChangesTriggerProducerClaim**](ChangeAPI.md#PostChangesTriggerProducerClaim) | **Post** /api/changes/{primaryKey}/trigger-producer-claim | 
+[**PostChangesJobCoordinatorClaim**](ChangeAPI.md#PostChangesJobCoordinatorClaim) | **Post** /api/changes/{primaryKey}/job-coordinator-claim | 
 
 
 
@@ -153,7 +153,7 @@ No authorization required
 
 ## GetChanges
 
-> ResponseWithGenericOfChange GetChanges(ctx).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).CommitHashEq(commitHashEq).CommitHashNe(commitHashNe).CommitHashGt(commitHashGt).CommitHashGte(commitHashGte).CommitHashLt(commitHashLt).CommitHashLte(commitHashLte).CommitHashIn(commitHashIn).CommitHashNotin(commitHashNotin).CommitHashContains(commitHashContains).CommitHashNotcontains(commitHashNotcontains).CommitHashLike(commitHashLike).CommitHashNotlike(commitHashNotlike).CommitHashIlike(commitHashIlike).CommitHashNotilike(commitHashNotilike).CommitHashDesc(commitHashDesc).CommitHashAsc(commitHashAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameContains(branchNameContains).BranchNameNotcontains(branchNameNotcontains).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).MessageEq(messageEq).MessageNe(messageNe).MessageGt(messageGt).MessageGte(messageGte).MessageLt(messageLt).MessageLte(messageLte).MessageIn(messageIn).MessageNotin(messageNotin).MessageContains(messageContains).MessageNotcontains(messageNotcontains).MessageLike(messageLike).MessageNotlike(messageNotlike).MessageIlike(messageIlike).MessageNotilike(messageNotilike).MessageDesc(messageDesc).MessageAsc(messageAsc).AuthoredByEq(authoredByEq).AuthoredByNe(authoredByNe).AuthoredByGt(authoredByGt).AuthoredByGte(authoredByGte).AuthoredByLt(authoredByLt).AuthoredByLte(authoredByLte).AuthoredByIn(authoredByIn).AuthoredByNotin(authoredByNotin).AuthoredByContains(authoredByContains).AuthoredByNotcontains(authoredByNotcontains).AuthoredByLike(authoredByLike).AuthoredByNotlike(authoredByNotlike).AuthoredByIlike(authoredByIlike).AuthoredByNotilike(authoredByNotilike).AuthoredByDesc(authoredByDesc).AuthoredByAsc(authoredByAsc).AuthoredAtEq(authoredAtEq).AuthoredAtNe(authoredAtNe).AuthoredAtGt(authoredAtGt).AuthoredAtGte(authoredAtGte).AuthoredAtLt(authoredAtLt).AuthoredAtLte(authoredAtLte).AuthoredAtIn(authoredAtIn).AuthoredAtNotin(authoredAtNotin).AuthoredAtContains(authoredAtContains).AuthoredAtNotcontains(authoredAtNotcontains).AuthoredAtLike(authoredAtLike).AuthoredAtNotlike(authoredAtNotlike).AuthoredAtIlike(authoredAtIlike).AuthoredAtNotilike(authoredAtNotilike).AuthoredAtDesc(authoredAtDesc).AuthoredAtAsc(authoredAtAsc).CommittedByEq(committedByEq).CommittedByNe(committedByNe).CommittedByGt(committedByGt).CommittedByGte(committedByGte).CommittedByLt(committedByLt).CommittedByLte(committedByLte).CommittedByIn(committedByIn).CommittedByNotin(committedByNotin).CommittedByContains(committedByContains).CommittedByNotcontains(committedByNotcontains).CommittedByLike(committedByLike).CommittedByNotlike(committedByNotlike).CommittedByIlike(committedByIlike).CommittedByNotilike(committedByNotilike).CommittedByDesc(committedByDesc).CommittedByAsc(committedByAsc).CommittedAtEq(committedAtEq).CommittedAtNe(committedAtNe).CommittedAtGt(committedAtGt).CommittedAtGte(committedAtGte).CommittedAtLt(committedAtLt).CommittedAtLte(committedAtLte).CommittedAtIn(committedAtIn).CommittedAtNotin(committedAtNotin).CommittedAtContains(committedAtContains).CommittedAtNotcontains(committedAtNotcontains).CommittedAtLike(committedAtLike).CommittedAtNotlike(committedAtNotlike).CommittedAtIlike(committedAtIlike).CommittedAtNotilike(committedAtNotilike).CommittedAtDesc(committedAtDesc).CommittedAtAsc(committedAtAsc).TriggersProducedAtEq(triggersProducedAtEq).TriggersProducedAtNe(triggersProducedAtNe).TriggersProducedAtGt(triggersProducedAtGt).TriggersProducedAtGte(triggersProducedAtGte).TriggersProducedAtLt(triggersProducedAtLt).TriggersProducedAtLte(triggersProducedAtLte).TriggersProducedAtIn(triggersProducedAtIn).TriggersProducedAtNotin(triggersProducedAtNotin).TriggersProducedAtContains(triggersProducedAtContains).TriggersProducedAtNotcontains(triggersProducedAtNotcontains).TriggersProducedAtLike(triggersProducedAtLike).TriggersProducedAtNotlike(triggersProducedAtNotlike).TriggersProducedAtIlike(triggersProducedAtIlike).TriggersProducedAtNotilike(triggersProducedAtNotilike).TriggersProducedAtDesc(triggersProducedAtDesc).TriggersProducedAtAsc(triggersProducedAtAsc).TriggerProducerClaimedUntilEq(triggerProducerClaimedUntilEq).TriggerProducerClaimedUntilNe(triggerProducerClaimedUntilNe).TriggerProducerClaimedUntilGt(triggerProducerClaimedUntilGt).TriggerProducerClaimedUntilGte(triggerProducerClaimedUntilGte).TriggerProducerClaimedUntilLt(triggerProducerClaimedUntilLt).TriggerProducerClaimedUntilLte(triggerProducerClaimedUntilLte).TriggerProducerClaimedUntilIn(triggerProducerClaimedUntilIn).TriggerProducerClaimedUntilNotin(triggerProducerClaimedUntilNotin).TriggerProducerClaimedUntilContains(triggerProducerClaimedUntilContains).TriggerProducerClaimedUntilNotcontains(triggerProducerClaimedUntilNotcontains).TriggerProducerClaimedUntilLike(triggerProducerClaimedUntilLike).TriggerProducerClaimedUntilNotlike(triggerProducerClaimedUntilNotlike).TriggerProducerClaimedUntilIlike(triggerProducerClaimedUntilIlike).TriggerProducerClaimedUntilNotilike(triggerProducerClaimedUntilNotilike).TriggerProducerClaimedUntilDesc(triggerProducerClaimedUntilDesc).TriggerProducerClaimedUntilAsc(triggerProducerClaimedUntilAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByExecutionChangeIdObjectsContains(referencedByExecutionChangeIdObjectsContains).ReferencedByExecutionChangeIdObjectsNotcontains(referencedByExecutionChangeIdObjectsNotcontains).ReferencedByExecutionChangeIdObjectsDesc(referencedByExecutionChangeIdObjectsDesc).ReferencedByExecutionChangeIdObjectsAsc(referencedByExecutionChangeIdObjectsAsc).Execute()
+> ResponseWithGenericOfChange GetChanges(ctx).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).CommitHashEq(commitHashEq).CommitHashNe(commitHashNe).CommitHashGt(commitHashGt).CommitHashGte(commitHashGte).CommitHashLt(commitHashLt).CommitHashLte(commitHashLte).CommitHashIn(commitHashIn).CommitHashNotin(commitHashNotin).CommitHashContains(commitHashContains).CommitHashNotcontains(commitHashNotcontains).CommitHashLike(commitHashLike).CommitHashNotlike(commitHashNotlike).CommitHashIlike(commitHashIlike).CommitHashNotilike(commitHashNotilike).CommitHashDesc(commitHashDesc).CommitHashAsc(commitHashAsc).BranchEq(branchEq).BranchNe(branchNe).BranchGt(branchGt).BranchGte(branchGte).BranchLt(branchLt).BranchLte(branchLte).BranchIn(branchIn).BranchNotin(branchNotin).BranchContains(branchContains).BranchNotcontains(branchNotcontains).BranchLike(branchLike).BranchNotlike(branchNotlike).BranchIlike(branchIlike).BranchNotilike(branchNotilike).BranchDesc(branchDesc).BranchAsc(branchAsc).TagEq(tagEq).TagNe(tagNe).TagGt(tagGt).TagGte(tagGte).TagLt(tagLt).TagLte(tagLte).TagIn(tagIn).TagNotin(tagNotin).TagContains(tagContains).TagNotcontains(tagNotcontains).TagLike(tagLike).TagNotlike(tagNotlike).TagIlike(tagIlike).TagNotilike(tagNotilike).TagDesc(tagDesc).TagAsc(tagAsc).MessageEq(messageEq).MessageNe(messageNe).MessageGt(messageGt).MessageGte(messageGte).MessageLt(messageLt).MessageLte(messageLte).MessageIn(messageIn).MessageNotin(messageNotin).MessageContains(messageContains).MessageNotcontains(messageNotcontains).MessageLike(messageLike).MessageNotlike(messageNotlike).MessageIlike(messageIlike).MessageNotilike(messageNotilike).MessageDesc(messageDesc).MessageAsc(messageAsc).AuthoredByEq(authoredByEq).AuthoredByNe(authoredByNe).AuthoredByGt(authoredByGt).AuthoredByGte(authoredByGte).AuthoredByLt(authoredByLt).AuthoredByLte(authoredByLte).AuthoredByIn(authoredByIn).AuthoredByNotin(authoredByNotin).AuthoredByContains(authoredByContains).AuthoredByNotcontains(authoredByNotcontains).AuthoredByLike(authoredByLike).AuthoredByNotlike(authoredByNotlike).AuthoredByIlike(authoredByIlike).AuthoredByNotilike(authoredByNotilike).AuthoredByDesc(authoredByDesc).AuthoredByAsc(authoredByAsc).AuthoredAtEq(authoredAtEq).AuthoredAtNe(authoredAtNe).AuthoredAtGt(authoredAtGt).AuthoredAtGte(authoredAtGte).AuthoredAtLt(authoredAtLt).AuthoredAtLte(authoredAtLte).AuthoredAtIn(authoredAtIn).AuthoredAtNotin(authoredAtNotin).AuthoredAtContains(authoredAtContains).AuthoredAtNotcontains(authoredAtNotcontains).AuthoredAtLike(authoredAtLike).AuthoredAtNotlike(authoredAtNotlike).AuthoredAtIlike(authoredAtIlike).AuthoredAtNotilike(authoredAtNotilike).AuthoredAtDesc(authoredAtDesc).AuthoredAtAsc(authoredAtAsc).CommittedByEq(committedByEq).CommittedByNe(committedByNe).CommittedByGt(committedByGt).CommittedByGte(committedByGte).CommittedByLt(committedByLt).CommittedByLte(committedByLte).CommittedByIn(committedByIn).CommittedByNotin(committedByNotin).CommittedByContains(committedByContains).CommittedByNotcontains(committedByNotcontains).CommittedByLike(committedByLike).CommittedByNotlike(committedByNotlike).CommittedByIlike(committedByIlike).CommittedByNotilike(committedByNotilike).CommittedByDesc(committedByDesc).CommittedByAsc(committedByAsc).CommittedAtEq(committedAtEq).CommittedAtNe(committedAtNe).CommittedAtGt(committedAtGt).CommittedAtGte(committedAtGte).CommittedAtLt(committedAtLt).CommittedAtLte(committedAtLte).CommittedAtIn(committedAtIn).CommittedAtNotin(committedAtNotin).CommittedAtContains(committedAtContains).CommittedAtNotcontains(committedAtNotcontains).CommittedAtLike(committedAtLike).CommittedAtNotlike(committedAtNotlike).CommittedAtIlike(committedAtIlike).CommittedAtNotilike(committedAtNotilike).CommittedAtDesc(committedAtDesc).CommittedAtAsc(committedAtAsc).HandledAtEq(handledAtEq).HandledAtNe(handledAtNe).HandledAtGt(handledAtGt).HandledAtGte(handledAtGte).HandledAtLt(handledAtLt).HandledAtLte(handledAtLte).HandledAtIn(handledAtIn).HandledAtNotin(handledAtNotin).HandledAtContains(handledAtContains).HandledAtNotcontains(handledAtNotcontains).HandledAtLike(handledAtLike).HandledAtNotlike(handledAtNotlike).HandledAtIlike(handledAtIlike).HandledAtNotilike(handledAtNotilike).HandledAtDesc(handledAtDesc).HandledAtAsc(handledAtAsc).JobCoordinatorClaimedUntilEq(jobCoordinatorClaimedUntilEq).JobCoordinatorClaimedUntilNe(jobCoordinatorClaimedUntilNe).JobCoordinatorClaimedUntilGt(jobCoordinatorClaimedUntilGt).JobCoordinatorClaimedUntilGte(jobCoordinatorClaimedUntilGte).JobCoordinatorClaimedUntilLt(jobCoordinatorClaimedUntilLt).JobCoordinatorClaimedUntilLte(jobCoordinatorClaimedUntilLte).JobCoordinatorClaimedUntilIn(jobCoordinatorClaimedUntilIn).JobCoordinatorClaimedUntilNotin(jobCoordinatorClaimedUntilNotin).JobCoordinatorClaimedUntilContains(jobCoordinatorClaimedUntilContains).JobCoordinatorClaimedUntilNotcontains(jobCoordinatorClaimedUntilNotcontains).JobCoordinatorClaimedUntilLike(jobCoordinatorClaimedUntilLike).JobCoordinatorClaimedUntilNotlike(jobCoordinatorClaimedUntilNotlike).JobCoordinatorClaimedUntilIlike(jobCoordinatorClaimedUntilIlike).JobCoordinatorClaimedUntilNotilike(jobCoordinatorClaimedUntilNotilike).JobCoordinatorClaimedUntilDesc(jobCoordinatorClaimedUntilDesc).JobCoordinatorClaimedUntilAsc(jobCoordinatorClaimedUntilAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByExecutionChangeIdObjectsContains(referencedByExecutionChangeIdObjectsContains).ReferencedByExecutionChangeIdObjectsNotcontains(referencedByExecutionChangeIdObjectsNotcontains).ReferencedByExecutionChangeIdObjectsDesc(referencedByExecutionChangeIdObjectsDesc).ReferencedByExecutionChangeIdObjectsAsc(referencedByExecutionChangeIdObjectsAsc).Execute()
 
 
 
@@ -256,22 +256,38 @@ func main() {
 	commitHashNotilike := "commitHashNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	commitHashDesc := "commitHashDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	commitHashAsc := "commitHashAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	branchNameEq := "branchNameEq_example" // string | SQL = comparison (optional)
-	branchNameNe := "branchNameNe_example" // string | SQL != comparison (optional)
-	branchNameGt := "branchNameGt_example" // string | SQL > comparison, may not work with all column types (optional)
-	branchNameGte := "branchNameGte_example" // string | SQL >= comparison, may not work with all column types (optional)
-	branchNameLt := "branchNameLt_example" // string | SQL < comparison, may not work with all column types (optional)
-	branchNameLte := "branchNameLte_example" // string | SQL <= comparison, may not work with all column types (optional)
-	branchNameIn := "branchNameIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
-	branchNameNotin := "branchNameNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
-	branchNameContains := "branchNameContains_example" // string | SQL @> comparison (optional)
-	branchNameNotcontains := "branchNameNotcontains_example" // string | SQL NOT @> comparison (optional)
-	branchNameLike := "branchNameLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	branchNameNotlike := "branchNameNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	branchNameIlike := "branchNameIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	branchNameNotilike := "branchNameNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	branchNameDesc := "branchNameDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	branchNameAsc := "branchNameAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	branchEq := "branchEq_example" // string | SQL = comparison (optional)
+	branchNe := "branchNe_example" // string | SQL != comparison (optional)
+	branchGt := "branchGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	branchGte := "branchGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	branchLt := "branchLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	branchLte := "branchLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	branchIn := "branchIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	branchNotin := "branchNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	branchContains := "branchContains_example" // string | SQL @> comparison (optional)
+	branchNotcontains := "branchNotcontains_example" // string | SQL NOT @> comparison (optional)
+	branchLike := "branchLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	branchNotlike := "branchNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	branchIlike := "branchIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	branchNotilike := "branchNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	branchDesc := "branchDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	branchAsc := "branchAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	tagEq := "tagEq_example" // string | SQL = comparison (optional)
+	tagNe := "tagNe_example" // string | SQL != comparison (optional)
+	tagGt := "tagGt_example" // string | SQL > comparison, may not work with all column types (optional)
+	tagGte := "tagGte_example" // string | SQL >= comparison, may not work with all column types (optional)
+	tagLt := "tagLt_example" // string | SQL < comparison, may not work with all column types (optional)
+	tagLte := "tagLte_example" // string | SQL <= comparison, may not work with all column types (optional)
+	tagIn := "tagIn_example" // string | SQL IN comparison, permits comma-separated values (optional)
+	tagNotin := "tagNotin_example" // string | SQL NOT IN comparison, permits comma-separated values (optional)
+	tagContains := "tagContains_example" // string | SQL @> comparison (optional)
+	tagNotcontains := "tagNotcontains_example" // string | SQL NOT @> comparison (optional)
+	tagLike := "tagLike_example" // string | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	tagNotlike := "tagNotlike_example" // string | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	tagIlike := "tagIlike_example" // string | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	tagNotilike := "tagNotilike_example" // string | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	tagDesc := "tagDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	tagAsc := "tagAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	messageEq := "messageEq_example" // string | SQL = comparison (optional)
 	messageNe := "messageNe_example" // string | SQL != comparison (optional)
 	messageGt := "messageGt_example" // string | SQL > comparison, may not work with all column types (optional)
@@ -352,38 +368,38 @@ func main() {
 	committedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
 	committedAtDesc := "committedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
 	committedAtAsc := "committedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggersProducedAtEq := time.Now() // time.Time | SQL = comparison (optional)
-	triggersProducedAtNe := time.Now() // time.Time | SQL != comparison (optional)
-	triggersProducedAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
-	triggersProducedAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
-	triggersProducedAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
-	triggersProducedAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
-	triggersProducedAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
-	triggersProducedAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
-	triggersProducedAtContains := time.Now() // time.Time | SQL @> comparison (optional)
-	triggersProducedAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
-	triggersProducedAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggersProducedAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggersProducedAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggersProducedAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggersProducedAtDesc := "triggersProducedAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggersProducedAtAsc := "triggersProducedAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerProducerClaimedUntilEq := time.Now() // time.Time | SQL = comparison (optional)
-	triggerProducerClaimedUntilNe := time.Now() // time.Time | SQL != comparison (optional)
-	triggerProducerClaimedUntilGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
-	triggerProducerClaimedUntilGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
-	triggerProducerClaimedUntilLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
-	triggerProducerClaimedUntilLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
-	triggerProducerClaimedUntilIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
-	triggerProducerClaimedUntilNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
-	triggerProducerClaimedUntilContains := time.Now() // time.Time | SQL @> comparison (optional)
-	triggerProducerClaimedUntilNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
-	triggerProducerClaimedUntilLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerProducerClaimedUntilNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerProducerClaimedUntilIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerProducerClaimedUntilNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
-	triggerProducerClaimedUntilDesc := "triggerProducerClaimedUntilDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
-	triggerProducerClaimedUntilAsc := "triggerProducerClaimedUntilAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	handledAtEq := time.Now() // time.Time | SQL = comparison (optional)
+	handledAtNe := time.Now() // time.Time | SQL != comparison (optional)
+	handledAtGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	handledAtGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	handledAtLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	handledAtLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	handledAtIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	handledAtNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	handledAtContains := time.Now() // time.Time | SQL @> comparison (optional)
+	handledAtNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
+	handledAtLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	handledAtNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	handledAtIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	handledAtNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	handledAtDesc := "handledAtDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	handledAtAsc := "handledAtAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
+	jobCoordinatorClaimedUntilEq := time.Now() // time.Time | SQL = comparison (optional)
+	jobCoordinatorClaimedUntilNe := time.Now() // time.Time | SQL != comparison (optional)
+	jobCoordinatorClaimedUntilGt := time.Now() // time.Time | SQL > comparison, may not work with all column types (optional)
+	jobCoordinatorClaimedUntilGte := time.Now() // time.Time | SQL >= comparison, may not work with all column types (optional)
+	jobCoordinatorClaimedUntilLt := time.Now() // time.Time | SQL < comparison, may not work with all column types (optional)
+	jobCoordinatorClaimedUntilLte := time.Now() // time.Time | SQL <= comparison, may not work with all column types (optional)
+	jobCoordinatorClaimedUntilIn := time.Now() // time.Time | SQL IN comparison, permits comma-separated values (optional)
+	jobCoordinatorClaimedUntilNotin := time.Now() // time.Time | SQL NOT IN comparison, permits comma-separated values (optional)
+	jobCoordinatorClaimedUntilContains := time.Now() // time.Time | SQL @> comparison (optional)
+	jobCoordinatorClaimedUntilNotcontains := time.Now() // time.Time | SQL NOT @> comparison (optional)
+	jobCoordinatorClaimedUntilLike := time.Now() // time.Time | SQL LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobCoordinatorClaimedUntilNotlike := time.Now() // time.Time | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobCoordinatorClaimedUntilIlike := time.Now() // time.Time | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobCoordinatorClaimedUntilNotilike := time.Now() // time.Time | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % (optional)
+	jobCoordinatorClaimedUntilDesc := "jobCoordinatorClaimedUntilDesc_example" // string | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) (optional)
+	jobCoordinatorClaimedUntilAsc := "jobCoordinatorClaimedUntilAsc_example" // string | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) (optional)
 	repositoryIdEq := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL = comparison (optional)
 	repositoryIdNe := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL != comparison (optional)
 	repositoryIdGt := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | SQL > comparison, may not work with all column types (optional)
@@ -411,7 +427,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChangeAPI.GetChanges(context.Background()).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).CommitHashEq(commitHashEq).CommitHashNe(commitHashNe).CommitHashGt(commitHashGt).CommitHashGte(commitHashGte).CommitHashLt(commitHashLt).CommitHashLte(commitHashLte).CommitHashIn(commitHashIn).CommitHashNotin(commitHashNotin).CommitHashContains(commitHashContains).CommitHashNotcontains(commitHashNotcontains).CommitHashLike(commitHashLike).CommitHashNotlike(commitHashNotlike).CommitHashIlike(commitHashIlike).CommitHashNotilike(commitHashNotilike).CommitHashDesc(commitHashDesc).CommitHashAsc(commitHashAsc).BranchNameEq(branchNameEq).BranchNameNe(branchNameNe).BranchNameGt(branchNameGt).BranchNameGte(branchNameGte).BranchNameLt(branchNameLt).BranchNameLte(branchNameLte).BranchNameIn(branchNameIn).BranchNameNotin(branchNameNotin).BranchNameContains(branchNameContains).BranchNameNotcontains(branchNameNotcontains).BranchNameLike(branchNameLike).BranchNameNotlike(branchNameNotlike).BranchNameIlike(branchNameIlike).BranchNameNotilike(branchNameNotilike).BranchNameDesc(branchNameDesc).BranchNameAsc(branchNameAsc).MessageEq(messageEq).MessageNe(messageNe).MessageGt(messageGt).MessageGte(messageGte).MessageLt(messageLt).MessageLte(messageLte).MessageIn(messageIn).MessageNotin(messageNotin).MessageContains(messageContains).MessageNotcontains(messageNotcontains).MessageLike(messageLike).MessageNotlike(messageNotlike).MessageIlike(messageIlike).MessageNotilike(messageNotilike).MessageDesc(messageDesc).MessageAsc(messageAsc).AuthoredByEq(authoredByEq).AuthoredByNe(authoredByNe).AuthoredByGt(authoredByGt).AuthoredByGte(authoredByGte).AuthoredByLt(authoredByLt).AuthoredByLte(authoredByLte).AuthoredByIn(authoredByIn).AuthoredByNotin(authoredByNotin).AuthoredByContains(authoredByContains).AuthoredByNotcontains(authoredByNotcontains).AuthoredByLike(authoredByLike).AuthoredByNotlike(authoredByNotlike).AuthoredByIlike(authoredByIlike).AuthoredByNotilike(authoredByNotilike).AuthoredByDesc(authoredByDesc).AuthoredByAsc(authoredByAsc).AuthoredAtEq(authoredAtEq).AuthoredAtNe(authoredAtNe).AuthoredAtGt(authoredAtGt).AuthoredAtGte(authoredAtGte).AuthoredAtLt(authoredAtLt).AuthoredAtLte(authoredAtLte).AuthoredAtIn(authoredAtIn).AuthoredAtNotin(authoredAtNotin).AuthoredAtContains(authoredAtContains).AuthoredAtNotcontains(authoredAtNotcontains).AuthoredAtLike(authoredAtLike).AuthoredAtNotlike(authoredAtNotlike).AuthoredAtIlike(authoredAtIlike).AuthoredAtNotilike(authoredAtNotilike).AuthoredAtDesc(authoredAtDesc).AuthoredAtAsc(authoredAtAsc).CommittedByEq(committedByEq).CommittedByNe(committedByNe).CommittedByGt(committedByGt).CommittedByGte(committedByGte).CommittedByLt(committedByLt).CommittedByLte(committedByLte).CommittedByIn(committedByIn).CommittedByNotin(committedByNotin).CommittedByContains(committedByContains).CommittedByNotcontains(committedByNotcontains).CommittedByLike(committedByLike).CommittedByNotlike(committedByNotlike).CommittedByIlike(committedByIlike).CommittedByNotilike(committedByNotilike).CommittedByDesc(committedByDesc).CommittedByAsc(committedByAsc).CommittedAtEq(committedAtEq).CommittedAtNe(committedAtNe).CommittedAtGt(committedAtGt).CommittedAtGte(committedAtGte).CommittedAtLt(committedAtLt).CommittedAtLte(committedAtLte).CommittedAtIn(committedAtIn).CommittedAtNotin(committedAtNotin).CommittedAtContains(committedAtContains).CommittedAtNotcontains(committedAtNotcontains).CommittedAtLike(committedAtLike).CommittedAtNotlike(committedAtNotlike).CommittedAtIlike(committedAtIlike).CommittedAtNotilike(committedAtNotilike).CommittedAtDesc(committedAtDesc).CommittedAtAsc(committedAtAsc).TriggersProducedAtEq(triggersProducedAtEq).TriggersProducedAtNe(triggersProducedAtNe).TriggersProducedAtGt(triggersProducedAtGt).TriggersProducedAtGte(triggersProducedAtGte).TriggersProducedAtLt(triggersProducedAtLt).TriggersProducedAtLte(triggersProducedAtLte).TriggersProducedAtIn(triggersProducedAtIn).TriggersProducedAtNotin(triggersProducedAtNotin).TriggersProducedAtContains(triggersProducedAtContains).TriggersProducedAtNotcontains(triggersProducedAtNotcontains).TriggersProducedAtLike(triggersProducedAtLike).TriggersProducedAtNotlike(triggersProducedAtNotlike).TriggersProducedAtIlike(triggersProducedAtIlike).TriggersProducedAtNotilike(triggersProducedAtNotilike).TriggersProducedAtDesc(triggersProducedAtDesc).TriggersProducedAtAsc(triggersProducedAtAsc).TriggerProducerClaimedUntilEq(triggerProducerClaimedUntilEq).TriggerProducerClaimedUntilNe(triggerProducerClaimedUntilNe).TriggerProducerClaimedUntilGt(triggerProducerClaimedUntilGt).TriggerProducerClaimedUntilGte(triggerProducerClaimedUntilGte).TriggerProducerClaimedUntilLt(triggerProducerClaimedUntilLt).TriggerProducerClaimedUntilLte(triggerProducerClaimedUntilLte).TriggerProducerClaimedUntilIn(triggerProducerClaimedUntilIn).TriggerProducerClaimedUntilNotin(triggerProducerClaimedUntilNotin).TriggerProducerClaimedUntilContains(triggerProducerClaimedUntilContains).TriggerProducerClaimedUntilNotcontains(triggerProducerClaimedUntilNotcontains).TriggerProducerClaimedUntilLike(triggerProducerClaimedUntilLike).TriggerProducerClaimedUntilNotlike(triggerProducerClaimedUntilNotlike).TriggerProducerClaimedUntilIlike(triggerProducerClaimedUntilIlike).TriggerProducerClaimedUntilNotilike(triggerProducerClaimedUntilNotilike).TriggerProducerClaimedUntilDesc(triggerProducerClaimedUntilDesc).TriggerProducerClaimedUntilAsc(triggerProducerClaimedUntilAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByExecutionChangeIdObjectsContains(referencedByExecutionChangeIdObjectsContains).ReferencedByExecutionChangeIdObjectsNotcontains(referencedByExecutionChangeIdObjectsNotcontains).ReferencedByExecutionChangeIdObjectsDesc(referencedByExecutionChangeIdObjectsDesc).ReferencedByExecutionChangeIdObjectsAsc(referencedByExecutionChangeIdObjectsAsc).Execute()
+	resp, r, err := apiClient.ChangeAPI.GetChanges(context.Background()).Limit(limit).Offset(offset).Depth(depth).RepositoryLoad(repositoryLoad).ReferencedByExecutionLoad(referencedByExecutionLoad).IdEq(idEq).IdNe(idNe).IdGt(idGt).IdGte(idGte).IdLt(idLt).IdLte(idLte).IdIn(idIn).IdNotin(idNotin).IdContains(idContains).IdNotcontains(idNotcontains).IdLike(idLike).IdNotlike(idNotlike).IdIlike(idIlike).IdNotilike(idNotilike).IdDesc(idDesc).IdAsc(idAsc).CreatedAtEq(createdAtEq).CreatedAtNe(createdAtNe).CreatedAtGt(createdAtGt).CreatedAtGte(createdAtGte).CreatedAtLt(createdAtLt).CreatedAtLte(createdAtLte).CreatedAtIn(createdAtIn).CreatedAtNotin(createdAtNotin).CreatedAtContains(createdAtContains).CreatedAtNotcontains(createdAtNotcontains).CreatedAtLike(createdAtLike).CreatedAtNotlike(createdAtNotlike).CreatedAtIlike(createdAtIlike).CreatedAtNotilike(createdAtNotilike).CreatedAtDesc(createdAtDesc).CreatedAtAsc(createdAtAsc).UpdatedAtEq(updatedAtEq).UpdatedAtNe(updatedAtNe).UpdatedAtGt(updatedAtGt).UpdatedAtGte(updatedAtGte).UpdatedAtLt(updatedAtLt).UpdatedAtLte(updatedAtLte).UpdatedAtIn(updatedAtIn).UpdatedAtNotin(updatedAtNotin).UpdatedAtContains(updatedAtContains).UpdatedAtNotcontains(updatedAtNotcontains).UpdatedAtLike(updatedAtLike).UpdatedAtNotlike(updatedAtNotlike).UpdatedAtIlike(updatedAtIlike).UpdatedAtNotilike(updatedAtNotilike).UpdatedAtDesc(updatedAtDesc).UpdatedAtAsc(updatedAtAsc).DeletedAtEq(deletedAtEq).DeletedAtNe(deletedAtNe).DeletedAtGt(deletedAtGt).DeletedAtGte(deletedAtGte).DeletedAtLt(deletedAtLt).DeletedAtLte(deletedAtLte).DeletedAtIn(deletedAtIn).DeletedAtNotin(deletedAtNotin).DeletedAtContains(deletedAtContains).DeletedAtNotcontains(deletedAtNotcontains).DeletedAtLike(deletedAtLike).DeletedAtNotlike(deletedAtNotlike).DeletedAtIlike(deletedAtIlike).DeletedAtNotilike(deletedAtNotilike).DeletedAtDesc(deletedAtDesc).DeletedAtAsc(deletedAtAsc).CommitHashEq(commitHashEq).CommitHashNe(commitHashNe).CommitHashGt(commitHashGt).CommitHashGte(commitHashGte).CommitHashLt(commitHashLt).CommitHashLte(commitHashLte).CommitHashIn(commitHashIn).CommitHashNotin(commitHashNotin).CommitHashContains(commitHashContains).CommitHashNotcontains(commitHashNotcontains).CommitHashLike(commitHashLike).CommitHashNotlike(commitHashNotlike).CommitHashIlike(commitHashIlike).CommitHashNotilike(commitHashNotilike).CommitHashDesc(commitHashDesc).CommitHashAsc(commitHashAsc).BranchEq(branchEq).BranchNe(branchNe).BranchGt(branchGt).BranchGte(branchGte).BranchLt(branchLt).BranchLte(branchLte).BranchIn(branchIn).BranchNotin(branchNotin).BranchContains(branchContains).BranchNotcontains(branchNotcontains).BranchLike(branchLike).BranchNotlike(branchNotlike).BranchIlike(branchIlike).BranchNotilike(branchNotilike).BranchDesc(branchDesc).BranchAsc(branchAsc).TagEq(tagEq).TagNe(tagNe).TagGt(tagGt).TagGte(tagGte).TagLt(tagLt).TagLte(tagLte).TagIn(tagIn).TagNotin(tagNotin).TagContains(tagContains).TagNotcontains(tagNotcontains).TagLike(tagLike).TagNotlike(tagNotlike).TagIlike(tagIlike).TagNotilike(tagNotilike).TagDesc(tagDesc).TagAsc(tagAsc).MessageEq(messageEq).MessageNe(messageNe).MessageGt(messageGt).MessageGte(messageGte).MessageLt(messageLt).MessageLte(messageLte).MessageIn(messageIn).MessageNotin(messageNotin).MessageContains(messageContains).MessageNotcontains(messageNotcontains).MessageLike(messageLike).MessageNotlike(messageNotlike).MessageIlike(messageIlike).MessageNotilike(messageNotilike).MessageDesc(messageDesc).MessageAsc(messageAsc).AuthoredByEq(authoredByEq).AuthoredByNe(authoredByNe).AuthoredByGt(authoredByGt).AuthoredByGte(authoredByGte).AuthoredByLt(authoredByLt).AuthoredByLte(authoredByLte).AuthoredByIn(authoredByIn).AuthoredByNotin(authoredByNotin).AuthoredByContains(authoredByContains).AuthoredByNotcontains(authoredByNotcontains).AuthoredByLike(authoredByLike).AuthoredByNotlike(authoredByNotlike).AuthoredByIlike(authoredByIlike).AuthoredByNotilike(authoredByNotilike).AuthoredByDesc(authoredByDesc).AuthoredByAsc(authoredByAsc).AuthoredAtEq(authoredAtEq).AuthoredAtNe(authoredAtNe).AuthoredAtGt(authoredAtGt).AuthoredAtGte(authoredAtGte).AuthoredAtLt(authoredAtLt).AuthoredAtLte(authoredAtLte).AuthoredAtIn(authoredAtIn).AuthoredAtNotin(authoredAtNotin).AuthoredAtContains(authoredAtContains).AuthoredAtNotcontains(authoredAtNotcontains).AuthoredAtLike(authoredAtLike).AuthoredAtNotlike(authoredAtNotlike).AuthoredAtIlike(authoredAtIlike).AuthoredAtNotilike(authoredAtNotilike).AuthoredAtDesc(authoredAtDesc).AuthoredAtAsc(authoredAtAsc).CommittedByEq(committedByEq).CommittedByNe(committedByNe).CommittedByGt(committedByGt).CommittedByGte(committedByGte).CommittedByLt(committedByLt).CommittedByLte(committedByLte).CommittedByIn(committedByIn).CommittedByNotin(committedByNotin).CommittedByContains(committedByContains).CommittedByNotcontains(committedByNotcontains).CommittedByLike(committedByLike).CommittedByNotlike(committedByNotlike).CommittedByIlike(committedByIlike).CommittedByNotilike(committedByNotilike).CommittedByDesc(committedByDesc).CommittedByAsc(committedByAsc).CommittedAtEq(committedAtEq).CommittedAtNe(committedAtNe).CommittedAtGt(committedAtGt).CommittedAtGte(committedAtGte).CommittedAtLt(committedAtLt).CommittedAtLte(committedAtLte).CommittedAtIn(committedAtIn).CommittedAtNotin(committedAtNotin).CommittedAtContains(committedAtContains).CommittedAtNotcontains(committedAtNotcontains).CommittedAtLike(committedAtLike).CommittedAtNotlike(committedAtNotlike).CommittedAtIlike(committedAtIlike).CommittedAtNotilike(committedAtNotilike).CommittedAtDesc(committedAtDesc).CommittedAtAsc(committedAtAsc).HandledAtEq(handledAtEq).HandledAtNe(handledAtNe).HandledAtGt(handledAtGt).HandledAtGte(handledAtGte).HandledAtLt(handledAtLt).HandledAtLte(handledAtLte).HandledAtIn(handledAtIn).HandledAtNotin(handledAtNotin).HandledAtContains(handledAtContains).HandledAtNotcontains(handledAtNotcontains).HandledAtLike(handledAtLike).HandledAtNotlike(handledAtNotlike).HandledAtIlike(handledAtIlike).HandledAtNotilike(handledAtNotilike).HandledAtDesc(handledAtDesc).HandledAtAsc(handledAtAsc).JobCoordinatorClaimedUntilEq(jobCoordinatorClaimedUntilEq).JobCoordinatorClaimedUntilNe(jobCoordinatorClaimedUntilNe).JobCoordinatorClaimedUntilGt(jobCoordinatorClaimedUntilGt).JobCoordinatorClaimedUntilGte(jobCoordinatorClaimedUntilGte).JobCoordinatorClaimedUntilLt(jobCoordinatorClaimedUntilLt).JobCoordinatorClaimedUntilLte(jobCoordinatorClaimedUntilLte).JobCoordinatorClaimedUntilIn(jobCoordinatorClaimedUntilIn).JobCoordinatorClaimedUntilNotin(jobCoordinatorClaimedUntilNotin).JobCoordinatorClaimedUntilContains(jobCoordinatorClaimedUntilContains).JobCoordinatorClaimedUntilNotcontains(jobCoordinatorClaimedUntilNotcontains).JobCoordinatorClaimedUntilLike(jobCoordinatorClaimedUntilLike).JobCoordinatorClaimedUntilNotlike(jobCoordinatorClaimedUntilNotlike).JobCoordinatorClaimedUntilIlike(jobCoordinatorClaimedUntilIlike).JobCoordinatorClaimedUntilNotilike(jobCoordinatorClaimedUntilNotilike).JobCoordinatorClaimedUntilDesc(jobCoordinatorClaimedUntilDesc).JobCoordinatorClaimedUntilAsc(jobCoordinatorClaimedUntilAsc).RepositoryIdEq(repositoryIdEq).RepositoryIdNe(repositoryIdNe).RepositoryIdGt(repositoryIdGt).RepositoryIdGte(repositoryIdGte).RepositoryIdLt(repositoryIdLt).RepositoryIdLte(repositoryIdLte).RepositoryIdIn(repositoryIdIn).RepositoryIdNotin(repositoryIdNotin).RepositoryIdContains(repositoryIdContains).RepositoryIdNotcontains(repositoryIdNotcontains).RepositoryIdLike(repositoryIdLike).RepositoryIdNotlike(repositoryIdNotlike).RepositoryIdIlike(repositoryIdIlike).RepositoryIdNotilike(repositoryIdNotilike).RepositoryIdDesc(repositoryIdDesc).RepositoryIdAsc(repositoryIdAsc).RepositoryIdObjectContains(repositoryIdObjectContains).RepositoryIdObjectNotcontains(repositoryIdObjectNotcontains).RepositoryIdObjectDesc(repositoryIdObjectDesc).RepositoryIdObjectAsc(repositoryIdObjectAsc).ReferencedByExecutionChangeIdObjectsContains(referencedByExecutionChangeIdObjectsContains).ReferencedByExecutionChangeIdObjectsNotcontains(referencedByExecutionChangeIdObjectsNotcontains).ReferencedByExecutionChangeIdObjectsDesc(referencedByExecutionChangeIdObjectsDesc).ReferencedByExecutionChangeIdObjectsAsc(referencedByExecutionChangeIdObjectsAsc).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ChangeAPI.GetChanges``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -517,22 +533,38 @@ Name | Type | Description  | Notes
  **commitHashNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **commitHashDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **commitHashAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **branchNameEq** | **string** | SQL &#x3D; comparison | 
- **branchNameNe** | **string** | SQL !&#x3D; comparison | 
- **branchNameGt** | **string** | SQL &gt; comparison, may not work with all column types | 
- **branchNameGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **branchNameLt** | **string** | SQL &lt; comparison, may not work with all column types | 
- **branchNameLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **branchNameIn** | **string** | SQL IN comparison, permits comma-separated values | 
- **branchNameNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
- **branchNameContains** | **string** | SQL @&gt; comparison | 
- **branchNameNotcontains** | **string** | SQL NOT @&gt; comparison | 
- **branchNameLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **branchNameNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **branchNameIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **branchNameNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **branchNameDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **branchNameAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **branchEq** | **string** | SQL &#x3D; comparison | 
+ **branchNe** | **string** | SQL !&#x3D; comparison | 
+ **branchGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **branchGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **branchLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **branchLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **branchIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **branchNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **branchContains** | **string** | SQL @&gt; comparison | 
+ **branchNotcontains** | **string** | SQL NOT @&gt; comparison | 
+ **branchLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **branchNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **branchIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **branchNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **branchDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **branchAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **tagEq** | **string** | SQL &#x3D; comparison | 
+ **tagNe** | **string** | SQL !&#x3D; comparison | 
+ **tagGt** | **string** | SQL &gt; comparison, may not work with all column types | 
+ **tagGte** | **string** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **tagLt** | **string** | SQL &lt; comparison, may not work with all column types | 
+ **tagLte** | **string** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **tagIn** | **string** | SQL IN comparison, permits comma-separated values | 
+ **tagNotin** | **string** | SQL NOT IN comparison, permits comma-separated values | 
+ **tagContains** | **string** | SQL @&gt; comparison | 
+ **tagNotcontains** | **string** | SQL NOT @&gt; comparison | 
+ **tagLike** | **string** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **tagNotlike** | **string** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **tagIlike** | **string** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **tagNotilike** | **string** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **tagDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **tagAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **messageEq** | **string** | SQL &#x3D; comparison | 
  **messageNe** | **string** | SQL !&#x3D; comparison | 
  **messageGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -613,38 +645,38 @@ Name | Type | Description  | Notes
  **committedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
  **committedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
  **committedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggersProducedAtEq** | **time.Time** | SQL &#x3D; comparison | 
- **triggersProducedAtNe** | **time.Time** | SQL !&#x3D; comparison | 
- **triggersProducedAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
- **triggersProducedAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **triggersProducedAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
- **triggersProducedAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **triggersProducedAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
- **triggersProducedAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
- **triggersProducedAtContains** | **time.Time** | SQL @&gt; comparison | 
- **triggersProducedAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
- **triggersProducedAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggersProducedAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggersProducedAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggersProducedAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggersProducedAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggersProducedAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
- **triggerProducerClaimedUntilEq** | **time.Time** | SQL &#x3D; comparison | 
- **triggerProducerClaimedUntilNe** | **time.Time** | SQL !&#x3D; comparison | 
- **triggerProducerClaimedUntilGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
- **triggerProducerClaimedUntilGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
- **triggerProducerClaimedUntilLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
- **triggerProducerClaimedUntilLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
- **triggerProducerClaimedUntilIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
- **triggerProducerClaimedUntilNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
- **triggerProducerClaimedUntilContains** | **time.Time** | SQL @&gt; comparison | 
- **triggerProducerClaimedUntilNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
- **triggerProducerClaimedUntilLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerProducerClaimedUntilNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerProducerClaimedUntilIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerProducerClaimedUntilNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
- **triggerProducerClaimedUntilDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
- **triggerProducerClaimedUntilAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **handledAtEq** | **time.Time** | SQL &#x3D; comparison | 
+ **handledAtNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **handledAtGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **handledAtGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **handledAtLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **handledAtLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **handledAtIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **handledAtNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **handledAtContains** | **time.Time** | SQL @&gt; comparison | 
+ **handledAtNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
+ **handledAtLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **handledAtNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **handledAtIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **handledAtNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **handledAtDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **handledAtAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
+ **jobCoordinatorClaimedUntilEq** | **time.Time** | SQL &#x3D; comparison | 
+ **jobCoordinatorClaimedUntilNe** | **time.Time** | SQL !&#x3D; comparison | 
+ **jobCoordinatorClaimedUntilGt** | **time.Time** | SQL &gt; comparison, may not work with all column types | 
+ **jobCoordinatorClaimedUntilGte** | **time.Time** | SQL &gt;&#x3D; comparison, may not work with all column types | 
+ **jobCoordinatorClaimedUntilLt** | **time.Time** | SQL &lt; comparison, may not work with all column types | 
+ **jobCoordinatorClaimedUntilLte** | **time.Time** | SQL &lt;&#x3D; comparison, may not work with all column types | 
+ **jobCoordinatorClaimedUntilIn** | **time.Time** | SQL IN comparison, permits comma-separated values | 
+ **jobCoordinatorClaimedUntilNotin** | **time.Time** | SQL NOT IN comparison, permits comma-separated values | 
+ **jobCoordinatorClaimedUntilContains** | **time.Time** | SQL @&gt; comparison | 
+ **jobCoordinatorClaimedUntilNotcontains** | **time.Time** | SQL NOT @&gt; comparison | 
+ **jobCoordinatorClaimedUntilLike** | **time.Time** | SQL LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobCoordinatorClaimedUntilNotlike** | **time.Time** | SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobCoordinatorClaimedUntilIlike** | **time.Time** | SQL ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobCoordinatorClaimedUntilNotilike** | **time.Time** | SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with % | 
+ **jobCoordinatorClaimedUntilDesc** | **string** | SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient) | 
+ **jobCoordinatorClaimedUntilAsc** | **string** | SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient) | 
  **repositoryIdEq** | **string** | SQL &#x3D; comparison | 
  **repositoryIdNe** | **string** | SQL !&#x3D; comparison | 
  **repositoryIdGt** | **string** | SQL &gt; comparison, may not work with all column types | 
@@ -826,9 +858,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## PostChangesTriggerProducerClaim
+## PostChangesJobCoordinatorClaim
 
-> ResponseWithGenericOfChange PostChangesTriggerProducerClaim(ctx, primaryKey).ChangeTriggerProducerClaimRequest(changeTriggerProducerClaimRequest).Depth(depth).Execute()
+> ResponseWithGenericOfChange PostChangesJobCoordinatorClaim(ctx, primaryKey).ChangeJobCoordinatorClaimRequest(changeJobCoordinatorClaimRequest).Depth(depth).Execute()
 
 
 
@@ -846,18 +878,18 @@ import (
 
 func main() {
 	primaryKey := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Path parameter primaryKey
-	changeTriggerProducerClaimRequest := *openapiclient.NewChangeTriggerProducerClaimRequest() // ChangeTriggerProducerClaimRequest | 
+	changeJobCoordinatorClaimRequest := *openapiclient.NewChangeJobCoordinatorClaimRequest() // ChangeJobCoordinatorClaimRequest | 
 	depth := int64(789) // int64 | Query parameter depth (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ChangeAPI.PostChangesTriggerProducerClaim(context.Background(), primaryKey).ChangeTriggerProducerClaimRequest(changeTriggerProducerClaimRequest).Depth(depth).Execute()
+	resp, r, err := apiClient.ChangeAPI.PostChangesJobCoordinatorClaim(context.Background(), primaryKey).ChangeJobCoordinatorClaimRequest(changeJobCoordinatorClaimRequest).Depth(depth).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ChangeAPI.PostChangesTriggerProducerClaim``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ChangeAPI.PostChangesJobCoordinatorClaim``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PostChangesTriggerProducerClaim`: ResponseWithGenericOfChange
-	fmt.Fprintf(os.Stdout, "Response from `ChangeAPI.PostChangesTriggerProducerClaim`: %v\n", resp)
+	// response from `PostChangesJobCoordinatorClaim`: ResponseWithGenericOfChange
+	fmt.Fprintf(os.Stdout, "Response from `ChangeAPI.PostChangesJobCoordinatorClaim`: %v\n", resp)
 }
 ```
 
@@ -871,13 +903,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostChangesTriggerProducerClaimRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostChangesJobCoordinatorClaimRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **changeTriggerProducerClaimRequest** | [**ChangeTriggerProducerClaimRequest**](ChangeTriggerProducerClaimRequest.md) |  | 
+ **changeJobCoordinatorClaimRequest** | [**ChangeJobCoordinatorClaimRequest**](ChangeJobCoordinatorClaimRequest.md) |  | 
  **depth** | **int64** | Query parameter depth | 
 
 ### Return type

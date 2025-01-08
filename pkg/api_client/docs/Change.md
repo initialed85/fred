@@ -6,19 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthoredAt** | Pointer to **time.Time** |  | [optional] 
 **AuthoredBy** | Pointer to **string** |  | [optional] 
-**BranchName** | Pointer to **string** |  | [optional] 
+**Branch** | Pointer to **string** |  | [optional] 
 **CommitHash** | Pointer to **string** |  | [optional] 
 **CommittedAt** | Pointer to **time.Time** |  | [optional] 
 **CommittedBy** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
+**HandledAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
+**JobCoordinatorClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **ReferencedByExecutionChangeIdObjects** | Pointer to [**[]Execution**](Execution.md) |  | [optional] 
 **RepositoryId** | Pointer to **string** |  | [optional] 
 **RepositoryIdObject** | Pointer to [**Repository**](Repository.md) |  | [optional] 
-**TriggerProducerClaimedUntil** | Pointer to **time.Time** |  | [optional] 
-**TriggersProducedAt** | Pointer to **time.Time** |  | [optional] 
+**Tag** | Pointer to **string** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -90,30 +91,30 @@ SetAuthoredBy sets AuthoredBy field to given value.
 
 HasAuthoredBy returns a boolean if a field has been set.
 
-### GetBranchName
+### GetBranch
 
-`func (o *Change) GetBranchName() string`
+`func (o *Change) GetBranch() string`
 
-GetBranchName returns the BranchName field if non-nil, zero value otherwise.
+GetBranch returns the Branch field if non-nil, zero value otherwise.
 
-### GetBranchNameOk
+### GetBranchOk
 
-`func (o *Change) GetBranchNameOk() (*string, bool)`
+`func (o *Change) GetBranchOk() (*string, bool)`
 
-GetBranchNameOk returns a tuple with the BranchName field if it's non-nil, zero value otherwise
+GetBranchOk returns a tuple with the Branch field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBranchName
+### SetBranch
 
-`func (o *Change) SetBranchName(v string)`
+`func (o *Change) SetBranch(v string)`
 
-SetBranchName sets BranchName field to given value.
+SetBranch sets Branch field to given value.
 
-### HasBranchName
+### HasBranch
 
-`func (o *Change) HasBranchName() bool`
+`func (o *Change) HasBranch() bool`
 
-HasBranchName returns a boolean if a field has been set.
+HasBranch returns a boolean if a field has been set.
 
 ### GetCommitHash
 
@@ -240,6 +241,31 @@ SetDeletedAt sets DeletedAt field to given value.
 
 HasDeletedAt returns a boolean if a field has been set.
 
+### GetHandledAt
+
+`func (o *Change) GetHandledAt() time.Time`
+
+GetHandledAt returns the HandledAt field if non-nil, zero value otherwise.
+
+### GetHandledAtOk
+
+`func (o *Change) GetHandledAtOk() (*time.Time, bool)`
+
+GetHandledAtOk returns a tuple with the HandledAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHandledAt
+
+`func (o *Change) SetHandledAt(v time.Time)`
+
+SetHandledAt sets HandledAt field to given value.
+
+### HasHandledAt
+
+`func (o *Change) HasHandledAt() bool`
+
+HasHandledAt returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *Change) GetId() string`
@@ -264,6 +290,31 @@ SetId sets Id field to given value.
 `func (o *Change) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetJobCoordinatorClaimedUntil
+
+`func (o *Change) GetJobCoordinatorClaimedUntil() time.Time`
+
+GetJobCoordinatorClaimedUntil returns the JobCoordinatorClaimedUntil field if non-nil, zero value otherwise.
+
+### GetJobCoordinatorClaimedUntilOk
+
+`func (o *Change) GetJobCoordinatorClaimedUntilOk() (*time.Time, bool)`
+
+GetJobCoordinatorClaimedUntilOk returns a tuple with the JobCoordinatorClaimedUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJobCoordinatorClaimedUntil
+
+`func (o *Change) SetJobCoordinatorClaimedUntil(v time.Time)`
+
+SetJobCoordinatorClaimedUntil sets JobCoordinatorClaimedUntil field to given value.
+
+### HasJobCoordinatorClaimedUntil
+
+`func (o *Change) HasJobCoordinatorClaimedUntil() bool`
+
+HasJobCoordinatorClaimedUntil returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -365,55 +416,30 @@ SetRepositoryIdObject sets RepositoryIdObject field to given value.
 
 HasRepositoryIdObject returns a boolean if a field has been set.
 
-### GetTriggerProducerClaimedUntil
+### GetTag
 
-`func (o *Change) GetTriggerProducerClaimedUntil() time.Time`
+`func (o *Change) GetTag() string`
 
-GetTriggerProducerClaimedUntil returns the TriggerProducerClaimedUntil field if non-nil, zero value otherwise.
+GetTag returns the Tag field if non-nil, zero value otherwise.
 
-### GetTriggerProducerClaimedUntilOk
+### GetTagOk
 
-`func (o *Change) GetTriggerProducerClaimedUntilOk() (*time.Time, bool)`
+`func (o *Change) GetTagOk() (*string, bool)`
 
-GetTriggerProducerClaimedUntilOk returns a tuple with the TriggerProducerClaimedUntil field if it's non-nil, zero value otherwise
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTriggerProducerClaimedUntil
+### SetTag
 
-`func (o *Change) SetTriggerProducerClaimedUntil(v time.Time)`
+`func (o *Change) SetTag(v string)`
 
-SetTriggerProducerClaimedUntil sets TriggerProducerClaimedUntil field to given value.
+SetTag sets Tag field to given value.
 
-### HasTriggerProducerClaimedUntil
+### HasTag
 
-`func (o *Change) HasTriggerProducerClaimedUntil() bool`
+`func (o *Change) HasTag() bool`
 
-HasTriggerProducerClaimedUntil returns a boolean if a field has been set.
-
-### GetTriggersProducedAt
-
-`func (o *Change) GetTriggersProducedAt() time.Time`
-
-GetTriggersProducedAt returns the TriggersProducedAt field if non-nil, zero value otherwise.
-
-### GetTriggersProducedAtOk
-
-`func (o *Change) GetTriggersProducedAtOk() (*time.Time, bool)`
-
-GetTriggersProducedAtOk returns a tuple with the TriggersProducedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTriggersProducedAt
-
-`func (o *Change) SetTriggersProducedAt(v time.Time)`
-
-SetTriggersProducedAt sets TriggersProducedAt field to given value.
-
-### HasTriggersProducedAt
-
-`func (o *Change) HasTriggersProducedAt() bool`
-
-HasTriggersProducedAt returns a boolean if a field has been set.
+HasTag returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

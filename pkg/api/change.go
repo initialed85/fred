@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"maps"
 	"math"
 	"net/http"
 	"net/netip"
@@ -27,7 +28,6 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"golang.org/x/exp/maps"
 )
 
 type Change struct {
@@ -36,14 +36,15 @@ type Change struct {
 	UpdatedAt                            time.Time    `json:"updated_at"`
 	DeletedAt                            *time.Time   `json:"deleted_at"`
 	CommitHash                           string       `json:"commit_hash"`
-	BranchName                           string       `json:"branch_name"`
+	Branch                               string       `json:"branch"`
+	Tag                                  *string      `json:"tag"`
 	Message                              string       `json:"message"`
 	AuthoredBy                           string       `json:"authored_by"`
 	AuthoredAt                           time.Time    `json:"authored_at"`
 	CommittedBy                          string       `json:"committed_by"`
 	CommittedAt                          time.Time    `json:"committed_at"`
-	TriggersProducedAt                   *time.Time   `json:"triggers_produced_at"`
-	TriggerProducerClaimedUntil          time.Time    `json:"trigger_producer_claimed_until"`
+	HandledAt                            *time.Time   `json:"handled_at"`
+	JobCoordinatorClaimedUntil           time.Time    `json:"job_coordinator_claimed_until"`
 	RepositoryID                         uuid.UUID    `json:"repository_id"`
 	RepositoryIDObject                   *Repository  `json:"repository_id_object"`
 	ReferencedByExecutionChangeIDObjects []*Execution `json:"referenced_by_execution_change_id_objects"`
@@ -56,37 +57,39 @@ var ChangeTableWithSchema = fmt.Sprintf("%s.%s", schema, ChangeTable)
 var ChangeTableNamespaceID int32 = 1337 + 1
 
 var (
-	ChangeTableIDColumn                          = "id"
-	ChangeTableCreatedAtColumn                   = "created_at"
-	ChangeTableUpdatedAtColumn                   = "updated_at"
-	ChangeTableDeletedAtColumn                   = "deleted_at"
-	ChangeTableCommitHashColumn                  = "commit_hash"
-	ChangeTableBranchNameColumn                  = "branch_name"
-	ChangeTableMessageColumn                     = "message"
-	ChangeTableAuthoredByColumn                  = "authored_by"
-	ChangeTableAuthoredAtColumn                  = "authored_at"
-	ChangeTableCommittedByColumn                 = "committed_by"
-	ChangeTableCommittedAtColumn                 = "committed_at"
-	ChangeTableTriggersProducedAtColumn          = "triggers_produced_at"
-	ChangeTableTriggerProducerClaimedUntilColumn = "trigger_producer_claimed_until"
-	ChangeTableRepositoryIDColumn                = "repository_id"
+	ChangeTableIDColumn                         = "id"
+	ChangeTableCreatedAtColumn                  = "created_at"
+	ChangeTableUpdatedAtColumn                  = "updated_at"
+	ChangeTableDeletedAtColumn                  = "deleted_at"
+	ChangeTableCommitHashColumn                 = "commit_hash"
+	ChangeTableBranchColumn                     = "branch"
+	ChangeTableTagColumn                        = "tag"
+	ChangeTableMessageColumn                    = "message"
+	ChangeTableAuthoredByColumn                 = "authored_by"
+	ChangeTableAuthoredAtColumn                 = "authored_at"
+	ChangeTableCommittedByColumn                = "committed_by"
+	ChangeTableCommittedAtColumn                = "committed_at"
+	ChangeTableHandledAtColumn                  = "handled_at"
+	ChangeTableJobCoordinatorClaimedUntilColumn = "job_coordinator_claimed_until"
+	ChangeTableRepositoryIDColumn               = "repository_id"
 )
 
 var (
-	ChangeTableIDColumnWithTypeCast                          = `"id" AS id`
-	ChangeTableCreatedAtColumnWithTypeCast                   = `"created_at" AS created_at`
-	ChangeTableUpdatedAtColumnWithTypeCast                   = `"updated_at" AS updated_at`
-	ChangeTableDeletedAtColumnWithTypeCast                   = `"deleted_at" AS deleted_at`
-	ChangeTableCommitHashColumnWithTypeCast                  = `"commit_hash" AS commit_hash`
-	ChangeTableBranchNameColumnWithTypeCast                  = `"branch_name" AS branch_name`
-	ChangeTableMessageColumnWithTypeCast                     = `"message" AS message`
-	ChangeTableAuthoredByColumnWithTypeCast                  = `"authored_by" AS authored_by`
-	ChangeTableAuthoredAtColumnWithTypeCast                  = `"authored_at" AS authored_at`
-	ChangeTableCommittedByColumnWithTypeCast                 = `"committed_by" AS committed_by`
-	ChangeTableCommittedAtColumnWithTypeCast                 = `"committed_at" AS committed_at`
-	ChangeTableTriggersProducedAtColumnWithTypeCast          = `"triggers_produced_at" AS triggers_produced_at`
-	ChangeTableTriggerProducerClaimedUntilColumnWithTypeCast = `"trigger_producer_claimed_until" AS trigger_producer_claimed_until`
-	ChangeTableRepositoryIDColumnWithTypeCast                = `"repository_id" AS repository_id`
+	ChangeTableIDColumnWithTypeCast                         = `"id" AS id`
+	ChangeTableCreatedAtColumnWithTypeCast                  = `"created_at" AS created_at`
+	ChangeTableUpdatedAtColumnWithTypeCast                  = `"updated_at" AS updated_at`
+	ChangeTableDeletedAtColumnWithTypeCast                  = `"deleted_at" AS deleted_at`
+	ChangeTableCommitHashColumnWithTypeCast                 = `"commit_hash" AS commit_hash`
+	ChangeTableBranchColumnWithTypeCast                     = `"branch" AS branch`
+	ChangeTableTagColumnWithTypeCast                        = `"tag" AS tag`
+	ChangeTableMessageColumnWithTypeCast                    = `"message" AS message`
+	ChangeTableAuthoredByColumnWithTypeCast                 = `"authored_by" AS authored_by`
+	ChangeTableAuthoredAtColumnWithTypeCast                 = `"authored_at" AS authored_at`
+	ChangeTableCommittedByColumnWithTypeCast                = `"committed_by" AS committed_by`
+	ChangeTableCommittedAtColumnWithTypeCast                = `"committed_at" AS committed_at`
+	ChangeTableHandledAtColumnWithTypeCast                  = `"handled_at" AS handled_at`
+	ChangeTableJobCoordinatorClaimedUntilColumnWithTypeCast = `"job_coordinator_claimed_until" AS job_coordinator_claimed_until`
+	ChangeTableRepositoryIDColumnWithTypeCast               = `"repository_id" AS repository_id`
 )
 
 var ChangeTableColumns = []string{
@@ -95,14 +98,15 @@ var ChangeTableColumns = []string{
 	ChangeTableUpdatedAtColumn,
 	ChangeTableDeletedAtColumn,
 	ChangeTableCommitHashColumn,
-	ChangeTableBranchNameColumn,
+	ChangeTableBranchColumn,
+	ChangeTableTagColumn,
 	ChangeTableMessageColumn,
 	ChangeTableAuthoredByColumn,
 	ChangeTableAuthoredAtColumn,
 	ChangeTableCommittedByColumn,
 	ChangeTableCommittedAtColumn,
-	ChangeTableTriggersProducedAtColumn,
-	ChangeTableTriggerProducerClaimedUntilColumn,
+	ChangeTableHandledAtColumn,
+	ChangeTableJobCoordinatorClaimedUntilColumn,
 	ChangeTableRepositoryIDColumn,
 }
 
@@ -112,14 +116,15 @@ var ChangeTableColumnsWithTypeCasts = []string{
 	ChangeTableUpdatedAtColumnWithTypeCast,
 	ChangeTableDeletedAtColumnWithTypeCast,
 	ChangeTableCommitHashColumnWithTypeCast,
-	ChangeTableBranchNameColumnWithTypeCast,
+	ChangeTableBranchColumnWithTypeCast,
+	ChangeTableTagColumnWithTypeCast,
 	ChangeTableMessageColumnWithTypeCast,
 	ChangeTableAuthoredByColumnWithTypeCast,
 	ChangeTableAuthoredAtColumnWithTypeCast,
 	ChangeTableCommittedByColumnWithTypeCast,
 	ChangeTableCommittedAtColumnWithTypeCast,
-	ChangeTableTriggersProducedAtColumnWithTypeCast,
-	ChangeTableTriggerProducerClaimedUntilColumnWithTypeCast,
+	ChangeTableHandledAtColumnWithTypeCast,
+	ChangeTableJobCoordinatorClaimedUntilColumnWithTypeCast,
 	ChangeTableRepositoryIDColumnWithTypeCast,
 }
 
@@ -150,7 +155,7 @@ type ChangeLoadQueryParams struct {
 	Depth *int `json:"depth"`
 }
 
-type ChangeTriggerProducerClaimRequest struct {
+type ChangeJobCoordinatorClaimRequest struct {
 	Until          time.Time `json:"until"`
 	TimeoutSeconds float64   `json:"timeout_seconds"`
 }
@@ -301,7 +306,7 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.CommitHash = temp2
 
-		case "branch_name":
+		case "branch":
 			if v == nil {
 				continue
 			}
@@ -314,11 +319,30 @@ func (m *Change) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(string)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch_name.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uubranch.UUID", temp1))
 				}
 			}
 
-			m.BranchName = temp2
+			m.Branch = temp2
+
+		case "tag":
+			if v == nil {
+				continue
+			}
+
+			temp1, err := types.ParseString(v)
+			if err != nil {
+				return wrapError(k, v, err)
+			}
+
+			temp2, ok := temp1.(string)
+			if !ok {
+				if temp1 != nil {
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutag.UUID", temp1))
+				}
+			}
+
+			m.Tag = &temp2
 
 		case "message":
 			if v == nil {
@@ -415,7 +439,7 @@ func (m *Change) FromItem(item map[string]any) error {
 
 			m.CommittedAt = temp2
 
-		case "triggers_produced_at":
+		case "handled_at":
 			if v == nil {
 				continue
 			}
@@ -428,13 +452,13 @@ func (m *Change) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(time.Time)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutriggers_produced_at.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uuhandled_at.UUID", temp1))
 				}
 			}
 
-			m.TriggersProducedAt = &temp2
+			m.HandledAt = &temp2
 
-		case "trigger_producer_claimed_until":
+		case "job_coordinator_claimed_until":
 			if v == nil {
 				continue
 			}
@@ -447,11 +471,11 @@ func (m *Change) FromItem(item map[string]any) error {
 			temp2, ok := temp1.(time.Time)
 			if !ok {
 				if temp1 != nil {
-					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uutrigger_producer_claimed_until.UUID", temp1))
+					return wrapError(k, v, fmt.Errorf("failed to cast %#+v to uujob_coordinator_claimed_until.UUID", temp1))
 				}
 			}
 
-			m.TriggerProducerClaimedUntil = temp2
+			m.JobCoordinatorClaimedUntil = temp2
 
 		case "repository_id":
 			if v == nil {
@@ -476,6 +500,22 @@ func (m *Change) FromItem(item map[string]any) error {
 	}
 
 	return nil
+}
+
+func (m *Change) ToItem() map[string]any {
+	item := make(map[string]any)
+
+	b, err := json.Marshal(m)
+	if err != nil {
+		panic(fmt.Sprintf("%T.ToItem() failed intermediate marshal to JSON: %s", m, err))
+	}
+
+	err = json.Unmarshal(b, &item)
+	if err != nil {
+		panic(fmt.Sprintf("%T.ToItem() failed intermediate unmarshal from JSON: %s", m, err))
+	}
+
+	return item
 }
 
 func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool) error {
@@ -506,14 +546,15 @@ func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	m.UpdatedAt = o.UpdatedAt
 	m.DeletedAt = o.DeletedAt
 	m.CommitHash = o.CommitHash
-	m.BranchName = o.BranchName
+	m.Branch = o.Branch
+	m.Tag = o.Tag
 	m.Message = o.Message
 	m.AuthoredBy = o.AuthoredBy
 	m.AuthoredAt = o.AuthoredAt
 	m.CommittedBy = o.CommittedBy
 	m.CommittedAt = o.CommittedAt
-	m.TriggersProducedAt = o.TriggersProducedAt
-	m.TriggerProducerClaimedUntil = o.TriggerProducerClaimedUntil
+	m.HandledAt = o.HandledAt
+	m.JobCoordinatorClaimedUntil = o.JobCoordinatorClaimedUntil
 	m.RepositoryID = o.RepositoryID
 	m.RepositoryIDObject = o.RepositoryIDObject
 	m.ReferencedByExecutionChangeIDObjects = o.ReferencedByExecutionChangeIDObjects
@@ -521,7 +562,7 @@ func (m *Change) Reload(ctx context.Context, tx pgx.Tx, includeDeleteds ...bool)
 	return nil
 }
 
-func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
+func (m *Change) GetColumnsAndValues(setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) ([]string, []any, error) {
 	columns := make([]string, 0)
 	values := make([]any, 0)
 
@@ -530,7 +571,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatUUID(m.ID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.ID; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.ID; %v", err)
 		}
 
 		values = append(values, v)
@@ -541,7 +582,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatTime(m.CreatedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.CreatedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.CreatedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -552,7 +593,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatTime(m.UpdatedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.UpdatedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.UpdatedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -563,7 +604,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatTime(m.DeletedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.DeletedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.DeletedAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -574,18 +615,29 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatString(m.CommitHash)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.CommitHash; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.CommitHash; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) || isRequired(ChangeTableColumnLookup, ChangeTableBranchNameColumn) {
-		columns = append(columns, ChangeTableBranchNameColumn)
+	if setZeroValues || !types.IsZeroString(m.Branch) || slices.Contains(forceSetValuesForFields, ChangeTableBranchColumn) || isRequired(ChangeTableColumnLookup, ChangeTableBranchColumn) {
+		columns = append(columns, ChangeTableBranchColumn)
 
-		v, err := types.FormatString(m.BranchName)
+		v, err := types.FormatString(m.Branch)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.BranchName; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.Branch; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Tag) || slices.Contains(forceSetValuesForFields, ChangeTableTagColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTagColumn) {
+		columns = append(columns, ChangeTableTagColumn)
+
+		v, err := types.FormatString(m.Tag)
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to handle m.Tag; %v", err)
 		}
 
 		values = append(values, v)
@@ -596,7 +648,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatString(m.Message)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.Message; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.Message; %v", err)
 		}
 
 		values = append(values, v)
@@ -607,7 +659,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatString(m.AuthoredBy)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.AuthoredBy; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.AuthoredBy; %v", err)
 		}
 
 		values = append(values, v)
@@ -618,7 +670,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatTime(m.AuthoredAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.AuthoredAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.AuthoredAt; %v", err)
 		}
 
 		values = append(values, v)
@@ -629,7 +681,7 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatString(m.CommittedBy)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.CommittedBy; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.CommittedBy; %v", err)
 		}
 
 		values = append(values, v)
@@ -640,29 +692,29 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatTime(m.CommittedAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.CommittedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.CommittedAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggersProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggersProducedAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTriggersProducedAtColumn) {
-		columns = append(columns, ChangeTableTriggersProducedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.HandledAt) || slices.Contains(forceSetValuesForFields, ChangeTableHandledAtColumn) || isRequired(ChangeTableColumnLookup, ChangeTableHandledAtColumn) {
+		columns = append(columns, ChangeTableHandledAtColumn)
 
-		v, err := types.FormatTime(m.TriggersProducedAt)
+		v, err := types.FormatTime(m.HandledAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggersProducedAt; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.HandledAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggerProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducerClaimedUntilColumn) || isRequired(ChangeTableColumnLookup, ChangeTableTriggerProducerClaimedUntilColumn) {
-		columns = append(columns, ChangeTableTriggerProducerClaimedUntilColumn)
+	if setZeroValues || !types.IsZeroTime(m.JobCoordinatorClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableJobCoordinatorClaimedUntilColumn) || isRequired(ChangeTableColumnLookup, ChangeTableJobCoordinatorClaimedUntilColumn) {
+		columns = append(columns, ChangeTableJobCoordinatorClaimedUntilColumn)
 
-		v, err := types.FormatTime(m.TriggerProducerClaimedUntil)
+		v, err := types.FormatTime(m.JobCoordinatorClaimedUntil)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerProducerClaimedUntil; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.JobCoordinatorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
@@ -673,10 +725,19 @@ func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZ
 
 		v, err := types.FormatUUID(m.RepositoryID)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.RepositoryID; %v", err)
+			return nil, nil, fmt.Errorf("failed to handle m.RepositoryID; %v", err)
 		}
 
 		values = append(values, v)
+	}
+
+	return columns, values, nil
+}
+
+func (m *Change) Insert(ctx context.Context, tx pgx.Tx, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) error {
+	columns, values, err := m.GetColumnsAndValues(setPrimaryKey, setZeroValues, forceSetValuesForFields...)
+	if err != nil {
+		return fmt.Errorf("failed to get columns and values to insert %#+v; %v", m, err)
 	}
 
 	ctx, cleanup := query.WithQueryID(ctx)
@@ -781,12 +842,23 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroString(m.BranchName) || slices.Contains(forceSetValuesForFields, ChangeTableBranchNameColumn) {
-		columns = append(columns, ChangeTableBranchNameColumn)
+	if setZeroValues || !types.IsZeroString(m.Branch) || slices.Contains(forceSetValuesForFields, ChangeTableBranchColumn) {
+		columns = append(columns, ChangeTableBranchColumn)
 
-		v, err := types.FormatString(m.BranchName)
+		v, err := types.FormatString(m.Branch)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.BranchName; %v", err)
+			return fmt.Errorf("failed to handle m.Branch; %v", err)
+		}
+
+		values = append(values, v)
+	}
+
+	if setZeroValues || !types.IsZeroString(m.Tag) || slices.Contains(forceSetValuesForFields, ChangeTableTagColumn) {
+		columns = append(columns, ChangeTableTagColumn)
+
+		v, err := types.FormatString(m.Tag)
+		if err != nil {
+			return fmt.Errorf("failed to handle m.Tag; %v", err)
 		}
 
 		values = append(values, v)
@@ -847,23 +919,23 @@ func (m *Change) Update(ctx context.Context, tx pgx.Tx, setZeroValues bool, forc
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggersProducedAt) || slices.Contains(forceSetValuesForFields, ChangeTableTriggersProducedAtColumn) {
-		columns = append(columns, ChangeTableTriggersProducedAtColumn)
+	if setZeroValues || !types.IsZeroTime(m.HandledAt) || slices.Contains(forceSetValuesForFields, ChangeTableHandledAtColumn) {
+		columns = append(columns, ChangeTableHandledAtColumn)
 
-		v, err := types.FormatTime(m.TriggersProducedAt)
+		v, err := types.FormatTime(m.HandledAt)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggersProducedAt; %v", err)
+			return fmt.Errorf("failed to handle m.HandledAt; %v", err)
 		}
 
 		values = append(values, v)
 	}
 
-	if setZeroValues || !types.IsZeroTime(m.TriggerProducerClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableTriggerProducerClaimedUntilColumn) {
-		columns = append(columns, ChangeTableTriggerProducerClaimedUntilColumn)
+	if setZeroValues || !types.IsZeroTime(m.JobCoordinatorClaimedUntil) || slices.Contains(forceSetValuesForFields, ChangeTableJobCoordinatorClaimedUntilColumn) {
+		columns = append(columns, ChangeTableJobCoordinatorClaimedUntilColumn)
 
-		v, err := types.FormatTime(m.TriggerProducerClaimedUntil)
+		v, err := types.FormatTime(m.JobCoordinatorClaimedUntil)
 		if err != nil {
-			return fmt.Errorf("failed to handle m.TriggerProducerClaimedUntil; %v", err)
+			return fmt.Errorf("failed to handle m.JobCoordinatorClaimedUntil; %v", err)
 		}
 
 		values = append(values, v)
@@ -972,7 +1044,7 @@ func (m *Change) AdvisoryLockWithRetries(ctx context.Context, tx pgx.Tx, key int
 	return query.AdvisoryLockWithRetries(ctx, tx, ChangeTableNamespaceID, key, overallTimeout, individualAttempttimeout)
 }
 
-func (m *Change) TriggerProducerClaim(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration) error {
+func (m *Change) JobCoordinatorClaim(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration) error {
 	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
 	if err != nil {
 		return fmt.Errorf("failed to claim (advisory lock): %s", err.Error())
@@ -982,7 +1054,7 @@ func (m *Change) TriggerProducerClaim(ctx context.Context, tx pgx.Tx, until time
 		ctx,
 		tx,
 		fmt.Sprintf(
-			"%s = $$?? AND (trigger_producer_claimed_until IS null OR trigger_producer_claimed_until < now())",
+			"%s = $$?? AND (job_coordinator_claimed_until IS null OR job_coordinator_claimed_until < now())",
 			ChangeTablePrimaryKeyColumn,
 		),
 		m.GetPrimaryKeyValue(),
@@ -991,7 +1063,7 @@ func (m *Change) TriggerProducerClaim(ctx context.Context, tx pgx.Tx, until time
 		return fmt.Errorf("failed to claim (select): %s", err.Error())
 	}
 
-	m.TriggerProducerClaimedUntil = until
+	m.JobCoordinatorClaimedUntil = until
 
 	err = m.Update(ctx, tx, false)
 	if err != nil {
@@ -1038,29 +1110,57 @@ func SelectChanges(ctx context.Context, tx pgx.Tx, where string, orderBy *string
 		return []*Change{}, 0, 0, 0, 0, nil
 	}
 
-	items, count, totalCount, page, totalPages, err := query.Select(
-		ctx,
-		tx,
-		ChangeTableColumnsWithTypeCasts,
-		ChangeTableWithSchema,
-		where,
-		orderBy,
-		limit,
-		offset,
-		values...,
-	)
-	if err != nil {
-		return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectChanges; %v", err)
+	var items *[]map[string]any
+	var count int64
+	var totalCount int64
+	var page int64
+	var totalPages int64
+	var err error
+
+	useInstead, shouldSkip := query.ShouldSkip[Change](ctx)
+	if !shouldSkip {
+		items, count, totalCount, page, totalPages, err = query.Select(
+			ctx,
+			tx,
+			ChangeTableColumnsWithTypeCasts,
+			ChangeTableWithSchema,
+			where,
+			orderBy,
+			limit,
+			offset,
+			values...,
+		)
+		if err != nil {
+			return nil, 0, 0, 0, 0, fmt.Errorf("failed to call SelectChanges; %v", err)
+		}
+	} else {
+		ctx = query.WithoutSkip(ctx)
+		count = 1
+		totalCount = 1
+		page = 1
+		totalPages = 1
+		items = &[]map[string]any{
+			nil,
+		}
 	}
 
 	objects := make([]*Change, 0)
 
 	for _, item := range *items {
-		object := &Change{}
+		var object *Change
 
-		err = object.FromItem(item)
-		if err != nil {
-			return nil, 0, 0, 0, 0, err
+		if !shouldSkip {
+			object = &Change{}
+			err = object.FromItem(item)
+			if err != nil {
+				return nil, 0, 0, 0, 0, err
+			}
+		} else {
+			object = useInstead
+		}
+
+		if object == nil {
+			return nil, 0, 0, 0, 0, fmt.Errorf("assertion failed: object unexpectedly nil")
 		}
 
 		if !types.IsZeroUUID(object.RepositoryID) {
@@ -1171,7 +1271,73 @@ func SelectChange(ctx context.Context, tx pgx.Tx, where string, values ...any) (
 	return object, count, totalCount, page, totalPages, nil
 }
 
-func TriggerProducerClaimChange(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration, where string, values ...any) (*Change, error) {
+func InsertChanges(ctx context.Context, tx pgx.Tx, objects []*Change, setPrimaryKey bool, setZeroValues bool, forceSetValuesForFields ...string) ([]*Change, error) {
+	var columns []string
+	values := make([]any, 0)
+
+	for i, object := range objects {
+		thisColumns, thisValues, err := object.GetColumnsAndValues(setPrimaryKey, setZeroValues, forceSetValuesForFields...)
+		if err != nil {
+			return nil, err
+		}
+
+		if columns == nil {
+			columns = thisColumns
+		} else {
+			if len(columns) != len(thisColumns) {
+				return nil, fmt.Errorf(
+					"assertion failed: call 1 of object.GetColumnsAndValues() gave %d columns but call %d gave %d columns",
+					len(columns),
+					i+1,
+					len(thisColumns),
+				)
+			}
+		}
+
+		values = append(values, thisValues...)
+	}
+
+	ctx, cleanup := query.WithQueryID(ctx)
+	defer cleanup()
+
+	ctx = query.WithMaxDepth(ctx, nil)
+
+	items, err := query.BulkInsert(
+		ctx,
+		tx,
+		ChangeTableWithSchema,
+		columns,
+		nil,
+		false,
+		false,
+		ChangeTableColumns,
+		values...,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to bulk insert %d objects; %v", len(objects), err)
+	}
+
+	returnedObjects := make([]*Change, 0)
+
+	for _, item := range items {
+		v := &Change{}
+		err = v.FromItem(*item)
+		if err != nil {
+			return nil, fmt.Errorf("failed %T.FromItem for %#+v; %v", *item, *item, err)
+		}
+
+		err = v.Reload(query.WithSkip(ctx, v), tx)
+		if err != nil {
+			return nil, fmt.Errorf("failed %T.Reload for %#+v; %v", *item, *item, err)
+		}
+
+		returnedObjects = append(returnedObjects, v)
+	}
+
+	return returnedObjects, nil
+}
+
+func JobCoordinatorClaimChange(ctx context.Context, tx pgx.Tx, until time.Time, timeout time.Duration, where string, values ...any) (*Change, error) {
 	m := &Change{}
 
 	err := m.AdvisoryLockWithRetries(ctx, tx, math.MinInt32, timeout, time.Second*1)
@@ -1183,14 +1349,14 @@ func TriggerProducerClaimChange(ctx context.Context, tx pgx.Tx, until time.Time,
 		where += " AND\n"
 	}
 
-	where += "    (trigger_producer_claimed_until IS null OR trigger_producer_claimed_until < now())"
+	where += "    (job_coordinator_claimed_until IS null OR job_coordinator_claimed_until < now())"
 
 	ms, _, _, _, _, err := SelectChanges(
 		ctx,
 		tx,
 		where,
 		helpers.Ptr(
-			"trigger_producer_claimed_until ASC",
+			"job_coordinator_claimed_until ASC",
 		),
 		helpers.Ptr(1),
 		nil,
@@ -1206,7 +1372,7 @@ func TriggerProducerClaimChange(ctx context.Context, tx pgx.Tx, until time.Time,
 
 	m = ms[0]
 
-	m.TriggerProducerClaimedUntil = until
+	m.JobCoordinatorClaimedUntil = until
 
 	err = m.Update(ctx, tx, false)
 	if err != nil {
@@ -1278,17 +1444,22 @@ func handlePostChange(arguments *server.LoadArguments, db *pgxpool.Pool, waitFor
 		err = fmt.Errorf("failed to get xid; %v", err)
 		return nil, 0, 0, 0, 0, err
 	}
-	_ = xid
 
-	for i, object := range objects {
-		err = object.Insert(arguments.Ctx, tx, false, false, forceSetValuesForFieldsByObjectIndex[i]...)
-		if err != nil {
-			err = fmt.Errorf("failed to insert %#+v; %v", object, err)
-			return nil, 0, 0, 0, 0, err
+	/* TODO: problematic- basically the bulks insert insists all rows have the same schema, which they usually should */
+	forceSetValuesForFieldsByObjectIndexMaximal := make(map[string]struct{})
+	for _, forceSetforceSetValuesForFields := range forceSetValuesForFieldsByObjectIndex {
+		for _, field := range forceSetforceSetValuesForFields {
+			forceSetValuesForFieldsByObjectIndexMaximal[field] = struct{}{}
 		}
-
-		objects[i] = object
 	}
+
+	returnedObjects, err := InsertChanges(arguments.Ctx, tx, objects, false, false, slices.Collect(maps.Keys(forceSetValuesForFieldsByObjectIndexMaximal))...)
+	if err != nil {
+		err = fmt.Errorf("failed to insert %d objects; %v", len(objects), err)
+		return nil, 0, 0, 0, 0, err
+	}
+
+	copy(objects, returnedObjects)
 
 	errs := make(chan error, 1)
 	go func() {
@@ -1504,15 +1675,15 @@ func handleDeleteChange(arguments *server.LoadArguments, db *pgxpool.Pool, waitF
 func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool, objectMiddlewares []server.ObjectMiddleware, waitForChange server.WaitForChange) {
 
 	func() {
-		postHandlerForTriggerProducerClaim, err := getHTTPHandler(
+		postHandlerForJobCoordinatorClaim, err := getHTTPHandler(
 			http.MethodPost,
-			"/trigger-producer-claim-change",
+			"/job-coordinator-claim-change",
 			http.StatusOK,
 			func(
 				ctx context.Context,
 				pathParams server.EmptyPathParams,
 				queryParams server.EmptyQueryParams,
-				req ChangeTriggerProducerClaimRequest,
+				req ChangeJobCoordinatorClaimRequest,
 				rawReq any,
 			) (server.Response[Change], error) {
 				tx, err := db.Begin(ctx)
@@ -1524,7 +1695,7 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 					_ = tx.Rollback(ctx)
 				}()
 
-				object, err := TriggerProducerClaimChange(ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000), "")
+				object, err := JobCoordinatorClaimChange(ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000), "")
 				if err != nil {
 					return server.Response[Change]{}, err
 				}
@@ -1572,17 +1743,17 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandlerForTriggerProducerClaim.FullPath, postHandlerForTriggerProducerClaim.ServeHTTP)
+		r.Post(postHandlerForJobCoordinatorClaim.FullPath, postHandlerForJobCoordinatorClaim.ServeHTTP)
 
-		postHandlerForTriggerProducerClaimOne, err := getHTTPHandler(
+		postHandlerForJobCoordinatorClaimOne, err := getHTTPHandler(
 			http.MethodPost,
-			"/changes/{primaryKey}/trigger-producer-claim",
+			"/changes/{primaryKey}/job-coordinator-claim",
 			http.StatusOK,
 			func(
 				ctx context.Context,
 				pathParams ChangeOnePathParams,
 				queryParams ChangeLoadQueryParams,
-				req ChangeTriggerProducerClaimRequest,
+				req ChangeJobCoordinatorClaimRequest,
 				rawReq any,
 			) (server.Response[Change], error) {
 				before := time.Now()
@@ -1622,7 +1793,7 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 						return fmt.Errorf("failed to select object to claim: %s", err.Error())
 					}
 
-					err = object.TriggerProducerClaim(arguments.Ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000))
+					err = object.JobCoordinatorClaim(arguments.Ctx, tx, req.Until, time.Millisecond*time.Duration(req.TimeoutSeconds*1000))
 					if err != nil {
 						return err
 					}
@@ -1665,7 +1836,7 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 		if err != nil {
 			panic(err)
 		}
-		r.Post(postHandlerForTriggerProducerClaimOne.FullPath, postHandlerForTriggerProducerClaimOne.ServeHTTP)
+		r.Post(postHandlerForJobCoordinatorClaimOne.FullPath, postHandlerForJobCoordinatorClaimOne.ServeHTTP)
 	}()
 
 	func() {
@@ -1926,7 +2097,7 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 				forceSetValuesForFieldsByObjectIndex := make([][]string, 0)
 				for _, item := range allItems {
 					forceSetValuesForFields := make([]string, 0)
-					for _, possibleField := range maps.Keys(item) {
+					for _, possibleField := range slices.Collect(maps.Keys(item)) {
 						if !slices.Contains(ChangeTableColumns, possibleField) {
 							continue
 						}
@@ -2042,7 +2213,7 @@ func MutateRouterForChange(r chi.Router, db *pgxpool.Pool, redisPool *redis.Pool
 				}
 
 				forceSetValuesForFields := make([]string, 0)
-				for _, possibleField := range maps.Keys(item) {
+				for _, possibleField := range slices.Collect(maps.Keys(item)) {
 					if !slices.Contains(ChangeTableColumns, possibleField) {
 						continue
 					}

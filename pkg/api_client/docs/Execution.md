@@ -16,8 +16,6 @@ Name | Type | Description | Notes
 **ReferencedByOutputExecutionIdObjects** | Pointer to [**[]Output**](Output.md) |  | [optional] 
 **StartedAt** | Pointer to **time.Time** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**TriggerId** | Pointer to **string** |  | [optional] 
-**TriggerIdObject** | Pointer to [**Trigger**](Trigger.md) |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -338,56 +336,6 @@ SetStatus sets Status field to given value.
 `func (o *Execution) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
-
-### GetTriggerId
-
-`func (o *Execution) GetTriggerId() string`
-
-GetTriggerId returns the TriggerId field if non-nil, zero value otherwise.
-
-### GetTriggerIdOk
-
-`func (o *Execution) GetTriggerIdOk() (*string, bool)`
-
-GetTriggerIdOk returns a tuple with the TriggerId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTriggerId
-
-`func (o *Execution) SetTriggerId(v string)`
-
-SetTriggerId sets TriggerId field to given value.
-
-### HasTriggerId
-
-`func (o *Execution) HasTriggerId() bool`
-
-HasTriggerId returns a boolean if a field has been set.
-
-### GetTriggerIdObject
-
-`func (o *Execution) GetTriggerIdObject() Trigger`
-
-GetTriggerIdObject returns the TriggerIdObject field if non-nil, zero value otherwise.
-
-### GetTriggerIdObjectOk
-
-`func (o *Execution) GetTriggerIdObjectOk() (*Trigger, bool)`
-
-GetTriggerIdObjectOk returns a tuple with the TriggerIdObject field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTriggerIdObject
-
-`func (o *Execution) SetTriggerIdObject(v Trigger)`
-
-SetTriggerIdObject sets TriggerIdObject field to given value.
-
-### HasTriggerIdObject
-
-`func (o *Execution) HasTriggerIdObject() bool`
-
-HasTriggerIdObject returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

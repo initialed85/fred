@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // ChangeAPIService ChangeAPI service
 type ChangeAPIService service
 
 type ApiDeleteChangeRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteChangeRequest) Execute() (*http.Response, error) {
 /*
 DeleteChange Method for DeleteChange
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteChangeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteChangeRequest
 */
 func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) ApiDeleteChangeRequest {
 	return ApiDeleteChangeRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *ChangeAPIService) DeleteChange(ctx context.Context, primaryKey string) 
 // Execute executes the request
 func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.DeleteChange")
@@ -124,10 +125,10 @@ func (a *ChangeAPIService) DeleteChangeExecute(r ApiDeleteChangeRequest) (*http.
 }
 
 type ApiGetChangeRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -143,27 +144,26 @@ func (r ApiGetChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Resp
 /*
 GetChange Method for GetChange
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetChangeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetChangeRequest
 */
 func (a *ChangeAPIService) GetChange(ctx context.Context, primaryKey string) ApiGetChangeRequest {
 	return ApiGetChangeRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfChange
+//  @return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfChange
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChange")
@@ -220,14 +220,14 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,245 +244,261 @@ func (a *ChangeAPIService) GetChangeExecute(r ApiGetChangeRequest) (*ResponseWit
 }
 
 type ApiGetChangesRequest struct {
-	ctx                                             context.Context
-	ApiService                                      *ChangeAPIService
-	limit                                           *int32
-	offset                                          *int32
-	depth                                           *int32
-	repositoryLoad                                  *string
-	referencedByExecutionLoad                       *string
-	idEq                                            *string
-	idNe                                            *string
-	idGt                                            *string
-	idGte                                           *string
-	idLt                                            *string
-	idLte                                           *string
-	idIn                                            *string
-	idNotin                                         *string
-	idContains                                      *string
-	idNotcontains                                   *string
-	idLike                                          *string
-	idNotlike                                       *string
-	idIlike                                         *string
-	idNotilike                                      *string
-	idDesc                                          *string
-	idAsc                                           *string
-	createdAtEq                                     *time.Time
-	createdAtNe                                     *time.Time
-	createdAtGt                                     *time.Time
-	createdAtGte                                    *time.Time
-	createdAtLt                                     *time.Time
-	createdAtLte                                    *time.Time
-	createdAtIn                                     *time.Time
-	createdAtNotin                                  *time.Time
-	createdAtContains                               *time.Time
-	createdAtNotcontains                            *time.Time
-	createdAtLike                                   *time.Time
-	createdAtNotlike                                *time.Time
-	createdAtIlike                                  *time.Time
-	createdAtNotilike                               *time.Time
-	createdAtDesc                                   *string
-	createdAtAsc                                    *string
-	updatedAtEq                                     *time.Time
-	updatedAtNe                                     *time.Time
-	updatedAtGt                                     *time.Time
-	updatedAtGte                                    *time.Time
-	updatedAtLt                                     *time.Time
-	updatedAtLte                                    *time.Time
-	updatedAtIn                                     *time.Time
-	updatedAtNotin                                  *time.Time
-	updatedAtContains                               *time.Time
-	updatedAtNotcontains                            *time.Time
-	updatedAtLike                                   *time.Time
-	updatedAtNotlike                                *time.Time
-	updatedAtIlike                                  *time.Time
-	updatedAtNotilike                               *time.Time
-	updatedAtDesc                                   *string
-	updatedAtAsc                                    *string
-	deletedAtEq                                     *time.Time
-	deletedAtNe                                     *time.Time
-	deletedAtGt                                     *time.Time
-	deletedAtGte                                    *time.Time
-	deletedAtLt                                     *time.Time
-	deletedAtLte                                    *time.Time
-	deletedAtIn                                     *time.Time
-	deletedAtNotin                                  *time.Time
-	deletedAtContains                               *time.Time
-	deletedAtNotcontains                            *time.Time
-	deletedAtLike                                   *time.Time
-	deletedAtNotlike                                *time.Time
-	deletedAtIlike                                  *time.Time
-	deletedAtNotilike                               *time.Time
-	deletedAtDesc                                   *string
-	deletedAtAsc                                    *string
-	commitHashEq                                    *string
-	commitHashNe                                    *string
-	commitHashGt                                    *string
-	commitHashGte                                   *string
-	commitHashLt                                    *string
-	commitHashLte                                   *string
-	commitHashIn                                    *string
-	commitHashNotin                                 *string
-	commitHashContains                              *string
-	commitHashNotcontains                           *string
-	commitHashLike                                  *string
-	commitHashNotlike                               *string
-	commitHashIlike                                 *string
-	commitHashNotilike                              *string
-	commitHashDesc                                  *string
-	commitHashAsc                                   *string
-	branchNameEq                                    *string
-	branchNameNe                                    *string
-	branchNameGt                                    *string
-	branchNameGte                                   *string
-	branchNameLt                                    *string
-	branchNameLte                                   *string
-	branchNameIn                                    *string
-	branchNameNotin                                 *string
-	branchNameContains                              *string
-	branchNameNotcontains                           *string
-	branchNameLike                                  *string
-	branchNameNotlike                               *string
-	branchNameIlike                                 *string
-	branchNameNotilike                              *string
-	branchNameDesc                                  *string
-	branchNameAsc                                   *string
-	messageEq                                       *string
-	messageNe                                       *string
-	messageGt                                       *string
-	messageGte                                      *string
-	messageLt                                       *string
-	messageLte                                      *string
-	messageIn                                       *string
-	messageNotin                                    *string
-	messageContains                                 *string
-	messageNotcontains                              *string
-	messageLike                                     *string
-	messageNotlike                                  *string
-	messageIlike                                    *string
-	messageNotilike                                 *string
-	messageDesc                                     *string
-	messageAsc                                      *string
-	authoredByEq                                    *string
-	authoredByNe                                    *string
-	authoredByGt                                    *string
-	authoredByGte                                   *string
-	authoredByLt                                    *string
-	authoredByLte                                   *string
-	authoredByIn                                    *string
-	authoredByNotin                                 *string
-	authoredByContains                              *string
-	authoredByNotcontains                           *string
-	authoredByLike                                  *string
-	authoredByNotlike                               *string
-	authoredByIlike                                 *string
-	authoredByNotilike                              *string
-	authoredByDesc                                  *string
-	authoredByAsc                                   *string
-	authoredAtEq                                    *time.Time
-	authoredAtNe                                    *time.Time
-	authoredAtGt                                    *time.Time
-	authoredAtGte                                   *time.Time
-	authoredAtLt                                    *time.Time
-	authoredAtLte                                   *time.Time
-	authoredAtIn                                    *time.Time
-	authoredAtNotin                                 *time.Time
-	authoredAtContains                              *time.Time
-	authoredAtNotcontains                           *time.Time
-	authoredAtLike                                  *time.Time
-	authoredAtNotlike                               *time.Time
-	authoredAtIlike                                 *time.Time
-	authoredAtNotilike                              *time.Time
-	authoredAtDesc                                  *string
-	authoredAtAsc                                   *string
-	committedByEq                                   *string
-	committedByNe                                   *string
-	committedByGt                                   *string
-	committedByGte                                  *string
-	committedByLt                                   *string
-	committedByLte                                  *string
-	committedByIn                                   *string
-	committedByNotin                                *string
-	committedByContains                             *string
-	committedByNotcontains                          *string
-	committedByLike                                 *string
-	committedByNotlike                              *string
-	committedByIlike                                *string
-	committedByNotilike                             *string
-	committedByDesc                                 *string
-	committedByAsc                                  *string
-	committedAtEq                                   *time.Time
-	committedAtNe                                   *time.Time
-	committedAtGt                                   *time.Time
-	committedAtGte                                  *time.Time
-	committedAtLt                                   *time.Time
-	committedAtLte                                  *time.Time
-	committedAtIn                                   *time.Time
-	committedAtNotin                                *time.Time
-	committedAtContains                             *time.Time
-	committedAtNotcontains                          *time.Time
-	committedAtLike                                 *time.Time
-	committedAtNotlike                              *time.Time
-	committedAtIlike                                *time.Time
-	committedAtNotilike                             *time.Time
-	committedAtDesc                                 *string
-	committedAtAsc                                  *string
-	triggersProducedAtEq                            *time.Time
-	triggersProducedAtNe                            *time.Time
-	triggersProducedAtGt                            *time.Time
-	triggersProducedAtGte                           *time.Time
-	triggersProducedAtLt                            *time.Time
-	triggersProducedAtLte                           *time.Time
-	triggersProducedAtIn                            *time.Time
-	triggersProducedAtNotin                         *time.Time
-	triggersProducedAtContains                      *time.Time
-	triggersProducedAtNotcontains                   *time.Time
-	triggersProducedAtLike                          *time.Time
-	triggersProducedAtNotlike                       *time.Time
-	triggersProducedAtIlike                         *time.Time
-	triggersProducedAtNotilike                      *time.Time
-	triggersProducedAtDesc                          *string
-	triggersProducedAtAsc                           *string
-	triggerProducerClaimedUntilEq                   *time.Time
-	triggerProducerClaimedUntilNe                   *time.Time
-	triggerProducerClaimedUntilGt                   *time.Time
-	triggerProducerClaimedUntilGte                  *time.Time
-	triggerProducerClaimedUntilLt                   *time.Time
-	triggerProducerClaimedUntilLte                  *time.Time
-	triggerProducerClaimedUntilIn                   *time.Time
-	triggerProducerClaimedUntilNotin                *time.Time
-	triggerProducerClaimedUntilContains             *time.Time
-	triggerProducerClaimedUntilNotcontains          *time.Time
-	triggerProducerClaimedUntilLike                 *time.Time
-	triggerProducerClaimedUntilNotlike              *time.Time
-	triggerProducerClaimedUntilIlike                *time.Time
-	triggerProducerClaimedUntilNotilike             *time.Time
-	triggerProducerClaimedUntilDesc                 *string
-	triggerProducerClaimedUntilAsc                  *string
-	repositoryIdEq                                  *string
-	repositoryIdNe                                  *string
-	repositoryIdGt                                  *string
-	repositoryIdGte                                 *string
-	repositoryIdLt                                  *string
-	repositoryIdLte                                 *string
-	repositoryIdIn                                  *string
-	repositoryIdNotin                               *string
-	repositoryIdContains                            *string
-	repositoryIdNotcontains                         *string
-	repositoryIdLike                                *string
-	repositoryIdNotlike                             *string
-	repositoryIdIlike                               *string
-	repositoryIdNotilike                            *string
-	repositoryIdDesc                                *string
-	repositoryIdAsc                                 *string
-	repositoryIdObjectContains                      *interface{}
-	repositoryIdObjectNotcontains                   *interface{}
-	repositoryIdObjectDesc                          *string
-	repositoryIdObjectAsc                           *string
-	referencedByExecutionChangeIdObjectsContains    *interface{}
+	ctx context.Context
+	ApiService *ChangeAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	repositoryLoad *string
+	referencedByExecutionLoad *string
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idContains *string
+	idNotcontains *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtContains *time.Time
+	createdAtNotcontains *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtContains *time.Time
+	updatedAtNotcontains *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtContains *time.Time
+	deletedAtNotcontains *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	commitHashEq *string
+	commitHashNe *string
+	commitHashGt *string
+	commitHashGte *string
+	commitHashLt *string
+	commitHashLte *string
+	commitHashIn *string
+	commitHashNotin *string
+	commitHashContains *string
+	commitHashNotcontains *string
+	commitHashLike *string
+	commitHashNotlike *string
+	commitHashIlike *string
+	commitHashNotilike *string
+	commitHashDesc *string
+	commitHashAsc *string
+	branchEq *string
+	branchNe *string
+	branchGt *string
+	branchGte *string
+	branchLt *string
+	branchLte *string
+	branchIn *string
+	branchNotin *string
+	branchContains *string
+	branchNotcontains *string
+	branchLike *string
+	branchNotlike *string
+	branchIlike *string
+	branchNotilike *string
+	branchDesc *string
+	branchAsc *string
+	tagEq *string
+	tagNe *string
+	tagGt *string
+	tagGte *string
+	tagLt *string
+	tagLte *string
+	tagIn *string
+	tagNotin *string
+	tagContains *string
+	tagNotcontains *string
+	tagLike *string
+	tagNotlike *string
+	tagIlike *string
+	tagNotilike *string
+	tagDesc *string
+	tagAsc *string
+	messageEq *string
+	messageNe *string
+	messageGt *string
+	messageGte *string
+	messageLt *string
+	messageLte *string
+	messageIn *string
+	messageNotin *string
+	messageContains *string
+	messageNotcontains *string
+	messageLike *string
+	messageNotlike *string
+	messageIlike *string
+	messageNotilike *string
+	messageDesc *string
+	messageAsc *string
+	authoredByEq *string
+	authoredByNe *string
+	authoredByGt *string
+	authoredByGte *string
+	authoredByLt *string
+	authoredByLte *string
+	authoredByIn *string
+	authoredByNotin *string
+	authoredByContains *string
+	authoredByNotcontains *string
+	authoredByLike *string
+	authoredByNotlike *string
+	authoredByIlike *string
+	authoredByNotilike *string
+	authoredByDesc *string
+	authoredByAsc *string
+	authoredAtEq *time.Time
+	authoredAtNe *time.Time
+	authoredAtGt *time.Time
+	authoredAtGte *time.Time
+	authoredAtLt *time.Time
+	authoredAtLte *time.Time
+	authoredAtIn *time.Time
+	authoredAtNotin *time.Time
+	authoredAtContains *time.Time
+	authoredAtNotcontains *time.Time
+	authoredAtLike *time.Time
+	authoredAtNotlike *time.Time
+	authoredAtIlike *time.Time
+	authoredAtNotilike *time.Time
+	authoredAtDesc *string
+	authoredAtAsc *string
+	committedByEq *string
+	committedByNe *string
+	committedByGt *string
+	committedByGte *string
+	committedByLt *string
+	committedByLte *string
+	committedByIn *string
+	committedByNotin *string
+	committedByContains *string
+	committedByNotcontains *string
+	committedByLike *string
+	committedByNotlike *string
+	committedByIlike *string
+	committedByNotilike *string
+	committedByDesc *string
+	committedByAsc *string
+	committedAtEq *time.Time
+	committedAtNe *time.Time
+	committedAtGt *time.Time
+	committedAtGte *time.Time
+	committedAtLt *time.Time
+	committedAtLte *time.Time
+	committedAtIn *time.Time
+	committedAtNotin *time.Time
+	committedAtContains *time.Time
+	committedAtNotcontains *time.Time
+	committedAtLike *time.Time
+	committedAtNotlike *time.Time
+	committedAtIlike *time.Time
+	committedAtNotilike *time.Time
+	committedAtDesc *string
+	committedAtAsc *string
+	handledAtEq *time.Time
+	handledAtNe *time.Time
+	handledAtGt *time.Time
+	handledAtGte *time.Time
+	handledAtLt *time.Time
+	handledAtLte *time.Time
+	handledAtIn *time.Time
+	handledAtNotin *time.Time
+	handledAtContains *time.Time
+	handledAtNotcontains *time.Time
+	handledAtLike *time.Time
+	handledAtNotlike *time.Time
+	handledAtIlike *time.Time
+	handledAtNotilike *time.Time
+	handledAtDesc *string
+	handledAtAsc *string
+	jobCoordinatorClaimedUntilEq *time.Time
+	jobCoordinatorClaimedUntilNe *time.Time
+	jobCoordinatorClaimedUntilGt *time.Time
+	jobCoordinatorClaimedUntilGte *time.Time
+	jobCoordinatorClaimedUntilLt *time.Time
+	jobCoordinatorClaimedUntilLte *time.Time
+	jobCoordinatorClaimedUntilIn *time.Time
+	jobCoordinatorClaimedUntilNotin *time.Time
+	jobCoordinatorClaimedUntilContains *time.Time
+	jobCoordinatorClaimedUntilNotcontains *time.Time
+	jobCoordinatorClaimedUntilLike *time.Time
+	jobCoordinatorClaimedUntilNotlike *time.Time
+	jobCoordinatorClaimedUntilIlike *time.Time
+	jobCoordinatorClaimedUntilNotilike *time.Time
+	jobCoordinatorClaimedUntilDesc *string
+	jobCoordinatorClaimedUntilAsc *string
+	repositoryIdEq *string
+	repositoryIdNe *string
+	repositoryIdGt *string
+	repositoryIdGte *string
+	repositoryIdLt *string
+	repositoryIdLte *string
+	repositoryIdIn *string
+	repositoryIdNotin *string
+	repositoryIdContains *string
+	repositoryIdNotcontains *string
+	repositoryIdLike *string
+	repositoryIdNotlike *string
+	repositoryIdIlike *string
+	repositoryIdNotilike *string
+	repositoryIdDesc *string
+	repositoryIdAsc *string
+	repositoryIdObjectContains *interface{}
+	repositoryIdObjectNotcontains *interface{}
+	repositoryIdObjectDesc *string
+	repositoryIdObjectAsc *string
+	referencedByExecutionChangeIdObjectsContains *interface{}
 	referencedByExecutionChangeIdObjectsNotcontains *interface{}
-	referencedByExecutionChangeIdObjectsDesc        *string
-	referencedByExecutionChangeIdObjectsAsc         *string
+	referencedByExecutionChangeIdObjectsDesc *string
+	referencedByExecutionChangeIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -996,98 +1012,194 @@ func (r ApiGetChangesRequest) CommitHashAsc(commitHashAsc string) ApiGetChangesR
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetChangesRequest) BranchNameEq(branchNameEq string) ApiGetChangesRequest {
-	r.branchNameEq = &branchNameEq
+func (r ApiGetChangesRequest) BranchEq(branchEq string) ApiGetChangesRequest {
+	r.branchEq = &branchEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetChangesRequest) BranchNameNe(branchNameNe string) ApiGetChangesRequest {
-	r.branchNameNe = &branchNameNe
+func (r ApiGetChangesRequest) BranchNe(branchNe string) ApiGetChangesRequest {
+	r.branchNe = &branchNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameGt(branchNameGt string) ApiGetChangesRequest {
-	r.branchNameGt = &branchNameGt
+func (r ApiGetChangesRequest) BranchGt(branchGt string) ApiGetChangesRequest {
+	r.branchGt = &branchGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameGte(branchNameGte string) ApiGetChangesRequest {
-	r.branchNameGte = &branchNameGte
+func (r ApiGetChangesRequest) BranchGte(branchGte string) ApiGetChangesRequest {
+	r.branchGte = &branchGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameLt(branchNameLt string) ApiGetChangesRequest {
-	r.branchNameLt = &branchNameLt
+func (r ApiGetChangesRequest) BranchLt(branchLt string) ApiGetChangesRequest {
+	r.branchLt = &branchLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) BranchNameLte(branchNameLte string) ApiGetChangesRequest {
-	r.branchNameLte = &branchNameLte
+func (r ApiGetChangesRequest) BranchLte(branchLte string) ApiGetChangesRequest {
+	r.branchLte = &branchLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) BranchNameIn(branchNameIn string) ApiGetChangesRequest {
-	r.branchNameIn = &branchNameIn
+func (r ApiGetChangesRequest) BranchIn(branchIn string) ApiGetChangesRequest {
+	r.branchIn = &branchIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) BranchNameNotin(branchNameNotin string) ApiGetChangesRequest {
-	r.branchNameNotin = &branchNameNotin
+func (r ApiGetChangesRequest) BranchNotin(branchNotin string) ApiGetChangesRequest {
+	r.branchNotin = &branchNotin
 	return r
 }
 
 // SQL @&gt; comparison
-func (r ApiGetChangesRequest) BranchNameContains(branchNameContains string) ApiGetChangesRequest {
-	r.branchNameContains = &branchNameContains
+func (r ApiGetChangesRequest) BranchContains(branchContains string) ApiGetChangesRequest {
+	r.branchContains = &branchContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetChangesRequest) BranchNameNotcontains(branchNameNotcontains string) ApiGetChangesRequest {
-	r.branchNameNotcontains = &branchNameNotcontains
+func (r ApiGetChangesRequest) BranchNotcontains(branchNotcontains string) ApiGetChangesRequest {
+	r.branchNotcontains = &branchNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameLike(branchNameLike string) ApiGetChangesRequest {
-	r.branchNameLike = &branchNameLike
+func (r ApiGetChangesRequest) BranchLike(branchLike string) ApiGetChangesRequest {
+	r.branchLike = &branchLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameNotlike(branchNameNotlike string) ApiGetChangesRequest {
-	r.branchNameNotlike = &branchNameNotlike
+func (r ApiGetChangesRequest) BranchNotlike(branchNotlike string) ApiGetChangesRequest {
+	r.branchNotlike = &branchNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameIlike(branchNameIlike string) ApiGetChangesRequest {
-	r.branchNameIlike = &branchNameIlike
+func (r ApiGetChangesRequest) BranchIlike(branchIlike string) ApiGetChangesRequest {
+	r.branchIlike = &branchIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) BranchNameNotilike(branchNameNotilike string) ApiGetChangesRequest {
-	r.branchNameNotilike = &branchNameNotilike
+func (r ApiGetChangesRequest) BranchNotilike(branchNotilike string) ApiGetChangesRequest {
+	r.branchNotilike = &branchNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) BranchNameDesc(branchNameDesc string) ApiGetChangesRequest {
-	r.branchNameDesc = &branchNameDesc
+func (r ApiGetChangesRequest) BranchDesc(branchDesc string) ApiGetChangesRequest {
+	r.branchDesc = &branchDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) BranchNameAsc(branchNameAsc string) ApiGetChangesRequest {
-	r.branchNameAsc = &branchNameAsc
+func (r ApiGetChangesRequest) BranchAsc(branchAsc string) ApiGetChangesRequest {
+	r.branchAsc = &branchAsc
+	return r
+}
+
+// SQL &#x3D; comparison
+func (r ApiGetChangesRequest) TagEq(tagEq string) ApiGetChangesRequest {
+	r.tagEq = &tagEq
+	return r
+}
+
+// SQL !&#x3D; comparison
+func (r ApiGetChangesRequest) TagNe(tagNe string) ApiGetChangesRequest {
+	r.tagNe = &tagNe
+	return r
+}
+
+// SQL &gt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TagGt(tagGt string) ApiGetChangesRequest {
+	r.tagGt = &tagGt
+	return r
+}
+
+// SQL &gt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TagGte(tagGte string) ApiGetChangesRequest {
+	r.tagGte = &tagGte
+	return r
+}
+
+// SQL &lt; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TagLt(tagLt string) ApiGetChangesRequest {
+	r.tagLt = &tagLt
+	return r
+}
+
+// SQL &lt;&#x3D; comparison, may not work with all column types
+func (r ApiGetChangesRequest) TagLte(tagLte string) ApiGetChangesRequest {
+	r.tagLte = &tagLte
+	return r
+}
+
+// SQL IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) TagIn(tagIn string) ApiGetChangesRequest {
+	r.tagIn = &tagIn
+	return r
+}
+
+// SQL NOT IN comparison, permits comma-separated values
+func (r ApiGetChangesRequest) TagNotin(tagNotin string) ApiGetChangesRequest {
+	r.tagNotin = &tagNotin
+	return r
+}
+
+// SQL @&gt; comparison
+func (r ApiGetChangesRequest) TagContains(tagContains string) ApiGetChangesRequest {
+	r.tagContains = &tagContains
+	return r
+}
+
+// SQL NOT @&gt; comparison
+func (r ApiGetChangesRequest) TagNotcontains(tagNotcontains string) ApiGetChangesRequest {
+	r.tagNotcontains = &tagNotcontains
+	return r
+}
+
+// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TagLike(tagLike string) ApiGetChangesRequest {
+	r.tagLike = &tagLike
+	return r
+}
+
+// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TagNotlike(tagNotlike string) ApiGetChangesRequest {
+	r.tagNotlike = &tagNotlike
+	return r
+}
+
+// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TagIlike(tagIlike string) ApiGetChangesRequest {
+	r.tagIlike = &tagIlike
+	return r
+}
+
+// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
+func (r ApiGetChangesRequest) TagNotilike(tagNotilike string) ApiGetChangesRequest {
+	r.tagNotilike = &tagNotilike
+	return r
+}
+
+// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) TagDesc(tagDesc string) ApiGetChangesRequest {
+	r.tagDesc = &tagDesc
+	return r
+}
+
+// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
+func (r ApiGetChangesRequest) TagAsc(tagAsc string) ApiGetChangesRequest {
+	r.tagAsc = &tagAsc
 	return r
 }
 
@@ -1572,194 +1684,194 @@ func (r ApiGetChangesRequest) CommittedAtAsc(committedAtAsc string) ApiGetChange
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetChangesRequest) TriggersProducedAtEq(triggersProducedAtEq time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtEq = &triggersProducedAtEq
+func (r ApiGetChangesRequest) HandledAtEq(handledAtEq time.Time) ApiGetChangesRequest {
+	r.handledAtEq = &handledAtEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetChangesRequest) TriggersProducedAtNe(triggersProducedAtNe time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtNe = &triggersProducedAtNe
+func (r ApiGetChangesRequest) HandledAtNe(handledAtNe time.Time) ApiGetChangesRequest {
+	r.handledAtNe = &handledAtNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggersProducedAtGt(triggersProducedAtGt time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtGt = &triggersProducedAtGt
+func (r ApiGetChangesRequest) HandledAtGt(handledAtGt time.Time) ApiGetChangesRequest {
+	r.handledAtGt = &handledAtGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggersProducedAtGte(triggersProducedAtGte time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtGte = &triggersProducedAtGte
+func (r ApiGetChangesRequest) HandledAtGte(handledAtGte time.Time) ApiGetChangesRequest {
+	r.handledAtGte = &handledAtGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggersProducedAtLt(triggersProducedAtLt time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtLt = &triggersProducedAtLt
+func (r ApiGetChangesRequest) HandledAtLt(handledAtLt time.Time) ApiGetChangesRequest {
+	r.handledAtLt = &handledAtLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggersProducedAtLte(triggersProducedAtLte time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtLte = &triggersProducedAtLte
+func (r ApiGetChangesRequest) HandledAtLte(handledAtLte time.Time) ApiGetChangesRequest {
+	r.handledAtLte = &handledAtLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggersProducedAtIn(triggersProducedAtIn time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtIn = &triggersProducedAtIn
+func (r ApiGetChangesRequest) HandledAtIn(handledAtIn time.Time) ApiGetChangesRequest {
+	r.handledAtIn = &handledAtIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggersProducedAtNotin(triggersProducedAtNotin time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtNotin = &triggersProducedAtNotin
+func (r ApiGetChangesRequest) HandledAtNotin(handledAtNotin time.Time) ApiGetChangesRequest {
+	r.handledAtNotin = &handledAtNotin
 	return r
 }
 
 // SQL @&gt; comparison
-func (r ApiGetChangesRequest) TriggersProducedAtContains(triggersProducedAtContains time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtContains = &triggersProducedAtContains
+func (r ApiGetChangesRequest) HandledAtContains(handledAtContains time.Time) ApiGetChangesRequest {
+	r.handledAtContains = &handledAtContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetChangesRequest) TriggersProducedAtNotcontains(triggersProducedAtNotcontains time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtNotcontains = &triggersProducedAtNotcontains
+func (r ApiGetChangesRequest) HandledAtNotcontains(handledAtNotcontains time.Time) ApiGetChangesRequest {
+	r.handledAtNotcontains = &handledAtNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggersProducedAtLike(triggersProducedAtLike time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtLike = &triggersProducedAtLike
+func (r ApiGetChangesRequest) HandledAtLike(handledAtLike time.Time) ApiGetChangesRequest {
+	r.handledAtLike = &handledAtLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggersProducedAtNotlike(triggersProducedAtNotlike time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtNotlike = &triggersProducedAtNotlike
+func (r ApiGetChangesRequest) HandledAtNotlike(handledAtNotlike time.Time) ApiGetChangesRequest {
+	r.handledAtNotlike = &handledAtNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggersProducedAtIlike(triggersProducedAtIlike time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtIlike = &triggersProducedAtIlike
+func (r ApiGetChangesRequest) HandledAtIlike(handledAtIlike time.Time) ApiGetChangesRequest {
+	r.handledAtIlike = &handledAtIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggersProducedAtNotilike(triggersProducedAtNotilike time.Time) ApiGetChangesRequest {
-	r.triggersProducedAtNotilike = &triggersProducedAtNotilike
+func (r ApiGetChangesRequest) HandledAtNotilike(handledAtNotilike time.Time) ApiGetChangesRequest {
+	r.handledAtNotilike = &handledAtNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggersProducedAtDesc(triggersProducedAtDesc string) ApiGetChangesRequest {
-	r.triggersProducedAtDesc = &triggersProducedAtDesc
+func (r ApiGetChangesRequest) HandledAtDesc(handledAtDesc string) ApiGetChangesRequest {
+	r.handledAtDesc = &handledAtDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggersProducedAtAsc(triggersProducedAtAsc string) ApiGetChangesRequest {
-	r.triggersProducedAtAsc = &triggersProducedAtAsc
+func (r ApiGetChangesRequest) HandledAtAsc(handledAtAsc string) ApiGetChangesRequest {
+	r.handledAtAsc = &handledAtAsc
 	return r
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilEq(triggerProducerClaimedUntilEq time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilEq = &triggerProducerClaimedUntilEq
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilEq(jobCoordinatorClaimedUntilEq time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilEq = &jobCoordinatorClaimedUntilEq
 	return r
 }
 
 // SQL !&#x3D; comparison
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilNe(triggerProducerClaimedUntilNe time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilNe = &triggerProducerClaimedUntilNe
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilNe(jobCoordinatorClaimedUntilNe time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilNe = &jobCoordinatorClaimedUntilNe
 	return r
 }
 
 // SQL &gt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilGt(triggerProducerClaimedUntilGt time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilGt = &triggerProducerClaimedUntilGt
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilGt(jobCoordinatorClaimedUntilGt time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilGt = &jobCoordinatorClaimedUntilGt
 	return r
 }
 
 // SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilGte(triggerProducerClaimedUntilGte time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilGte = &triggerProducerClaimedUntilGte
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilGte(jobCoordinatorClaimedUntilGte time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilGte = &jobCoordinatorClaimedUntilGte
 	return r
 }
 
 // SQL &lt; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilLt(triggerProducerClaimedUntilLt time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilLt = &triggerProducerClaimedUntilLt
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilLt(jobCoordinatorClaimedUntilLt time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilLt = &jobCoordinatorClaimedUntilLt
 	return r
 }
 
 // SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilLte(triggerProducerClaimedUntilLte time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilLte = &triggerProducerClaimedUntilLte
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilLte(jobCoordinatorClaimedUntilLte time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilLte = &jobCoordinatorClaimedUntilLte
 	return r
 }
 
 // SQL IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilIn(triggerProducerClaimedUntilIn time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilIn = &triggerProducerClaimedUntilIn
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilIn(jobCoordinatorClaimedUntilIn time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilIn = &jobCoordinatorClaimedUntilIn
 	return r
 }
 
 // SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilNotin(triggerProducerClaimedUntilNotin time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilNotin = &triggerProducerClaimedUntilNotin
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilNotin(jobCoordinatorClaimedUntilNotin time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilNotin = &jobCoordinatorClaimedUntilNotin
 	return r
 }
 
 // SQL @&gt; comparison
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilContains(triggerProducerClaimedUntilContains time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilContains = &triggerProducerClaimedUntilContains
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilContains(jobCoordinatorClaimedUntilContains time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilContains = &jobCoordinatorClaimedUntilContains
 	return r
 }
 
 // SQL NOT @&gt; comparison
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilNotcontains(triggerProducerClaimedUntilNotcontains time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilNotcontains = &triggerProducerClaimedUntilNotcontains
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilNotcontains(jobCoordinatorClaimedUntilNotcontains time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilNotcontains = &jobCoordinatorClaimedUntilNotcontains
 	return r
 }
 
 // SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilLike(triggerProducerClaimedUntilLike time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilLike = &triggerProducerClaimedUntilLike
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilLike(jobCoordinatorClaimedUntilLike time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilLike = &jobCoordinatorClaimedUntilLike
 	return r
 }
 
 // SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilNotlike(triggerProducerClaimedUntilNotlike time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilNotlike = &triggerProducerClaimedUntilNotlike
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilNotlike(jobCoordinatorClaimedUntilNotlike time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilNotlike = &jobCoordinatorClaimedUntilNotlike
 	return r
 }
 
 // SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilIlike(triggerProducerClaimedUntilIlike time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilIlike = &triggerProducerClaimedUntilIlike
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilIlike(jobCoordinatorClaimedUntilIlike time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilIlike = &jobCoordinatorClaimedUntilIlike
 	return r
 }
 
 // SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilNotilike(triggerProducerClaimedUntilNotilike time.Time) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilNotilike = &triggerProducerClaimedUntilNotilike
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilNotilike(jobCoordinatorClaimedUntilNotilike time.Time) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilNotilike = &jobCoordinatorClaimedUntilNotilike
 	return r
 }
 
 // SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilDesc(triggerProducerClaimedUntilDesc string) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilDesc = &triggerProducerClaimedUntilDesc
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilDesc(jobCoordinatorClaimedUntilDesc string) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilDesc = &jobCoordinatorClaimedUntilDesc
 	return r
 }
 
 // SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetChangesRequest) TriggerProducerClaimedUntilAsc(triggerProducerClaimedUntilAsc string) ApiGetChangesRequest {
-	r.triggerProducerClaimedUntilAsc = &triggerProducerClaimedUntilAsc
+func (r ApiGetChangesRequest) JobCoordinatorClaimedUntilAsc(jobCoordinatorClaimedUntilAsc string) ApiGetChangesRequest {
+	r.jobCoordinatorClaimedUntilAsc = &jobCoordinatorClaimedUntilAsc
 	return r
 }
 
@@ -1914,25 +2026,24 @@ func (r ApiGetChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Res
 /*
 GetChanges Method for GetChanges
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetChangesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetChangesRequest
 */
 func (a *ChangeAPIService) GetChanges(ctx context.Context) ApiGetChangesRequest {
 	return ApiGetChangesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfChange
+//  @return ResponseWithGenericOfChange
 func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfChange
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.GetChanges")
@@ -2201,53 +2312,101 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	if r.commitHashAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "commit_hash__asc", r.commitHashAsc, "form", "")
 	}
-	if r.branchNameEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__eq", r.branchNameEq, "form", "")
+	if r.branchEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__eq", r.branchEq, "form", "")
 	}
-	if r.branchNameNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ne", r.branchNameNe, "form", "")
+	if r.branchNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__ne", r.branchNe, "form", "")
 	}
-	if r.branchNameGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gt", r.branchNameGt, "form", "")
+	if r.branchGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__gt", r.branchGt, "form", "")
 	}
-	if r.branchNameGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__gte", r.branchNameGte, "form", "")
+	if r.branchGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__gte", r.branchGte, "form", "")
 	}
-	if r.branchNameLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lt", r.branchNameLt, "form", "")
+	if r.branchLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__lt", r.branchLt, "form", "")
 	}
-	if r.branchNameLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__lte", r.branchNameLte, "form", "")
+	if r.branchLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__lte", r.branchLte, "form", "")
 	}
-	if r.branchNameIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__in", r.branchNameIn, "form", "")
+	if r.branchIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__in", r.branchIn, "form", "")
 	}
-	if r.branchNameNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notin", r.branchNameNotin, "form", "")
+	if r.branchNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__notin", r.branchNotin, "form", "")
 	}
-	if r.branchNameContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__contains", r.branchNameContains, "form", "")
+	if r.branchContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__contains", r.branchContains, "form", "")
 	}
-	if r.branchNameNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notcontains", r.branchNameNotcontains, "form", "")
+	if r.branchNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__notcontains", r.branchNotcontains, "form", "")
 	}
-	if r.branchNameLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__like", r.branchNameLike, "form", "")
+	if r.branchLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__like", r.branchLike, "form", "")
 	}
-	if r.branchNameNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notlike", r.branchNameNotlike, "form", "")
+	if r.branchNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__notlike", r.branchNotlike, "form", "")
 	}
-	if r.branchNameIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__ilike", r.branchNameIlike, "form", "")
+	if r.branchIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__ilike", r.branchIlike, "form", "")
 	}
-	if r.branchNameNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__notilike", r.branchNameNotilike, "form", "")
+	if r.branchNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__notilike", r.branchNotilike, "form", "")
 	}
-	if r.branchNameDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__desc", r.branchNameDesc, "form", "")
+	if r.branchDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__desc", r.branchDesc, "form", "")
 	}
-	if r.branchNameAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branch_name__asc", r.branchNameAsc, "form", "")
+	if r.branchAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branch__asc", r.branchAsc, "form", "")
+	}
+	if r.tagEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__eq", r.tagEq, "form", "")
+	}
+	if r.tagNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__ne", r.tagNe, "form", "")
+	}
+	if r.tagGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__gt", r.tagGt, "form", "")
+	}
+	if r.tagGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__gte", r.tagGte, "form", "")
+	}
+	if r.tagLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__lt", r.tagLt, "form", "")
+	}
+	if r.tagLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__lte", r.tagLte, "form", "")
+	}
+	if r.tagIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__in", r.tagIn, "form", "")
+	}
+	if r.tagNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__notin", r.tagNotin, "form", "")
+	}
+	if r.tagContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__contains", r.tagContains, "form", "")
+	}
+	if r.tagNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__notcontains", r.tagNotcontains, "form", "")
+	}
+	if r.tagLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__like", r.tagLike, "form", "")
+	}
+	if r.tagNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__notlike", r.tagNotlike, "form", "")
+	}
+	if r.tagIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__ilike", r.tagIlike, "form", "")
+	}
+	if r.tagNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__notilike", r.tagNotilike, "form", "")
+	}
+	if r.tagDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__desc", r.tagDesc, "form", "")
+	}
+	if r.tagAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag__asc", r.tagAsc, "form", "")
 	}
 	if r.messageEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "message__eq", r.messageEq, "form", "")
@@ -2489,101 +2648,101 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 	if r.committedAtAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "committed_at__asc", r.committedAtAsc, "form", "")
 	}
-	if r.triggersProducedAtEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__eq", r.triggersProducedAtEq, "form", "")
+	if r.handledAtEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__eq", r.handledAtEq, "form", "")
 	}
-	if r.triggersProducedAtNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__ne", r.triggersProducedAtNe, "form", "")
+	if r.handledAtNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__ne", r.handledAtNe, "form", "")
 	}
-	if r.triggersProducedAtGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__gt", r.triggersProducedAtGt, "form", "")
+	if r.handledAtGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__gt", r.handledAtGt, "form", "")
 	}
-	if r.triggersProducedAtGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__gte", r.triggersProducedAtGte, "form", "")
+	if r.handledAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__gte", r.handledAtGte, "form", "")
 	}
-	if r.triggersProducedAtLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__lt", r.triggersProducedAtLt, "form", "")
+	if r.handledAtLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__lt", r.handledAtLt, "form", "")
 	}
-	if r.triggersProducedAtLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__lte", r.triggersProducedAtLte, "form", "")
+	if r.handledAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__lte", r.handledAtLte, "form", "")
 	}
-	if r.triggersProducedAtIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__in", r.triggersProducedAtIn, "form", "")
+	if r.handledAtIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__in", r.handledAtIn, "form", "")
 	}
-	if r.triggersProducedAtNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notin", r.triggersProducedAtNotin, "form", "")
+	if r.handledAtNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notin", r.handledAtNotin, "form", "")
 	}
-	if r.triggersProducedAtContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__contains", r.triggersProducedAtContains, "form", "")
+	if r.handledAtContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__contains", r.handledAtContains, "form", "")
 	}
-	if r.triggersProducedAtNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notcontains", r.triggersProducedAtNotcontains, "form", "")
+	if r.handledAtNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notcontains", r.handledAtNotcontains, "form", "")
 	}
-	if r.triggersProducedAtLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__like", r.triggersProducedAtLike, "form", "")
+	if r.handledAtLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__like", r.handledAtLike, "form", "")
 	}
-	if r.triggersProducedAtNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notlike", r.triggersProducedAtNotlike, "form", "")
+	if r.handledAtNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notlike", r.handledAtNotlike, "form", "")
 	}
-	if r.triggersProducedAtIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__ilike", r.triggersProducedAtIlike, "form", "")
+	if r.handledAtIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__ilike", r.handledAtIlike, "form", "")
 	}
-	if r.triggersProducedAtNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__notilike", r.triggersProducedAtNotilike, "form", "")
+	if r.handledAtNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__notilike", r.handledAtNotilike, "form", "")
 	}
-	if r.triggersProducedAtDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__desc", r.triggersProducedAtDesc, "form", "")
+	if r.handledAtDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__desc", r.handledAtDesc, "form", "")
 	}
-	if r.triggersProducedAtAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "triggers_produced_at__asc", r.triggersProducedAtAsc, "form", "")
+	if r.handledAtAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "handled_at__asc", r.handledAtAsc, "form", "")
 	}
-	if r.triggerProducerClaimedUntilEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__eq", r.triggerProducerClaimedUntilEq, "form", "")
+	if r.jobCoordinatorClaimedUntilEq != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__eq", r.jobCoordinatorClaimedUntilEq, "form", "")
 	}
-	if r.triggerProducerClaimedUntilNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__ne", r.triggerProducerClaimedUntilNe, "form", "")
+	if r.jobCoordinatorClaimedUntilNe != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__ne", r.jobCoordinatorClaimedUntilNe, "form", "")
 	}
-	if r.triggerProducerClaimedUntilGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__gt", r.triggerProducerClaimedUntilGt, "form", "")
+	if r.jobCoordinatorClaimedUntilGt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__gt", r.jobCoordinatorClaimedUntilGt, "form", "")
 	}
-	if r.triggerProducerClaimedUntilGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__gte", r.triggerProducerClaimedUntilGte, "form", "")
+	if r.jobCoordinatorClaimedUntilGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__gte", r.jobCoordinatorClaimedUntilGte, "form", "")
 	}
-	if r.triggerProducerClaimedUntilLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__lt", r.triggerProducerClaimedUntilLt, "form", "")
+	if r.jobCoordinatorClaimedUntilLt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__lt", r.jobCoordinatorClaimedUntilLt, "form", "")
 	}
-	if r.triggerProducerClaimedUntilLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__lte", r.triggerProducerClaimedUntilLte, "form", "")
+	if r.jobCoordinatorClaimedUntilLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__lte", r.jobCoordinatorClaimedUntilLte, "form", "")
 	}
-	if r.triggerProducerClaimedUntilIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__in", r.triggerProducerClaimedUntilIn, "form", "")
+	if r.jobCoordinatorClaimedUntilIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__in", r.jobCoordinatorClaimedUntilIn, "form", "")
 	}
-	if r.triggerProducerClaimedUntilNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__notin", r.triggerProducerClaimedUntilNotin, "form", "")
+	if r.jobCoordinatorClaimedUntilNotin != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__notin", r.jobCoordinatorClaimedUntilNotin, "form", "")
 	}
-	if r.triggerProducerClaimedUntilContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__contains", r.triggerProducerClaimedUntilContains, "form", "")
+	if r.jobCoordinatorClaimedUntilContains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__contains", r.jobCoordinatorClaimedUntilContains, "form", "")
 	}
-	if r.triggerProducerClaimedUntilNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__notcontains", r.triggerProducerClaimedUntilNotcontains, "form", "")
+	if r.jobCoordinatorClaimedUntilNotcontains != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__notcontains", r.jobCoordinatorClaimedUntilNotcontains, "form", "")
 	}
-	if r.triggerProducerClaimedUntilLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__like", r.triggerProducerClaimedUntilLike, "form", "")
+	if r.jobCoordinatorClaimedUntilLike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__like", r.jobCoordinatorClaimedUntilLike, "form", "")
 	}
-	if r.triggerProducerClaimedUntilNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__notlike", r.triggerProducerClaimedUntilNotlike, "form", "")
+	if r.jobCoordinatorClaimedUntilNotlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__notlike", r.jobCoordinatorClaimedUntilNotlike, "form", "")
 	}
-	if r.triggerProducerClaimedUntilIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__ilike", r.triggerProducerClaimedUntilIlike, "form", "")
+	if r.jobCoordinatorClaimedUntilIlike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__ilike", r.jobCoordinatorClaimedUntilIlike, "form", "")
 	}
-	if r.triggerProducerClaimedUntilNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__notilike", r.triggerProducerClaimedUntilNotilike, "form", "")
+	if r.jobCoordinatorClaimedUntilNotilike != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__notilike", r.jobCoordinatorClaimedUntilNotilike, "form", "")
 	}
-	if r.triggerProducerClaimedUntilDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__desc", r.triggerProducerClaimedUntilDesc, "form", "")
+	if r.jobCoordinatorClaimedUntilDesc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__desc", r.jobCoordinatorClaimedUntilDesc, "form", "")
 	}
-	if r.triggerProducerClaimedUntilAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_producer_claimed_until__asc", r.triggerProducerClaimedUntilAsc, "form", "")
+	if r.jobCoordinatorClaimedUntilAsc != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "job_coordinator_claimed_until__asc", r.jobCoordinatorClaimedUntilAsc, "form", "")
 	}
 	if r.repositoryIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "repository_id__eq", r.repositoryIdEq, "form", "")
@@ -2696,14 +2855,14 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2720,11 +2879,11 @@ func (a *ChangeAPIService) GetChangesExecute(r ApiGetChangesRequest) (*ResponseW
 }
 
 type ApiPatchChangeRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ChangeAPIService
 	primaryKey string
-	change     *Change
-	depth      *int64
+	change *Change
+	depth *int64
 }
 
 func (r ApiPatchChangeRequest) Change(change Change) ApiPatchChangeRequest {
@@ -2745,27 +2904,26 @@ func (r ApiPatchChangeRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PatchChange Method for PatchChange
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchChangeRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchChangeRequest
 */
 func (a *ChangeAPIService) PatchChange(ctx context.Context, primaryKey string) ApiPatchChangeRequest {
 	return ApiPatchChangeRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfChange
+//  @return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfChange
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PatchChange")
@@ -2827,14 +2985,14 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2851,10 +3009,10 @@ func (a *ChangeAPIService) PatchChangeExecute(r ApiPatchChangeRequest) (*Respons
 }
 
 type ApiPostChangesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ChangeAPIService
-	change     *[]Change
-	depth      *int64
+	change *[]Change
+	depth *int64
 }
 
 func (r ApiPostChangesRequest) Change(change []Change) ApiPostChangesRequest {
@@ -2875,25 +3033,24 @@ func (r ApiPostChangesRequest) Execute() (*ResponseWithGenericOfChange, *http.Re
 /*
 PostChanges Method for PostChanges
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostChangesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostChangesRequest
 */
 func (a *ChangeAPIService) PostChanges(ctx context.Context) ApiPostChangesRequest {
 	return ApiPostChangesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfChange
+//  @return ResponseWithGenericOfChange
 func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfChange
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PostChanges")
@@ -2954,14 +3111,14 @@ func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*Respons
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2977,68 +3134,67 @@ func (a *ChangeAPIService) PostChangesExecute(r ApiPostChangesRequest) (*Respons
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostChangesTriggerProducerClaimRequest struct {
-	ctx                               context.Context
-	ApiService                        *ChangeAPIService
-	primaryKey                        string
-	changeTriggerProducerClaimRequest *ChangeTriggerProducerClaimRequest
-	depth                             *int64
+type ApiPostChangesJobCoordinatorClaimRequest struct {
+	ctx context.Context
+	ApiService *ChangeAPIService
+	primaryKey string
+	changeJobCoordinatorClaimRequest *ChangeJobCoordinatorClaimRequest
+	depth *int64
 }
 
-func (r ApiPostChangesTriggerProducerClaimRequest) ChangeTriggerProducerClaimRequest(changeTriggerProducerClaimRequest ChangeTriggerProducerClaimRequest) ApiPostChangesTriggerProducerClaimRequest {
-	r.changeTriggerProducerClaimRequest = &changeTriggerProducerClaimRequest
+func (r ApiPostChangesJobCoordinatorClaimRequest) ChangeJobCoordinatorClaimRequest(changeJobCoordinatorClaimRequest ChangeJobCoordinatorClaimRequest) ApiPostChangesJobCoordinatorClaimRequest {
+	r.changeJobCoordinatorClaimRequest = &changeJobCoordinatorClaimRequest
 	return r
 }
 
 // Query parameter depth
-func (r ApiPostChangesTriggerProducerClaimRequest) Depth(depth int64) ApiPostChangesTriggerProducerClaimRequest {
+func (r ApiPostChangesJobCoordinatorClaimRequest) Depth(depth int64) ApiPostChangesJobCoordinatorClaimRequest {
 	r.depth = &depth
 	return r
 }
 
-func (r ApiPostChangesTriggerProducerClaimRequest) Execute() (*ResponseWithGenericOfChange, *http.Response, error) {
-	return r.ApiService.PostChangesTriggerProducerClaimExecute(r)
+func (r ApiPostChangesJobCoordinatorClaimRequest) Execute() (*ResponseWithGenericOfChange, *http.Response, error) {
+	return r.ApiService.PostChangesJobCoordinatorClaimExecute(r)
 }
 
 /*
-PostChangesTriggerProducerClaim Method for PostChangesTriggerProducerClaim
+PostChangesJobCoordinatorClaim Method for PostChangesJobCoordinatorClaim
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPostChangesTriggerProducerClaimRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPostChangesJobCoordinatorClaimRequest
 */
-func (a *ChangeAPIService) PostChangesTriggerProducerClaim(ctx context.Context, primaryKey string) ApiPostChangesTriggerProducerClaimRequest {
-	return ApiPostChangesTriggerProducerClaimRequest{
+func (a *ChangeAPIService) PostChangesJobCoordinatorClaim(ctx context.Context, primaryKey string) ApiPostChangesJobCoordinatorClaimRequest {
+	return ApiPostChangesJobCoordinatorClaimRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfChange
-func (a *ChangeAPIService) PostChangesTriggerProducerClaimExecute(r ApiPostChangesTriggerProducerClaimRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
+//  @return ResponseWithGenericOfChange
+func (a *ChangeAPIService) PostChangesJobCoordinatorClaimExecute(r ApiPostChangesJobCoordinatorClaimRequest) (*ResponseWithGenericOfChange, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfChange
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfChange
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PostChangesTriggerProducerClaim")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChangeAPIService.PostChangesJobCoordinatorClaim")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/changes/{primaryKey}/trigger-producer-claim"
+	localVarPath := localBasePath + "/api/changes/{primaryKey}/job-coordinator-claim"
 	localVarPath = strings.Replace(localVarPath, "{"+"primaryKey"+"}", url.PathEscape(parameterValueToString(r.primaryKey, "primaryKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.changeTriggerProducerClaimRequest == nil {
-		return localVarReturnValue, nil, reportError("changeTriggerProducerClaimRequest is required and must be specified")
+	if r.changeJobCoordinatorClaimRequest == nil {
+		return localVarReturnValue, nil, reportError("changeJobCoordinatorClaimRequest is required and must be specified")
 	}
 
 	if r.depth != nil {
@@ -3062,7 +3218,7 @@ func (a *ChangeAPIService) PostChangesTriggerProducerClaimExecute(r ApiPostChang
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.changeTriggerProducerClaimRequest
+	localVarPostBody = r.changeJobCoordinatorClaimRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3085,14 +3241,14 @@ func (a *ChangeAPIService) PostChangesTriggerProducerClaimExecute(r ApiPostChang
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

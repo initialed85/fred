@@ -20,18 +20,18 @@ var _ MappedNullable = &Task{}
 
 // Task struct for Task
 type Task struct {
-	CreatedAt                       *time.Time `json:"created_at,omitempty"`
-	DeletedAt                       *time.Time `json:"deleted_at,omitempty"`
-	Id                              *string    `json:"id,omitempty"`
-	Image                           *string    `json:"image,omitempty"`
-	Index                           *int64     `json:"index,omitempty"`
-	JobId                           *string    `json:"job_id,omitempty"`
-	JobIdObject                     *Job       `json:"job_id_object,omitempty"`
-	Name                            *string    `json:"name,omitempty"`
-	Platform                        *string    `json:"platform,omitempty"`
-	ReferencedByOutputTaskIdObjects []Output   `json:"referenced_by_output_task_id_objects,omitempty"`
-	Script                          *string    `json:"script,omitempty"`
-	UpdatedAt                       *time.Time `json:"updated_at,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Image *string `json:"image,omitempty"`
+	Index *int64 `json:"index,omitempty"`
+	JobId *string `json:"job_id,omitempty"`
+	JobIdObject *Job `json:"job_id_object,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Platform *string `json:"platform,omitempty"`
+	ReferencedByOutputTaskIdObjects []Output `json:"referenced_by_output_task_id_objects,omitempty"`
+	Script *string `json:"script,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewTask instantiates a new Task object
@@ -436,7 +436,7 @@ func (o *Task) SetUpdatedAt(v time.Time) {
 }
 
 func (o Task) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -519,3 +519,5 @@ func (v *NullableTask) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -43,7 +43,6 @@ func formatUUID(u uuid.UUID) string {
 
 func getExecutionCtx(ctx context.Context) context.Context {
 	ctx = query.WithLoad(ctx, api.ChangeTable)
-	ctx = query.WithLoad(ctx, api.TriggerTable)
 	ctx = query.WithLoad(ctx, api.JobTable)
 	ctx = query.WithLoad(ctx, api.TaskTable)
 	ctx = query.WithLoad(ctx, api.RepositoryTable)
@@ -86,6 +85,16 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 		if err != nil {
 			return err
 		}
+
+		slices.SortFunc(outputs, func(a *api.Output, b *api.Output) int {
+			if a.TaskIDObject.Index < b.TaskIDObject.Index {
+				return -1
+			} else if a.TaskIDObject.Index > b.TaskIDObject.Index {
+				return 1
+			} else {
+				return 0
+			}
+		})
 
 		err = tx.Commit(ctx)
 		if err != nil {
@@ -231,9 +240,19 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 				}()
 
 				if output.Status == internal.ExecutionOrTaskStatusErrored {
-					execution.Status = internal.ExecutionOrTaskStatusErrored
+					execution.Status = internal.ExecutionOrTaskStatusErroring
 				} else if output.Status == internal.ExecutionOrTaskStatusFailed {
-					execution.Status = internal.ExecutionOrTaskStatusFailed
+					execution.Status = internal.ExecutionOrTaskStatusFailing
+				}
+
+				err = output.Update(ctx, tx, false)
+				if err != nil {
+					log.Printf("warning: %s", err.Error())
+				}
+
+				err = execution.Update(ctx, tx, false)
+				if err != nil {
+					log.Printf("warning: %s", err.Error())
 				}
 
 				err = tx.Commit(ctx)
@@ -367,7 +386,7 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 		}
 
 		repositoryUrl := execution.ChangeIDObject.RepositoryIDObject.URL
-		repositoryBranchName := execution.ChangeIDObject.BranchName
+		repositoryBranchName := execution.ChangeIDObject.Branch
 		parts := strings.Split(repositoryUrl, "/")
 		repositoryFolderName := parts[len(parts)-1]
 		repositoryCommitHash := execution.ChangeIDObject.CommitHash
@@ -384,7 +403,6 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 		builtinEnvVars := []string{
 			fmt.Sprintf("FRED_REPOSITORY_ID=%s", execution.ChangeIDObject.RepositoryID.String()),
 			fmt.Sprintf("FRED_CHANGE_ID=%s", execution.ChangeID.String()),
-			fmt.Sprintf("FRED_RULE_ID=%s", execution.TriggerIDObject.RuleID.String()),
 			fmt.Sprintf("FRED_JOB_ID=%s", execution.JobIDObject.ID.String()),
 			fmt.Sprintf("FRED_JOB_NAME=%s", execution.JobIDObject.Name),
 			fmt.Sprintf("FRED_TASK_ID=%s", task.ID.String()),
@@ -393,7 +411,6 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 			fmt.Sprintf("FRED_TASK_PLATFORM_OS=%s", platformOS),
 			fmt.Sprintf("FRED_TASK_PLATFORM_ARCH=%s", platformArch),
 			fmt.Sprintf("FRED_TASK_IMAGE=%s", task.Image),
-			fmt.Sprintf("FRED_TRIGGER_ID=%s", execution.TriggerIDObject.ID.String()),
 			fmt.Sprintf("FRED_EXECUTION_ID=%s", execution.ID.String()),
 			fmt.Sprintf("FRED_OUTPUT_ID=%s", output.ID.String()),
 			fmt.Sprintf("FRED_REPOSITORY_URL=%s", repositoryUrl),
@@ -403,6 +420,7 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 			"CI=true",
 			"COMPOSE_DOCKER_CLI_BUILD=1",
 			"DOCKER_BUILDKIT=1",
+			"GOPATH=/root/go",
 			fmt.Sprintf("COMPOSE_PROJECT_NAME=%s", containerName),
 			// "GIT_TERMINAL_PROMPT=1",
 			// "GIT_TRACE=1",
@@ -515,6 +533,11 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 					},
 					{
 						Type:   "bind",
+						Source: "/var/lib/containerd",
+						Target: "/var/lib/containerd",
+					},
+					{
+						Type:   "bind",
 						Source: "/var/lib/docker",
 						Target: "/var/lib/docker",
 					},
@@ -546,6 +569,14 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 						Type:   "bind",
 						Source: "/root/.npm",
 						Target: "/root/.npm",
+						BindOptions: &mount.BindOptions{
+							CreateMountpoint: true,
+						},
+					},
+					{
+						Type:   "bind",
+						Source: "/root/go/pkg",
+						Target: "/root/go/pkg",
 						BindOptions: &mount.BindOptions{
 							CreateMountpoint: true,
 						},
@@ -755,16 +786,6 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 
 	log.Printf("execution %s started", execution.ID)
 
-	slices.SortFunc(execution.JobIDObject.ReferencedByTaskJobIDObjects, func(a *api.Task, b *api.Task) int {
-		if a.Index < b.Index {
-			return -1
-		} else if a.Index > b.Index {
-			return 1
-		} else {
-			return 0
-		}
-	})
-
 	for _, output := range outputs {
 		err = doTask(output, execution)
 		if err != nil {
@@ -784,6 +805,10 @@ func HandleExecution(ctx context.Context, db *pgxpool.Pool, execution *api.Execu
 
 		if execution.Status == internal.ExecutionOrTaskStatusRunning {
 			execution.Status = internal.ExecutionOrTaskStatusSucceeded
+		} else if execution.Status == internal.ExecutionOrTaskStatusFailing {
+			execution.Status = internal.ExecutionOrTaskStatusFailed
+		} else if execution.Status == internal.ExecutionOrTaskStatusErroring {
+			execution.Status = internal.ExecutionOrTaskStatusErrored
 		}
 
 		execution.EndedAt = helpers.Ptr(time.Now().UTC())
@@ -879,9 +904,9 @@ func Run() error {
 				time.Second*2,
 				fmt.Sprintf(
 					"%s = $$??",
-					api.ExecutionTableChangeIDColumn,
+					api.ExecutionTableStatusColumn,
 				),
-				helpers.Ptr(fmt.Sprintf("%s DESC", api.ExecutionTableCreatedAtColumn)),
+				internal.ExecutionOrTaskStatusPending,
 			)
 			if err != nil {
 				return fmt.Errorf("attempt to claim an execution failed: %s", err.Error())

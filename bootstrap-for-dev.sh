@@ -35,25 +35,11 @@ do_request "repositories" '[{"url": "https://github.com/initialed85/djangolang"}
 repository_1_id="${object_id}"
 
 #
-# rule
-#
-
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_1_id}\"}]"
-rule_1_id="${object_id}"
-
-#
 # job
 #
 
-do_request "jobs" "[{\"name\": \"djangolang-main\", \"rule_id\": \"${rule_1_id}\"}]"
+do_request "jobs" "[{\"name\": \"djangolang-main\", \"branches\": \"main\", \"repository_id\": \"${repository_1_id}\"}]"
 job_1_id="${object_id}"
-
-#
-# trigger
-#
-
-do_request "triggers" "[{ \"rule_id\": \"${rule_1_id}\",  \"job_id\": \"${job_1_id}\"}]"
-trigger_id="${object_id}"
 
 #
 # build

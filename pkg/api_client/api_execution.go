@@ -20,14 +20,15 @@ import (
 	"time"
 )
 
+
 // ExecutionAPIService ExecutionAPI service
 type ExecutionAPIService service
 
 type ApiDeleteExecutionRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -43,14 +44,14 @@ func (r ApiDeleteExecutionRequest) Execute() (*http.Response, error) {
 /*
 DeleteExecution Method for DeleteExecution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiDeleteExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiDeleteExecutionRequest
 */
 func (a *ExecutionAPIService) DeleteExecution(ctx context.Context, primaryKey string) ApiDeleteExecutionRequest {
 	return ApiDeleteExecutionRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
@@ -58,9 +59,9 @@ func (a *ExecutionAPIService) DeleteExecution(ctx context.Context, primaryKey st
 // Execute executes the request
 func (a *ExecutionAPIService) DeleteExecutionExecute(r ApiDeleteExecutionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.DeleteExecution")
@@ -124,10 +125,10 @@ func (a *ExecutionAPIService) DeleteExecutionExecute(r ApiDeleteExecutionRequest
 }
 
 type ApiGetExecutionRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	depth      *int64
+	depth *int64
 }
 
 // Query parameter depth
@@ -143,27 +144,26 @@ func (r ApiGetExecutionRequest) Execute() (*ResponseWithGenericOfExecution, *htt
 /*
 GetExecution Method for GetExecution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiGetExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiGetExecutionRequest
 */
 func (a *ExecutionAPIService) GetExecution(ctx context.Context, primaryKey string) ApiGetExecutionRequest {
 	return ApiGetExecutionRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.GetExecution")
@@ -220,14 +220,14 @@ func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*Re
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,207 +244,186 @@ func (a *ExecutionAPIService) GetExecutionExecute(r ApiGetExecutionRequest) (*Re
 }
 
 type ApiGetExecutionsRequest struct {
-	ctx                                             context.Context
-	ApiService                                      *ExecutionAPIService
-	limit                                           *int32
-	offset                                          *int32
-	depth                                           *int32
-	changeLoad                                      *string
-	triggerLoad                                     *string
-	jobLoad                                         *string
-	referencedByOutputLoad                          *string
-	idEq                                            *string
-	idNe                                            *string
-	idGt                                            *string
-	idGte                                           *string
-	idLt                                            *string
-	idLte                                           *string
-	idIn                                            *string
-	idNotin                                         *string
-	idContains                                      *string
-	idNotcontains                                   *string
-	idLike                                          *string
-	idNotlike                                       *string
-	idIlike                                         *string
-	idNotilike                                      *string
-	idDesc                                          *string
-	idAsc                                           *string
-	createdAtEq                                     *time.Time
-	createdAtNe                                     *time.Time
-	createdAtGt                                     *time.Time
-	createdAtGte                                    *time.Time
-	createdAtLt                                     *time.Time
-	createdAtLte                                    *time.Time
-	createdAtIn                                     *time.Time
-	createdAtNotin                                  *time.Time
-	createdAtContains                               *time.Time
-	createdAtNotcontains                            *time.Time
-	createdAtLike                                   *time.Time
-	createdAtNotlike                                *time.Time
-	createdAtIlike                                  *time.Time
-	createdAtNotilike                               *time.Time
-	createdAtDesc                                   *string
-	createdAtAsc                                    *string
-	updatedAtEq                                     *time.Time
-	updatedAtNe                                     *time.Time
-	updatedAtGt                                     *time.Time
-	updatedAtGte                                    *time.Time
-	updatedAtLt                                     *time.Time
-	updatedAtLte                                    *time.Time
-	updatedAtIn                                     *time.Time
-	updatedAtNotin                                  *time.Time
-	updatedAtContains                               *time.Time
-	updatedAtNotcontains                            *time.Time
-	updatedAtLike                                   *time.Time
-	updatedAtNotlike                                *time.Time
-	updatedAtIlike                                  *time.Time
-	updatedAtNotilike                               *time.Time
-	updatedAtDesc                                   *string
-	updatedAtAsc                                    *string
-	deletedAtEq                                     *time.Time
-	deletedAtNe                                     *time.Time
-	deletedAtGt                                     *time.Time
-	deletedAtGte                                    *time.Time
-	deletedAtLt                                     *time.Time
-	deletedAtLte                                    *time.Time
-	deletedAtIn                                     *time.Time
-	deletedAtNotin                                  *time.Time
-	deletedAtContains                               *time.Time
-	deletedAtNotcontains                            *time.Time
-	deletedAtLike                                   *time.Time
-	deletedAtNotlike                                *time.Time
-	deletedAtIlike                                  *time.Time
-	deletedAtNotilike                               *time.Time
-	deletedAtDesc                                   *string
-	deletedAtAsc                                    *string
-	statusEq                                        *string
-	statusNe                                        *string
-	statusGt                                        *string
-	statusGte                                       *string
-	statusLt                                        *string
-	statusLte                                       *string
-	statusIn                                        *string
-	statusNotin                                     *string
-	statusContains                                  *string
-	statusNotcontains                               *string
-	statusLike                                      *string
-	statusNotlike                                   *string
-	statusIlike                                     *string
-	statusNotilike                                  *string
-	statusDesc                                      *string
-	statusAsc                                       *string
-	startedAtEq                                     *time.Time
-	startedAtNe                                     *time.Time
-	startedAtGt                                     *time.Time
-	startedAtGte                                    *time.Time
-	startedAtLt                                     *time.Time
-	startedAtLte                                    *time.Time
-	startedAtIn                                     *time.Time
-	startedAtNotin                                  *time.Time
-	startedAtContains                               *time.Time
-	startedAtNotcontains                            *time.Time
-	startedAtLike                                   *time.Time
-	startedAtNotlike                                *time.Time
-	startedAtIlike                                  *time.Time
-	startedAtNotilike                               *time.Time
-	startedAtDesc                                   *string
-	startedAtAsc                                    *string
-	endedAtEq                                       *time.Time
-	endedAtNe                                       *time.Time
-	endedAtGt                                       *time.Time
-	endedAtGte                                      *time.Time
-	endedAtLt                                       *time.Time
-	endedAtLte                                      *time.Time
-	endedAtIn                                       *time.Time
-	endedAtNotin                                    *time.Time
-	endedAtContains                                 *time.Time
-	endedAtNotcontains                              *time.Time
-	endedAtLike                                     *time.Time
-	endedAtNotlike                                  *time.Time
-	endedAtIlike                                    *time.Time
-	endedAtNotilike                                 *time.Time
-	endedAtDesc                                     *string
-	endedAtAsc                                      *string
-	jobExecutorClaimedUntilEq                       *time.Time
-	jobExecutorClaimedUntilNe                       *time.Time
-	jobExecutorClaimedUntilGt                       *time.Time
-	jobExecutorClaimedUntilGte                      *time.Time
-	jobExecutorClaimedUntilLt                       *time.Time
-	jobExecutorClaimedUntilLte                      *time.Time
-	jobExecutorClaimedUntilIn                       *time.Time
-	jobExecutorClaimedUntilNotin                    *time.Time
-	jobExecutorClaimedUntilContains                 *time.Time
-	jobExecutorClaimedUntilNotcontains              *time.Time
-	jobExecutorClaimedUntilLike                     *time.Time
-	jobExecutorClaimedUntilNotlike                  *time.Time
-	jobExecutorClaimedUntilIlike                    *time.Time
-	jobExecutorClaimedUntilNotilike                 *time.Time
-	jobExecutorClaimedUntilDesc                     *string
-	jobExecutorClaimedUntilAsc                      *string
-	changeIdEq                                      *string
-	changeIdNe                                      *string
-	changeIdGt                                      *string
-	changeIdGte                                     *string
-	changeIdLt                                      *string
-	changeIdLte                                     *string
-	changeIdIn                                      *string
-	changeIdNotin                                   *string
-	changeIdContains                                *string
-	changeIdNotcontains                             *string
-	changeIdLike                                    *string
-	changeIdNotlike                                 *string
-	changeIdIlike                                   *string
-	changeIdNotilike                                *string
-	changeIdDesc                                    *string
-	changeIdAsc                                     *string
-	changeIdObjectContains                          *interface{}
-	changeIdObjectNotcontains                       *interface{}
-	changeIdObjectDesc                              *string
-	changeIdObjectAsc                               *string
-	triggerIdEq                                     *string
-	triggerIdNe                                     *string
-	triggerIdGt                                     *string
-	triggerIdGte                                    *string
-	triggerIdLt                                     *string
-	triggerIdLte                                    *string
-	triggerIdIn                                     *string
-	triggerIdNotin                                  *string
-	triggerIdContains                               *string
-	triggerIdNotcontains                            *string
-	triggerIdLike                                   *string
-	triggerIdNotlike                                *string
-	triggerIdIlike                                  *string
-	triggerIdNotilike                               *string
-	triggerIdDesc                                   *string
-	triggerIdAsc                                    *string
-	triggerIdObjectContains                         *interface{}
-	triggerIdObjectNotcontains                      *interface{}
-	triggerIdObjectDesc                             *string
-	triggerIdObjectAsc                              *string
-	jobIdEq                                         *string
-	jobIdNe                                         *string
-	jobIdGt                                         *string
-	jobIdGte                                        *string
-	jobIdLt                                         *string
-	jobIdLte                                        *string
-	jobIdIn                                         *string
-	jobIdNotin                                      *string
-	jobIdContains                                   *string
-	jobIdNotcontains                                *string
-	jobIdLike                                       *string
-	jobIdNotlike                                    *string
-	jobIdIlike                                      *string
-	jobIdNotilike                                   *string
-	jobIdDesc                                       *string
-	jobIdAsc                                        *string
-	jobIdObjectContains                             *interface{}
-	jobIdObjectNotcontains                          *interface{}
-	jobIdObjectDesc                                 *string
-	jobIdObjectAsc                                  *string
-	referencedByOutputExecutionIdObjectsContains    *interface{}
+	ctx context.Context
+	ApiService *ExecutionAPIService
+	limit *int32
+	offset *int32
+	depth *int32
+	changeLoad *string
+	jobLoad *string
+	referencedByOutputLoad *string
+	idEq *string
+	idNe *string
+	idGt *string
+	idGte *string
+	idLt *string
+	idLte *string
+	idIn *string
+	idNotin *string
+	idContains *string
+	idNotcontains *string
+	idLike *string
+	idNotlike *string
+	idIlike *string
+	idNotilike *string
+	idDesc *string
+	idAsc *string
+	createdAtEq *time.Time
+	createdAtNe *time.Time
+	createdAtGt *time.Time
+	createdAtGte *time.Time
+	createdAtLt *time.Time
+	createdAtLte *time.Time
+	createdAtIn *time.Time
+	createdAtNotin *time.Time
+	createdAtContains *time.Time
+	createdAtNotcontains *time.Time
+	createdAtLike *time.Time
+	createdAtNotlike *time.Time
+	createdAtIlike *time.Time
+	createdAtNotilike *time.Time
+	createdAtDesc *string
+	createdAtAsc *string
+	updatedAtEq *time.Time
+	updatedAtNe *time.Time
+	updatedAtGt *time.Time
+	updatedAtGte *time.Time
+	updatedAtLt *time.Time
+	updatedAtLte *time.Time
+	updatedAtIn *time.Time
+	updatedAtNotin *time.Time
+	updatedAtContains *time.Time
+	updatedAtNotcontains *time.Time
+	updatedAtLike *time.Time
+	updatedAtNotlike *time.Time
+	updatedAtIlike *time.Time
+	updatedAtNotilike *time.Time
+	updatedAtDesc *string
+	updatedAtAsc *string
+	deletedAtEq *time.Time
+	deletedAtNe *time.Time
+	deletedAtGt *time.Time
+	deletedAtGte *time.Time
+	deletedAtLt *time.Time
+	deletedAtLte *time.Time
+	deletedAtIn *time.Time
+	deletedAtNotin *time.Time
+	deletedAtContains *time.Time
+	deletedAtNotcontains *time.Time
+	deletedAtLike *time.Time
+	deletedAtNotlike *time.Time
+	deletedAtIlike *time.Time
+	deletedAtNotilike *time.Time
+	deletedAtDesc *string
+	deletedAtAsc *string
+	statusEq *string
+	statusNe *string
+	statusGt *string
+	statusGte *string
+	statusLt *string
+	statusLte *string
+	statusIn *string
+	statusNotin *string
+	statusContains *string
+	statusNotcontains *string
+	statusLike *string
+	statusNotlike *string
+	statusIlike *string
+	statusNotilike *string
+	statusDesc *string
+	statusAsc *string
+	startedAtEq *time.Time
+	startedAtNe *time.Time
+	startedAtGt *time.Time
+	startedAtGte *time.Time
+	startedAtLt *time.Time
+	startedAtLte *time.Time
+	startedAtIn *time.Time
+	startedAtNotin *time.Time
+	startedAtContains *time.Time
+	startedAtNotcontains *time.Time
+	startedAtLike *time.Time
+	startedAtNotlike *time.Time
+	startedAtIlike *time.Time
+	startedAtNotilike *time.Time
+	startedAtDesc *string
+	startedAtAsc *string
+	endedAtEq *time.Time
+	endedAtNe *time.Time
+	endedAtGt *time.Time
+	endedAtGte *time.Time
+	endedAtLt *time.Time
+	endedAtLte *time.Time
+	endedAtIn *time.Time
+	endedAtNotin *time.Time
+	endedAtContains *time.Time
+	endedAtNotcontains *time.Time
+	endedAtLike *time.Time
+	endedAtNotlike *time.Time
+	endedAtIlike *time.Time
+	endedAtNotilike *time.Time
+	endedAtDesc *string
+	endedAtAsc *string
+	jobExecutorClaimedUntilEq *time.Time
+	jobExecutorClaimedUntilNe *time.Time
+	jobExecutorClaimedUntilGt *time.Time
+	jobExecutorClaimedUntilGte *time.Time
+	jobExecutorClaimedUntilLt *time.Time
+	jobExecutorClaimedUntilLte *time.Time
+	jobExecutorClaimedUntilIn *time.Time
+	jobExecutorClaimedUntilNotin *time.Time
+	jobExecutorClaimedUntilContains *time.Time
+	jobExecutorClaimedUntilNotcontains *time.Time
+	jobExecutorClaimedUntilLike *time.Time
+	jobExecutorClaimedUntilNotlike *time.Time
+	jobExecutorClaimedUntilIlike *time.Time
+	jobExecutorClaimedUntilNotilike *time.Time
+	jobExecutorClaimedUntilDesc *string
+	jobExecutorClaimedUntilAsc *string
+	changeIdEq *string
+	changeIdNe *string
+	changeIdGt *string
+	changeIdGte *string
+	changeIdLt *string
+	changeIdLte *string
+	changeIdIn *string
+	changeIdNotin *string
+	changeIdContains *string
+	changeIdNotcontains *string
+	changeIdLike *string
+	changeIdNotlike *string
+	changeIdIlike *string
+	changeIdNotilike *string
+	changeIdDesc *string
+	changeIdAsc *string
+	changeIdObjectContains *interface{}
+	changeIdObjectNotcontains *interface{}
+	changeIdObjectDesc *string
+	changeIdObjectAsc *string
+	jobIdEq *string
+	jobIdNe *string
+	jobIdGt *string
+	jobIdGte *string
+	jobIdLt *string
+	jobIdLte *string
+	jobIdIn *string
+	jobIdNotin *string
+	jobIdContains *string
+	jobIdNotcontains *string
+	jobIdLike *string
+	jobIdNotlike *string
+	jobIdIlike *string
+	jobIdNotilike *string
+	jobIdDesc *string
+	jobIdAsc *string
+	jobIdObjectContains *interface{}
+	jobIdObjectNotcontains *interface{}
+	jobIdObjectDesc *string
+	jobIdObjectAsc *string
+	referencedByOutputExecutionIdObjectsContains *interface{}
 	referencedByOutputExecutionIdObjectsNotcontains *interface{}
-	referencedByOutputExecutionIdObjectsDesc        *string
-	referencedByOutputExecutionIdObjectsAsc         *string
+	referencedByOutputExecutionIdObjectsDesc *string
+	referencedByOutputExecutionIdObjectsAsc *string
 }
 
 // SQL LIMIT operator
@@ -468,12 +447,6 @@ func (r ApiGetExecutionsRequest) Depth(depth int32) ApiGetExecutionsRequest {
 // load the given directly related object, value is ignored (presence of key is sufficient)
 func (r ApiGetExecutionsRequest) ChangeLoad(changeLoad string) ApiGetExecutionsRequest {
 	r.changeLoad = &changeLoad
-	return r
-}
-
-// load the given directly related object, value is ignored (presence of key is sufficient)
-func (r ApiGetExecutionsRequest) TriggerLoad(triggerLoad string) ApiGetExecutionsRequest {
-	r.triggerLoad = &triggerLoad
 	return r
 }
 
@@ -1378,126 +1351,6 @@ func (r ApiGetExecutionsRequest) ChangeIdObjectAsc(changeIdObjectAsc string) Api
 }
 
 // SQL &#x3D; comparison
-func (r ApiGetExecutionsRequest) TriggerIdEq(triggerIdEq string) ApiGetExecutionsRequest {
-	r.triggerIdEq = &triggerIdEq
-	return r
-}
-
-// SQL !&#x3D; comparison
-func (r ApiGetExecutionsRequest) TriggerIdNe(triggerIdNe string) ApiGetExecutionsRequest {
-	r.triggerIdNe = &triggerIdNe
-	return r
-}
-
-// SQL &gt; comparison, may not work with all column types
-func (r ApiGetExecutionsRequest) TriggerIdGt(triggerIdGt string) ApiGetExecutionsRequest {
-	r.triggerIdGt = &triggerIdGt
-	return r
-}
-
-// SQL &gt;&#x3D; comparison, may not work with all column types
-func (r ApiGetExecutionsRequest) TriggerIdGte(triggerIdGte string) ApiGetExecutionsRequest {
-	r.triggerIdGte = &triggerIdGte
-	return r
-}
-
-// SQL &lt; comparison, may not work with all column types
-func (r ApiGetExecutionsRequest) TriggerIdLt(triggerIdLt string) ApiGetExecutionsRequest {
-	r.triggerIdLt = &triggerIdLt
-	return r
-}
-
-// SQL &lt;&#x3D; comparison, may not work with all column types
-func (r ApiGetExecutionsRequest) TriggerIdLte(triggerIdLte string) ApiGetExecutionsRequest {
-	r.triggerIdLte = &triggerIdLte
-	return r
-}
-
-// SQL IN comparison, permits comma-separated values
-func (r ApiGetExecutionsRequest) TriggerIdIn(triggerIdIn string) ApiGetExecutionsRequest {
-	r.triggerIdIn = &triggerIdIn
-	return r
-}
-
-// SQL NOT IN comparison, permits comma-separated values
-func (r ApiGetExecutionsRequest) TriggerIdNotin(triggerIdNotin string) ApiGetExecutionsRequest {
-	r.triggerIdNotin = &triggerIdNotin
-	return r
-}
-
-// SQL @&gt; comparison
-func (r ApiGetExecutionsRequest) TriggerIdContains(triggerIdContains string) ApiGetExecutionsRequest {
-	r.triggerIdContains = &triggerIdContains
-	return r
-}
-
-// SQL NOT @&gt; comparison
-func (r ApiGetExecutionsRequest) TriggerIdNotcontains(triggerIdNotcontains string) ApiGetExecutionsRequest {
-	r.triggerIdNotcontains = &triggerIdNotcontains
-	return r
-}
-
-// SQL LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetExecutionsRequest) TriggerIdLike(triggerIdLike string) ApiGetExecutionsRequest {
-	r.triggerIdLike = &triggerIdLike
-	return r
-}
-
-// SQL NOT LIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetExecutionsRequest) TriggerIdNotlike(triggerIdNotlike string) ApiGetExecutionsRequest {
-	r.triggerIdNotlike = &triggerIdNotlike
-	return r
-}
-
-// SQL ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetExecutionsRequest) TriggerIdIlike(triggerIdIlike string) ApiGetExecutionsRequest {
-	r.triggerIdIlike = &triggerIdIlike
-	return r
-}
-
-// SQL NOT ILIKE comparison, value is implicitly prefixed and suffixed with %
-func (r ApiGetExecutionsRequest) TriggerIdNotilike(triggerIdNotilike string) ApiGetExecutionsRequest {
-	r.triggerIdNotilike = &triggerIdNotilike
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetExecutionsRequest) TriggerIdDesc(triggerIdDesc string) ApiGetExecutionsRequest {
-	r.triggerIdDesc = &triggerIdDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetExecutionsRequest) TriggerIdAsc(triggerIdAsc string) ApiGetExecutionsRequest {
-	r.triggerIdAsc = &triggerIdAsc
-	return r
-}
-
-// SQL @&gt; comparison
-func (r ApiGetExecutionsRequest) TriggerIdObjectContains(triggerIdObjectContains interface{}) ApiGetExecutionsRequest {
-	r.triggerIdObjectContains = &triggerIdObjectContains
-	return r
-}
-
-// SQL NOT @&gt; comparison
-func (r ApiGetExecutionsRequest) TriggerIdObjectNotcontains(triggerIdObjectNotcontains interface{}) ApiGetExecutionsRequest {
-	r.triggerIdObjectNotcontains = &triggerIdObjectNotcontains
-	return r
-}
-
-// SQL ORDER BY _ DESC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetExecutionsRequest) TriggerIdObjectDesc(triggerIdObjectDesc string) ApiGetExecutionsRequest {
-	r.triggerIdObjectDesc = &triggerIdObjectDesc
-	return r
-}
-
-// SQL ORDER BY _ ASC clause, value is ignored (presence of key is sufficient)
-func (r ApiGetExecutionsRequest) TriggerIdObjectAsc(triggerIdObjectAsc string) ApiGetExecutionsRequest {
-	r.triggerIdObjectAsc = &triggerIdObjectAsc
-	return r
-}
-
-// SQL &#x3D; comparison
 func (r ApiGetExecutionsRequest) JobIdEq(jobIdEq string) ApiGetExecutionsRequest {
 	r.jobIdEq = &jobIdEq
 	return r
@@ -1648,25 +1501,24 @@ func (r ApiGetExecutionsRequest) Execute() (*ResponseWithGenericOfExecution, *ht
 /*
 GetExecutions Method for GetExecutions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetExecutionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetExecutionsRequest
 */
 func (a *ExecutionAPIService) GetExecutions(ctx context.Context) ApiGetExecutionsRequest {
 	return ApiGetExecutionsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.GetExecutions")
@@ -1691,9 +1543,6 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 	}
 	if r.changeLoad != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "change__load", r.changeLoad, "form", "")
-	}
-	if r.triggerLoad != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger__load", r.triggerLoad, "form", "")
 	}
 	if r.jobLoad != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job__load", r.jobLoad, "form", "")
@@ -2145,66 +1994,6 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 	if r.changeIdObjectAsc != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "change_id_object__asc", r.changeIdObjectAsc, "form", "")
 	}
-	if r.triggerIdEq != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__eq", r.triggerIdEq, "form", "")
-	}
-	if r.triggerIdNe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__ne", r.triggerIdNe, "form", "")
-	}
-	if r.triggerIdGt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__gt", r.triggerIdGt, "form", "")
-	}
-	if r.triggerIdGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__gte", r.triggerIdGte, "form", "")
-	}
-	if r.triggerIdLt != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__lt", r.triggerIdLt, "form", "")
-	}
-	if r.triggerIdLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__lte", r.triggerIdLte, "form", "")
-	}
-	if r.triggerIdIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__in", r.triggerIdIn, "form", "")
-	}
-	if r.triggerIdNotin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notin", r.triggerIdNotin, "form", "")
-	}
-	if r.triggerIdContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__contains", r.triggerIdContains, "form", "")
-	}
-	if r.triggerIdNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notcontains", r.triggerIdNotcontains, "form", "")
-	}
-	if r.triggerIdLike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__like", r.triggerIdLike, "form", "")
-	}
-	if r.triggerIdNotlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notlike", r.triggerIdNotlike, "form", "")
-	}
-	if r.triggerIdIlike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__ilike", r.triggerIdIlike, "form", "")
-	}
-	if r.triggerIdNotilike != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__notilike", r.triggerIdNotilike, "form", "")
-	}
-	if r.triggerIdDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__desc", r.triggerIdDesc, "form", "")
-	}
-	if r.triggerIdAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id__asc", r.triggerIdAsc, "form", "")
-	}
-	if r.triggerIdObjectContains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__contains", r.triggerIdObjectContains, "form", "")
-	}
-	if r.triggerIdObjectNotcontains != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__notcontains", r.triggerIdObjectNotcontains, "form", "")
-	}
-	if r.triggerIdObjectDesc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__desc", r.triggerIdObjectDesc, "form", "")
-	}
-	if r.triggerIdObjectAsc != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "trigger_id_object__asc", r.triggerIdObjectAsc, "form", "")
-	}
 	if r.jobIdEq != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "job_id__eq", r.jobIdEq, "form", "")
 	}
@@ -2316,14 +2105,14 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2340,11 +2129,11 @@ func (a *ExecutionAPIService) GetExecutionsExecute(r ApiGetExecutionsRequest) (*
 }
 
 type ApiPatchExecutionRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionAPIService
 	primaryKey string
-	execution  *Execution
-	depth      *int64
+	execution *Execution
+	depth *int64
 }
 
 func (r ApiPatchExecutionRequest) Execution(execution Execution) ApiPatchExecutionRequest {
@@ -2365,27 +2154,26 @@ func (r ApiPatchExecutionRequest) Execute() (*ResponseWithGenericOfExecution, *h
 /*
 PatchExecution Method for PatchExecution
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPatchExecutionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPatchExecutionRequest
 */
 func (a *ExecutionAPIService) PatchExecution(ctx context.Context, primaryKey string) ApiPatchExecutionRequest {
 	return ApiPatchExecutionRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.PatchExecution")
@@ -2447,14 +2235,14 @@ func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2471,10 +2259,10 @@ func (a *ExecutionAPIService) PatchExecutionExecute(r ApiPatchExecutionRequest) 
 }
 
 type ApiPostExecutionsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *ExecutionAPIService
-	execution  *[]Execution
-	depth      *int64
+	execution *[]Execution
+	depth *int64
 }
 
 func (r ApiPostExecutionsRequest) Execution(execution []Execution) ApiPostExecutionsRequest {
@@ -2495,25 +2283,24 @@ func (r ApiPostExecutionsRequest) Execute() (*ResponseWithGenericOfExecution, *h
 /*
 PostExecutions Method for PostExecutions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostExecutionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostExecutionsRequest
 */
 func (a *ExecutionAPIService) PostExecutions(ctx context.Context) ApiPostExecutionsRequest {
 	return ApiPostExecutionsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) PostExecutionsExecute(r ApiPostExecutionsRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.PostExecutions")
@@ -2574,14 +2361,14 @@ func (a *ExecutionAPIService) PostExecutionsExecute(r ApiPostExecutionsRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -2598,11 +2385,11 @@ func (a *ExecutionAPIService) PostExecutionsExecute(r ApiPostExecutionsRequest) 
 }
 
 type ApiPostExecutionsJobExecutorClaimRequest struct {
-	ctx                              context.Context
-	ApiService                       *ExecutionAPIService
-	primaryKey                       string
+	ctx context.Context
+	ApiService *ExecutionAPIService
+	primaryKey string
 	executionJobExecutorClaimRequest *ExecutionJobExecutorClaimRequest
-	depth                            *int64
+	depth *int64
 }
 
 func (r ApiPostExecutionsJobExecutorClaimRequest) ExecutionJobExecutorClaimRequest(executionJobExecutorClaimRequest ExecutionJobExecutorClaimRequest) ApiPostExecutionsJobExecutorClaimRequest {
@@ -2623,27 +2410,26 @@ func (r ApiPostExecutionsJobExecutorClaimRequest) Execute() (*ResponseWithGeneri
 /*
 PostExecutionsJobExecutorClaim Method for PostExecutionsJobExecutorClaim
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param primaryKey Path parameter primaryKey
-	@return ApiPostExecutionsJobExecutorClaimRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param primaryKey Path parameter primaryKey
+ @return ApiPostExecutionsJobExecutorClaimRequest
 */
 func (a *ExecutionAPIService) PostExecutionsJobExecutorClaim(ctx context.Context, primaryKey string) ApiPostExecutionsJobExecutorClaimRequest {
 	return ApiPostExecutionsJobExecutorClaimRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 		primaryKey: primaryKey,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *ExecutionAPIService) PostExecutionsJobExecutorClaimExecute(r ApiPostExecutionsJobExecutorClaimRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExecutionAPIService.PostExecutionsJobExecutorClaim")
@@ -2705,14 +2491,14 @@ func (a *ExecutionAPIService) PostExecutionsJobExecutorClaimExecute(r ApiPostExe
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

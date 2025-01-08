@@ -34,10 +34,7 @@ echo ""
 do_request "repositories" '[{"url": "https://github.com/initialed85/djangolang"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"djangolang-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"djangolang-main\", \"branch\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_build_script=$(
@@ -106,10 +103,7 @@ echo 'done.'
 do_request "repositories" '[{"url": "https://github.com/initialed85/game-of-life"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"game-of-life-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"game-of-life-main\", \"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_publish_script=$(
@@ -135,10 +129,7 @@ echo 'done.'
 do_request "repositories" '[{"url": "https://github.com/initialed85/eds-game-for-ftp-game-jam-2022"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"eds-game-for-ftp-game-jam-2022-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"eds-game-for-ftp-game-jam-2022-main\", \"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_publish_script=$(
@@ -164,10 +155,7 @@ echo 'done.'
 do_request "repositories" '[{"url": "https://github.com/initialed85/quake-websocket-proxy"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"quake-websocket-proxy-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"quake-websocket-proxy-main\", \"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_publish_script=$(
@@ -193,10 +181,7 @@ echo 'done.'
 do_request "repositories" '[{"url": "https://github.com/initialed85/mqtt_things"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"mqtt-things-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"mqtt-things-main\", \"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_publish_script=$(
@@ -222,10 +207,7 @@ echo 'done.'
 do_request "repositories" '[{"url": "https://github.com/initialed85/the-last-ci-image-you-will-ever-need"}]'
 repository_id="${object_id}"
 
-do_request "rules" "[{\"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
-rule_id="${object_id}"
-
-do_request "jobs" "[{\"name\": \"the-last-ci-image-you-will-ever-need-main\", \"rule_id\": \"${rule_id}\"}]"
+do_request "jobs" "[{\"name\": \"the-last-ci-image-you-will-ever-need-main\", \"branch_name\": \"main\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
 raw_publish_script=$(

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ChangeProducerClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **DeletedAt** | Pointer to **time.Time** |  | [optional] 
+**HandledAt** | Pointer to **time.Time** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **ReferencedByChangeRepositoryIdObjects** | Pointer to [**[]Change**](Change.md) |  | [optional] 
-**ReferencedByRuleRepositoryIdObjects** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
-**SyncedAt** | Pointer to **time.Time** |  | [optional] 
+**ReferencedByJobRepositoryIdObjects** | Pointer to [**[]Job**](Job.md) |  | [optional] 
+**RepositorySyncerClaimedUntil** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 
@@ -33,31 +33,6 @@ will change when the set of required properties is changed
 NewRepositoryWithDefaults instantiates a new Repository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetChangeProducerClaimedUntil
-
-`func (o *Repository) GetChangeProducerClaimedUntil() time.Time`
-
-GetChangeProducerClaimedUntil returns the ChangeProducerClaimedUntil field if non-nil, zero value otherwise.
-
-### GetChangeProducerClaimedUntilOk
-
-`func (o *Repository) GetChangeProducerClaimedUntilOk() (*time.Time, bool)`
-
-GetChangeProducerClaimedUntilOk returns a tuple with the ChangeProducerClaimedUntil field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetChangeProducerClaimedUntil
-
-`func (o *Repository) SetChangeProducerClaimedUntil(v time.Time)`
-
-SetChangeProducerClaimedUntil sets ChangeProducerClaimedUntil field to given value.
-
-### HasChangeProducerClaimedUntil
-
-`func (o *Repository) HasChangeProducerClaimedUntil() bool`
-
-HasChangeProducerClaimedUntil returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -108,6 +83,31 @@ SetDeletedAt sets DeletedAt field to given value.
 `func (o *Repository) HasDeletedAt() bool`
 
 HasDeletedAt returns a boolean if a field has been set.
+
+### GetHandledAt
+
+`func (o *Repository) GetHandledAt() time.Time`
+
+GetHandledAt returns the HandledAt field if non-nil, zero value otherwise.
+
+### GetHandledAtOk
+
+`func (o *Repository) GetHandledAtOk() (*time.Time, bool)`
+
+GetHandledAtOk returns a tuple with the HandledAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHandledAt
+
+`func (o *Repository) SetHandledAt(v time.Time)`
+
+SetHandledAt sets HandledAt field to given value.
+
+### HasHandledAt
+
+`func (o *Repository) HasHandledAt() bool`
+
+HasHandledAt returns a boolean if a field has been set.
 
 ### GetId
 
@@ -184,55 +184,55 @@ SetReferencedByChangeRepositoryIdObjects sets ReferencedByChangeRepositoryIdObje
 
 HasReferencedByChangeRepositoryIdObjects returns a boolean if a field has been set.
 
-### GetReferencedByRuleRepositoryIdObjects
+### GetReferencedByJobRepositoryIdObjects
 
-`func (o *Repository) GetReferencedByRuleRepositoryIdObjects() []Rule`
+`func (o *Repository) GetReferencedByJobRepositoryIdObjects() []Job`
 
-GetReferencedByRuleRepositoryIdObjects returns the ReferencedByRuleRepositoryIdObjects field if non-nil, zero value otherwise.
+GetReferencedByJobRepositoryIdObjects returns the ReferencedByJobRepositoryIdObjects field if non-nil, zero value otherwise.
 
-### GetReferencedByRuleRepositoryIdObjectsOk
+### GetReferencedByJobRepositoryIdObjectsOk
 
-`func (o *Repository) GetReferencedByRuleRepositoryIdObjectsOk() (*[]Rule, bool)`
+`func (o *Repository) GetReferencedByJobRepositoryIdObjectsOk() (*[]Job, bool)`
 
-GetReferencedByRuleRepositoryIdObjectsOk returns a tuple with the ReferencedByRuleRepositoryIdObjects field if it's non-nil, zero value otherwise
+GetReferencedByJobRepositoryIdObjectsOk returns a tuple with the ReferencedByJobRepositoryIdObjects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetReferencedByRuleRepositoryIdObjects
+### SetReferencedByJobRepositoryIdObjects
 
-`func (o *Repository) SetReferencedByRuleRepositoryIdObjects(v []Rule)`
+`func (o *Repository) SetReferencedByJobRepositoryIdObjects(v []Job)`
 
-SetReferencedByRuleRepositoryIdObjects sets ReferencedByRuleRepositoryIdObjects field to given value.
+SetReferencedByJobRepositoryIdObjects sets ReferencedByJobRepositoryIdObjects field to given value.
 
-### HasReferencedByRuleRepositoryIdObjects
+### HasReferencedByJobRepositoryIdObjects
 
-`func (o *Repository) HasReferencedByRuleRepositoryIdObjects() bool`
+`func (o *Repository) HasReferencedByJobRepositoryIdObjects() bool`
 
-HasReferencedByRuleRepositoryIdObjects returns a boolean if a field has been set.
+HasReferencedByJobRepositoryIdObjects returns a boolean if a field has been set.
 
-### GetSyncedAt
+### GetRepositorySyncerClaimedUntil
 
-`func (o *Repository) GetSyncedAt() time.Time`
+`func (o *Repository) GetRepositorySyncerClaimedUntil() time.Time`
 
-GetSyncedAt returns the SyncedAt field if non-nil, zero value otherwise.
+GetRepositorySyncerClaimedUntil returns the RepositorySyncerClaimedUntil field if non-nil, zero value otherwise.
 
-### GetSyncedAtOk
+### GetRepositorySyncerClaimedUntilOk
 
-`func (o *Repository) GetSyncedAtOk() (*time.Time, bool)`
+`func (o *Repository) GetRepositorySyncerClaimedUntilOk() (*time.Time, bool)`
 
-GetSyncedAtOk returns a tuple with the SyncedAt field if it's non-nil, zero value otherwise
+GetRepositorySyncerClaimedUntilOk returns a tuple with the RepositorySyncerClaimedUntil field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSyncedAt
+### SetRepositorySyncerClaimedUntil
 
-`func (o *Repository) SetSyncedAt(v time.Time)`
+`func (o *Repository) SetRepositorySyncerClaimedUntil(v time.Time)`
 
-SetSyncedAt sets SyncedAt field to given value.
+SetRepositorySyncerClaimedUntil sets RepositorySyncerClaimedUntil field to given value.
 
-### HasSyncedAt
+### HasRepositorySyncerClaimedUntil
 
-`func (o *Repository) HasSyncedAt() bool`
+`func (o *Repository) HasRepositorySyncerClaimedUntil() bool`
 
-HasSyncedAt returns a boolean if a field has been set.
+HasRepositorySyncerClaimedUntil returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 

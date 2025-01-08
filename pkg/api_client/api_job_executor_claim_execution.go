@@ -18,12 +18,13 @@ import (
 	"net/url"
 )
 
+
 // JobExecutorClaimExecutionAPIService JobExecutorClaimExecutionAPI service
 type JobExecutorClaimExecutionAPIService service
 
 type ApiPostJobExecutorClaimExecutionsRequest struct {
-	ctx                              context.Context
-	ApiService                       *JobExecutorClaimExecutionAPIService
+	ctx context.Context
+	ApiService *JobExecutorClaimExecutionAPIService
 	executionJobExecutorClaimRequest *ExecutionJobExecutorClaimRequest
 }
 
@@ -39,25 +40,24 @@ func (r ApiPostJobExecutorClaimExecutionsRequest) Execute() (*ResponseWithGeneri
 /*
 PostJobExecutorClaimExecutions Method for PostJobExecutorClaimExecutions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostJobExecutorClaimExecutionsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostJobExecutorClaimExecutionsRequest
 */
 func (a *JobExecutorClaimExecutionAPIService) PostJobExecutorClaimExecutions(ctx context.Context) ApiPostJobExecutorClaimExecutionsRequest {
 	return ApiPostJobExecutorClaimExecutionsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResponseWithGenericOfExecution
+//  @return ResponseWithGenericOfExecution
 func (a *JobExecutorClaimExecutionAPIService) PostJobExecutorClaimExecutionsExecute(r ApiPostJobExecutorClaimExecutionsRequest) (*ResponseWithGenericOfExecution, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResponseWithGenericOfExecution
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResponseWithGenericOfExecution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JobExecutorClaimExecutionAPIService.PostJobExecutorClaimExecutions")
@@ -115,14 +115,14 @@ func (a *JobExecutorClaimExecutionAPIService) PostJobExecutorClaimExecutionsExec
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		var v PostChangeProducerClaimRepositoriesDefaultResponse
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
+			var v GetChangesDefaultResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

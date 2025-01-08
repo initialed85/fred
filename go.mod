@@ -10,11 +10,10 @@ require (
 	github.com/go-chi/chi/v5 v5.2.0
 	github.com/gomodule/redigo v1.9.2
 	github.com/google/uuid v1.6.0
-	github.com/initialed85/djangolang v0.1.24
+	github.com/initialed85/djangolang v0.1.29
 	github.com/jackc/pgx/v5 v5.7.2
 	github.com/opencontainers/image-spec v1.1.0
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/exp v0.0.0-20250103183323-7d7fa50e5329
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -56,11 +55,12 @@ require (
 	go.opentelemetry.io/otel/metric v1.30.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.30.0 // indirect
 	go.opentelemetry.io/otel/trace v1.30.0 // indirect
+	golang.org/x/exp v0.0.0-20250106191152-7588d65b2ba8 // indirect
 	golang.org/x/mod v0.22.0 // indirect
-	golang.org/x/net v0.32.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/net v0.34.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/time v0.6.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/tools v0.29.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gotest.tools/v3 v3.5.1 // indirect
@@ -87,8 +87,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/paulmach/orb v0.11.1 // indirect
 	github.com/twpayne/go-geom v1.5.7 // indirect
-	go.mongodb.org/mongo-driver v1.17.1 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
+	go.mongodb.org/mongo-driver v1.17.2 // indirect
+	golang.org/x/crypto v0.32.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	gorm.io/gorm v1.25.12 // indirect

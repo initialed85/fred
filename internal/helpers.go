@@ -16,7 +16,7 @@ func GetChangeSummary(change *api.Change) string {
 		"change %s for %s:%s@%s",
 		change.ID.String(),
 		repositoryURL,
-		change.BranchName,
+		change.Branch,
 		change.CommitHash,
 	)
 }
@@ -29,19 +29,6 @@ func GetJobSummary(job *api.Job) string {
 	)
 }
 
-func GetTriggerSummary(trigger *api.Trigger) string {
-	jobSummary := fmt.Sprintf("job %s", trigger.JobID.String())
-	if trigger.JobIDObject != nil {
-		jobSummary = GetJobSummary(trigger.JobIDObject)
-	}
-
-	return fmt.Sprintf(
-		"trigger %s for %s",
-		trigger.ID.String(),
-		jobSummary,
-	)
-}
-
 func GetExecutionSummary(execution *api.Execution) string {
 	jobSummary := fmt.Sprintf("job %s", execution.JobID.String())
 	if execution.JobIDObject != nil {
@@ -49,8 +36,9 @@ func GetExecutionSummary(execution *api.Execution) string {
 	}
 
 	return fmt.Sprintf(
-		"execution %s for %s",
+		"execution %s (%s) for %s",
 		execution.ID.String(),
+		execution.Status,
 		jobSummary,
 	)
 }
