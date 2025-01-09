@@ -250,8 +250,8 @@ CREATE TABLE
         updated_at timestamptz NOT NULL DEFAULT now(),
         deleted_at timestamptz NULL DEFAULT NULL,
         status text NOT NULL CHECK (status IN ('pending', 'running', 'succeeded', 'failing', 'failed', 'erroring', 'errored', 'skipped')),
-        started_at timestamptz NULL DEFAULT NULL,
-        ended_at timestamptz NULL DEFAULT NULL CHECK (ended_at IS null OR ended_at >= started_at),
+        started_at timestamptz NULL DEFAULT NULL CHECK (started_at IS null OR ended_at IS null OR started_at <= ended_at),
+        ended_at timestamptz NULL DEFAULT NULL CHECK (ended_at IS null OR started_at IS NOT null AND ended_at >= started_at),
         job_executor_claimed_until timestamptz NOT NULL DEFAULT to_timestamp(0)
     );
 
@@ -310,7 +310,7 @@ CREATE TABLE
         deleted_at timestamptz NULL DEFAULT NULL,
         name TEXT NOT NULL CHECK (name ~* '^[A-Za-z0-9-]+$'),
         index integer NOT NULL,
-        platform text NOT NULL CHECK (platform ~* '^.*/.*$'),
+        platform text NULL CHECK (platform IS null OR platform ~* '^.*/.*$'),
         image text NOT NULL CHECK (image ~* '^(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?$'),
         script text NOT NULL
     );
@@ -590,14 +590,14 @@ WHERE
 
 
 --
--- task unique on (name, job_id)
+-- task unique on (name, job_id, index)
 --
 
-CREATE UNIQUE INDEX task_unique_name_job_id_not_deleted ON public.task (name, job_id)
+CREATE UNIQUE INDEX task_unique_name_job_id_index_not_deleted ON public.task (name, job_id, index)
 WHERE
     deleted_at IS null;
 
-CREATE UNIQUE INDEX task_unique_name_job_id_deleted ON public.task (name, job_id, deleted_at)
+CREATE UNIQUE INDEX task_unique_name_job_id_index_deleted ON public.task (name, job_id, index, deleted_at)
 WHERE
     deleted_at IS NOT null;
 

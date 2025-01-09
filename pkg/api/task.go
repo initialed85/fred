@@ -36,7 +36,7 @@ type Task struct {
 	DeletedAt                       *time.Time `json:"deleted_at"`
 	Name                            string     `json:"name"`
 	Index                           int64      `json:"index"`
-	Platform                        string     `json:"platform"`
+	Platform                        *string    `json:"platform"`
 	Image                           string     `json:"image"`
 	Script                          string     `json:"script"`
 	JobID                           uuid.UUID  `json:"job_id"`
@@ -311,7 +311,7 @@ func (m *Task) FromItem(item map[string]any) error {
 				}
 			}
 
-			m.Platform = temp2
+			m.Platform = &temp2
 
 		case "image":
 			if v == nil {

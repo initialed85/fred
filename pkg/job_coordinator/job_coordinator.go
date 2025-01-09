@@ -50,7 +50,7 @@ func HandleChange(ctx context.Context, tx pgx.Tx, change *api.Change) error {
 				}
 
 				if !expr.MatchString(change.Branch) {
-					log.Printf("%s did not match %s by branch", internal.GetJobSummary(job), internal.GetChangeSummary(change))
+					log.Printf("%s did not match %s by branch; skipping...", internal.GetJobSummary(job), internal.GetChangeSummary(change))
 					continue
 				}
 			}
@@ -64,9 +64,32 @@ func HandleChange(ctx context.Context, tx pgx.Tx, change *api.Change) error {
 				}
 
 				if !expr.MatchString(*change.Tag) {
-					log.Printf("%s did not match %s by tag", internal.GetJobSummary(job), internal.GetChangeSummary(change))
+					log.Printf("%s did not match %s by tag; skipping...", internal.GetJobSummary(job), internal.GetChangeSummary(change))
 					continue
 				}
+			}
+
+			existingExecutions, _, _, _, _, err := api.SelectExecutions(
+				query.WithLoad(ctx, api.JobTable),
+				tx,
+				fmt.Sprintf(
+					"%s = $$?? AND %s = $$??",
+					api.ExecutionTableJobIDColumn,
+					api.ExecutionTableChangeIDColumn,
+				),
+				nil,
+				nil,
+				nil,
+				job.ID,
+				change.ID,
+			)
+			if err != nil {
+				return err
+			}
+
+			if len(existingExecutions) > 0 {
+				log.Printf("%s already had %d existing executions; skipping...", internal.GetJobSummary(job), len(existingExecutions))
+				continue
 			}
 
 			dependsOns, _, _, _, _, err := api.SelectDependsOns(
@@ -127,7 +150,6 @@ func HandleChange(ctx context.Context, tx pgx.Tx, change *api.Change) error {
 							internal.GetExecutionSummary(sourceExecution),
 							internal.ExecutionOrTaskStatusSucceeded,
 						)
-
 						skip = true
 					}
 				}

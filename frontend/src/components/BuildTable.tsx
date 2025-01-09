@@ -1,5 +1,3 @@
-import Button from "@mui/joy/Button";
-import Chip from "@mui/joy/Chip";
 import Link from "@mui/joy/Link";
 import Modal from "@mui/joy/Modal";
 import ModalDialog from "@mui/joy/ModalDialog";
@@ -11,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { clientForReactQuery } from "../api";
 import { components } from "../api/api";
+import { Execution } from "./Execution";
 import { Logs } from "./Logs";
 
 const defaultLimit = 10;
@@ -21,32 +20,17 @@ export interface BuildTableProps {
   windowWidth: number;
   windowHeight: number;
   repositoryId: string | undefined;
+  branchFilter: string | undefined;
   ruleId: string | undefined;
   jobId: string | undefined;
   taskId: string | undefined;
 }
 
-function Status(props: { status: string }) {
-  const statusText = (props.status || "").slice(0, 1).toUpperCase() + (props.status || "").slice(1);
-
-  let status = <Chip color={"danger"}>{statusText}</Chip>;
-
-  if (props.status === "running") {
-    status = <Chip color={"warning"}>{statusText}</Chip>;
-  } else if (props.status === "pending") {
-    status = <Chip color={"primary"}>{statusText}</Chip>;
-  } else if (props.status === "succeeded") {
-    status = <Chip color={"success"}>{statusText}</Chip>;
-  }
-
-  return status;
-}
-
 export function BuildTable(props: BuildTableProps) {
-  const [ref, inView] = useInView();
-
   const [outputId, setOutputId] = useState<string | undefined>(undefined);
   const [showLogModal, setShowLogModal] = useState(false);
+
+  const [ref, inView] = useInView();
 
   const queryHash = JSON.stringify(props);
 
@@ -64,10 +48,12 @@ export function BuildTable(props: BuildTableProps) {
         params: {
           query: {
             repository_id__eq: props.repositoryId,
-            created_at__desc: "",
-            depth: 4,
+            branch__ilike: props.branchFilter?.trim() ? props.branchFilter?.trim() : undefined,
+            committed_at__desc: "",
             limit: relevantLimit,
             offset: pageParam,
+            repository__load: "",
+            referenced_by_execution__load: "",
           },
         },
       });
@@ -82,7 +68,7 @@ export function BuildTable(props: BuildTableProps) {
       */
 
       if (lastPage?.count === 0) {
-        return lastPage!.offset;
+        return undefined;
       }
 
       return (lastPage?.offset || 0) + relevantLimit;
@@ -100,7 +86,7 @@ export function BuildTable(props: BuildTableProps) {
 
   infiniteChangesData?.pages.forEach((page) => {
     page?.objects?.forEach((object) => {
-      if (!object!.id) {
+      if (!object?.id) {
         return;
       }
 
@@ -113,7 +99,7 @@ export function BuildTable(props: BuildTableProps) {
         createdAts.push(object.created_at);
       }
 
-      changesData!.objects.push(object);
+      changesData?.objects.push(object);
     });
   });
 
@@ -163,13 +149,13 @@ export function BuildTable(props: BuildTableProps) {
           </tr>
         </thead>
         <tbody>
-          {changesData!.objects!.length ? (
-            changesData!.objects.map((change, i) => {
-              const repository = change!.repository_id_object;
+          {changesData?.objects?.length ? (
+            changesData?.objects.map((change, i) => {
+              const repository = change?.repository_id_object;
 
               return (
                 <tr key={`execution-table-row-${change.id}`}>
-                  <td>{change!.authored_at}</td>
+                  <td>{change?.authored_at}</td>
                   <td>
                     <Link
                       href={(repository?.url || "") + "/commit/" + (change?.commit_hash || "")}
@@ -196,7 +182,7 @@ export function BuildTable(props: BuildTableProps) {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          {change!.commit_hash}
+                          {change?.commit_hash}
                         </Link>
                       </>
                     </td>
@@ -204,59 +190,17 @@ export function BuildTable(props: BuildTableProps) {
                   <td>
                     <Table size="sm" sx={{ p: 0, m: 0 }} borderAxis="y">
                       <tbody>
-                        {change?.referenced_by_execution_change_id_objects?.map((execution) => {
-                          return (
-                            <tr>
-                              <td style={{ width: "200px" }}>{execution?.job_id_object?.name}</td>
-                              <td style={{ width: "100px" }}>
-                                <Status status={execution?.status!} />
-                              </td>
-                              <td>
-                                <Table size="sm" sx={{ p: 0, m: 0 }} borderAxis="y">
-                                  <tbody>
-                                    {execution?.referenced_by_output_execution_id_objects
-                                      ?.filter((output) => output.execution_id === execution?.id)
-                                      .sort((a, b) => {
-                                        if (a!.task_id_object?.index! < b!.task_id_object?.index!) {
-                                          return -1;
-                                        } else if (a!.task_id_object?.index! > b!.task_id_object?.index!) {
-                                          return 1;
-                                        } else {
-                                          return 0;
-                                        }
-                                      })
-                                      .map((output) => {
-                                        return (
-                                          <tr>
-                                            <td style={{ width: "25px" }}>{output!.task_id_object?.name}</td>
-                                            <td style={{ width: "50px" }}>
-                                              <Status status={output!.status!} />
-                                            </td>
-                                            <td style={{ width: "100px" }}>
-                                              <Button
-                                                size={"sm"}
-                                                variant="soft"
-                                                color={"primary"}
-                                                sx={{
-                                                  fontSize: "var(--joy-fontSize-xs, 0.75rem)",
-                                                }}
-                                                onClick={() => {
-                                                  setOutputId(output!.id);
-                                                  setShowLogModal(true);
-                                                }}
-                                              >
-                                                Logs
-                                              </Button>
-                                            </td>
-                                          </tr>
-                                        );
-                                      })}
-                                  </tbody>
-                                </Table>
-                              </td>
-                            </tr>
-                          );
-                        })}
+                        {change?.referenced_by_execution_change_id_objects?.map(
+                          (execution) =>
+                            execution.id && (
+                              <Execution
+                                executionId={execution.id}
+                                setOutputId={setOutputId}
+                                setShowLogModal={setShowLogModal}
+                                key={execution.id}
+                              />
+                            )
+                        )}
                       </tbody>
                     </Table>
                   </td>

@@ -15,6 +15,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	repositoryURL = "https://github.com/initialed85/djangolang"
+)
+
 func TestJobCoordinator(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -31,7 +35,7 @@ func TestJobCoordinator(t *testing.T) {
 		//
 
 		repository := &api.Repository{
-			URL: "https://github.com/initialed85/djangolang",
+			URL: repositoryURL,
 		}
 
 		tx, err := db.Begin(ctx)
@@ -83,9 +87,9 @@ func TestJobCoordinator(t *testing.T) {
 		task1 := &api.Task{
 			Name:     "lint",
 			Index:    0,
-			Platform: "linux/amd64",
-			Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
-			Script:   "./lint.sh",
+			Platform: nil,
+			Image:    "golang:1.23",
+			Script:   "go vet ./...",
 			JobID:    job.ID,
 		}
 
@@ -105,8 +109,8 @@ func TestJobCoordinator(t *testing.T) {
 		task2 := &api.Task{
 			Name:     "build",
 			Index:    0,
-			Platform: "linux/amd64",
-			Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
+			Platform: nil,
+			Image:    "golang:1.23",
 			Script:   "go build -o bin/cmd ./cmd/",
 			JobID:    job.ID,
 		}
@@ -291,8 +295,8 @@ func TestJobCoordinator(t *testing.T) {
 		job1Task1 := &api.Task{
 			Name:     "lint",
 			Index:    0,
-			Platform: "linux/amd64",
-			Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
+			Platform: nil,
+			Image:    "golang:1.23",
 			Script:   "./lint.sh",
 			JobID:    job1.ID,
 		}
@@ -313,8 +317,8 @@ func TestJobCoordinator(t *testing.T) {
 		job1Task2 := &api.Task{
 			Name:     "build",
 			Index:    0,
-			Platform: "linux/amd64",
-			Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
+			Platform: nil,
+			Image:    "golang:1.23",
 			Script:   "go build -o bin/cmd ./cmd/",
 			JobID:    job1.ID,
 		}
@@ -335,8 +339,8 @@ func TestJobCoordinator(t *testing.T) {
 		job2Task1 := &api.Task{
 			Name:     "build",
 			Index:    0,
-			Platform: "linux/amd64",
-			Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
+			Platform: nil,
+			Image:    "golang:1.23",
 			Script:   "./test.sh",
 			JobID:    job2.ID,
 		}
@@ -389,8 +393,7 @@ func TestJobCoordinator(t *testing.T) {
 		err = change.Reload(ctx, tx)
 		require.NoError(t, err)
 
-		require.NotNil(t, change.HandledAt)
-		require.Greater(t, *change.HandledAt, time.Time{})
+		require.Nil(t, change.HandledAt)
 
 		selectCtx := ctx
 		selectCtx = query.WithLoad(selectCtx, api.JobTable)

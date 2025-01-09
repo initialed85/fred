@@ -3,3 +3,4 @@ temp
 cmd/api/api
 pkg/api/bin/api
 pkg/job_executor/tmp/
+tmp

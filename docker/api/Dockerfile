@@ -21,7 +21,9 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 
 WORKDIR /srv/
 
-COPY --from=builder /srv/bin/api /srv/bin/api
+# COPY --from=builder /srv/bin/api /srv/bin/api
+
+COPY ./tmp/api /srv/bin/api
 
 ENV DJANGOLANG_API_ROOT=/api
 

@@ -19,6 +19,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	repositoryURL = "https://github.com/initialed85/djangolang"
+)
+
 func TestJobExecutor(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -43,7 +47,7 @@ func TestJobExecutor(t *testing.T) {
 	//
 
 	repository := &api.Repository{
-		URL: "https://github.com/initialed85/djangolang",
+		URL: repositoryURL,
 	}
 
 	tx, err := db.Begin(ctx)
@@ -92,9 +96,9 @@ func TestJobExecutor(t *testing.T) {
 	job1Task1 := &api.Task{
 		Name:     "lint",
 		Index:    0,
-		Platform: "linux/amd64",
-		Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
-		Script:   "./lint.sh",
+		Platform: nil,
+		Image:    "golang:1.23",
+		Script:   "go vet ./...",
 		JobID:    job1.ID,
 	}
 
@@ -104,8 +108,8 @@ func TestJobExecutor(t *testing.T) {
 	job1Task2 := &api.Task{
 		Name:     "build",
 		Index:    1,
-		Platform: "linux/amd64",
-		Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
+		Platform: nil,
+		Image:    "golang:1.23",
 		Script:   "go build -o bin/cmd ./cmd/",
 		JobID:    job1.ID,
 	}
@@ -116,9 +120,9 @@ func TestJobExecutor(t *testing.T) {
 	job2Task1 := &api.Task{
 		Name:     "build",
 		Index:    0,
-		Platform: "linux/amd64",
-		Image:    "initialed85/the-last-ci-image-you-will-ever-need:latest",
-		Script:   "./test.sh",
+		Platform: nil,
+		Image:    "golang:1.23",
+		Script:   "go test -v -count=1 -failfast ./pkg/types",
 		JobID:    job2.ID,
 	}
 
@@ -228,6 +232,11 @@ func TestJobExecutor(t *testing.T) {
 		_ = tx.Commit(ctx)
 	}()
 
+	// when (attempt to reexecute already-executed execution)
+
+	err = HandleExecution(ctx, db, execution1, apiClient, tempPath)
+	require.Error(t, err)
+
 	// when
 
 	func() {
@@ -258,7 +267,6 @@ func TestJobExecutor(t *testing.T) {
 
 		err = HandleExecution(ctx, db, execution2, apiClient, tempPath)
 		require.NoError(t, err)
-		_ = tx.Commit(ctx)
 	}()
 
 	// then

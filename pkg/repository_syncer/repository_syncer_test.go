@@ -12,6 +12,10 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	repositoryURL = "https://github.com/initialed85/djangolang"
+)
+
 func TestRepositorySyncer(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -23,7 +27,7 @@ func TestRepositorySyncer(t *testing.T) {
 	}()
 
 	repository := &api.Repository{
-		URL: "https://github.com/initialed85/djangolang",
+		URL: repositoryURL,
 	}
 
 	tx, err := db.Begin(ctx)
@@ -38,16 +42,6 @@ func TestRepositorySyncer(t *testing.T) {
 
 	err = repository.Insert(ctx, tx, false, false)
 	require.NoError(t, err)
-	defer func() {
-		tx, err := db.Begin(ctx)
-		require.NoError(t, err)
-		defer func() {
-			_ = tx.Rollback(ctx)
-		}()
-
-		_ = repository.Delete(ctx, tx)
-		_ = tx.Commit(ctx)
-	}()
 
 	//
 	// when

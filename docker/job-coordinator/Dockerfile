@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y tzdata curl ca-certificates
 
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-COPY --from=builder /srv/bin/job-coordinator /srv/bin/job-coordinator
+# COPY --from=builder /srv/bin/job-coordinator /srv/bin/job-coordinator
+
+COPY ./tmp/job-coordinator /srv/bin/job-coordinator
 
 WORKDIR /srv/
 

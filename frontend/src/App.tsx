@@ -2,26 +2,20 @@ import Grid from "@mui/joy/Grid";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { useEffect, useState } from "react";
-import JobDropdownMenu from "./components/JobDropdownMenu";
+import BranchFilterTextBox from "./components/BranchFilterTextBox";
+import { BuildTable } from "./components/BuildTable";
 import ModeToggle from "./components/ModeToggle";
 import RepositoryDropdownMenu from "./components/RepositoryDropdownMenu";
-import TaskDropdownMenu from "./components/TaskDropdownMenu";
 import { responsiveWidth } from "./config";
-import { BuildTable } from "./components/BuildTable";
 
 function App() {
-  const [responsive, setResponsive] = useState(
-    window.innerWidth < responsiveWidth,
-  );
-  const [portrait, setPortrait] = useState(
-    window.innerWidth < window.innerHeight,
-  );
+  const [responsive, setResponsive] = useState(window.innerWidth < responsiveWidth);
+  const [portrait, setPortrait] = useState(window.innerWidth < window.innerHeight);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  const [repositoryId, setRepositoryId] = useState<string | undefined>(
-    undefined,
-  );
+  const [repositoryId, setRepositoryId] = useState<string | undefined>(undefined);
+  const [branchFilter, setBranchFilter] = useState<string | undefined>(undefined);
   const [ruleId, setRuleId] = useState<string | undefined>(undefined);
   const [jobId, setJobId] = useState<string | undefined>(undefined);
   const [taskId, setTaskId] = useState<string | undefined>(undefined);
@@ -84,12 +78,7 @@ function App() {
             justifyContent: "flex-start",
           }}
         >
-          <Typography
-            level="h4"
-            component="h4"
-            sx={{ pt: 0.1, pl: 0.75, pr: 1, textAlign: "center" }}
-            color="neutral"
-          >
+          <Typography level="h4" component="h4" sx={{ pt: 0.1, pl: 0.75, pr: 1, textAlign: "center" }} color="neutral">
             {responsive ? "F" : "Fred"}
           </Typography>
           <RepositoryDropdownMenu
@@ -97,21 +86,22 @@ function App() {
             repositoryId={repositoryId}
             setRepositoryId={setRepositoryId}
           />
-          <JobDropdownMenu
+          <BranchFilterTextBox setBranchFilter={setBranchFilter} />
+          {/* <JobDropdownMenu
             responsive={responsive}
             jobId={jobId}
             setJobId={setJobId}
             repositoryId={repositoryId}
             ruleId={ruleId}
-          />
-          <TaskDropdownMenu
+          /> */}
+          {/* <TaskDropdownMenu
             responsive={responsive}
             taskId={taskId}
             setTaskId={setTaskId}
             repositoryId={repositoryId}
             ruleId={ruleId}
             jobId={jobId}
-          />
+          /> */}
         </Grid>
 
         <Grid xs={1} sx={{ display: "flex", justifyContent: "end", pr: 0.5 }}>
@@ -134,6 +124,7 @@ function App() {
           windowWidth={windowWidth}
           windowHeight={windowHeight}
           repositoryId={repositoryId}
+          branchFilter={branchFilter}
           ruleId={ruleId}
           jobId={jobId}
           taskId={taskId}

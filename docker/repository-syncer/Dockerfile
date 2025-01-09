@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y tzdata curl ca-certificates
 
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-COPY --from=builder /srv/bin/repository-syncer /srv/bin/repository-syncer
+# COPY --from=builder /srv/bin/repository-syncer /srv/bin/repository-syncer
+
+COPY ./tmp/repository-syncer /srv/bin/repository-syncer
 
 WORKDIR /srv/
 

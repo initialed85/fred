@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y tzdata curl ca-certificates openssh-cli
 
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-COPY --from=builder /srv/bin/job-executor /srv/bin/job-executor
+# COPY --from=builder /srv/bin/job-executor /srv/bin/job-executor
+
+COPY ./tmp/job-executor /srv/bin/job-executor
 
 WORKDIR /srv/
 

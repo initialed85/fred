@@ -36,8 +36,8 @@ objects:
   - name: execution
     properties:
       - status text NOT NULL CHECK (status IN ('pending', 'running', 'succeeded', 'failing', 'failed', 'erroring', 'errored', 'skipped'))
-      - started_at timestamptz NULL DEFAULT NULL
-      - ended_at timestamptz NULL DEFAULT NULL CHECK (ended_at IS null OR ended_at >= started_at)
+      - started_at timestamptz NULL DEFAULT NULL CHECK (started_at IS null OR ended_at IS null OR started_at <= ended_at)
+      - ended_at timestamptz NULL DEFAULT NULL CHECK (ended_at IS null OR started_at IS NOT null AND ended_at >= started_at)
     claims:
       - job_executor
 
@@ -45,11 +45,11 @@ objects:
     properties:
       - name TEXT NOT NULL CHECK (name ~* '^[A-Za-z0-9-]+$')
       - index integer NOT NULL
-      - platform text NOT NULL CHECK (platform ~* '^.*/.*$')
+      - platform text NULL CHECK (platform IS null OR platform ~* '^.*/.*$')
       - image text NOT NULL CHECK (image ~* '^(?:(?=[^:\/]{1,253})(?!-)[a-zA-Z0-9-]{1,63}(?<!-)(?:\.(?!-)[a-zA-Z0-9-]{1,63}(?<!-))*(?::[0-9]{1,5})?/)?((?![._-])(?:[a-z0-9._-]*)(?<![._-])(?:/(?![._-])[a-z0-9._-]*(?<![._-]))*)(?::(?![.-])[a-zA-Z0-9_.-]{1,128})?$')
       - script text NOT NULL
     unique_on:
-      - ["name", "job_id"]
+      - ["name", "job_id", "index"]
 
   - name: output
     properties:

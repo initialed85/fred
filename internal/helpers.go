@@ -42,3 +42,17 @@ func GetExecutionSummary(execution *api.Execution) string {
 		jobSummary,
 	)
 }
+
+func GetTaskSummary(task *api.Task) string {
+	jobSummary := fmt.Sprintf("job %s", task.JobID.String())
+	if task.JobIDObject != nil {
+		jobSummary = GetJobSummary(task.JobIDObject)
+	}
+
+	return fmt.Sprintf(
+		"task %s (%s) for %s",
+		task.ID.String(),
+		task.Name,
+		jobSummary,
+	)
+}
