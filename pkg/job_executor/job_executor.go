@@ -249,7 +249,7 @@ func finalizeTask(ctx context.Context, db *pgxpool.Pool, execution *api.Executio
 		log.Printf("warning: %s", err.Error())
 	}
 
-	err = execution.Update(ctx, tx, false)
+	err = execution.Update(getExecutionCtx(ctx), tx, false)
 	if err != nil {
 		log.Printf("warning: %s", err.Error())
 	}
@@ -613,6 +613,14 @@ func handleTask(ctx context.Context, db *pgxpool.Pool, execution *api.Execution,
 						CreateMountpoint: true,
 					},
 				},
+				{
+					Type:   "bind",
+					Source: "/root/.docker",
+					Target: "/root/.docker",
+					BindOptions: &mount.BindOptions{
+						CreateMountpoint: true,
+					},
+				},
 			},
 		},
 		&network.NetworkingConfig{},
@@ -661,7 +669,7 @@ func handleTask(ctx context.Context, db *pgxpool.Pool, execution *api.Execution,
 			}
 
 			err = nil
-			if containerInspectResponse.State.ExitCode >= 0 {
+			if containerInspectResponse.State.ExitCode > 0 {
 				err = errors.New("container had non-zero exit code")
 			}
 

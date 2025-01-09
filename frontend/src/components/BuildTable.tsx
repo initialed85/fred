@@ -49,7 +49,7 @@ export function BuildTable(props: BuildTableProps) {
           query: {
             repository_id__eq: props.repositoryId,
             branch__ilike: props.branchFilter?.trim() ? props.branchFilter?.trim() : undefined,
-            committed_at__desc: "",
+            authored_at__desc: "",
             limit: relevantLimit,
             offset: pageParam,
             repository__load: "",
