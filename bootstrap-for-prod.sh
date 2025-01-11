@@ -355,28 +355,264 @@ echo ""
 
 # echo 'done.'
 
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/fred"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"fred-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_publish_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build-tag-and-push.sh
+# EOM
+# )
+# publish_script=$(python3 -c "import json; print(json.dumps('''${raw_publish_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"publish\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${publish_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/stato"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"stato-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_test_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# go test -v -count=1 ./...
+# EOM
+# )
+# test_script=$(python3 -c "import json; print(json.dumps('''${raw_test_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"test\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${test_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/dspo"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"dspo-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_test_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# go test -v -count=1 ./...
+# EOM
+# )
+# test_script=$(python3 -c "import json; print(json.dumps('''${raw_test_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"test\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${test_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/quotanizer"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"quotanizer-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_build_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build.sh
+# EOM
+# )
+# build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# raw_test_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./test.sh
+# EOM
+# )
+# test_script=$(python3 -c "import json; print(json.dumps('''${raw_test_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"test\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${test_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/castinator"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"castinator-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_build_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build.sh
+# EOM
+# )
+# build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/drive_test"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"drive_test-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_build_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build.sh
+# EOM
+# )
+# build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/watchiner"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"watchiner-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_build_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build.sh
+# EOM
+# )
+# build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
+# #
+# # ----
+# #
+
+# do_request "repositories" '[{"url": "https://github.com/initialed85/ros-kinetic-catkin-example"}]'
+# repository_id="${object_id}"
+
+# do_request "jobs" "[{\"name\": \"ros-kinetic-catkin-example-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+# job_id="${object_id}"
+
+# raw_build_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./build.sh
+# EOM
+# )
+# build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# raw_test_script=$(
+#     cat <<-EOM
+# #!/bin/bash
+
+# set -e
+
+# ./test.sh
+# EOM
+# )
+# test_script=$(python3 -c "import json; print(json.dumps('''${raw_test_script}'''))")
+
+# do_request "tasks" "[{\"index\": 1, \"name\": \"test\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${test_script}, \"job_id\": \"${job_id}\"}]"
+# _="${object_id}"
+
+# echo 'done.'
+
 #
 # ----
 #
 
-do_request "repositories" '[{"url": "https://github.com/initialed85/fred"}]'
+do_request "repositories" '[{"url": "https://github.com/initialed85/eprosima-fast-rtps-testing"}]'
 repository_id="${object_id}"
 
-do_request "jobs" "[{\"name\": \"fred-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
+do_request "jobs" "[{\"name\": \"eprosima-fast-rtps-testing-ci\", \"branches\": \"(main|master)\", \"repository_id\": \"${repository_id}\"}]"
 job_id="${object_id}"
 
-raw_publish_script=$(
+raw_build_script=$(
     cat <<-EOM
 #!/bin/bash
 
 set -e
 
-./build-tag-and-push.sh
+./build_x86_64.sh
 EOM
 )
-publish_script=$(python3 -c "import json; print(json.dumps('''${raw_publish_script}'''))")
+build_script=$(python3 -c "import json; print(json.dumps('''${raw_build_script}'''))")
 
-do_request "tasks" "[{\"index\": 1, \"name\": \"publish\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${publish_script}, \"job_id\": \"${job_id}\"}]"
+do_request "tasks" "[{\"index\": 1, \"name\": \"build\", \"platform\": \"linux/amd64\", \"image\": \"initialed85/the-last-ci-image-you-will-ever-need:latest\", \"script\": ${build_script}, \"job_id\": \"${job_id}\"}]"
 _="${object_id}"
 
 echo 'done.'

@@ -9,13 +9,21 @@ import RepositoryDropdownMenu from "./components/RepositoryDropdownMenu";
 import { responsiveWidth } from "./config";
 
 function App() {
-  const [responsive, setResponsive] = useState(window.innerWidth < responsiveWidth);
-  const [portrait, setPortrait] = useState(window.innerWidth < window.innerHeight);
+  const [responsive, setResponsive] = useState(
+    window.innerWidth < responsiveWidth,
+  );
+  const [portrait, setPortrait] = useState(
+    window.innerWidth < window.innerHeight,
+  );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  const [repositoryId, setRepositoryId] = useState<string | undefined>(undefined);
-  const [branchFilter, setBranchFilter] = useState<string | undefined>(undefined);
+  const [repositoryId, setRepositoryId] = useState<string | undefined>(
+    undefined,
+  );
+  const [branchFilter, setBranchFilter] = useState<string | undefined>(
+    undefined,
+  );
   const [ruleId, setRuleId] = useState<string | undefined>(undefined);
   const [jobId, setJobId] = useState<string | undefined>(undefined);
   const [taskId, setTaskId] = useState<string | undefined>(undefined);
@@ -55,46 +63,52 @@ function App() {
   }, [portrait, responsive, windowHeight, windowWidth]);
 
   return (
-    <Sheet
-      variant="soft"
-      sx={{
-        mx: 0,
-        my: 0,
-        py: 1,
-        px: 1,
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "none",
-        boxShadow: "md",
-        height: "100%",
-      }}
-    >
-      <Grid container sx={{ pb: 1 }}>
-        <Grid
-          xs={11}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-start",
-          }}
-        >
-          <Typography level="h4" component="h4" sx={{ pt: 0.1, pl: 0.75, pr: 1, textAlign: "center" }} color="neutral">
-            {responsive ? "F" : "Fred"}
-          </Typography>
-          <RepositoryDropdownMenu
-            responsive={responsive}
-            repositoryId={repositoryId}
-            setRepositoryId={setRepositoryId}
-          />
-          <BranchFilterTextBox setBranchFilter={setBranchFilter} />
-          {/* <JobDropdownMenu
+    <>
+      <Sheet
+        variant="soft"
+        sx={{
+          mx: 0,
+          my: 0,
+          py: 1,
+          px: 1,
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "none",
+          boxShadow: "md",
+          overflow: "auto",
+        }}
+      >
+        <Grid container sx={{ pb: 1 }}>
+          <Grid
+            xs={11}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Typography
+              level="h4"
+              component="h4"
+              sx={{ pt: 0.1, pl: 0.75, pr: 1, textAlign: "center" }}
+              color="neutral"
+            >
+              {responsive ? "F" : "Fred"}
+            </Typography>
+            <RepositoryDropdownMenu
+              responsive={responsive}
+              repositoryId={repositoryId}
+              setRepositoryId={setRepositoryId}
+            />
+            <BranchFilterTextBox setBranchFilter={setBranchFilter} />
+            {/* <JobDropdownMenu
             responsive={responsive}
             jobId={jobId}
             setJobId={setJobId}
             repositoryId={repositoryId}
             ruleId={ruleId}
           /> */}
-          {/* <TaskDropdownMenu
+            {/* <TaskDropdownMenu
             responsive={responsive}
             taskId={taskId}
             setTaskId={setTaskId}
@@ -102,35 +116,36 @@ function App() {
             ruleId={ruleId}
             jobId={jobId}
           /> */}
+          </Grid>
+
+          <Grid xs={1} sx={{ display: "flex", justifyContent: "end", pr: 0.5 }}>
+            <ModeToggle responsive={responsive} />
+          </Grid>
         </Grid>
 
-        <Grid xs={1} sx={{ display: "flex", justifyContent: "end", pr: 0.5 }}>
-          <ModeToggle responsive={responsive} />
+        <Grid
+          xs={11}
+          sx={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            height: "100vh",
+          }}
+        >
+          <BuildTable
+            responsive={responsive}
+            portrait={portrait}
+            windowWidth={windowWidth}
+            windowHeight={windowHeight}
+            repositoryId={repositoryId}
+            branchFilter={branchFilter}
+            ruleId={ruleId}
+            jobId={jobId}
+            taskId={taskId}
+          />
         </Grid>
-      </Grid>
-
-      <Grid
-        xs={11}
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-          height: "100vh",
-        }}
-      >
-        <BuildTable
-          responsive={responsive}
-          portrait={portrait}
-          windowWidth={windowWidth}
-          windowHeight={windowHeight}
-          repositoryId={repositoryId}
-          branchFilter={branchFilter}
-          ruleId={ruleId}
-          jobId={jobId}
-          taskId={taskId}
-        />
-      </Grid>
-    </Sheet>
+      </Sheet>
+    </>
   );
 }
 

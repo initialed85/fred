@@ -11,22 +11,27 @@ export interface ExecutionProps {
 }
 
 export function Execution(props: ExecutionProps) {
-  const { data: dataForExecutions } = useQuery("get", "/api/executions/{primaryKey}", {
-    params: {
-      path: {
-        primaryKey: props.executionId || "",
-      },
-      query: {
-        depth: 2,
+  const { data: dataForExecutions } = useQuery(
+    "get",
+    "/api/executions/{primaryKey}",
+    {
+      params: {
+        path: {
+          primaryKey: props.executionId || "",
+        },
+        query: {
+          depth: 2,
+        },
       },
     },
-  });
+  );
 
   if (!dataForExecutions?.objects?.length) {
     return null;
   }
 
-  const execution: components["schemas"]["Execution"] = dataForExecutions!.objects[0];
+  const execution: components["schemas"]["Execution"] =
+    dataForExecutions!.objects[0];
 
   return (
     <tr key={execution?.id}>
@@ -42,7 +47,9 @@ export function Execution(props: ExecutionProps) {
               .sort((a, b) => {
                 if (a!.task_id_object?.index! < b!.task_id_object?.index!) {
                   return -1;
-                } else if (a!.task_id_object?.index! > b!.task_id_object?.index!) {
+                } else if (
+                  a!.task_id_object?.index! > b!.task_id_object?.index!
+                ) {
                   return 1;
                 } else {
                   return 0;
@@ -57,7 +64,7 @@ export function Execution(props: ExecutionProps) {
                       setShowLogModal={props.setShowLogModal}
                       key={output.id}
                     />
-                  )
+                  ),
               )}
           </tbody>
         </Table>

@@ -1,7 +1,9 @@
 import Chip from "@mui/joy/Chip";
 
 export function Status(props: { status: string }) {
-  const statusText = (props.status || "").slice(0, 1).toUpperCase() + (props.status || "").slice(1);
+  const statusText =
+    (props.status || "").slice(0, 1).toUpperCase() +
+    (props.status || "").slice(1);
 
   let status = <Chip color={"danger"}>{statusText}</Chip>;
 
