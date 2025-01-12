@@ -37,7 +37,7 @@ Done / WIP at the top, TODOs are in priority order.
 - [DONE] Fix jobs stuck in "Running" when tasks are all "Errored"
 - [TODO] Fix anything to do with orphaned containers
 - [TODO] Fix anything to do with outputs or executions stuck in "Running" (some sort of cleanup for hard kills)
-- [TODO] Ensure job executor gracefully waits for Docker (for Kubernetes Docker-in-Docker)
+- [DONE] Ensure job executor gracefully waits for Docker (for Kubernetes Docker-in-Docker)
 - [TODO] Add some timestamps to the various states etc
 - [DONE] Add timestamps to the log output
 - [TODO] Have a streaming WebSocket for the logs
@@ -48,7 +48,10 @@ Done / WIP at the top, TODOs are in priority order.
 - [TODO] Support for tags as well as branches
 - [TODO] Username / password (or token) authentication for Repositories
 - [TODO] Support for Repository webhooks (at least GitHub for now)
-- [TODO] Be able to trigger jobs manually
+- [WIP] Be able to trigger jobs manually
+  - [DONE] Be able to trigger a specific job for a commit
+  - [DONE] Be able to trigger all relevant jobs for a commit
+- [TODO] Be able to trigger jobs from other jobs
 
 ## Dev notes
 

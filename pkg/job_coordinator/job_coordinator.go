@@ -18,6 +18,54 @@ var log = helpers.GetLogger("job_coordinator")
 
 const claimDuration = time.Minute * 5
 
+func CreateExecution(ctx context.Context, tx pgx.Tx, change *api.Change, job *api.Job) (*api.Execution, error) {
+	if job.ReferencedByTaskJobIDObjects == nil {
+		return nil, fmt.Errorf("assertion failed: %s does not have ReferencedByTaskJobIDObjects loaded", internal.GetJobSummary(job))
+	}
+
+	execution := &api.Execution{
+		Status:   internal.ExecutionOrTaskStatusPending,
+		ChangeID: change.ID,
+		JobID:    job.ID,
+	}
+
+	err := execution.Insert(query.WithLoad(ctx, api.JobTable), tx, false, false)
+	if err != nil {
+		return nil, fmt.Errorf("attempt to insert %#+v failed: %s", execution, err)
+	}
+
+	for _, task := range job.ReferencedByTaskJobIDObjects {
+		logObj := &api.Log{}
+
+		err = logObj.Insert(ctx, tx, false, false)
+		if err != nil {
+			return nil, fmt.Errorf("attempt to insert %#+v failed: %s", logObj, err)
+		}
+
+		output := &api.Output{
+			Status:      internal.ExecutionOrTaskStatusPending,
+			ExecutionID: execution.ID,
+			TaskID:      task.ID,
+			LogID:       logObj.ID,
+		}
+
+		err = output.Insert(ctx, tx, false, false)
+		if err != nil {
+			return nil, fmt.Errorf("attempt to insert %#+v failed: %s", output, err)
+		}
+
+		logObj.OutputID = output.ID
+		err = logObj.Update(ctx, tx, false)
+		if err != nil {
+			return nil, fmt.Errorf("attempt to update %#+v failed: %s", output, err)
+		}
+	}
+
+	log.Printf("produced execution %s", internal.GetExecutionSummary(execution))
+
+	return execution, nil
+}
+
 func HandleChange(ctx context.Context, tx pgx.Tx, change *api.Change) error {
 	log.Printf("handling %s", internal.GetChangeSummary(change))
 
@@ -160,45 +208,10 @@ func HandleChange(ctx context.Context, tx pgx.Tx, change *api.Change) error {
 				continue
 			}
 
-			execution := &api.Execution{
-				Status:   internal.ExecutionOrTaskStatusPending,
-				ChangeID: change.ID,
-				JobID:    job.ID,
-			}
-
-			err = execution.Insert(query.WithLoad(ctx, api.JobTable), tx, false, false)
+			_, err = CreateExecution(ctx, tx, change, job)
 			if err != nil {
-				return fmt.Errorf("attempt to insert %#+v failed: %s", execution, err)
+				return fmt.Errorf("failed to create execution for %s for %s", internal.GetChangeSummary(change), internal.GetJobSummary(job))
 			}
-
-			for _, task := range job.ReferencedByTaskJobIDObjects {
-				logObj := &api.Log{}
-
-				err = logObj.Insert(ctx, tx, false, false)
-				if err != nil {
-					return fmt.Errorf("attempt to insert %#+v failed: %s", logObj, err)
-				}
-
-				output := &api.Output{
-					Status:      internal.ExecutionOrTaskStatusPending,
-					ExecutionID: execution.ID,
-					TaskID:      task.ID,
-					LogID:       logObj.ID,
-				}
-
-				err = output.Insert(ctx, tx, false, false)
-				if err != nil {
-					return fmt.Errorf("attempt to insert %#+v failed: %s", output, err)
-				}
-
-				logObj.OutputID = output.ID
-				err = logObj.Update(ctx, tx, false)
-				if err != nil {
-					return fmt.Errorf("attempt to update %#+v failed: %s", output, err)
-				}
-			}
-
-			log.Printf("produced execution %s", internal.GetExecutionSummary(execution))
 		}
 	}
 
