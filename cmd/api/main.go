@@ -45,7 +45,7 @@ func addBaseCustomHandlers(db *pgxpool.Pool, r chi.Router) error {
 			}()
 
 			job, _, _, _, _, err := api.SelectJob(
-				query.WithLoad(ctx, api.TaskTable),
+				query.WithLoad(ctx, fmt.Sprintf("referenced_by_%s", api.TaskTable)),
 				tx,
 				fmt.Sprintf("%s = $$??", api.JobTableNameColumn),
 				pathParams.JobName,

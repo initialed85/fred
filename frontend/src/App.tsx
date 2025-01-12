@@ -24,9 +24,10 @@ function App() {
   const [branchFilter, setBranchFilter] = useState<string | undefined>(
     undefined,
   );
-  const [ruleId, setRuleId] = useState<string | undefined>(undefined);
-  const [jobId, setJobId] = useState<string | undefined>(undefined);
-  const [taskId, setTaskId] = useState<string | undefined>(undefined);
+
+  // const [ruleId, setRuleId] = useState<string | undefined>(undefined);
+  // const [jobId, setJobId] = useState<string | undefined>(undefined);
+  // const [taskId, setTaskId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const handleResize = () => {
@@ -139,9 +140,12 @@ function App() {
             windowHeight={windowHeight}
             repositoryId={repositoryId}
             branchFilter={branchFilter}
-            ruleId={ruleId}
-            jobId={jobId}
-            taskId={taskId}
+            // ruleId={ruleId}
+            ruleId={undefined}
+            // jobId={jobId}
+            jobId={undefined}
+            // taskId={taskId}
+            taskId={undefined}
           />
         </Grid>
       </Sheet>
